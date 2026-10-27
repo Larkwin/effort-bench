@@ -1,0 +1,71 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.316Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 23693,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2263,
+        "output_tokens_details": {
+          "thinking_tokens": 962
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.070016,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "All colours come from the palette via CSS variables. Signal appears only on .btn-primary and the wordmark ::before rule (24×3px). Negative balances render in Harbour with a minus sign and positives in Kelp. Fraunces 600 and Plex 400/500 are loaded from Google Fonts, and tabular-nums is set on body. Radius is 6px throughout, with 1px Rope borders, no shadows, 120ms transitions and a 2px Harbour focus outline with 2px offset. The 720px column uses 24px/16px padding, and the type scale sticks to 14/16/20/28/40."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear, with serif panel headings, Fog hints and medium-weight row titles. Spacing follows an 8px rhythm. Amounts are right-aligned in consistent columns across balances, settle up and expenses, and the mobile layout stacks cleanly with full-width buttons. It is somewhat uniform: five identical panels each with a hint line. The bordered people tiles look like buttons even though they are not interactive."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Buttons are short verbs ('Add person', 'Add expense', 'Remove'). Errors say what to fix ('Use at most 2 decimal places.', 'Ana is already on the trip. Enter a different name.'), and empty states are one sentence each. There is no filler or exclamation marks. Minor weaknesses: 'Negative balances owe money' is slightly illogical phrasing, the 'Add the people on the trip…' line is repeated across panels, and 'Newest first.' is thin as a hint."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Each panel has an empty state, including a 'Settled up' status and an 'Everyone is even' message. Validation is inline, preserves typed input and clears on input. Earlier split selections are kept when people are added, and new people start checked. Focus is managed after remove, actions are announced through a polite live region, and the amount parser accepts '$' and thousands separators. People cannot be removed or renamed, and the people tiles give no affordance or action."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The script is a clean IIFE with a safe DOM helper that uses textContent. Data loaded from localStorage is sanitised. Money is handled in integer cents, with leftover cents assigned in trip order. The settle-up step matches exact debts first and then runs a greedy pass, which guarantees at most n−1 transfers. Markup is semantic, using fieldset/legend, labels and role=alert. Small fragile spots: the 'add people first' error attaches aria-describedby to the person input while the message lives in the expense slot, and the data-err attribute is mostly vestigial."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The interface is restrained and specific to the brand. Primary buttons hover to Harbour rather than to a tint. Errors use a Harbour border instead of red, which matches the 'owing is normal' principle. The select chevron is a custom inline SVG in Harbour. The stacked identical panels and per-panel hint lines feel slightly templated, but the overall restraint reads as deliberate."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every panel carries an identical heading-plus-Fog-hint pattern, including filler-level hints like 'Newest first.', giving uniform visual weight across sections"
+        ],
+        "brand_violations": [],
+        "best_detail": "Errors and negative balances deliberately avoid any red or Signal, using a Harbour border on a Sailcloth background and Harbour '-$13.33', which follows the 'owing is normal' rule exactly.",
+        "worst_detail": "The people list renders as bordered button-like tiles that do nothing when clicked, which creates a false affordance and gives no way to remove a mistyped name."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

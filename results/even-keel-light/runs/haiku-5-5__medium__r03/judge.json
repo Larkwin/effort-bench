@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.049Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19996,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1946,
+        "output_tokens_details": {
+          "thinking_tokens": 611
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.059452,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header with a 4px Signal #C2462B rule under it, and the palette (paper #F5F1E8, card #FFFDF8, harbour-soft #E6EDF1) is built warmly around both. Fraunces headings over Source Sans 3 body text read as steady and trustworthy, and the Settle up intro states the principle directly: \"Owing a friend is normal.\" The weak point is the balance list, where owes amounts are rendered in red (#A63B24) and explained as \"Red means they owe the group\", which frames debt as a warning state."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted hints, bold tabular amounts, and consistent 14px radii and 18–22px gaps. On mobile it collapses cleanly to one column with full-width buttons and no overflow. On desktop the People card leaves a large empty void beside the tall expense form, and expense rows stretch title and amount far apart at 980px."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific. Examples: \"Enter an amount above $0 with at most two decimal places, like 42 or 42.50.\", \"No one yet. Add the people sharing this trip, starting with yourself.\" and \"Saved in this browser. Nothing leaves your device.\" Buttons are verbs throughout. The colour-coded Balances hint is slightly mechanical, and \"Names must be unique, ignoring capitals\" reads like a spec line."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states are staged (no people, people but no expenses, all even). Validation is inline, preserves input and focuses the offending field. Focus moves sensibly after add and delete, and Clear trip asks for confirmation. Split checkboxes default to everyone and keep their state across re-renders. Each balance pairs a status word (owes / is owed) with the absolute amount. Settle-up transfers are readable but cannot be marked as paid, and people cannot be removed."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Code is a clean IIFE with a small h() DOM helper. parseCents works in integer cents with strict regex validation, remainder cents follow trip order, and the greedy settle yields at most n−1 transfers. Semantics are good: fieldset/legend for the split, labelled inputs, aria-invalid/aria-describedby on errors, aria-label on Remove buttons, and data-cents guarded against -0. Minor flaws: inline style attributes, banner comments, and clearTrip not resetting aria-invalid on the payer select."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The header with its Signal underline, the warm paper background and the Fraunces wordmark feel chosen for this brand, and the tone of the copy is consistent. Some choices remain stock component patterns: pill chips with initial avatars, pill checkboxes, and a uniform card-per-section grid."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill-shaped person chips with initial-letter avatar circles (border-radius:999px, .avatar)",
+          "Every section is an identical bordered rounded card, giving uniform visual weight across People, Expenses, Balances and Settle up",
+          "Banner comments in the JS (/* ---------- money logic ---------- */)"
+        ],
+        "brand_violations": [
+          "Balances colour debtors in red (#A63B24) with the hint \"Red means they owe the group\", which treats owing as an alarm despite the principle that owing is normal"
+        ],
+        "best_detail": "The Settle up intro \"Owing a friend is normal. These are the fewest payments that bring everyone to even.\" puts the brand principle exactly where it matters, above clean Harbour-tinted transfer rows.",
+        "worst_detail": "Owed and owing amounts are coded green and red with copy that tells users to read red as owing, undercutting the calm, no-problem framing of debt.\"}"
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

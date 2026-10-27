@@ -1,0 +1,72 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:35:17.007Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22864,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2913,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1535
+        }
+      },
+      "cost_usd": 0.149716,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Every colour comes from the palette via CSS variables, with no tints or opacity variants. Signal is used only on the primary buttons and the 24×3px wordmark rule, positive balances are Kelp, and negatives ('-$23.33') stay Harbour. Fraunces 600 is used for headings and the wordmark, Plex Sans 400/500 for everything else, `.money` sets tabular-nums, and the layout follows the brief: 720px column, 24/16px padding, 6px radius, 1px Rope borders, no shadows or transitions, and a 2px Harbour focus outline with 2px offset."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a serif panel heading, a 14px Fog lede, then Rope-divided rows on an 8px rhythm. The 2-column amount/payer grid collapses cleanly at 390px. Two things are uneven. Expense amounts sit beside the Remove button instead of flush right like the balance and transfer amounts, so the money column does not line up between panels. On mobile the amount floats mid-row and the four equal-weight panels make the page feel long and monotonous."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Errors say what to fix: 'Enter an amount greater than $0.', 'Use at most 2 decimal places, for example 24.50.', 'Ana is already on the trip. Enter a different name.' Each empty state is a single next-step sentence ('Add everyone on the trip, including yourself.'). Buttons are short verbs ('Add person', 'Remove'). Small touches like '2 transfers and everyone is even.' and 'Only for Ana.' are calm and specific, with no filler or exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "All empty states are handled, including a disabled payer select reading 'Add a person first'. Validation keeps the typed input, focuses the offending field and sets aria-invalid/aria-describedby, and messages clear on input. Removing a person who is on an expense is blocked with an explanation. Focus moves to a sensible target after removals, the split checkboxes keep their state across re-renders, and a 'storage' listener keeps other tabs in sync."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The integer-cents maths is correct. `splitCents` hands leftover cents to sharers in trip order by filtering `state.people`. `settleUp` does exact matches first, then a greedy pass, so it stays at or under n−1 transfers. `loadState` validates and repairs stored data. Semantics are good (fieldset/legend for the split, labelled sections, aria-live message areas, descriptive Remove aria-labels). Minor issues: the focus rules are declared twice (`:focus` and `:focus-visible`), there are banner-style section comments, and the persistence validation is somewhat over-defensive."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work reads as deliberate and restrained. Errors are Harbour rather than red, balances read as 'Ana is owed', the settle-up lede summarises the outcome, and nothing decorative was added. It falls short of a 5 because the structure is four identical bordered panels stacked in a column, which is the safe default. There is little typographic emphasis on the outcome (the settle-up list looks the same as every other list)."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Banner-style section comments in the script ('/* ---------- helpers ---------- */', '/* ---------- storage ---------- */')",
+          "Four identically styled stacked panels give uniform visual weight to input and result sections"
+        ],
+        "brand_violations": [],
+        "best_detail": "Validation errors are set in Harbour weight 500 rather than red, and owing is shown as 'Ben owes -$23.33' in Harbour, which follows the brand's 'owing is normal, not an error' principle closely.",
+        "worst_detail": "Expense amounts sit inside the row beside the Remove button instead of flush right, so they do not line up with the right-aligned money column in Balances and Settle up, and on mobile they float awkwardly mid-row."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

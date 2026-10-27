@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.116Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19414,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2445,
+        "output_tokens_details": {
+          "thinking_tokens": 1147
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.063278,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, headings and transfer accents, and Signal #C2462B marks the primary buttons and a 4px rule under the header, all on a warm paper #F5F2EC. Fraunces headings with Figtree body feel steady and quietly confident rather than bank-like. The principle appears directly in the Settle up hint ('Owing each other is normal'). Debt amounts are still painted in signal red (.bal-amt.owes), which leans slightly toward 'problem' colouring."
+        },
+        "visual_craft": {
+          "score": 2,
+          "evidence": "Desktop is tidy and well layered: clear card headings, tabular-num amounts, a left-border accent on transfers and a consistent 10px radius. Mobile is broken, though. `.area-*{grid-area:...}` is declared outside the 900px media query, so below it the named areas don't exist and every card stacks into the same implicit cell. Only Settle up is visible, offset, over a large blank card."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Errors are plain and specific: 'Use at most two decimal places, like 42.50.' and '\"Ana\" is already on the trip. Names must be unique, ignoring capitals.' Empty states are useful and adapt ('Add at least one more person, then log an expense…', 'Everyone is square. No payments needed.'). Some hints are wordy, such as the leftover-cents explanation, and 'petrol' is an odd word for a Canadian product."
+        },
+        "ux_completeness": {
+          "score": 2,
+          "evidence": "On desktop the flow is complete: inline errors keep input and clear on edit, focus returns sensibly, empty states change with context, there is a confirm before reset, and settle-up rows read clearly as 'Chloe pays Ana $33.33'. But the brief says the app is used 'often on a phone', and at 390px the People, form, Expenses and Balances cards are hidden under Settle up, so the tool can't be used on mobile."
+        },
+        "code_quality": {
+          "score": 3,
+          "evidence": "The logic is solid: integer-cent parsing by regex, remainder cents distributed in trip order, greedy settlement bounded by n−1, validated localStorage load, textContent everywhere, fieldset/legend, and aria-invalid/aria-describedby on errors. Weak spots: the grid-area placement bug, a dead fallback `$('expenses-heading') || $('expenses-h')`, and aria-invalid applied to a div (split-checks). The 'no people' error also marks personName from the expense form."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The choices look deliberate: a keel-like level-line logo mark, the signal rule under the header, a serif for transfer amounts, a muted dashed empty state, and restraint with shadows. It reads as designed for this brand rather than as a template. The mobile collapse suggests the small-screen view was never checked."
+        },
+        "overall": 5,
+        "ai_tells": [
+          "Dead defensive code `$('expenses-heading') || $('expenses-h')` referencing an id that doesn't exist",
+          "Principle copy pasted almost verbatim from the brief into UI ('Owing each other is normal.')",
+          "Hint text explaining implementation rules (leftover cents order) to end users"
+        ],
+        "brand_violations": [
+          "Debts shown in Signal red (.bal-amt.owes), framing owing as a warning, against 'owing money is normal, not a problem'",
+          "Mobile layout is unusable at 390px despite 'often on a phone' and 'works well from 360px'"
+        ],
+        "best_detail": "Settle-up rows set as 'Chloe pays Ana' with the amount in Fraunces, behind a harbour left rule, are calm, scannable and easy to act on.",
+        "worst_detail": "Grid-area names assigned outside the desktop media query make every card overlap on mobile, leaving only the Settle up card visible on a phone."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 2,
+    "copy_voice": 4,
+    "ux_completeness": 2,
+    "code_quality": 3,
+    "directed_design": 4,
+    "overall": 5
+  }
+}

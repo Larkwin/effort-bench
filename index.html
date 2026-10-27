@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>effort-bench: Claude models and effort levels, tested</title>
+<meta name="description" content="One web-app prompt, four Claude models, four effort levels, five runs each. Take the blind test, browse every app, or reproduce it.">
+<style>
+  :root { --bg: #fbfaf7; --panel: #ffffff; --ink: #14181c; --ink2: #4d535a; --muted: #7b8188; --line: #e3e1db; --accent: #2a5f8f; --accent-ink: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #15171a; --panel: #1d2024; --ink: #eceae6; --ink2: #b9bcc0; --muted: #8a8f95; --line: #2e3237; --accent: #7fb2e5; --accent-ink: #0f1a24; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 16px 40px; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .lead { color: var(--ink2); font-size: 18px; margin: 0 0 28px; }
+  .cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin: 0 0 32px; }
+  a.card { display: block; text-decoration: none; color: inherit; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+  a.card:hover, a.card:focus-visible { border-color: var(--accent); outline: none; }
+  a.card.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  a.card b { display: block; font-size: 17px; margin-bottom: 4px; }
+  a.card span { font-size: 14px; opacity: 0.85; }
+  h2 { font-size: 18px; margin: 28px 0 8px; }
+  p, li { color: var(--ink2); }
+  ul { padding-left: 20px; }
+  a { color: var(--accent); }
+  code { font: 14px ui-monospace, Menlo, monospace; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px; }
+  footer { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Do you notice a difference between Claude models, and between effort levels?</h1>
+  <p class="lead">One prompt for a small web app, sent to four Claude models at four effort levels, five times each. Every app was tested by script, judged side by side by two Claude models, and voted on blind by a person. Now you can vote too.</p>
+
+  <div class="cards">
+    <a class="card primary" href="results/even-keel-light/report.html#ab"><b>Take the blind test</b><span>Two apps side by side, no labels. Pick the better one.</span></a>
+    <a class="card" href="results/even-keel-light/report.html"><b>Explore all 80 apps</b><span>Results by model and effort, every app live, side-by-side compare.</span></a>
+    <a class="card" href="results/even-keel-v1/report.html"><b>The detailed-brief round</b><span>The same app with an exact brand guide: 52 runs.</span></a>
+  </div>
+
+  <h2>How the blind test works</h2>
+  <ul>
+    <li>Each pair is two apps built from the same brief by different settings. The apps are live: add people and expenses if you like.</li>
+    <li>Vote with the buttons or the keys A, B and T (tie). Keep "Stay blind" ticked to hide which model and effort made each app until you're done.</li>
+    <li>Choose "same model, different effort" to test whether you can see what more thinking buys.</li>
+    <li>Your votes stay in your browser. Untick "Stay blind" to see your results next to the judges', or export them.</li>
+  </ul>
+
+  <h2>Reproduce it</h2>
+  <p>Everything is in the repository: the harness, the prompts and rubrics, every generated app with its screenshots, checks and judge reviews, every side-by-side judgment, the blind votes, and the script that recomputes each number in the write-up. See <a href="https://github.com/Larkwin/effort-bench">github.com/Larkwin/effort-bench</a>.</p>
+
+  <footer>
+    By Ian Howlett at <a href="https://lark.win">Larkwin</a>, with the harness and analysis written by Claude (Anthropic). The judges are Claude models too, so the blind votes are the independent check.
+    Code MIT, data and content CC BY 4.0.
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:35:44.471Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 16475,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2473,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1140
+        }
+      },
+      "cost_usd": 0.11536,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Only the seven palette hex values appear, declared as variables and used in their stated roles. Signal is limited to primary buttons and the 24×3px wordmark rule, Kelp marks positive balances, and negatives are Harbour with a minus sign. Fraunces 600 is used for the wordmark and headings and Plex 400/500 for everything else, with tabular-nums on `.money`, 6px radii, 1px Rope borders, no shadows, and a 2px Harbour focus outline with 2px offset; the only small drift is a few 12px paddings."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is calm and clear: Fraunces section heads, 14px medium labels, Fog metadata lines under each expense, and right-aligned amounts. Two things are awkward: on first load the empty 'Split between' fieldset and blank 'Paid by' select sit as dead boxes, and in Balances the trailing 'is owed' and 'owes' notes have different widths, so the amounts don't line up in a column. On mobile each 'Remove' button wraps onto its own line, which makes expense rows tall."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific. Errors say what to fix: 'Enter an amount greater than $0 with at most 2 decimal places.', 'Ana is already on the trip. Use a different name.' Empty states give one next step ('No one is on the trip yet. Add the first person to start splitting costs.'), buttons are short verbs, and the copy has no filler, exclamation marks or emoji."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required flows work: case-insensitive duplicate check, amount parsing that accepts '$1,234.50', input kept on error with focus moved to the bad field, newest-first list, an 'Everyone is even' state, and readable 'Chloe pays Ana $33.33' transfers. The weak spots are small. Removing an expense has no confirmation and drops keyboard focus to the body. The expense form stays fully interactive before anyone is added, and the 'Add a person first' error then sends focus to a different section."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled in integer cents and parsed with a strict regex. Leftover cents go out in trip order, and the greedy settle produces at most n−1 transfers. State is a small object persisted in localStorage, and the markup is semantic: forms, fieldset/legend, labelled sections, role=alert errors. There are untidy spots: a dead `onclick: null` prop, `state.expenses.slice().reverse()` recomputed inside a forEach to attach handlers, an inline style on #expenses-wrap, and errors not tied to inputs via aria-describedby."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as restrained and specific to Even Keel: the wordmark is built exactly to spec, owing is shown neutrally with small 'owes' and 'is owed' notes, and nothing decorative is added. The four identical white panels stacked down the page feel somewhat template-like, and the unaligned balance amounts show a missed detail."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four identical bordered panels with the same structure give uniform section weight",
+          "Dead `onclick: null` prop and a redundant reverse() inside a forEach in renderExpenses"
+        ],
+        "brand_violations": [
+          "Several 12px paddings (li rows, input horizontal padding, error box) fall outside the 8px spacing rhythm and are not tight pairs"
+        ],
+        "best_detail": "Negative balances are shown in Harbour as '-$13.33' with a quiet Fog 'owes' note, while positives get Kelp and 'is owed', which makes owing read as normal exactly as the brand asks.",
+        "worst_detail": "In Balances the variable-width 'is owed' and 'owes' suffixes push the tabular amounts out of a shared right edge, so the numbers don't align despite using tabular figures."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

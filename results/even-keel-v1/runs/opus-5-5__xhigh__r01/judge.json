@@ -1,0 +1,72 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:36:42.182Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 27871,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3198,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1881
+        }
+      },
+      "cost_usd": 0.175444,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "All seven hex values sit in :root and are used in their stated roles: Signal only on .btn-primary and .wordmark-rule (24×3px), Kelp on .is-owed, and negative balances in Harbour with a minus sign ('-$13.33'). Fraunces 600 is used for the wordmark and h2s, IBM Plex Sans 400/500 for everything else, and body sets tabular-nums. Type sizes stay within 14/16/20/28/40, radius is 6px throughout, borders are 1px Rope, there are no shadows or gradients, and :focus-visible is a 2px Harbour outline with a 2px offset."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: Fraunces section heads, Fog meta on the right ('3 expenses, $130.00 in total'), and 20px right-aligned balance figures with a small status label beneath. The tagline is indented 40px so it lines up with the wordmark text, and the mobile layout reflows cleanly at 16px padding. The weakness is uniform weight: five identical bordered panels stack with no emphasis, and the person chips look almost the same as the split checkbox chips."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Errors tell the user what to fix: 'Enter an amount greater than $0.', 'Enter an amount with no more than 2 decimal places, such as 24.50.', and '“Ana” is already on the trip. Enter a different name, for example with a last initial.' Empty states change with context ('Use the form above to add your first expense.', 'Everyone is even, so there is nothing to settle.'). Buttons are short verbs, and there are no exclamation marks, emoji or filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Validation is per field, sets aria-invalid, moves focus to the problem, and leaves typed values in place. The split hint previews the per-person amount live ('That is $3.33 or $3.34 each.'). After adding an expense a status line confirms it, and after a removal focus moves to the next Remove button. Settle-up rows read plainly as 'Ben pays Ana $13.33', and the code also handles a localStorage failure notice and cross-tab sync."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Amount parsing is string-based into integer cents, leftover cents are assigned in trip order, and settle-up pairs exact matches first then runs a greedy loop, which keeps it within n−1 transfers. Loaded data goes through a sanitize() step. Semantics are good: fieldset/legend for the split, aria-describedby links to error slots, and a visually-hidden announcer. Minor redundancy: the .money class duplicates body tabular-nums, createdAt is stored but never read, there is a duplicate h2:focus-visible rule, and banner section comments are present."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The restraint shows deliberate choices made for this brand: validation errors in Harbour rather than red, a primary-button hover done with a Paper underline instead of a tint, and an 'Is owed'/'Owes' label paired with each figure. It stops short of a 5 because the stack of identical panels feels template-like."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Banner-style section comments in the script ('/* ---------- Helpers ---------- */', '/* ---------- Money logic ---------- */')",
+          "Five visually identical bordered panels stacked with equal weight"
+        ],
+        "brand_violations": [],
+        "best_detail": "Negative balances appear in Harbour with a minus sign and a quiet 'Owes' label, and validation errors also stay in Harbour, which follows the 'owing is normal, not an error' rule without falling back to red anywhere.",
+        "worst_detail": "Every section, including the low-priority expense list, gets the same Paper panel treatment, so nothing tells the eye that Settle up is the outcome that matters most."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

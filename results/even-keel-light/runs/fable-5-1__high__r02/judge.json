@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:38:16.395Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 24213,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2394,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1017
+        }
+      },
+      "cost_usd": 0.144732,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, headings and amounts, with a 4px Signal border and Signal primary buttons. A warm paper #F6F3EE background and a muted 'tide' green complete a palette clearly built around the anchors. Fraunces with IBM Plex Sans feels steady and trustworthy rather than bank-like, and the lede 'Being owed or owing is just part of a trip' states the principle directly. However, debts are coloured in Signal red, with red bars growing left of centre, which leans slightly toward framing owing as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif section titles, muted ledes, and serif tabular amounts right-aligned in balances, transfers and expenses. Spacing and radii are consistent. Weak spots: each expense card gives 'Remove' its own row, which bloats the list. On mobile, 'Add person' wraps to a short left-aligned button under the input. On desktop the left column ends early, leaving a large empty area."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Chloe owes $13.33', 'After these transfers are done, every balance is zero.', and 'Ana is already on the trip. Use a different name, like a nickname or initial.' Buttons are verbs ('Add person', 'Clear this trip', 'Keep it'). One misstep is 'Add them in any order', since order actually decides who absorbs leftover cents. 'Even Keel will keep the running tally for you' is slightly filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Context-aware empty states change from 'Everyone starts at zero' to 'Everyone is even. Nothing to settle.' Validation messages are inline, keep the user's input and move focus to the field. Split checkboxes are preserved across re-renders, per-person share chips show the leftover-cent split, and a centred-zero balance bar is included. Reset uses an inline confirmation, removal moves focus sensibly, a polite live region gives feedback, and the layout reflows cleanly on mobile."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a tidy IIFE with separate state, maths and render functions. Shares use integer cents with remainder handed out in trip order, the greedy settle stays within n-1 transfers, and the regex amount parser has a safe-integer guard. Loaded storage is validated, output is consistently escaped, and the markup uses fieldset/legend and aria-describedby. Minor fragility: an inline 'height:12px' spacer div, an inline style on the hint, and innerHTML re-rendering of every list on each change."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Several choices are specific to Even Keel: the keel/boat mark in a Signal circle, the Signal rule under the Harbour header, a green/red balance bar centred on an 'even' line, and 'pays' set in muted type between bold names. The overall white-cards-on-beige, two-column card grid with dashed empty boxes is still a familiar template structure."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section is a bordered white card with the same head/lede pattern, so the sections carry uniform weight",
+          "Dashed-border empty-state boxes repeated in every card",
+          "Rounded 999px pill chips for share breakdowns",
+          "Inline spacer <div style=\"height:12px\"> instead of layout spacing"
+        ],
+        "brand_violations": [
+          "Negative balances and their bars use Signal red-orange, tinting 'owes' as an alarm state despite the principle that owing is normal",
+          "'Add them in any order' is inaccurate, since trip order decides leftover-cent allocation (voice should be specific and honest)"
+        ],
+        "best_detail": "The balance track splits at a centre 'even' line, so each person visibly sits left or right of keel, and the plain note under it ('Ben owes $13.33') makes the number readable without judgement.",
+        "worst_detail": "Each expense puts its 'Remove' link alone on a final row, adding dead height to every card and making the expense list feel bloated at both widths."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

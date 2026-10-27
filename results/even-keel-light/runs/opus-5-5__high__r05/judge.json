@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.106Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 31499,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2027,
+        "output_tokens_details": {
+          "thinking_tokens": 568
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.083268,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, buttons and the dark Settle up card, while Signal #C2462B is held back for the 4px masthead rule, the short card accent stripe and focus rings. That restraint reads steady rather than bank-like. Newsreader paired with Public Sans feels trustworthy and warm, and the 'owes' bars use a softened clay (#D47A60) instead of alarm red, which carries the principle that owing is normal. Some choices are generic, such as the header stat strip and the pill chips."
+        },
+        "visual_craft": {
+          "score": 2,
+          "evidence": "Most of the page is tidy: a consistent 20–28px card rhythm, tabular numerals, and a clear serif/sans hierarchy. The 'Split between' fieldset is broken at both widths, though. The floated legend with padding-right:150px pushes the checkbox chips into a sliver at the card edge, so names render one letter per line ('A n a') and spill outside the card. The empty-state text 'The people you add will show up here.' stacks one word per line beside the card. On mobile the chips poke past the 390px viewport."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Copy is plain, specific and in the second person: 'Who's on the trip', 'Where everyone stands', 'Owing is just part of sharing a trip. Settle up whenever it suits your group.' Errors are useful, for example 'Ana is already on the trip. Try adding a last initial' and 'Use at most 2 decimal places, like 24.50.' The split preview explains where the extra cents go. One small off-voice line is 'Nobody needs to pay anyone. Nice work.'"
+        },
+        "ux_completeness": {
+          "score": 3,
+          "evidence": "The state handling is thorough: tailored empty states, per-field inline errors that keep what was typed, an undo bar after removal, Everyone/No one split shortcuts, a live split preview, 'Copy as text' for settling up, and a two-step 'Start a new trip' confirmation. The balance bars centred on 'Even' make balances easy to read. However, the core split selection, which every expense needs, is visually mangled and overflows on mobile, so a user would trip over it."
+        },
+        "code_quality": {
+          "score": 3,
+          "evidence": "Money handling is correct in integer cents. sharesFor gives remainder cents in trip order, settle is a greedy pass with a correct bound, parseAmount is careful, localStorage loading is validated, and focus management and aria-live announcements are deliberate. Against that, addExpense has a dead `errors` array of pushed closures that is never used. The fieldset layout relies on fragile float/clear and absolute positioning, which is exactly what breaks the chips. setError also toggles data-testid on and off, which is a little unusual."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The keel-themed balance bars, the logo mark, the dark Settle up card with its short Signal stripe, and the paper-toned background all feel chosen for this brand rather than taken from a template. The reassurance line under balances shows someone thought about the brief's principle. The header stat tiles and pill chips are more template-like, and the shipped layout bug suggests nobody checked the split control visually."
+        },
+        "overall": 6,
+        "ai_tells": [
+          "Header stat strip (PEOPLE / EXPENSES / TRIP TOTAL) with large serif numbers, a stat-tile pattern",
+          "Pill-shaped radii (999px) on person chips and split chips",
+          "Dead code in addExpense: an `errors` array is built from closures and never used",
+          "Banner section comments throughout the CSS and JS ('/* ---------- Masthead ---------- */')"
+        ],
+        "brand_violations": [
+          "Accessible/360px requirement: the 'Split between' checkboxes overflow the card and viewport at mobile width, which risks horizontal scrolling",
+          "'Nice work.' in the all-even empty state edges toward cheerleading rather than calm, plain voice"
+        ],
+        "best_detail": "The keel balance bars, centred on an 'Even' line with soft clay for owes and harbour blue for owed, together with the line 'Owing is just part of sharing a trip', express the brand principle visually and in words.",
+        "worst_detail": "The split-between checkboxes are crushed into a narrow column with names wrapping letter by letter and spilling outside the card at every width, breaking the most-used control in the form."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 2,
+    "copy_voice": 4,
+    "ux_completeness": 3,
+    "code_quality": 3,
+    "directed_design": 4,
+    "overall": 6
+  }
+}

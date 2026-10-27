@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:35:17.822Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21620,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2845,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1433
+        }
+      },
+      "cost_usd": 0.14338,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "All seven hex values are defined as variables and used in their stated roles. Signal appears only on the two primary buttons and the 24×3px wordmark rule. Negative balances render in Harbour with a minus sign (\"-$13.33\"), and positives use the .pos class in Kelp. Fraunces 600 is used for the h1 and h2, IBM Plex Sans 400/500 for everything else, .amt applies tabular-nums, and the focus ring is a 2px Harbour outline with a 2px offset. The only departures are 12px values (wordmark gap, input horizontal padding, chip padding) that sit outside the 8px rhythm."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: Fraunces section heads, 14px Fog metadata, and amounts right-aligned in tabular figures with Rope dividers. The panels share one consistent 24px rhythm, and the mobile stack is clean with no overflow. Two spots are uneven. On desktop, the amount hint pushes the 'Amount (CAD)' and 'Paid by' labels out of line because the row uses align-items:flex-end. Each expense also stacks its own bordered Remove button, which makes the list tall and button-heavy."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The strings are plain and specific. Errors say what to fix: 'Enter a description, like \"Dinner\" or \"Gas\".', 'Use at most two decimal places, like 42.50.' and '\"Ana\" is already on the trip. Use a different name.' Empty states give the next step in one sentence: 'Log the first thing someone paid for and it will show up here.' Buttons are short verbs, and the reset carries a calm consequence line. 'Not split, all of it for Ana' is the one slightly clumsy phrase."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required behaviour is present. Input is kept on error, and focus moves to the offending field. Unchecked split boxes survive a re-render. Removing an expense hands focus to the next Remove button or to the heading. Expenses show per-person shares when cents don't divide evenly, and there is a 'nothing to settle' state and a confirmed reset. Weaker points: the single error slot sits below the Add expense button, away from the field it refers to. The bordered person chips look clickable but do nothing, and people cannot be removed."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "The code is one tidy IIFE with clear sections for state, helpers, rendering and actions. Money is handled in integer cents: the remainder goes to selected people in trip order, and parseAmount accepts '$' and commas but rejects a third decimal. load() validates and de-duplicates stored data. The greedy settle produces at most n−1 transfers. Markup is semantic: fieldset and legend for the split, labelled sections, role=alert errors, aria-invalid/aria-errormessage, and descriptive aria-labels on the Remove buttons. Nits are an inline style on #people-empty and a redundant size check after isSafeInteger."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained. The error style is a Harbour left rule rather than red, the primary button hovers to Harbour instead of a Signal tint, and 'is owed' / 'owes' labels sit beside the figures. The overall form-in-panels structure is still fairly standard, and the chip and Remove styling feels default rather than specifically designed."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Banner-style section comments in the JS ('/* ---------- State ---------- */', '/* ---------- Rendering ---------- */')"
+        ],
+        "brand_violations": [
+          "Spacing off the 8px scale: .wordmark gap 12px, input padding 8px 12px, .people li padding 4px 12px, .error padding-left 12px"
+        ],
+        "best_detail": "The expense list switches between 'Ana, Ben and Chloe, $10.00 each' and 'Ana ($3.34), Ben ($3.33) and Chloe ($3.33)', so the leftover-cent rule is visible and the split is honest.",
+        "worst_detail": "PLACEHOLDER"
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

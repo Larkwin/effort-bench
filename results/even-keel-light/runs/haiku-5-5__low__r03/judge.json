@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.081Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19098,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2196,
+        "output_tokens_details": {
+          "thinking_tokens": 813
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.060156,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D carries the header, headings and primary button, and Signal appears as a 4px rule under the header and on the 'Add expense' CTA. Warm paper (#F4F0E8) and sand surfaces feel steady rather than bank-cold, and Fraunces with Figtree reads honest and quietly confident. The balances, though, code 'owes' in signal-deep red against a green 'is owed', which leans on a debt-versus-credit colour scheme. That works against the 'owing is normal' principle the tagline states outright."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "Hierarchy is clear: serif card headings, muted hints, consistent 20px gaps and 44px controls. Mobile stacks cleanly with no overflow. The expense row is awkward, though: the Remove button is stacked under the amount in column 2, which leaves a tall empty gap beside the description before the meta line. On desktop the two columns end at very different heights, and every section sits in an identical bordered card, so the visual weight is uniform."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific. Examples: 'Paid minus your share. Positive means you are owed; negative means you owe.', 'is all square', 'The fewest payments that bring everyone back to even.', and the amount error 'Enter an amount greater than $0 with at most 2 decimal places, such as 42.50.' There are slips. The meta line renders a double parenthesis, '(about $3.33 each (some pay a cent more)).' The tagline 'Owing a friend is normal.' states the principle directly rather than embodying it."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states are handled for every section, and settle-up switches between 'Add people and expenses first' and 'Everyone is already even'. Validation is inline with role=alert, keeps what the user typed, sets aria-invalid and moves focus. 'Select everyone' and 'Clear' shortcuts are provided, and focus returns sensibly after adding or removing. Gaps: no undo or confirm when removing an expense, no way to remove a person, and the 'about $X each' figure floors the share, so it can understate."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cents parsing is done by regex, and leftover cents go to members in trip order by filtering state.people. The greedy creditor/debtor settle stays within n−1 transfers, all output is escaped, and localStorage loading is validated defensively. Weaker spots: the people list is a div with role=list holding spans with role=listitem. Several CSS rules are unused (.sub-h, .summary-note, .money-note, .balance .state), and --focus simply duplicates --harbour. The split-checkbox error does not move focus anywhere."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The paper-and-sand palette, the Signal stripe under the navy header, and the restrained use of Signal only on the primary CTA all read as deliberate. Tabular serif amounts in settle-up are a considered touch. Card-per-section layout and pill name chips are template-familiar, but there is little decorative excess."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Every section is wrapped in an identical rounded bordered card with a faint shadow, giving uniform weight",
+          "Banner comments in the JS ('// ---------- storage ----------', '// ---------- rendering ----------')",
+          "Unused CSS rules: .sub-h, .summary-note, .money-note, .balance .state",
+          "Pill-shaped (999px radius) name chips"
+        ],
+        "brand_violations": [
+          "Balances colour 'owes' in red-orange against a green 'is owed', framing owing as a negative state despite the 'owing money is normal' principle"
+        ],
+        "best_detail": "The settle-up rows ('Chloe pays Ana' with a muted 'pays' and a tabular Fraunces amount) are calm, scannable and immediately actionable.",
+        "worst_detail": "The expense row stacks Remove under the amount, leaving a dead gap beside the description, and the meta line renders a double parenthesis '(some pay a cent more)).'"
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

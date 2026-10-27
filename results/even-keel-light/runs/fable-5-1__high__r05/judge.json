@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.114Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 23416,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2607,
+        "output_tokens_details": {
+          "thinking_tokens": 1190
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.072902,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header bar, primary buttons and avatars. Signal #C2462B is used sparingly: the keel mark's mast, the focus ring, transfer arrows and debt bars. These sit on a warm sand (#F5F1EA) and paper palette with a 'tide' green, and Fraunces headings with Inter body read steady and trustworthy rather than bank-like. The principle is stated outright ('Owing a friend is normal — this just keeps track') and softened by 'gets back' and 'owes', but the green-for-owed and red-for-owing ledger colouring still frames debt as the warning state."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted ledes, tabular-nums money right-aligned, and quiet counts in the card heads ('3 people', '2 payments'). The diverging centre-origin balance bars are a refined touch, and the mobile stack is clean with no overflow. Weaker spots: the 'gets back'/'owes' label floats loosely under each amount, making balance rows taller than needed. Every section is the same bordered, shadowed white card, so visual weight is fairly uniform."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific and address the user as 'you'. Examples: 'Log who paid for what. See who owes whom. End the trip even.', 'Enter the amount as dollars and cents, with no more than two decimals — for example 42 or 42.50.', and '\"Ana\" is already on the trip. If there are two, add something to tell them apart, like a last initial.' Empty states say what will appear and when, the settle note ('Pay however you like — e-transfer, cash, a round of coffees.') is warm without being jokey, and every button is a verb."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All brief behaviours are present: case-insensitive duplicate check, inline errors that move focus and keep typed input, 'about $3.33 each' for uneven splits, newest-first expenses with per-item Remove, an all-even state, a confirm before 'Start a new trip', focus restored after delete, and select-all/clear for the split. Gaps: there is no way to remove or rename a mistyped person, and removing an expense is instant with no undo."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The JS is a tidy IIFE with clear sections. parseCents works on the string rather than floats, sharesFor hands remainder cents out in trip order, the greedy settle is correctly bounded, all output is escaped, localStorage loads are validated, and errors use aria-live, aria-invalid and aria-describedby. There is minor cruft: .col's grid rule is duplicated inside the media query, .btn-secondary is unused, a few inline style attributes remain, and the map callback has an unused index parameter."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The custom keel glyph with its Signal mast, the sand-and-navy palette, the diverging balance bars and the restrained use of the accent all feel chosen for Even Keel. Template-like elements pull it back: Inter as the body face, pill chips everywhere, and a uniform two-column card grid with soft shadows on every panel."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Inter used as the body typeface, the default safe choice",
+          "Pill shapes (border-radius:999px) on both the people chips and the split checkboxes",
+          "Every section is an identical bordered white card with the same box-shadow",
+          "Unused CSS rule (.btn-secondary) and a duplicated .col grid rule"
+        ],
+        "brand_violations": [
+          "Balances use a green-good / red-bad ledger scheme (signal-deep amounts and red bars for 'owes'), which visually marks owing as a problem against the principle that owing money is normal"
+        ],
+        "best_detail": "The centre-origin balance bars, green extending right for 'gets back' and Signal extending left for 'owes', show at a glance how far each friend is from even without needing stat tiles.",
+        "worst_detail": "Colouring every 'owes' amount in red-orange against green 'gets back' amounts brings the debt-alarm language of banking apps into a brand whose one principle is that owing is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

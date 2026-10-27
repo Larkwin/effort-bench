@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:47:11.651Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 26349,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2632,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1251
+        }
+      },
+      "cost_usd": 0.158036,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and avatar palette. Signal #C2462B is used sparingly for the masthead rule, the Settle up top border, the primary Add expense button and focus rings. These sit on a warm sand (#F4EFE6) ground with a sea green for 'is owed'. Fraunces with Public Sans reads steady and trustworthy rather than bank-like or playful. The principle is expressed in both copy and colour: 'Owing is normal — it just means someone else paid first', and owing bars are a neutral slate (#6F8797) rather than alarm red."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted subtitles, tabular serif amounts right-aligned in expenses and transfers. Spacing is consistent (22px card padding, 20/28px grid gaps), and the 390px layout stacks cleanly with no overflow. Minor rough spots: the disabled payer select truncates to 'Add people firs' on empty desktop. Each expense's Remove link sits under the amount, leaving dead vertical space. Both columns are cards of equal weight with no stronger focal point."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific, and address the user as you: 'Start with your own name, then add your friends.' The duplicate error is genuinely helpful: 'Ana is already on the trip. If it's someone else, add a last initial, like \"Ana B.\"' Settle up reads '2 payments and everyone is even.' The preview line ('Ana covers one extra cent so it adds up exactly') explains the rounding honestly. Buttons are verbs, with no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every state is handled: empty states on all four panels, separate wording for 'people but no expenses', and an 'Everyone's even' state. Inline errors keep the user's input, set aria-invalid and move focus. A live share preview updates with the amount, and focus returns sensibly after an expense is removed. The keel bars make balances readable at a glance, and numbered transfer rows are easy to act on. Reset is guarded by a confirm, and the mobile layout keeps 44px+ targets."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled correctly in integer cents. parseAmount is strict string parsing with no float math, and splitCents hands leftover cents out in trip order via sharesFor. The greedy settle produces at most n−1 transfers, and the form-error testid is attached only while a message is shown. localStorage loading is defensively validated, and render functions are cleanly separated. Weak spots: the <legend> is nested inside a div rather than being the fieldset's first child, which breaks the group's accessible name. --sand-2 is declared but unused. The whole UI re-renders on every action."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The keel balance bar (centre line marked 'Even', owes left, is owed right) and the sailboat mark are brand-specific ideas. Choosing neutral slate for debt shows someone thought about the principle. The overall frame, though, is familiar: a navy header with a stat strip and a two-column grid of white rounded cards. It keeps the result one step short of fully distinctive."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Header stat strip (Trip total / People / Expenses) is a dashboard-tile convention that adds little to the tool",
+          "Banner section comments throughout CSS and JS ('/* ---------- Masthead ---------- */')",
+          "Unused CSS variable --sand-2",
+          "Pill-shaped (999px radius) chips used for both people and split checkboxes"
+        ],
+        "brand_violations": [],
+        "best_detail": "The keel balance bars centre every person on an 'Even' line and draw owing in calm slate rather than red, turning 'owing is normal' into a visual system rather than just a sentence.",
+        "worst_detail": "The split-between legend sits inside a wrapper div instead of being the fieldset's first child, so screen readers lose the group label for the checkboxes."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

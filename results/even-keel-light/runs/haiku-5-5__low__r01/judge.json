@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:46:36.658Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18537,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2303,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 936
+        }
+      },
+      "cost_usd": 0.120208,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour #1F3A4D header and headings anchor the page, with Signal reserved for the keel mark, transfer arrows, focus rings and a deepened #9A3420 for 'owes'. The warm paper background (#F5F2EC) and the Fraunces plus Atkinson Hyperlegible pairing read as steady and trustworthy, neither game nor bank. Copy states the principle directly ('Owing each other is normal'), but colouring every 'owes' amount in red-orange still frames owing as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif h2s, bold labels, muted helper text, and right-aligned tabular amounts with hairline dividers. On mobile the 'Add person' button wraps under the input and sits left-aligned. Expense rows at 390px squeeze the meta text into a narrow column beside the amount and Remove button, giving four-line wraps. Atkinson's slashed zeros in '$10.00' look slightly technical next to the soft serif."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain, calm and specific: 'No one yet. Add the people coming on this trip, starting with you.', 'Enter an amount above $0.00 with at most two decimal places, for example 42.50.', and 'is owed $46.66 / owes $13.33'. Buttons are verbs. The note 'Positive means you are owed. Negative means you owe.' refers to signs the UI never shows, because balances are worded rather than signed."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "There is a distinct empty state per section, including a separate 'No expenses yet, so there is nothing to settle' state and an 'Everyone is even' note. Validation is inline and keeps input. Extras include a live 'Shared by 3 people' count, a per-expense share breakdown that shows leftover-cent allocation, a running total, and focus management after delete. People cannot be removed or renamed. There is no confirmation feedback beyond the list re-rendering."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Logic is clean and correct: regex-based parseAmount produces integer cents, shares() is ordered by trip order with remainder distribution, the greedy settle is commented with its transfer bound, esc() is applied to all interpolations, and fieldset/legend and aria-invalid/role=alert are used. Blemishes: an invalid 'font family: var(--sans);' declaration, unused '.btn.signal' and 'input[type=\"search\"]' rules, a no-op '.error-slot{min-height:0}', inline styles injected from JS, and aria-invalid set on checkboxes or select but never cleared."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The keel-ring logomark, the tagline indented to align with the wordmark, and the restrained two-anchor palette show deliberate brand thinking. The layout is still a fairly stock five-equal-cards grid with uniform weight. Pill-shaped chips are the main default-looking choice."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Five identical white rounded cards with the same border and shadow, giving uniform visual weight across sections",
+          "Pill-radius (999px) checkbox chips",
+          "Section banner comments in the script ('// ---------- Rendering ----------')",
+          "Unused CSS rules (.btn.signal, input[type=\"search\"]) and a duplicated, invalid 'font family' declaration"
+        ],
+        "brand_violations": [
+          "Every 'owes' balance is rendered in Signal-deep red, which visually frames owing as a problem despite the 'owing is normal' principle (renderBalances .status-owes)"
+        ],
+        "best_detail": "Each expense row shows its exact per-person shares ('Ana $3.34, Ben $3.33, Chloe $3.33'), which makes the leftover-cent rule visible and earns trust in an honest, specific way.",
+        "worst_detail": "At 390px the expense rows cram the payer and split text into a narrow column beside the amount and Remove button, producing awkward four-line wraps."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

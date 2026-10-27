@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:46:39.167Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19801,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2420,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 890
+        }
+      },
+      "cost_usd": 0.127604,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, avatars and checked states, and Signal #C2462B drives the primary buttons and logo tile. The warm paper (#F6F3EE) and muted tide green build a calm palette around those anchors. Fraunces headings with Figtree body read as steady and trustworthy, neither playful nor banky. The one misreading: 'owes' amounts are coloured signal-deep red against green for 'is owed', which frames debt as a warning despite the principle that owing is normal."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "Hierarchy is clear: serif section heads, muted subcopy, tabular-num amounts, and a neat balance grid with hairline dividers. Several things are uneven. `.brand{padding:20px 0 18px}` overrides `.wrap`'s horizontal padding, so the header sits 16px left of the cards on desktop and the logo touches the screen edge on mobile. Each expense card puts Remove on its own row, leaving a large empty band. The amount hint 'Up to two decimal places' sits under the split checkboxes, far from the amount field."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific. Examples: 'Who paid, who owes, and how to square up.', 'Everyone is even. Nothing to settle up.', 'Saved on this device. Reloading keeps your trip.' Errors are useful, such as 'Use digits only, with up to 2 decimal places, for example 24.50.' Two weaker spots: 'Owing each other is normal.' states the principle literally instead of embodying it, and the balances subcopy ('Positive means they are owed') shifts to third person where the voice calls for 'you'."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a contextual empty state, and the settle-up empty message changes with state. Inline errors carry role=alert, invalid fields get aria-invalid and focus, and typed values are kept on error. Expenses show per-person shares, which makes the cent remainder visible. Thin spots: on first load the payer select is blank and 'Split between' shows nothing, with no prompt to add people first. People cannot be removed, and the transfers are passive rows rather than something you can mark as settled."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Code is clean, using an `h()` builder, a validated load(), integer-cent parsing via regex, a correct remainder split in trip order inside `sharesOf`, and greedy settlement that stays within n-1 transfers. Semantics are good: fieldset/legend for the split, labelled inputs, aria-live message regions, and descriptive aria-labels on Remove. Minor issues: `bindClear` on the fieldset clears aria-invalid from the fieldset rather than the checkbox, so it stays stuck. There is also a duplicated `.form-grid .full` rule, a redundant `if (control.removeAttribute)` check, an inline style, and banner comments."
+        },
+        "directed_design": {
+          "score": 3,
+          "evidence": "The type pairing and balance-beam logo show intent, and the palette is restrained. The layout, though, is the stock stack of white rounded cards on an off-white page with dashed empty boxes and pill avatar chips. Spacing and alignment slips (header offset, dead space in expense cards) suggest the output was not reviewed by a designer's eye."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Banner section comments in the JS ('/* ---------- storage ---------- */', '/* ---------- rendering ---------- */')",
+          "Uniform white rounded-14px cards for every section on an off-white background, a template-like stack",
+          "Fraunces + Figtree is a stock 'warm serif + friendly sans' pairing",
+          "Principle restated verbatim in UI copy: 'Owing each other is normal.'"
+        ],
+        "brand_violations": [
+          "Debts coloured red/signal-deep ('owes $13.33') against green for 'is owed', treating owing as an alarm despite 'Owing money between friends is normal, not a problem'",
+          "Balances subcopy uses third person ('Positive means they are owed') rather than addressing people as 'you'"
+        ],
+        "best_detail": "Each expense lists the exact per-person shares ('Split: Ana $3.34 · Ben $3.33 · Chloe $3.33'), which makes the fair-to-the-cent rounding visible and honest.",
+        "worst_detail": "The `.brand` padding override strips the wrapper's side padding, so the header misaligns with the content on desktop and the logo is flush against the screen edge on mobile."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 3,
+    "overall": 7
+  }
+}

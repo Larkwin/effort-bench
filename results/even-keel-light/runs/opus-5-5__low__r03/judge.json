@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.097Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 16735,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2647,
+        "output_tokens_details": {
+          "thinking_tokens": 1265
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.05994,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, headings and amounts, and Signal #C2462B is kept for primary buttons and the settle-up arrows. Both sit on a warm sand/paper ground (#F6F2EA/#FFFDF9) with a muted sea green for credit. Fraunces paired with Public Sans feels steady and trustworthy rather than bank-cold, and the small boat mark fits the name. The line \"Owing is normal — it just means someone else covered you for now\" states the principle directly, though the terracotta-tinted 'owes' pills still lean slightly towards a warning signal."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted ledes, tabular-nums bold amounts, and balance pills aligned right. Settle-up rows are clean tinted bars. On desktop the 5fr/6fr grid leaves the People and Expenses cards with large empty areas below their content. The 'Split between' legend and the link buttons sit slightly indented from the other labels. On mobile, expense meta wraps awkwardly ('Chloe paid · split / between everyone') because the amount and Remove button crowd it."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, specific and addressed to 'you'. Examples: 'No one yet. Start with yourself, then add your travel companions.', 'Ana is already on the trip. Try a different name, like adding a last initial.', 'Enter the amount as a number with up to 2 decimal places, like 42.50.', 'Everyone is even. Nothing to settle.' Buttons are verbs, there are no exclamation marks, and the footer 'Saved on this device automatically.' is quietly reassuring."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief state is covered: empty states for each section, a one-person hint, inline errors that keep the user's input and move focus to the offending field, Everyone/No one shortcuts, an expense count and total, and an 'is owed/owes/is even' note beside each balance. The split checkboxes keep their state across re-renders. Gaps: removing an expense is instant with no undo, people cannot be removed or renamed, and the settle-up list offers no way to mark a transfer as done."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cents handling is correct: amounts are parsed with a regex and no float math, and leftover cents go to people in trip order via state.people.filter. The greedy settle stays within n−1 transfers, and the QA hooks are wired correctly. Semantics are good: a fieldset and legend for the split, labels on every input, aria-invalid on bad fields, an aria-live error region, and an sr-only 'pays' in each transfer. Weaker spots: dense minified CSS and JS hurt readability, role=alert sits inside a polite live region, and the --harbour-2 and --sea variables are never used."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The warm sand palette, Fraunces headings, boat mark and Signal used sparingly as the action colour read as deliberate choices for this brand. The four-card two-column dashboard and the initial-avatar pill chips are fairly standard patterns. Overall it is cohesive and restrained rather than a default template."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Unused CSS custom properties (--harbour-2, --sea) left in :root",
+          "Initial-letter avatar circles inside 999px-radius pill chips for people, a stock pattern",
+          "Generic equal-weight card grid that leaves large blank card areas on desktop"
+        ],
+        "brand_violations": [
+          "Negative balances are shown in red-tinted pills with a minus sign, which slightly frames owing as a warning despite the 'owing is normal' principle"
+        ],
+        "best_detail": "The Balances lede 'Owing is normal — it just means someone else covered you for now' states the brand principle plainly, right where people read their balances.",
+        "worst_detail": "On desktop the People card and the Expenses card stretch to match their neighbours, leaving large empty paper areas that make the layout feel unbalanced."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

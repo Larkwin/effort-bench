@@ -1,0 +1,69 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.284Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19916,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2312,
+        "output_tokens_details": {
+          "thinking_tokens": 1142
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.062952,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Only the seven palette hex values appear, mapped to their roles: Signal is used only on .btn-primary and the 24×3 .rule, Kelp only for .pos, and negatives like -$13.33 stay Harbour. Fraunces 600 is used for h1/h2 and IBM Plex Sans 400/500 for everything else, with sizes kept to 14/16/20/28. Radius is 6px throughout, borders are 1px Rope, there are no shadows or gradients, and :focus-visible is a 2px Harbour outline with a 2px offset."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The panels follow a clear People → Expenses → Balances → Settle up hierarchy with an even 24px rhythm. Expense rows set a 500-weight description against a right-aligned tabular amount over Fog metadata, which reads cleanly at both widths. Minor unevenness: the amount sits awkwardly close to the Remove button on desktop, and on mobile the Add person button wraps below the input instead of staying inline."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Errors say what to fix and give examples: 'Enter an amount greater than $0.', 'Use at most two decimal places, like 48.75.', 'Ana is already on the trip. Enter a different name.' Each empty state is one actionable sentence ('Add the people on your trip to get started.'). Buttons are short verbs in sentence case, and there is no filler, emoji or exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has an empty state, and the payer select shows 'Add a person first' when there is no one to pick. Validation keeps the typed values and moves focus to the offending field. Removing an expense moves focus to the Expenses heading, and per-person shares are shown when leftover cents make the split uneven. Settle up reads clearly as 'Chloe pays Ana $33.33'. Thin spots: people can't be removed, and there is no confirmation or feedback beyond the list re-rendering."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The maths works in integer cents throughout. parseAmount is string-based with no float maths, sharesFor hands out leftover cents in trip order, and the greedy settle keeps transfers to at most n−1. The markup is semantic: fieldset/legend, aria-describedby, aria-live errors, and a form-error testid set only while an error is shown. There is some redundancy: renderAll duplicates the empty-state logic that renderBalances also handles, and renderBalances returns a value nobody uses."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It feels restrained and specific to the brand. Harbour errors with a left rule instead of red, the 'is owed'/'owes' qualifier in Fog, Paper secondary Remove buttons and a Harbour checkbox accent-color all look like deliberate brand-aware choices. The stacked panels are a little template-like, but nothing reads as an AI default."
+        },
+        "overall": 8,
+        "ai_tells": [],
+        "brand_violations": [],
+        "best_detail": "The balance rows pair the name with a quiet 'is owed'/'owes' qualifier in Fog and a tabular amount that is Kelp when positive and Harbour when negative, which delivers the 'owing is normal' rule exactly.",
+        "worst_detail": "On mobile the Add person button drops onto its own line below the name input, wasting vertical space where an inline button would fit at 390px."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

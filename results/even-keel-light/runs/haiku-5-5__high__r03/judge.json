@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.147Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21934,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2444,
+        "output_tokens_details": {
+          "thinking_tokens": 1061
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.068308,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour #1F3A4D masthead, warm paper #F5F1EA ground, Fraunces headings and Public Sans body read as steady and trustworthy, not bank-like. Signal is held back to the logo's keel line and error borders. The principle is stated outright in the copy: \"Owing each other is normal\" and \"Both are normal.\" The weak point is the owing state, which uses the same --signal-deep red as errors and the Remove button. That quietly codes owing as a warning, against what the copy says."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif h2s, muted ledes, and bold tabular figures right-aligned in balances, expenses and transfers. Mobile stacks cleanly in a sensible order, with no overflow. Some details are uneven. The \"Split between\" legend renders at a different size and weight from the other labels, because the `.field legend` rule never matches. The repeated outlined red Remove buttons add heavy, scattered weight to the expense list. The desktop grid leaves a large gap under the short People card."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The copy is plain and specific and talks to the user as \"you\". Examples: \"No one yet. Add the people on this trip, starting with you.\", \"Ana is already on the trip. Names must be unique, ignoring capitals.\", \"Use dollars and cents, like 24.50, with no more than 2 decimal places.\" Buttons are verbs (Add person, Add expense, Remove), and empty states change with context. \"So nothing is a mystery\" is the only slightly cute line."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required flow works. Validation is inline with role=alert and keeps what the user typed, focus goes to the bad field, and each empty state is tailored. Expenses show each person's share, and the settle-up list includes a payment count. After a delete, focus moves to the Expenses heading. Gaps: the Paid by select is an empty control before anyone is added, delete has no undo or confirmation, and the amount field never shows a red border when invalid."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is well structured: an IIFE, money handled in integer cents with a regex-based parser, leftover cents assigned in people order, greedy settle within the transfer bound, escaped output, defensive validation on localStorage load, and aria-invalid/aria-describedby on errors. There is some dead or ineffective CSS. `.money-input[data-invalid]` is never set, `.field legend` never matches, and the `#expenses-h` inline-block rule is odd. The People list sets a margin with an inline style."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The choices feel specific to Even Keel: the keel-line logo mark, the harbour wave under the masthead, a serif and grotesque pairing on warm paper, and initial avatars in muted tones. The board layout is the usual white rounded cards with soft shadows, and the pill chips are standard. It is still restrained and cohesive rather than generic."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section sits in a white rounded card (16px radius) with a soft drop shadow",
+          "Pill-shaped chips (border-radius 999px) for both split checkboxes and share tags",
+          "Avatar palette includes an off-brand purple #6B5B95",
+          "Dead CSS selectors (.money-input[data-invalid], .field legend) that never apply"
+        ],
+        "brand_violations": [
+          "Negative balances ('owes') use the same --signal-deep red as errors and destructive Remove buttons, which visually frames owing as a problem despite the 'owing is normal' principle"
+        ],
+        "best_detail": "The settle-up section opens with \"Owing each other is normal. These payments bring everyone to even.\" and then lists the transfers as plain 'Ben pays Ana $13.33' rows, turning the brand principle into clear, actionable UI.",
+        "worst_detail": "Colouring every 'owes' figure in the same red-orange used for errors and Remove buttons undercuts the calm, no-blame tone the copy works so hard to set."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

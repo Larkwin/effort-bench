@@ -1,0 +1,71 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:35:09.996Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18630,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2122,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 850
+        }
+      },
+      "cost_usd": 0.11696,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Colours are limited to the seven-colour palette, with no tints. Signal appears only on primary buttons and the wordmark rule (24×3px via ::before), negative balances are Harbour with a true minus sign, and positives are Kelp. Fraunces 600 and Plex 400/500 load from Google Fonts, money uses tabular-nums, the 6px radius, 1px Rope borders, no shadows and the 2px Harbour focus ring with 2px offset all match the guide. The only breaks are small spacing ones: gap 12px, tagline margin-left 36px, and 12px input and list padding."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: Fraunces h2 section titles, h3 sub-heads, Plex 500 names and Fog metadata. Money in the balance and transfer rows is right-aligned and the mobile layout reflows without overflow. The weaker spots are the expense amount sitting inline after the description instead of in a right-hand column like the balances, the 'Split between' legend sitting a couple of pixels off the label column, and a long, uniformly paced page."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific. Examples: 'Add everyone on the trip to get started.', 'Someone named Ana is already on the trip. Use a different name.', 'Enter an amount with at most 2 decimal places.', 'Everyone is even. Nothing to settle.' Buttons are short sentence-case verbs, the hint 'Dollars and cents, for example 42.50.' is useful, and there is no filler or exclamation."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief behaviour is covered. That includes context-aware empty states, a disabled payer select reading 'Add a person first', preserved input on errors with focus moved to the offending field, split selections kept across re-renders, 'is owed / owes / is even' labels, and a clear 'Chloe pays Ana' settle-up. Two gaps remain: removing an expense drops focus to the body, and the amount hint isn't linked via aria-describedby."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a compact IIFE with a small el() helper and correct integer-cents parsing (it rejects more than 2 decimals and accepts $ and commas). Leftover cents go to people in trip order, and the greedy settle produces at most n−1 transfers. Semantics are sound: fieldset/legend, label for each input, and role=alert errors carrying data-testid. Minor issues are an ES5 style, errors not tied to inputs via aria-describedby, and transitions declared only on :hover, which makes them one-directional."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained. Choices such as 'Logged so far' and 'On the trip' as sub-heads, a Harbour hover state on Signal buttons, and Harbour (not red) error text show attention to this brand. It still follows a fairly standard stacked form-panel template, with no layout idea beyond that."
+        },
+        "overall": 8,
+        "ai_tells": [],
+        "brand_violations": [
+          "Spacing not in multiples of 8: wordmark gap 12px, tagline margin-left 36px, input padding 8px 12px, list item padding 12px 0, secondary button padding 4px 12px"
+        ],
+        "best_detail": "Negative balances are shown in Harbour with a proper minus sign and an 'owes' label, while positives are Kelp with 'is owed', which renders the brand's 'owing is normal' rule exactly.",
+        "worst_detail": "The expense amount is tacked inline after the description ('Coffee $10.00') instead of right-aligned like the balance and transfer amounts, which breaks the scanning rhythm of the money column."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

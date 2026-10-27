@@ -1,0 +1,56 @@
+# Model × effort bench: one prompt, many models, many effort levels, N runs each.
+# Prices are USD per million tokens, checked against platform.claude.com/docs pricing on 2026-10-21.
+# Re-check before a big run; override any value here.
+
+experiment: even-keel-v1          # results go to results/<experiment>/
+prompt: prompts/prompt.md         # the single user message sent to every model
+system: null                      # optional system prompt file; null = none (tests the raw prompt)
+
+models:
+  - id: claude-fable-5-1
+    label: Fable 5.1
+    price: { input: 10.00, output: 50.00 }
+  - id: claude-opus-5-5
+    label: Opus 5.5
+    price: { input: 4.00, output: 20.00 }
+  - id: claude-sonnet-5-5
+    label: Sonnet 5.5
+    price: { input: 2.00, output: 10.00 }
+  - id: claude-haiku-5-5
+    label: Haiku 5.5
+    price: { input: 0.10, output: 0.50 }   # rate for prompts up to 100k tokens
+
+efforts: [low, medium, high, xhigh, max]
+runs_per_cell: 5                  # independent repeats per model × effort
+
+generation:
+  max_tokens: 128000              # hard cap on thinking + output; the current models' maximum
+  thinking_display: summarized    # summarized | omitted. Summaries are free and help explain deltas;
+                                  # set omitted for the cleanest latency numbers
+  concurrency: 4
+  shuffle: true                   # interleave cells so time-of-day load doesn't bias one model
+  budget_usd: 75                  # the run stops starting new requests past this spend
+
+# Rough output-token guesses used only by `plan` to estimate cost before you spend anything.
+# After a first run, `plan` uses your measured averages instead.
+estimate_output_tokens: { low: 9000, medium: 14000, high: 22000, xhigh: 34000, max: 50000 }
+
+checks:
+  viewports:
+    desktop: { width: 1280, height: 800 }
+    mobile: { width: 390, height: 844 }
+  allowed_hosts: [fonts.googleapis.com, fonts.gstatic.com]
+
+judge:
+  model: claude-opus-5-5          # keep this fixed across an experiment
+  effort: high
+  passes: 1                       # >1 re-judges each output and reports judge variance
+  price: { input: 4.00, output: 20.00 }
+  concurrency: 4
+
+pairwise:
+  model: claude-opus-5-5          # same judge and effort as the light experiment, so the two can be compared
+  effort: medium
+  per_cell_pair: 2                # run pairs per pair of settings in the round-robin
+  budget_usd: 40                  # synchronous runs stop starting new judgments past this
+  prompt: judge/pairwise-strict.md  # the light version's wording, adapted to a full brand guide

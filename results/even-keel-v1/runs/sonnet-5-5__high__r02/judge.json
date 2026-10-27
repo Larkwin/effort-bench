@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.261Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19791,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2556,
+        "output_tokens_details": {
+          "thinking_tokens": 1194
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.065142,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is held strictly to the seven custom properties. Signal appears only on the primary buttons and the 24×3 wordmark rule. Negative balances render in Harbour as \"-$13.33\" and positive ones in Kelp. Fraunces 600 is used for h1/h2, Plex 400/500 elsewhere, `.num` applies tabular-nums to every amount, focus is `2px solid var(--harbour)` with a 2px offset, and the 6px radii and 1px Rope borders have no shadows. Small slips: the \"Logged expenses\" h3 is set in Plex rather than Fraunces, and input padding uses 12px horizontals."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "There is a clear panel rhythm: Fraunces section heads, 14px Fog metadata, and right-aligned amounts in expense, balance and transfer rows that scan well at both widths. Fields stack cleanly on mobile into full-width buttons. The main flaw is the people chips sitting flush against the name input with no gap, because `ul.plain { margin:0 }` overrides `.people { margin-top:16px }`. The tall Remove buttons also add bulk to each expense row."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific: \"Add the first person on the trip.\", \"No expenses yet. Add the first one above.\", \"Ana is already on the trip. Enter a different name.\", \"Use at most 2 decimal places, like $12.50.\", and \"Everyone is even. No transfers are needed.\" Buttons are short verbs and labels are in sentence case. There is no filler, emoji or exclamation marks anywhere."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief behaviour is covered: trimmed and case-insensitive duplicate rejection, inline errors that keep the input and set aria-invalid, checkboxes defaulting to all, newest-first expenses with Remove, a running total, and staged settle-up empty states (no people, no expenses, everyone even). Focus is managed after add and remove actions. The thinner spots are no way to remove or rename a person, and no confirmation after removing an expense."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a tidy IIFE with an `el()` helper and separate calculation, render and validation blocks. It uses integer cents throughout, leftover cents go in trip order via `state.people.filter`, and a greedy largest-first settle stays within n-1 transfers. localStorage loading is defensive, and the semantics are solid (fieldset/legend, labels, aria-live slots). Minor cruft: redundant `.error-slot{min-height:0}`, a duplicated `.balance .figure` rule, several inline styles, and the specificity bug on `.people`."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The page feels restrained and specific to Even Keel. Owing is treated as neutral in Harbour with \"owes\"/\"is owed\" labels, the error icon is a single Harbour line SVG, and primary hover shifts to Harbour rather than a tint. The bordered checkbox chips and stacked white panels are competent but slightly template-like."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Section banner comments in the JS (\"/* ---------- calculations ---------- */\")"
+        ],
+        "brand_violations": [
+          "The \"Logged expenses\" h3 heading is set in IBM Plex Sans 500 instead of Fraunces 600.",
+          "Inputs and chips use 12px horizontal padding, outside the 8px spacing scale."
+        ],
+        "best_detail": "Negative balances are shown in Harbour with a quiet Fog \"owes\" label beside the figure, while only positives get Kelp, which embodies the brand's \"owing is normal\" rule exactly.",
+        "worst_detail": "A CSS specificity slip (`ul.plain` margin overriding `.people` margin-top) leaves the people chips jammed directly under the name input with no spacing on both desktop and mobile."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

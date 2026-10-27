@@ -1,0 +1,78 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.089Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 24231,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2587,
+        "output_tokens_details": {
+          "thinking_tokens": 1191
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.074332,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour #1F3A4D masthead with an inset 4px Signal stripe, warm paper (#F5F2EA) cards and a keel/balance SVG mark read as steady and trustworthy rather than bank-like. Fraunces for titles and Instrument Sans for UI suit the brand, and the line 'Owing each other is normal. This just tidies it up.' states the principle directly. Undercutting that, debtors are coded in Signal red against green for creditors, which reintroduces the 'owing is bad' framing."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a small uppercase Signal step label, a Fraunces title, a muted lede, then content. Money uses tabular numerals and spacing is consistent, and the 390px layout holds with no overflow. Three things are uneven: in the 5fr/7fr grid the expense list grows long and leaves a large empty column under Step 1, each 'Remove' sits on its own right-aligned row and adds bloat, and the OWED/OWES label above the amount misaligns with the person's name baseline."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "The strings are plain and specific and address the user as 'you': 'Type a name first. A first name or a nickname is fine.', '“Ana” is already on the trip. Try a different name.', 'Use at most two decimal places, like 24.50.', '2 payments and everyone is square.' Empty states tell you what to do next and buttons are verbs. The Step 2 lede about leftover cents going 'to people in the order they joined' is more mechanics than a user needs up front."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states cover all four cards, inline role=alert errors keep the typed values and focus the offending field, and checkboxes default to all ticked. After deleting, focus moves to the next Remove button, reset asks for confirmation, and a header summary shows totals. Settle-up rows are large and easy to act on. There is no way to remove or rename a person, and on desktop the balances sit far below the fold once there are several expenses."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cents logic is correct: sharesOf hands leftover cents out in trip order, and the greedy settle() is bounded at n−1 transfers. parseAmount is strict and accepts commas, and loadTrip validates stored data. Output is escaped, labels and the fieldset/legend are proper, and aria-invalid and focus-visible outlines are set. Minor issues: redundant `const word = tone`, error messages are not tied to inputs via aria-describedby, and whole lists are re-rendered with innerHTML."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette is clearly derived from the two anchors (harbour-mist and harbour-wash, signal-ink and signal-wash, a muted green for 'owed'). The diverging balance bars centred on a navy keel line are specific to this product. Step eyebrows, pill chips, initial avatars and the Fraunces-on-cream combination feel like familiar tasteful defaults rather than Even Keel-only choices."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Uppercase 'STEP 1–4' eyebrow labels above every card heading, a common template pattern",
+          "Pill radius (999px) on the split checkboxes and share chips",
+          "Initial-letter avatar circles in the people list",
+          "Banner comments in the JS ('/* ---------- Storage ---------- */')",
+          "Redundant `const word = tone;` in renderBalances",
+          "A subtle box-shadow on every card"
+        ],
+        "brand_violations": [
+          "Debtors are labelled 'OWES' in Signal red with red bars while creditors get green, a warning-style coding that frames owing as a problem despite the principle that owing is normal"
+        ],
+        "best_detail": "The diverging balance track, centred on a navy keel line with green extending right for owed and orange-red extending left for owes, turns the brand's 'even keel' idea into a readable visualisation of balances.",
+        "worst_detail": "Colouring every debtor in Signal red undercuts the calm 'owing is normal' principle that the Settle up copy works hard to establish."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

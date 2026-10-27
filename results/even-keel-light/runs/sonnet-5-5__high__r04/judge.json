@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.144Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21033,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2152,
+        "output_tokens_details": {
+          "thinking_tokens": 925
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.063586,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D carries the masthead and an inverted Settle up card. Signal #C2462B is held back for the masthead stripe, primary buttons and transfer edge markers, all on a warm paper #F4F1EA ground. Fraunces with IBM Plex Sans reads steady and trustworthy rather than bank-like or playful. The principle is built into the design: people who owe are shown in navy, not red, and the Balances hint says 'Owing is a normal part of a shared trip.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The hierarchy is clear: serif h2s in Harbour, a 5fr/6fr two-column grid, consistent 20/28px gaps, 46px controls and tabular numerals on money. The diverging balance bars with a centre tick are tidy and readable. The expense rows are bloated, though: each Remove button sits on its own right-aligned row, which nearly doubles item height. Every section is the same white bordered card, which flattens the rhythm a little."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific and use 'you': 'Log what each person paid. You'll see who owes whom.', 'Use at most 2 decimal places, like 24.50.', 'You're all even. Nobody needs to pay anyone.' The buttons are verbs. One string is awkward: 'Names can't repeat, even in different capitals.' Also, 'in the fewest payments' overclaims what a greedy settlement algorithm guarantees."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a considered empty state. Validation is inline and keeps input, sets aria-invalid and aria-describedby, and moves focus to the field. A polite status region confirms each action. Focus is restored after a delete, and a person can only be removed when no expense uses them. The settle-up list sits prominently as 'Chloe pays Ana $33.33'. Gaps: expense errors always appear above the submit button rather than next to the failing field, and there is no way to mark a transfer as done."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The money logic is correct: integer cents, leftover cents assigned in trip order via state.people.filter, and a greedy creditor/debtor match that produces at most n-1 transfers. parseAmount is careful (comma grouping, 2-decimal rule, upper bound), output is escaped, and localStorage loading is validated defensively. Minor issues: two separate change listeners on payerEl, the clearError field list repeated four times, string-built innerHTML for the whole UI, and the state_ naming."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Several decisions are clearly specific to this brand: the navy Settle up card as the focal point, owing coloured navy instead of red, the sailboat mark with a Signal sail, and paper-toned dashed empty states. Some elements are still template-like, namely the uniform card stack and the initial-letter avatar circles."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Initial-letter avatar circles beside each person name (.person::before), a common default flourish",
+          "Every section in an identical white rounded bordered card, giving a uniform card stack",
+          "Banner-style section comments in JS ('/* ---------- State ---------- */')"
+        ],
+        "brand_violations": [],
+        "best_detail": "Debtors' balances are shown in calm Harbour navy with the label 'owes' and a neutral bar, never in alarm red, which puts 'owing is normal' directly into the visual system.",
+        "worst_detail": "Each expense's Remove button sits on its own full-width row, nearly doubling every expense item's height and making the list feel padded."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

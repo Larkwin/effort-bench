@@ -1,0 +1,78 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:38:09.760Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22394,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2480,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1071
+        }
+      },
+      "cost_usd": 0.139176,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and avatars, and Signal #C2462B is used for the primary buttons and the 4px masthead rule. Warm sand (#F4F1EB) and a 'tide' green round out the palette. Fraunces with Public Sans reads steady and trustworthy, and the balances lede says outright that 'Owing a friend is normal.' The balance display then undercuts that line: negative amounts are signal-red with red bars against green positives, which is a ledger convention that frames owing as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear. Serif headings and serif tabular money figures sit against sans meta text, and the 5fr/7fr grid puts the input forms beside the results. The balance bars diverging from a centre line are a thoughtful touch. Weaker spots: the 'Remove' quiet buttons float bottom-right, detached from their rows. On mobile, 'Add person' sits left-aligned at partial width under a full-width input, and the balance meta text wraps awkwardly ('share / $43.33')."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific throughout: 'Ana is already on the trip. Try a nickname or add a last initial.', 'Use at most two decimal places — cents, not fractions of a cent.', and '2 transfers and everyone is even. That's the fewest it takes.' Empty states point to the next step ('Add the first expense — the hotel, groceries, the gas on the way up'). Buttons are verbs and there is no filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief state is covered. There are context-aware empty states for each card, inline errors that keep the user's input and move focus to the offending field, and an all-even state. Uneven splits list per-person shares. Select everyone/Clear shortcuts help, and focus returns to the heading after a removal. Gaps: there is no undo or confirmation when removing an expense, and settle-up transfers cannot be marked as done."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is clean and correct. It uses integer-cents parsing with a regex, leftover cents go in trip order via state.people.filter, and settle-up is a greedy debtor/creditor match that guarantees at most n−1 transfers. Output is escaped consistently, localStorage data is validated on load, and the HTML is semantic (fieldset/legend, aria-labelledby sections, role=alert). Minor issues: error messages are not tied to their inputs with aria-describedby, and there is dead CSS (.btn-secondary, --harbour-deep)."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work reads as deliberate. The keel/waterline brand mark, the Signal rule under the masthead, serif money figures, the sand ground and the divergent balance bars all feel chosen for Even Keel. It slips toward a template in a few places: a uniformly shadowed card on every section, pill chips, and header stat tiles."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Identical soft box-shadow on every card (--shadow applied to all .card)",
+          "Header stat tiles ('Spent so far', 'People') with large serif numbers",
+          "Unused CSS: --harbour-deep variable and .btn-secondary class never referenced",
+          "Banner-style section comments in the JS ('/* ---------- Storage ---------- */')",
+          "Pill-shaped (999px radius) checkbox chips"
+        ],
+        "brand_violations": [
+          "Negative balances and their bars use red (--signal-deep / --signal) against green positives, framing owing as an error state despite the 'owing money is normal' principle",
+          "Red/green credit-debit colour coding in 'Where everyone stands' leans toward a bank-ledger feel the brief asks to avoid"
+        ],
+        "best_detail": "The settle-up card states each move as a plain 'Chloe pays → Ana $33.33' row and closes with 'That's the fewest it takes,' which is calm, specific and easy to act on.",
+        "worst_detail": "Coding everyone who owes in Signal red with red deficit bars contradicts the app's own line that 'Owing a friend is normal.'"
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:35:46.524Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19804,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2650,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1245
+        }
+      },
+      "cost_usd": 0.132216,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is strictly the seven brand hexes. Signal appears only on the primary buttons and the 24×3 wordmark rule, Kelp marks positive balances, and negatives render as Harbour \"-$13.33\". Fraunces 600 and IBM Plex Sans 400/500 are loaded, `.amount` uses tabular-nums, the 6px radius, 720px column, 16/24px padding and 2px Harbour focus ring with 2px offset are all present. Small deviations: input borders use Fog instead of Rope, input padding is 8px 12px (12 is off the 8px grid), and `h2:focus{outline:none}` suppresses the ring on the programmatic focus target."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: wordmark at 28px, section heads at 20px Fraunces, labels at 500 weight, hints at 14px Fog. Spacing follows a steady 8/16/24 rhythm and money right-aligns in rows. It is somewhat uniform, though: five identical bordered panels each hold another bordered list, and the people list spends a full 57px row per bare name. On mobile, amount and Remove drop below the expense meta, left-aligned, which loses the right-aligned money column."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Buttons are short verbs (\"Add person\", \"Add expense\", \"Remove\"). Errors say what to fix (\"Enter an amount greater than $0.\", \"Ana is already on the trip. Enter a different name.\"), and empty states point to the next step. Minor issues: the people hint and the people empty state repeat the same sentence, \"A negative amount is owed by them\" is clumsy, and the decimal-places error is wordy."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required behaviours are covered:\n- Case-insensitive duplicate check.\n- Inline role=alert errors that keep the typed input and focus the bad field.\n- Draft exclusion set so new people default to checked.\n- Newest-first expenses with focus restored after removal.\n- Clear balance status words.\n- An \"Everyone is even\" settle state.\n\nThin spots: there is no way to remove a mistyped person, and the expense form is fully shown before anyone exists, with only a disabled select and a hint."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is clean and well-scoped. An IIFE holds the state, a small `el()` builder renders with textContent, amounts are parsed into integer cents via string split, and `allocate` orders by trip order with leftover cents given first. Two-pointer greedy settling guarantees at most n−1 transfers, and loaded storage is validated. Semantics are good: fieldset/legend, aria-labelledby sections, aria-invalid, and descriptive aria-labels on Remove buttons. Small blemishes are one inline style and the removed outline on focusable h2s."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result is restrained and plainly built against this brand. Errors use Harbour on Sailcloth rather than red, \"owes\" stays neutral, and the button hover moves to Harbour rather than a tint of Signal. The stack of same-weight panels is a little template-like, but nothing reads as default AI decoration."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section is the same bordered white panel with a second bordered list nested inside, giving uniform visual weight"
+        ],
+        "brand_violations": [
+          "Input and select borders use Fog (#5B6B75) rather than the 1px Rope border rule",
+          "Input padding of 12px horizontal is not a multiple of 8px",
+          "`h2:focus{outline:none}` hides the focus ring on the Expenses heading when it receives focus after a removal"
+        ],
+        "best_detail": "Owing is treated as normal throughout: negative balances are Harbour with a minus sign plus an \"owes\" label, and the validation message box uses Harbour on Sailcloth instead of any red.",
+        "worst_detail": "The people list renders each name as a full-height bordered row inside an already-bordered panel, wasting space and repeating the hint sentence in the empty state."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

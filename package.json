@@ -1,0 +1,36 @@
+{
+  "name": "effort-bench",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Run one web-app prompt across Claude models and effort levels, check and judge the results, and compare them side by side.",
+  "type": "module",
+  "bin": {
+    "bench": "src/cli.mjs"
+  },
+  "scripts": {
+    "plan": "node src/cli.mjs plan",
+    "pilot": "node src/cli.mjs run --runs 1",
+    "run": "node src/cli.mjs run",
+    "collect": "node src/cli.mjs collect",
+    "check": "node src/cli.mjs check",
+    "judge": "node src/cli.mjs judge",
+    "report": "node src/cli.mjs report",
+    "all": "node src/cli.mjs all",
+    "view": "node src/cli.mjs view",
+    "demo": "node src/cli.mjs demo"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.0.0",
+    "@axe-core/playwright": "^4.14.0",
+    "playwright": "^1.64.1",
+    "yaml": "^2.8.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Larkwin/effort-bench"
+  }
+}

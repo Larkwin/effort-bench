@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:39:07.093Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 16045,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2519,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1100
+        }
+      },
+      "cost_usd": 0.11456,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour navy anchors the header, headings, primary buttons and selected chips, with Signal kept to small accents: the logo dash, the transfer arrows and Remove. Warm sand (#F6F2EA) and paper (#FFFDF9) neutrals plus Fraunces/Public Sans read as steady and trustworthy rather than bank-like or playful. The one misreading is negative balances in signal-dark red (#A33A22) against green for positive, which frames owing as an alarm despite the neutral 'owes' label."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "Typographic hierarchy is clear: Fraunces 650 headings, muted subheads, tabular-nums amounts, consistent 12px cards and 1.25rem gaps, and mobile stacks cleanly with no overflow. On desktop the two-column grid stretches the People card into a large empty void beside the taller expense form, and Settle up has similar dead space. In the full-width Expenses card, amounts sit far from their descriptions, and the ghost Remove buttons' padding leaves them slightly out of line with the amounts above."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain, calm and specific: 'Log what you spent together. See who pays whom.', 'What you paid minus your share. Positive means you're owed.', 'Everyone is even. Nothing to settle.' Errors are actionable without blame, for example 'is already on the trip. Try a different name, like adding an initial.' and 'Enter the amount as a number with up to 2 decimal places, like 42.50.' The voice slips in a few places: the balances subhead switches between 'you' and third-person labels ('is owed'/'owes'), and 'Newest first.' as a subhead is thin."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has a useful empty state, the payer select shows 'Add people first', inline errors keep what was typed and move focus to the offending field, the split selection survives re-renders, and a removed expense sends focus to the Expenses heading. The settle-up list (Chloe → Ana $33.33) is easy to act on, and amount parsing tolerates '$' and commas. There is no confirmation feedback after adding beyond the list updating, people can't be removed or corrected, and the expenses list sits far from the add form on mobile."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled in integer cents: parsing builds cents by string split rather than float multiplication, leftover cents go one each in trip order via state.people.filter, and greedy creditor/debtor matching guarantees at most n−1 transfers. The markup is semantic (fieldset/legend for the split, labelled sections, aria-invalid, and an aria-label on Remove that names the expense). Weak spots: the minified one-letter style hurts readability, the people empty state sets redundant inline styles that duplicate .empty, and errors carry both role=alert and an aria-live container."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The restrained palette, the small Signal dash beside the wordmark, the warm paper-on-sand surfaces and the serif/sans pairing feel chosen for Even Keel rather than defaulted. The layout itself is a fairly stock two-column card grid with pill chips, which keeps it from feeling fully authored."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Generic equal-weight card grid in which every section gets the same bordered rounded card, regardless of importance",
+          "Pill-shaped (999px radius) chips used for both the people list and the split checkboxes",
+          "Minified one-letter class names and redundant inline style assignments on the people empty state"
+        ],
+        "brand_violations": [
+          "Negative balances shown in red-orange (--owes:#A33A22), with green for positive, which frames owing as a problem against the principle that owing money between friends is normal"
+        ],
+        "best_detail": "Signal is held to tiny accents (the wordmark dash, transfer arrows, Remove links) while Harbour carries the structure, which gives a calm, confident palette that is clearly built around the two anchors.",
+        "worst_detail": "On desktop the People card stretches to match the expense form, leaving three small name chips floating above a large empty block that makes the top row look unbalanced."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

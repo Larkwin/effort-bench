@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.119Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 28619,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2562,
+        "output_tokens_details": {
+          "thinking_tokens": 1175
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.082858,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the headings, the people avatars, the Add person button and the dark Settle up card. Signal #C2462B is held back for the primary Add expense button, the short rule under the header, the focus rings and the transfer arrows. Source Serif 4 with IBM Plex Sans on a warm paper background (#F4F2ED) reads steady and trustworthy, not like a bank or a game. The principle shows in the visuals as well as the copy: 'owes' balances use a calm harbour tag and harbour amounts rather than red, under the line 'Owing a bit is normal — it just means a friend covered you.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif section titles, serif tabular amounts right-aligned, quiet meta lines in --ink-2, and consistent 20/28px gaps between cards. Some spots are uneven. The quiet 'Remove' button sits inset from the amount's right edge because of its 10px padding, and the taller side column leaves a gap above the split line. In the desktop full-page capture the sticky aside drops about 300px, leaving an empty column beside the People card."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, specific and speak to 'you': 'No one's here yet. Add everyone who's sharing costs on this trip — start with yourself.' and 'Untick anyone who sat this one out.' Errors tell you how to fix the problem: 'Ana is already on the trip. Names need to be unique — try adding a last initial.' and 'Use at most two decimal places — cents, like 48.75.' Buttons are verbs, the settle note '2 transfers and everyone's even.' is calm, and there are no exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Each panel has a distinct empty state, and Settle up has three variants (no people, no expenses, all even). Validation keeps what the user typed, sets aria-invalid and moves focus to the field. Removing an expense offers an inline Undo, removing a person is blocked while they are on an expense, and 'Start a new trip' asks for confirmation. Expenses show the per-person cents split, balances show paid and share, and mobile stacks cleanly with a full-width primary button."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "parseAmount works on strings and returns integer cents, rejecting more than two decimals, negatives and exponent notation. sharesFor hands leftover cents out in trip order using splitInTripOrder. The greedy settleUp guarantees at most n−1 transfers. State loading is defensive and validates stored data, the tab-sync storage listener is a nice touch, and markup is semantic (fieldset/legend, labels, aria-live status, a skip link, label-level :has focus rings). A small el() helper keeps rendering readable, and the CSS variables are all used."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work looks deliberate: a sailboat-on-keel mark, the red-to-tint rule echoing a waterline, Signal held back for one primary action, and a dark Settle up card as the destination. It stays a little template-like, with every section in a rounded white card and pill-shaped chips, checkboxes and count badges throughout."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Pill shapes used everywhere (border-radius 999px on person chips, split checkboxes, count badges and status tags)",
+          "Count badges ('0', '3') beside the People and Expenses headings that add little",
+          "Banner section comments in the JS (/* ---------- State ---------- */)",
+          "Every section wrapped in an identical rounded bordered card"
+        ],
+        "brand_violations": [],
+        "best_detail": "Debts are shown in calm harbour navy with a neutral 'owes' tag instead of alarm red, paired with 'Owing a bit is normal — it just means a friend covered you', which puts the brand principle into both the visuals and the copy.",
+        "worst_detail": "The sticky, internally scrolling sidebar can leave a large empty gap beside the People card and pull Balances out of alignment with the main column, as the desktop capture shows."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

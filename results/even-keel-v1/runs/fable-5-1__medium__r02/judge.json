@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.310Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18292,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2540,
+        "output_tokens_details": {
+          "thinking_tokens": 1251
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.061984,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Every colour comes from the seven palette variables. Fraunces 600 is used for the h1/h2 and IBM Plex Sans 400/500 for everything else. The 24×3px Signal rule sits beside the Harbour wordmark, and the focus ring is a 2px Harbour outline with a 2px offset. Negatives are Harbour with a minus sign, positives Kelp, there are no shadows, and radius is 6px throughout. The only slips are off-grid spacing values (12px h1 gap, 12px input padding and secondary button padding, 36px tagline indent)."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif panel headings, small 500-weight labels, a two-column amount/payer grid, and right-aligned tabular amounts in expenses, balances and transfers. The People row is uneven, though. `.row .field { flex: 1 1 200px }` also applies to the button wrapper, so the name input stops at half width and leaves dead space after the button. The 'Split between' legend also sits a couple of pixels off the label column."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific. Examples: 'Enter an amount greater than $0 with at most two decimal places, like 12.50.', 'Someone named \"Ana\" is already on the trip. Choose a different name.', 'Log the first thing someone paid for.' and 'Everyone is even. Nothing to settle.' Buttons are sentence-case verbs and the balance labels 'is owed' / 'owes' / 'is even' are calm. There are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has an empty state, and the expenses empty copy changes depending on whether people exist. Validation messages are inline and keep the user's input. Checkboxes default to all and new people get auto-checked. Focus returns to the description field after adding or removing an expense. The settle-up list is readable and easy to act on, and mobile stacks cleanly. One small weakness: the empty Expenses panel shows two stacked hint lines that say nearly the same thing."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The IIFE is small and clean, with an `el` helper, defensive localStorage loading, and string-based cents parsing that avoids float error. Leftover cents are allocated in trip order and the greedy settle-up produces at most n−1 transfers. Semantics are solid: fieldset/legend, labelled inputs, aria-labelled sections, aria-label on the Remove buttons. Minor issues: an inline style on the expense list, role=alert nested inside an aria-live region (likely a double announcement), and a stale error on one form isn't cleared when the other form is used."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as a restrained, deliberate tool. The Harbour-bordered error box avoids red, Kelp appears only on the positive amount, and the wordmark is quiet with no hero. The stack of four identical white panels is somewhat template-like, but it suits the brand's 'well-made tool' tone."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four identical full-width panels stacked with uniform weight, a slightly template-like structure"
+        ],
+        "brand_violations": [
+          "Spacing off the 8px grid: 12px gap between wordmark rule and text, 12px input/button padding, 36px tagline left margin"
+        ],
+        "best_detail": "Balances pair each amount with a plain Fog-coloured 'is owed' / 'owes' label, and debts stay in Harbour while credit is in Kelp, which makes owing feel normal exactly as the brand asks.",
+        "worst_detail": "The People add row lets the button's wrapper flex-grow, so on desktop the name input stops at half width and leaves an awkward empty gap beside the Add person button."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

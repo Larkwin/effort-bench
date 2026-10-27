@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.127Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 16359,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2547,
+        "output_tokens_details": {
+          "thinking_tokens": 1169
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.058188,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header band, headings and primary button. Signal #C2462B is held back for the 'Add expense' CTA, the transfer-row left rule and the focus ring, all on a warm sand/paper ground (#F6F2EA/#FFFDF9). Fraunces headings with Public Sans body read steady and trustworthy rather than bank-like, and the footer line 'Owing a friend is normal. This just keeps it clear.' states the principle outright. The one slip is colouring every negative balance in Signal-dark red (#A33A22), which leans toward 'debt as warning'."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The header band that cards overlap via negative margin gives a calm, anchored composition. Desktop uses a 5fr/7fr split with Settle up first, and spacing and type scale are consistent. Tabular numerals right-align amounts cleanly in balances and transfers. On mobile the expense rows get cramped: the meta line wraps to 'Chloe paid · split / between everyone' beside the amount and Remove columns. The Remove button also sits visibly lower than the amount baseline."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific. The intro reads 'Add who's on the trip, log what each of you paid, and see the few transfers that leave everyone even.' Other examples are 'Split equally, to the cent.', 'What you paid minus your share.' and the duplicate error '\"Ana\" is already on the trip. Try adding a last initial.' Empty states say what will happen next. The 'No one' button label is slightly awkward, and 'That amount is too large.' doesn't say what the limit is."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has an empty state, including a zero-transfer 'Everyone is even. Nothing to settle.' Validation errors are inline with role=alert and focus moves to the offending field. Typed values are kept on error, the split selection survives adding a person, and Everyone/No one shortcuts are provided. Delete moves focus to the next Remove button. Settle up sits at the top of the right column with clear 'Chloe pays Ana $33.33' rows, and a trip total is shown. Remove has no undo, and people can't be edited or removed."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Amounts are parsed by string into integer cents, with no float math. shares() hands leftover cents out in trip order, and the greedy creditor/debtor matching guarantees at most n−1 transfers. Output is escaped consistently. Fieldset/legend, explicit labels, aria-describedby and focus-visible outlines are in place, and all QA hooks match the brief. Weak spots: the .col rule is duplicated inside the media query, inline styles are injected in render(), and role=alert sits inside an aria-live region, which double-announces."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette, serif/sans pairing, keel-and-waterline logo mark and restrained use of Signal feel chosen for this brand rather than defaulted. Ordering Settle up above Balances shows product thinking. Some pieces remain template-like: rounded cards for every section, pill chips for names, and identical dashed sand boxes for every empty state."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Identical dashed-border sand boxes used for every empty state across all five panels",
+          "Pill-shaped (border-radius:999px) name chips in the People list",
+          "Redundant duplicated .col grid rule inside the 880px media query"
+        ],
+        "brand_violations": [
+          "Negative balances shown in Signal-dark red (#A33A22), which frames owing as a warning, slightly against 'owing money between friends is normal, not a problem'"
+        ],
+        "best_detail": "The duplicate-name error '\"Ana\" is already on the trip. Try adding a last initial.' is calm, specific and tells you exactly what to do next.",
+        "worst_detail": "On mobile the expense rows squeeze the description meta into a narrow column beside the amount and a misaligned Remove button, so the text wraps awkwardly."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

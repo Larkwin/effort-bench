@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.123Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 27609,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2513,
+        "output_tokens_details": {
+          "thinking_tokens": 1165
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.080348,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "The Harbour masthead with a 4px Signal rule is solid, and Signal is kept for primary actions. The warm paper background (#F4F1EA) and a muted tide green (#1D6B5F) build the palette out around both anchors. Newsreader serif with Hanken Grotesk reads steady and trustworthy, neither playful nor banking. Debtors are shown in navy rather than red ('OWES $13.33'), and the Balances card says 'Owing is normal between friends; this is just where things stand', so the principle shows in both colour and copy."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear. Serif card titles with muted subheads, tabular-nums amounts and a dark Settle up card give the key output weight. The diverging balance bars with a centre tick are a well-made touch. Spacing is consistent at both widths and the 360–390px layout stacks cleanly with a full-width Add expense button. Minor issues: the always-visible grey preview box adds bulk before an amount is typed, and the right column leaves a large empty area on desktop."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and use 'you'. Examples: 'Nobody’s on the trip yet. Start with your own name…', 'Add a description, like “Groceries” or “Ferry tickets”.', '2 transfers get everyone back to even.', 'You’re all square.' Buttons are verbs ('Add person', 'Remove', 'Undo'). The duplicate-name error ('…names match even when the capitals differ. Add an initial to tell people apart.') and the cents hint are a little wordy and technical."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every list has its own empty state. Errors are per-field, set aria-invalid, move focus to the field and keep the typed values. Other touches: a live share preview, Select everyone / Clear, a 'plus 1¢ for Ana' remainder line on each expense, and inline Undo after removal. People can be removed until they are part of an expense. Settle-up rows are large and easy to act on, and mobile reorders Settle up above Balances after the form."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "State and rendering are cleanly separated. Shares use integer cents throughout, with remainder cents allocated in join order via state.people.filter. parseAmount is robust (commas, $ prefix, decimals). load() validates stored data, and settle() is a greedy match that stays within n−1 transfers. Semantics are good: role=group, live regions, sr-only 'pays' inside transfers. Weak spots: a dead `body.has-undo` rule, a few inline styles and !important overrides, and banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Choices feel deliberate and specific to the brand: the keel-and-waterline logo, navy for owing instead of alarm red, the serif/grotesk pairing, and a dark ledger-like Settle up panel. A few template habits remain: masthead stat tiles, pastel initial avatars (one lavender), and a shadowed card for every section."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Header stat tiles (TRIP TOTAL / PEOPLE / EXPENSES) with large numbers that add little",
+          "Pastel initial-avatar circles on the people chips, including a lavender #D9D6EA outside the brand palette",
+          "Box-shadow applied uniformly to every card",
+          "Banner comments in CSS and JS ('/* ---------- Masthead ---------- */')",
+          "Unused CSS rule `body.has-undo { padding-bottom: 0; }`"
+        ],
+        "brand_violations": [],
+        "best_detail": "Balances show debtors in calm Harbour navy with a neutral 'OWES' label and a centred diverging bar, so owing reads as a normal position rather than an error.",
+        "worst_detail": "The grey 'Enter an amount to preview each person’s share.' box is always shown, which adds an inert block of placeholder chrome to an already long expense form."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

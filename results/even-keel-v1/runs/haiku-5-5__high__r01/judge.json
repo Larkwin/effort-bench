@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:35:42.715Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18571,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2256,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 892
+        }
+      },
+      "cost_usd": 0.119404,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is limited to the seven tokens, and Signal is used only on primary buttons and the 24×3px wordmark rule. Fraunces 600 is used for headings and IBM Plex Sans 400/500 for body text, with sizes from the 14/16/20/28/40 scale. Panels have 6px radius and 1px Rope borders, with no shadows. The focus ring is 2px Harbour with a 2px offset, money uses tabular-nums, and positive balances use Kelp while negatives use Harbour. Small departures: 12px padding and gaps, and inline style overrides."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "The single column is calm, with a clear wordmark-to-panel hierarchy that holds at 390px. Some spots are uneven. The 'Add people above before logging an expense.' note sits directly against the Description label with no bottom margin. The 'Split between' legend floats over empty space. The Settle up panel is an empty box with no text. Name rows in the people list are sparse and widely spaced."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Buttons are short verbs: 'Add person', 'Add expense', 'Remove'. Error messages say what to fix: 'Enter an amount greater than $0.', 'Enter the amount with up to 2 decimal places, such as 42.50.', and a duplicate-name message that quotes the name. Empty states are single next-step sentences. The 'Ana and ana count as the same person' hint reads a little oddly, and the stale 'Add people above…' note stays visible after people are added because rendering fails."
+        },
+        "ux_completeness": {
+          "score": 1,
+          "evidence": "`renderSplitOptions` and `onAddExpense` call `$('expense-split')`, but that div has only a data-testid and no id. `box.querySelectorAll` therefore throws, and `render()` halts after the payer select is filled. As a result, the split checkboxes never appear and no expense can be added (screenshot 2 still shows 'Coffee'/'10' in the form). Balances, Settle up and the empty-state toggles never update, so the core flow does not work at all."
+        },
+        "code_quality": {
+          "score": 2,
+          "evidence": "The structure is otherwise tidy. Parsing uses integer cents, the share function assigns leftover cents in trip order, greedy settlement is correct, output is escaped, loadState is defensive, and the markup is semantic, with a fieldset/legend, aria-invalid and role=alert. However, one id/testid mismatch throws on every render and breaks the app. Other weak spots: inline style attributes on fields, a `.hidden-on-load` class that is never used, and a `:focus` rule where `:focus-visible` would be better."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The design reads as deliberate and restrained. The wordmark rule is built to spec, negative balances are styled as a calm Harbour status ('Owes'/'Is owed'/'Even'), the error box uses a Harbour border instead of red, and nothing is decorative. The template is still generic stacked panels, and the broken runtime state undercuts that polish."
+        },
+        "overall": 3,
+        "ai_tells": [
+          "Unused CSS rule `.empty.hidden-on-load` left in the stylesheet",
+          "Every section rendered as an identical bordered panel with uniform weight, including an empty Settle up box"
+        ],
+        "brand_violations": [
+          "Spacing values of 12px (wordmark gap on mobile, input horizontal padding, error padding) fall outside the 8px/4px multiples rule",
+          "Settle up panel shows no empty state on load (transfers-empty is blank because rendering throws), which breaks the 'useful empty states' requirement"
+        ],
+        "best_detail": "Negative balances get a calm 'Owes' status in Harbour with tabular figures, while 'Is owed' gets Kelp, which is exactly the brand's 'owing is normal' stance.",
+        "worst_detail": "Looking up the split container with `getElementById('expense-split')` when it has no id crashes every render, so checkboxes, expenses, balances and settle-up never work."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 1,
+    "code_quality": 2,
+    "directed_design": 4,
+    "overall": 3
+  }
+}

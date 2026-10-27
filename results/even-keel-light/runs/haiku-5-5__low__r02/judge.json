@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:38:36.409Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18766,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2500,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1032
+        }
+      },
+      "cost_usd": 0.125064,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The brand anchors are used with purpose. Harbour #1F3A4D fills the header and the primary 'Add person' button. Signal #C2462B appears as a 4px header rule, the 'Add expense' button and the left border of each transfer, all on a warm paper #F4F1EB background. Fraunces headings with Figtree body text read as steady and trustworthy rather than bank-like. Two things undercut it: 'owes' amounts are coloured in alarm red (signal-ink), and the avatar colours are generated from a hash of the name rather than taken from the palette."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The two-column grid (1fr / 1.25fr) gives clear hierarchy, and the mobile stack is clean with no overflow. Amounts use tabular figures in Fraunces and align right, and rows have consistent dividers and 44px touch targets. Some parts are uneven. Every section is an identically weighted white card. The stacked 'Remove' buttons make each desktop expense row tall. In the empty state the 'Paid by' select is blank but still looks active."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Most copy is plain and talks to the user well: 'No one is on the trip yet. Add yourself first, then everyone else.', 'Names must be unique, and capitals don't count.', and errors like 'Enter the amount as a number with at most 2 decimal places, like 42.50.' Two lines slip. The Balances hint explains 'Positive… negative' while the list shows unsigned amounts with 'is owed/owes'. 'The fewest payments' overclaims for a greedy algorithm, and 'Nobody needs to pay more than this' is slightly odd."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a useful empty state. Validation shows inline messages and keeps what the user typed. Focus returns sensibly after adding or removing an item. Unticked split choices survive re-renders, an 'Everyone is even' state exists, and Settle up is laid out as easy-to-scan transfer cards. Gaps are minor: there is no way to remove a person, no undo after removing an expense, and the payer select stays enabled but empty before anyone is added."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Structure is clean: an IIFE, parsing straight to integer cents with a regex, and leftover cents assigned in trip order. Greedy settlement guarantees at most n−1 transfers. Rendering is escaped, delete uses event delegation, and the markup is semantic (fieldset/legend, aria-labelledby, role=alert). Small issues: an unused `i` parameter in the checkbox map, --focus duplicating --signal, and the expense error is never tied to its inputs with aria-describedby. Inline styles are injected into the empty-state markup."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The navy header with a signal-coloured rule, the warm paper ground, the serif money figures and the left-accented transfer cards feel chosen for this brand. Still, the uniform rounded cards, dashed empty boxes and pill checkboxes come from a familiar template. The random-hue avatars look like defaults rather than design decisions."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Hash-generated HSL avatar colours (olive, maroon, green) that sit outside the Harbour/Signal palette",
+          "Every section wrapped in an identical 14px-radius white card with no hierarchy between primary and secondary panels",
+          "Pill-shaped (999px radius) checkbox chips",
+          "Dashed-border empty-state boxes repeated in every panel"
+        ],
+        "brand_violations": [
+          "'Owing money is normal, not a problem': negative balances ('Ben owes $13.33') are coloured in alarm red, var(--signal-ink), while positive balances get a reassuring green, so owing reads as bad",
+          "The palette is not fully built around the anchors: avatar colours come from hsl(hash 38% 38%) and are unrelated to Harbour or Signal"
+        ],
+        "best_detail": "Each transfer is shown as a card with a Signal left border, bold names, a quiet arrow and a right-aligned Fraunces amount, which makes the settle-up list immediately actionable.",
+        "worst_detail": "Colouring every 'owes' amount in red with 'is owed' in green directly contradicts the brand principle that owing between friends is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

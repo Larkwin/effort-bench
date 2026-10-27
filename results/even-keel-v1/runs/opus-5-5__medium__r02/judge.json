@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.313Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20830,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2111,
+        "output_tokens_details": {
+          "thinking_tokens": 802
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.06277,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is limited to the seven brand hex values, and the colour roles are correct. Signal appears only on primary buttons and the 24×3px wordmark rule, Kelp marks 'is owed', and negatives are in Harbour. Fraunces 600 is used for headings, Plex 400/500 for everything else, money uses tabular-nums, radius is 6px and the focus ring is 2px Harbour with a 2px offset. Small deviations: input and select borders use Fog instead of Rope, and the 'Logged expenses' h3 is set in Plex Sans rather than Fraunces."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a 40px wordmark, 20px Fraunces panel headings, 14px Fog metadata, and a steady 8/16/24 rhythm across panels. Mobile reflows cleanly, with the grid collapsing and amount and Remove sharing one row. On desktop, stacking the Remove button under the amount makes each expense row tall and slightly lopsided. The 'Split between' legend sits about 2px off the other labels."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific. Errors say what to fix: 'Enter an amount greater than $0.', 'Ana is already on the trip. Enter a different name.' Empty states change with context ('Add an expense above to start tracking who paid.'). Weak spots are the balance labels: 'owes -$13.33' is a double negative, and 'even at $0.00' is slightly awkward."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All the required behaviours are present. Every field is validated with inline messages, typed values are kept on error, and focus moves to the first invalid field. Split defaults to everyone and resets after each add, focus is managed sensibly after Remove, and an aria-live region announces actions. Empty states are contextual, and the settle-up list is readable as 'Chloe pays Ana $33.33'. There is no way to remove a person or undo a removed expense, but the brief does not require either."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled in integer cents throughout. parseCents is strict, leftover cents are assigned in trip order, and the greedy creditor/debtor settle produces at most n−1 transfers. localStorage loading is defensive and sanitised. The markup is semantic (fieldset and legend, labels, aria-invalid and aria-describedby wiring). Minor smells: removeExpense collects an unused `buttons` array and then calls `void buttons`, and the error-slot clearing is slightly repetitive."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The interface is restrained and specific to the brand. It has no hero, icons, shadows or toasts, the people list is a quiet set of Rope-bordered chips, and errors use a Harbour left rule instead of red, which honours 'owing isn't an error'. Overall it reads as deliberate rather than templated, though the panel stack itself is a conventional layout."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Banner section comments in the JS ('/* ---------- Rendering ---------- */')",
+          "Dead code in removeExpense: an unused `buttons` array suppressed with `void buttons;`"
+        ],
+        "brand_violations": [
+          "Input and select borders use Fog (#5B6B75) instead of the specified 1px Rope borders",
+          "The 'Logged expenses' subheading is set in IBM Plex Sans 500 rather than Fraunces 600 for headings"
+        ],
+        "best_detail": "Validation errors are styled with a Harbour left rule and medium weight instead of red, which keeps error states calm and stays inside the palette's colour roles.",
+        "worst_detail": "Balance labels pair a verb with a signed amount ('owes -$13.33'), so the sentence reads as a double negative and undermines the plain-language clarity the brand asks for."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

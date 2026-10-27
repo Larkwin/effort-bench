@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:38:37.617Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20009,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2455,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1025
+        }
+      },
+      "cost_usd": 0.129136,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header and headings. Signal #C2462B appears as a 4px underline on the header and on the primary buttons, set on a warm paper #F5F2EC that feels steady rather than bank-like. Fraunces with Public Sans suits 'quietly confident', and the Settle up card states 'Owing each other is normal.' The main misstep is colouring every 'owes' amount in Signal-deep red (#A8381F) against green for 'is owed', which frames debt as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear and consistent: serif h2s in Harbour, a muted lede, then content. Rows use 1px #DDD6CB dividers, tabular numerals and right-aligned amounts, and spacing follows a steady 14–20px rhythm. Weak spots: on empty desktop the People card leaves a large void beside the taller expense form. On mobile the 'Add person' button wraps to a lone half-width button, and each expense amount sits detached above its Remove button, far from the description."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "The strings are plain and specific. Examples: 'No one yet. Add the people on this trip, starting with you.', 'What was it for?', '\"Ana\" is already on the trip. Try a different name.' and 'Enter an amount greater than $0 with at most two decimal places, like 42.50.' Buttons are verbs ('Add person', 'Add expense', 'Remove'). The 'awkward maths' tagline is gently on-voice. 'Owing each other is normal' is a little on-the-nose, and the balances lede ('Positive means owed to them') reads like a spec rather than speaking to 'you'."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required state is present. Contextual empty states switch to 'Everyone is even' once people exist. Inline errors use role=alert, set aria-invalid, keep the user's input and move focus to the field at fault. Per-expense share breakdowns, a running total and numbered settle-up steps make the lists easy to act on. Thin spots: Remove deletes instantly with no undo or confirmation, and there is no way to remove or rename a person."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The logic is correct and readable. Amounts are parsed to integer cents with a strict regex, and splitShares hands leftover cents out in trip order. The greedy settle is bounded at n−1 transfers, and all output is escaped. Semantics are solid: fieldset/legend for the split, label-wrapped checkboxes, focus-visible outlines and focus returned to the Expenses heading after a delete. Weaknesses: the page has no h1 (the brand is a <p>), --harbour-ink is unused, .note duplicates .lede, and load() doesn't dedupe names or validate expense ids."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Several choices feel deliberate: the Signal stripe under the Harbour header, the paper background, the Fraunces/Public Sans pairing, 'Paid by' and share lines in muted ink, and harbour-tinted chips for selected people. It is restrained, with no gradients, emoji or shadows. The overall structure is still a fairly standard grid of five rounded white cards, so it reads as competent product UI more than a distinctive one."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill-shaped split chips (border-radius:999px) next to 8px-radius buttons",
+          "Banner section comments in the JS (/* ---------- storage ---------- */)",
+          "Unused CSS variable --harbour-ink",
+          "Every section boxed in an identical rounded white card"
+        ],
+        "brand_violations": [
+          "'Owes' balance amounts are styled in warning red (.neg = #A8381F) opposite green for 'is owed', treating owing as a problem despite the principle that it is normal"
+        ],
+        "best_detail": "Each expense lists every person's exact share (e.g. 'Ana $3.34 · Ben $3.33 · Chloe $3.33'), which makes the leftover-cent rule visible and the maths honestly checkable.",
+        "worst_detail": "Colouring debts red in the Balances list undercuts the brand's core principle that owing money between friends is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,775 @@
+{
+  "experiment": "even-keel-light",
+  "votes": [
+    {
+      "a": "haiku-5-5__low__r01",
+      "b": "sonnet-5-5__xhigh__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T01:46:56.827Z"
+    },
+    {
+      "a": "opus-5-5__low__r01",
+      "b": "haiku-5-5__low__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T01:47:16.651Z"
+    },
+    {
+      "a": "opus-5-5__low__r01",
+      "b": "sonnet-5-5__high__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T01:47:36.683Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r01",
+      "b": "fable-5-1__medium__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T01:48:43.480Z"
+    },
+    {
+      "a": "haiku-5-5__low__r01",
+      "b": "opus-5-5__medium__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T01:58:28.295Z"
+    },
+    {
+      "a": "sonnet-5-5__medium__r01",
+      "b": "fable-5-1__high__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T01:58:39.544Z"
+    },
+    {
+      "a": "haiku-5-5__xhigh__r01",
+      "b": "sonnet-5-5__high__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T01:59:48.093Z"
+    },
+    {
+      "a": "opus-5-5__medium__r01",
+      "b": "fable-5-1__high__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T01:59:57.310Z"
+    },
+    {
+      "a": "haiku-5-5__xhigh__r01",
+      "b": "opus-5-5__medium__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:00:29.262Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r01",
+      "b": "haiku-5-5__medium__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T02:00:44.621Z"
+    },
+    {
+      "a": "haiku-5-5__medium__r01",
+      "b": "fable-5-1__low__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:00:52.661Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r01",
+      "b": "haiku-5-5__low__r01",
+      "winner": "tie",
+      "pool": "any",
+      "at": "2026-10-22T02:01:09.470Z"
+    },
+    {
+      "a": "sonnet-5-5__xhigh__r01",
+      "b": "sonnet-5-5__high__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T02:01:30.357Z"
+    },
+    {
+      "a": "haiku-5-5__low__r01",
+      "b": "sonnet-5-5__medium__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T02:02:25.285Z"
+    },
+    {
+      "a": "sonnet-5-5__medium__r01",
+      "b": "fable-5-1__xhigh__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:02:39.836Z"
+    },
+    {
+      "a": "fable-5-1__low__r01",
+      "b": "opus-5-5__low__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:03:07.484Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r01",
+      "b": "opus-5-5__low__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:03:17.668Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r01",
+      "b": "sonnet-5-5__low__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T02:03:27.404Z"
+    },
+    {
+      "a": "sonnet-5-5__low__r01",
+      "b": "opus-5-5__high__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:03:36.196Z"
+    },
+    {
+      "a": "fable-5-1__high__r01",
+      "b": "sonnet-5-5__low__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T02:03:42.493Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r01",
+      "b": "opus-5-5__medium__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:04:18.836Z"
+    },
+    {
+      "a": "haiku-5-5__high__r01",
+      "b": "sonnet-5-5__xhigh__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T02:04:35.140Z"
+    },
+    {
+      "a": "sonnet-5-5__xhigh__r01",
+      "b": "haiku-5-5__low__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T02:06:19.011Z"
+    },
+    {
+      "a": "opus-5-5__medium__r01",
+      "b": "haiku-5-5__xhigh__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:19:58.956Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r01",
+      "b": "sonnet-5-5__xhigh__r02",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:20:10.093Z"
+    },
+    {
+      "a": "sonnet-5-5__xhigh__r01",
+      "b": "haiku-5-5__xhigh__r02",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:20:24.114Z"
+    },
+    {
+      "a": "fable-5-1__low__r01",
+      "b": "haiku-5-5__low__r02",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:20:32.543Z"
+    },
+    {
+      "a": "fable-5-1__high__r02",
+      "b": "opus-5-5__low__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:20:46.526Z"
+    },
+    {
+      "a": "fable-5-1__medium__r02",
+      "b": "sonnet-5-5__high__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:21:12.149Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r01",
+      "b": "fable-5-1__medium__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:21:25.247Z"
+    },
+    {
+      "a": "opus-5-5__high__r02",
+      "b": "haiku-5-5__medium__r02",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:21:33.982Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r01",
+      "b": "sonnet-5-5__low__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:21:46.279Z"
+    },
+    {
+      "a": "opus-5-5__low__r01",
+      "b": "sonnet-5-5__high__r02",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:22:04.978Z"
+    },
+    {
+      "a": "sonnet-5-5__low__r01",
+      "b": "haiku-5-5__medium__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:22:13.351Z"
+    },
+    {
+      "a": "haiku-5-5__low__r02",
+      "b": "fable-5-1__medium__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:22:30.661Z"
+    },
+    {
+      "a": "fable-5-1__high__r02",
+      "b": "sonnet-5-5__xhigh__r01",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:22:39.503Z"
+    },
+    {
+      "a": "fable-5-1__medium__r01",
+      "b": "haiku-5-5__xhigh__r02",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:22:47.350Z"
+    },
+    {
+      "a": "fable-5-1__low__r01",
+      "b": "fable-5-1__medium__r02",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:23:06.911Z"
+    },
+    {
+      "a": "haiku-5-5__low__r01",
+      "b": "opus-5-5__high__r02",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:23:14.263Z"
+    },
+    {
+      "a": "sonnet-5-5__medium__r01",
+      "b": "fable-5-1__medium__r02",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:23:20.703Z"
+    },
+    {
+      "a": "fable-5-1__medium__r02",
+      "b": "sonnet-5-5__low__r02",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:23:25.893Z"
+    },
+    {
+      "a": "opus-5-5__medium__r02",
+      "b": "sonnet-5-5__high__r02",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:23:33.190Z"
+    },
+    {
+      "a": "fable-5-1__medium__r02",
+      "b": "sonnet-5-5__medium__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:23:47.039Z"
+    },
+    {
+      "a": "opus-5-5__low__r02",
+      "b": "fable-5-1__low__r02",
+      "winner": "b",
+      "pool": "any",
+      "at": "2026-10-22T04:23:55.888Z"
+    },
+    {
+      "a": "fable-5-1__high__r01",
+      "b": "opus-5-5__medium__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:24:08.827Z"
+    },
+    {
+      "a": "fable-5-1__high__r01",
+      "b": "fable-5-1__xhigh__r01",
+      "winner": "a",
+      "pool": "any",
+      "at": "2026-10-22T04:24:23.805Z"
+    },
+    {
+      "a": "fable-5-1__medium__r04",
+      "b": "fable-5-1__xhigh__r04",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:25:28.814Z"
+    },
+    {
+      "a": "opus-5-5__xhigh__r01",
+      "b": "opus-5-5__medium__r03",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:25:48.667Z"
+    },
+    {
+      "a": "haiku-5-5__xhigh__r03",
+      "b": "haiku-5-5__medium__r02",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:26:24.396Z"
+    },
+    {
+      "a": "opus-5-5__xhigh__r04",
+      "b": "opus-5-5__high__r01",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:26:41.873Z"
+    },
+    {
+      "a": "fable-5-1__high__r02",
+      "b": "fable-5-1__low__r04",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:26:57.800Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r05",
+      "b": "sonnet-5-5__medium__r04",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:27:36.648Z"
+    },
+    {
+      "a": "opus-5-5__medium__r03",
+      "b": "opus-5-5__xhigh__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:28:12.536Z"
+    },
+    {
+      "a": "opus-5-5__xhigh__r05",
+      "b": "opus-5-5__low__r02",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:28:17.200Z"
+    },
+    {
+      "a": "sonnet-5-5__xhigh__r02",
+      "b": "sonnet-5-5__low__r02",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:28:22.920Z"
+    },
+    {
+      "a": "haiku-5-5__medium__r01",
+      "b": "haiku-5-5__xhigh__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:28:33.323Z"
+    },
+    {
+      "a": "sonnet-5-5__low__r02",
+      "b": "sonnet-5-5__xhigh__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:28:37.600Z"
+    },
+    {
+      "a": "opus-5-5__xhigh__r03",
+      "b": "opus-5-5__high__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:28:43.296Z"
+    },
+    {
+      "a": "sonnet-5-5__low__r03",
+      "b": "sonnet-5-5__high__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:28:49.514Z"
+    },
+    {
+      "a": "haiku-5-5__low__r04",
+      "b": "haiku-5-5__medium__r05",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:29:16.790Z"
+    },
+    {
+      "a": "opus-5-5__medium__r05",
+      "b": "opus-5-5__low__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:29:23.424Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r03",
+      "b": "sonnet-5-5__medium__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:29:32.682Z"
+    },
+    {
+      "a": "sonnet-5-5__low__r02",
+      "b": "sonnet-5-5__xhigh__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:29:36.568Z"
+    },
+    {
+      "a": "haiku-5-5__high__r04",
+      "b": "haiku-5-5__low__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:29:53.007Z"
+    },
+    {
+      "a": "haiku-5-5__high__r05",
+      "b": "haiku-5-5__low__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:30:11.726Z"
+    },
+    {
+      "a": "opus-5-5__xhigh__r02",
+      "b": "opus-5-5__medium__r04",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:30:34.782Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r04",
+      "b": "sonnet-5-5__xhigh__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:30:58.783Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r01",
+      "b": "fable-5-1__high__r02",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:31:28.103Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r01",
+      "b": "sonnet-5-5__low__r03",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:31:32.862Z"
+    },
+    {
+      "a": "fable-5-1__high__r03",
+      "b": "fable-5-1__medium__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:31:41.040Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r03",
+      "b": "fable-5-1__low__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:31:56.883Z"
+    },
+    {
+      "a": "fable-5-1__high__r05",
+      "b": "fable-5-1__low__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:32:16.607Z"
+    },
+    {
+      "a": "fable-5-1__low__r01",
+      "b": "fable-5-1__high__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:32:30.118Z"
+    },
+    {
+      "a": "fable-5-1__medium__r01",
+      "b": "fable-5-1__xhigh__r03",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:32:40.126Z"
+    },
+    {
+      "a": "haiku-5-5__xhigh__r03",
+      "b": "haiku-5-5__high__r03",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:32:47.271Z"
+    },
+    {
+      "a": "haiku-5-5__low__r01",
+      "b": "haiku-5-5__medium__r01",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:33:16.441Z"
+    },
+    {
+      "a": "opus-5-5__high__r01",
+      "b": "opus-5-5__xhigh__r03",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:33:30.759Z"
+    },
+    {
+      "a": "opus-5-5__xhigh__r04",
+      "b": "opus-5-5__low__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:33:40.807Z"
+    },
+    {
+      "a": "haiku-5-5__medium__r05",
+      "b": "haiku-5-5__low__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:33:50.095Z"
+    },
+    {
+      "a": "haiku-5-5__high__r04",
+      "b": "haiku-5-5__low__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:34:21.965Z"
+    },
+    {
+      "a": "fable-5-1__low__r03",
+      "b": "fable-5-1__medium__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:34:34.249Z"
+    },
+    {
+      "a": "opus-5-5__low__r03",
+      "b": "opus-5-5__medium__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:34:40.694Z"
+    },
+    {
+      "a": "opus-5-5__medium__r03",
+      "b": "opus-5-5__xhigh__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:34:57.767Z"
+    },
+    {
+      "a": "haiku-5-5__medium__r04",
+      "b": "haiku-5-5__xhigh__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:35:04.486Z"
+    },
+    {
+      "a": "opus-5-5__high__r01",
+      "b": "opus-5-5__xhigh__r05",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:35:23.095Z"
+    },
+    {
+      "a": "sonnet-5-5__xhigh__r02",
+      "b": "sonnet-5-5__low__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:35:35.270Z"
+    },
+    {
+      "a": "haiku-5-5__high__r03",
+      "b": "haiku-5-5__xhigh__r03",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:35:41.070Z"
+    },
+    {
+      "a": "fable-5-1__low__r04",
+      "b": "fable-5-1__high__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:35:52.709Z"
+    },
+    {
+      "a": "fable-5-1__low__r05",
+      "b": "fable-5-1__medium__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:36:03.634Z"
+    },
+    {
+      "a": "haiku-5-5__low__r05",
+      "b": "haiku-5-5__high__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:36:11.390Z"
+    },
+    {
+      "a": "sonnet-5-5__medium__r01",
+      "b": "sonnet-5-5__high__r05",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:36:26.434Z"
+    },
+    {
+      "a": "haiku-5-5__medium__r02",
+      "b": "haiku-5-5__low__r05",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:37:06.958Z"
+    },
+    {
+      "a": "haiku-5-5__low__r05",
+      "b": "haiku-5-5__xhigh__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:37:14.984Z"
+    },
+    {
+      "a": "opus-5-5__low__r04",
+      "b": "opus-5-5__high__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:37:19.845Z"
+    },
+    {
+      "a": "fable-5-1__medium__r02",
+      "b": "fable-5-1__high__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:37:27.596Z"
+    },
+    {
+      "a": "haiku-5-5__high__r03",
+      "b": "haiku-5-5__low__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:37:32.188Z"
+    },
+    {
+      "a": "fable-5-1__medium__r03",
+      "b": "fable-5-1__xhigh__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:37:47.717Z"
+    },
+    {
+      "a": "fable-5-1__medium__r03",
+      "b": "fable-5-1__high__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:37:55.584Z"
+    },
+    {
+      "a": "fable-5-1__medium__r02",
+      "b": "fable-5-1__high__r04",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:38:00.837Z"
+    },
+    {
+      "a": "fable-5-1__low__r05",
+      "b": "fable-5-1__medium__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:38:14.142Z"
+    },
+    {
+      "a": "opus-5-5__xhigh__r02",
+      "b": "opus-5-5__medium__r01",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:38:19.791Z"
+    },
+    {
+      "a": "haiku-5-5__high__r01",
+      "b": "haiku-5-5__low__r05",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:38:26.709Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r01",
+      "b": "fable-5-1__high__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:38:37.764Z"
+    },
+    {
+      "a": "opus-5-5__medium__r04",
+      "b": "opus-5-5__xhigh__r01",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:38:47.653Z"
+    },
+    {
+      "a": "haiku-5-5__medium__r02",
+      "b": "haiku-5-5__xhigh__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:39:08.724Z"
+    },
+    {
+      "a": "haiku-5-5__medium__r03",
+      "b": "haiku-5-5__low__r04",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:39:19.204Z"
+    },
+    {
+      "a": "sonnet-5-5__low__r03",
+      "b": "sonnet-5-5__high__r03",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:39:28.261Z"
+    },
+    {
+      "a": "sonnet-5-5__high__r03",
+      "b": "sonnet-5-5__xhigh__r01",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:39:34.628Z"
+    },
+    {
+      "a": "sonnet-5-5__xhigh__r03",
+      "b": "sonnet-5-5__high__r02",
+      "winner": "b",
+      "pool": "model",
+      "at": "2026-10-26T23:39:43.252Z"
+    },
+    {
+      "a": "fable-5-1__xhigh__r02",
+      "b": "fable-5-1__high__r03",
+      "winner": "a",
+      "pool": "model",
+      "at": "2026-10-26T23:39:51.701Z"
+    }
+  ]
+}

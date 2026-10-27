@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.072Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 25863,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1973,
+        "output_tokens_details": {
+          "thinking_tokens": 715
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.071456,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, avatars, focus rings and chips, and Signal #C2462B is held back for primary buttons, the 4px header rule and the logo hull. The palette is warm paper (#F4F0E8), sea green (#2A6B5C) and sand, and Fraunces with Instrument Sans reads steady and crafted rather than bank-like. The principle appears in the copy ('Owing each other is normal'), but debts are still coloured in Signal red against green credits, a faint owe-is-bad coding."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear throughout: serif card titles, muted help lines, right-aligned tabular amounts, and balance meters with a centre tick that make direction readable at a glance. On desktop the payer select sits lower and taller than the Amount input beside it, so that two-column row is visibly misaligned. Each expense row carries a heavy outlined Remove button, and the transfers are bordered boxes inside a card."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific and speak to you: 'Capitals don’t count, so Ana and ana are the same person.', 'Ana is already on the trip…', 'Use at most two decimal places, like 42.50.' Empty states tell you what to do next ('Start with yourself, then add everyone else.'), and the zero state is calm: 'Everyone is even. No payments needed.' There is no filler and no exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has an empty state, plus a notice when there are no people yet and a distinct all-even state. Errors keep what you typed and move focus to the field, and focus lands on a sensible place after a delete. Each expense has an expandable per-person share breakdown, and the mobile layout stacks cleanly with full-width buttons. Missing: there is no undo or confirm on Remove, and no way to mark a transfer as paid."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The script is a clean IIFE with integer-cents parsing and splitEvenly, which hands leftover cents out in trip order because it filters trip.people. It sanitises localStorage on load, escapes output, uses aria-invalid and aria-describedby on errors, and wraps the split checkboxes in a fieldset with a legend. Minor weaknesses: whole lists are rebuilt with innerHTML on every render, and clearErrors is called on every input event across the whole app."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work feels deliberate: a keel/hull logo mark, faint waterline stripes in the header, centred balance meters and a restrained warm palette that is specific to Even Keel. Some template habits remain, including uniform shadowed cards with 16px radii, pill chips and count badges, and header stat tiles."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Header stat tiles (Total spent / People / Expenses) in large serif numbers",
+          "Shadow and 16px radius on every card surface",
+          "Pill-shaped count badges and checkbox chips (border-radius 999px)",
+          "Banner-style section comments in the CSS and JS ('/* ---------- Header ---------- */')"
+        ],
+        "brand_violations": [
+          "Negative balances and the 'owes' meter bar use Signal red against a green 'owed', which leans toward framing owing as a problem despite the 'owing is normal' principle"
+        ],
+        "best_detail": "The balance meters, a centred tick with bars growing left in Signal or right in sea green, show who is owed and who owes at a glance without alarm.",
+        "worst_detail": "On desktop the 'Who paid?' select sits lower and taller than the Amount input next to it, breaking the form's otherwise careful alignment."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

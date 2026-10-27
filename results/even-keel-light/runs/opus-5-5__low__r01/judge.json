@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:47:09.326Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15892,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2546,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1150
+        }
+      },
+      "cost_usd": 0.114488,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header band, buttons and headings. Signal is held back for focus rings, transfer arrows and Remove links, and the warm sand/paper neutrals (#F6F2EA, #FFFDF9) make it feel steady rather than bank-like. Fraunces with Public Sans is a considered, trustworthy pairing, and the keel/waterline SVG mark is specific to the brand. The one misreading is negative balances in signal-dark red against green positives, which brings back a 'debt is bad' signal the principle asks to avoid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Cards overlap the navy header by -18px, the 5fr/6fr grid is balanced, and spacing is consistent (18px gaps, 14px field rhythm). Tabular-nums amounts are right-aligned, so hierarchy reads clearly at both widths. Weaker spots: the Remove link stacks awkwardly under each expense amount, the left column ends short of the right on desktop, and the Expenses card is the only one without a hint line, so its rhythm differs."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'No one yet. Start with yourself.', '“ana” is already on the trip. Try adding a last initial.', 'Enter a valid amount with at most 2 decimal places, like 42.50.' Balance labels 'owes'/'is owed' are neutral and calm. The header's 'We'll work out the fewest transfers' overclaims, since the greedy matcher is not guaranteed minimal, and the '✓' glyph in the all-even state is a small flourish."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief state is handled. There are distinct empty states per section, inline errors with role=alert that focus the offending field and keep what the user typed, preserved checkbox and payer selections across renders, and new people auto-checked. Focus returns to the description after adding, and screen readers get live announcements. Settle up sits at the top of the right column, so it is easy to act on. There is no way to remove or rename a person and no undo on expense removal, but neither is strictly required."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Amount parsing is string-based into integer cents with a regex for at most 2 decimals and a safe-integer guard. Remainder cents go out in trip order through state.people.filter, and the greedy settle yields at most n−1 transfers. Semantics are solid: fieldset/legend for the split, labels on every input, aria-describedby, aria-live, and a visually hidden 'pays' in transfers. Weak points: the CSS is minified and dense, '.col' is declared twice (once redundantly in the media query), and the plain-object maps (prevChecked, b) would misbehave for names like 'toString'."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate. There is a custom mark, a restrained palette built around the two anchors, a serif/sans pairing chosen for character, Signal limited to accents, and section order on the right that prioritises settling up. It is held back from a 5 by a few template habits: a card for every section, pill name chips, and red/green balance colouring."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill-shaped name chips (border-radius:999px) for the people list",
+          "Every section wrapped in an identical rounded card with the same border and radius",
+          "'✓' glyph prefixed to the all-even message"
+        ],
+        "brand_violations": [
+          "Negative balances coloured red (--owes:#A33A22) against green positives, which casts owing money as a problem and contradicts the 'owing is normal' principle",
+          "Header copy promises 'the fewest transfers' while the algorithm only guarantees at most n−1, which is not quite honest"
+        ],
+        "best_detail": "Signal red-orange is used sparingly, only for focus rings, transfer arrows and the waterline in the keel logo mark, so the palette stays calm and confident while still grounding the brand's warmth.",
+        "worst_detail": "Colouring debts red and credits green in the Balances list imports a bank-statement good/bad framing that works against Even Keel's principle that owing between friends is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

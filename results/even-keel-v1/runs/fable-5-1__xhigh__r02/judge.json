@@ -1,0 +1,69 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.323Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21523,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2248,
+        "output_tokens_details": {
+          "thinking_tokens": 1058
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.065526,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "All colours come from the seven palette variables. Signal is used only on `.btn-primary` and `.wordmark-rule`, errors are Harbour with weight 500, negatives show as Harbour \"-$13.33\", and positives are Kelp. Fraunces 600 is used for h1/h2 and IBM Plex 400/500 for the rest, `.money` uses tabular-nums, sizes stay at 14/16/20/28, radius is 6px throughout, there are no shadows, and the focus ring is a 2px Harbour outline with 2px offset. Primary hover uses an underline rather than an off-palette shade."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Clear hierarchy: the wordmark and tagline sit indented 32px to align with the text, panels carry Fraunces headings, and the expense rows pair a 500-weight title with Fog metadata and right-aligned tabular amounts. Mobile reflows cleanly, with Remove dropping beneath each expense. Minor unevenness: the 'is owed'/'owes' labels float rather than align in a column, and the empty-state payer select renders as a blank disabled box."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific: 'Add everyone on the trip, starting with yourself.', 'Ana is already on the trip. Enter a different name.', 'Enter an amount with at most 2 decimal places.', 'Everyone is even, so there is nothing to settle.' Buttons are short verbs ('Add person', 'Add expense', 'Remove'), everything is in sentence case, and there is no filler or exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states are contextual per panel and change with progress. Validation keeps the typed input, focuses the offending field and sets aria-invalid. Removing an expense moves focus to the next Remove button, and a polite live region announces actions. Settle-up rows read 'Chloe pays Ana $33.33'. Thin spots: the expense form stays fully exposed with a blank select before anyone is added, and people cannot be removed or edited."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "Money is handled in integer cents: parseCents is a string parser with no float maths, and shares() hands leftover cents out in trip order. The greedy settle is correctly bounded, and load() sanitises stored data. HTML is semantic (a fieldset and legend for the split, labelled sections, sr-only context on Remove buttons), output is escaped, and render functions are tidy. The only redundancy is a belt-and-braces :focus/:focus-visible block."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Restrained and specific to the brief. Small decisions show attention: underline hover to avoid tints, custom Harbour checkboxes with a 6px radius, input padding of 7px plus a 1px border to land on the 8px grid, and a Harbour error colour so owing never reads as alarm. It still follows a fairly standard stacked-panel form layout without much distinct character."
+        },
+        "overall": 9,
+        "ai_tells": [],
+        "brand_violations": [],
+        "best_detail": "Errors and negative balances are set in Harbour, and primary hover is an underline rather than a darker shade, so the strict 'Signal only for buttons, no tints' rule holds everywhere.",
+        "worst_detail": "Before anyone is added, the expense form shows an empty disabled 'Paid by' select and an active Add expense button, which looks broken rather than deliberately waiting."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.129Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20915,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2440,
+        "output_tokens_details": {
+          "thinking_tokens": 1112
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.06623,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D carries the masthead, headings and buttons. Signal #C2462B is held back for the keel rule, transfer arrows, focus ring and errors, all on a warm paper #F6F2EC. Fraunces over IBM Plex Sans reads steady and trustworthy, neither playful nor banking. Debts are shown in neutral ink with the word 'owes' instead of red, which honours the principle, and the lede says it outright: 'Owing a friend is normal — this just makes it clear.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, small-caps section labels ('ON THIS TRIP', 'SETTLE UP'), tabular figures and right-aligned amounts with an 'is owed'/'owes' caption. The balance rows are cleanly built. However, `.wrap` overrides `main`'s padding through class specificity, so the cards butt directly against the masthead and the footer rule at both widths, which is visibly unfinished. The ghost 'Remove' buttons also sit slightly inset from the amount column."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific and address the user as 'you': 'No one here yet. Add the people on your trip — including you.', 'Ana is already on the trip. Try a different name, like a last initial.', 'Use at most 2 decimal places, like 12.50.', '2 transfers and you're all even.' The footer says 'Your trip is saved in this browser only. Nothing leaves your device.' Buttons are verbs, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states are tailored to context, including a separate expense empty state once people exist. Validation is inline with `role=alert` and `aria-invalid`, keeps the user's input, and moves focus to the offending field. The split chips remember their state, unused people can be removed, and 'Start a new trip' asks for confirmation. Settle-up is a readable 'Chloe → Ana $33.33' list, and the mobile stack works at 390px. The missing breathing room around the cards and the lack of explicit confirmation after adding an expense are minor gaps."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The core logic is correct: `parseCents` parses strings without floats, `shares()` gives remainder cents in trip order, and the greedy settle produces at most n−1 transfers. A small `el()` helper builds the DOM, `load()` sanitises localStorage, and the markup is semantic (fieldset/legend for the split, a visually hidden 'pays' for screen readers). Weaknesses: the CSS specificity bug that drops `main` padding, an inline style in the settle meta, an unused `createdAt` field, and banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette, type pairing, keel-line motif in the header and the 'settled' state, the restrained use of Signal, and the wording 'Where things stand' all feel chosen for Even Keel rather than taken from a template. The two-column card layout with a shadow on every card is fairly conventional, and the pill chips lean slightly default."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section is a white card with the same shadow (`--shadow` on `.card`) in a standard two-column dashboard grid",
+          "Pill-shaped split chips (`border-radius:999px`)",
+          "Banner comments in CSS and JS ('/* ---------- State ---------- */')"
+        ],
+        "brand_violations": [],
+        "best_detail": "Balances name the state in words ('is owed' / 'owes') above a neutral-coloured amount instead of colouring debt red, which quietly makes owing money read as normal.",
+        "worst_detail": "The `.wrap` class overrides `main`'s vertical padding, so every card sits flush against the navy masthead and the footer rule, the one visibly unfinished spot in an otherwise careful layout."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

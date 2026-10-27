@@ -1,0 +1,60 @@
+{
+  "run_id": "fable-5-1__low__r02",
+  "model": "claude-fable-5-1",
+  "model_label": "Fable 5.1",
+  "model_returned": "claude-fable-5-1",
+  "effort": "low",
+  "n": 2,
+  "mode": "sync",
+  "prompt_sha": "1573cb6d9883903b",
+  "max_tokens": 128000,
+  "thinking_display": "summarized",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 1611,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 10248,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+      "thinking_tokens": 1112
+    }
+  },
+  "input_tokens": 1611,
+  "output_tokens": 10248,
+  "thinking_tokens": 1112,
+  "thinking_blocks": 1,
+  "cost_usd": 0.52851,
+  "extraction": {
+    "method": "raw",
+    "complete": true,
+    "chatter_chars": 0,
+    "chatter_sample": "",
+    "html_bytes": 21096,
+    "html_lines": 487
+  },
+  "code": {
+    "css_lines": 134,
+    "js_lines": 256,
+    "css_custom_properties": 15,
+    "important": 0,
+    "media_queries": 1,
+    "innerHTML_writes": 0,
+    "comments": 4,
+    "aria_attributes": 6,
+    "labels": 4,
+    "external_scripts": 0
+  },
+  "started_at": "2026-10-22T02:15:17.069Z",
+  "latency_ms": 107552,
+  "ttfb_ms": 766,
+  "first_text_ms": 17798,
+  "output_tps": 95.3,
+  "finished_at": "2026-10-22T02:17:04.624Z"
+}

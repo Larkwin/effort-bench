@@ -1,0 +1,399 @@
+{
+  "run_id": "fable-5-1__high__r04",
+  "profile": "light",
+  "checked_at": "2026-10-22T05:04:18.885Z",
+  "functional": [
+    {
+      "id": "F01",
+      "name": "Adds three people",
+      "pass": true,
+      "detail": "3 people listed",
+      "ms": 155
+    },
+    {
+      "id": "F02",
+      "name": "Rejects a duplicate name ignoring case",
+      "pass": true,
+      "detail": "3 people; message shown: true",
+      "ms": 136
+    },
+    {
+      "id": "F03",
+      "name": "Rejects an empty expense with a message",
+      "pass": true,
+      "detail": "0 expenses; message shown: true",
+      "ms": 116
+    },
+    {
+      "id": "F04",
+      "name": "Rejects 3 decimal places and keeps the typed description",
+      "pass": true,
+      "detail": "0 expenses; description field: \"Snacks\"",
+      "ms": 32
+    },
+    {
+      "id": "F05",
+      "name": "Computes balances for two equal splits",
+      "pass": true,
+      "detail": "got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}",
+      "ms": 66
+    },
+    {
+      "id": "F06",
+      "name": "Settle-up zeroes every balance within n−1 transfers",
+      "pass": true,
+      "detail": "2 transfers [{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000},{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}",
+      "ms": 1
+    },
+    {
+      "id": "F07",
+      "name": "Gives leftover cents to the earliest-added people",
+      "pass": true,
+      "detail": "change {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}",
+      "ms": 31
+    },
+    {
+      "id": "F08",
+      "name": "Splits between a subset of people",
+      "pass": true,
+      "detail": "change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}",
+      "ms": 34
+    },
+    {
+      "id": "F09",
+      "name": "Lists expenses newest first",
+      "pass": true,
+      "detail": "first expense: \"Museum $20.00 Paid by Ana · Split between Ana and Ben Remove\"",
+      "ms": 1
+    },
+    {
+      "id": "F10",
+      "name": "Removing an expense restores balances",
+      "pass": true,
+      "detail": "3 expenses; balances {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}, want {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}",
+      "ms": 134
+    },
+    {
+      "id": "F11",
+      "name": "Survives a reload",
+      "pass": true,
+      "detail": "before: 3 people, 3 expenses; after: 3 people, 3 expenses, balances unchanged",
+      "ms": 105
+    },
+    {
+      "id": "F12",
+      "name": "Formats money as Canadian dollars",
+      "pass": true,
+      "detail": "expense amounts and every balance use $0.00 format",
+      "ms": 2
+    },
+    {
+      "id": "F13",
+      "name": "Keyboard focus is visible",
+      "pass": true,
+      "detail": "button[add-person]: outline solid 3px rgb(194, 70, 43), offset 2px, shadow none",
+      "ms": 7
+    },
+    {
+      "id": "F14",
+      "name": "No horizontal scrolling at 390px",
+      "pass": true,
+      "detail": "scrollWidth 390 vs viewport 390",
+      "ms": 1
+    },
+    {
+      "id": "F15",
+      "name": "Shows user input as text, not HTML",
+      "pass": true,
+      "detail": "script ran: false; shown literally: true",
+      "ms": 184
+    }
+  ],
+  "brand": [
+    {
+      "id": "L01",
+      "name": "Uses both anchor colours",
+      "pass": true,
+      "detail": "Harbour used; Signal used"
+    },
+    {
+      "id": "L02",
+      "name": "Owing is not shown as a problem (red)",
+      "pass": false,
+      "detail": "Ben: #A63A22; Chloe: #A63A22"
+    },
+    {
+      "id": "S01",
+      "observe": true,
+      "name": "Typefaces",
+      "detail": "headings: Fraunces; UI: IBM Plex Sans"
+    },
+    {
+      "id": "S02",
+      "observe": true,
+      "name": "Palette size",
+      "detail": "12 solid colours, 0 with transparency; top: #1F3A4D, #DCD6CC, #1B2730, #76858F, #51606B, #FFFFFF"
+    },
+    {
+      "id": "S03",
+      "observe": true,
+      "name": "Gradients",
+      "detail": "none"
+    },
+    {
+      "id": "S04",
+      "observe": true,
+      "name": "Shadows or blur",
+      "detail": "none"
+    },
+    {
+      "id": "S05",
+      "observe": true,
+      "name": "Corner radius over 8px",
+      "detail": "10 elements, up to 999px"
+    },
+    {
+      "id": "S06",
+      "observe": true,
+      "name": "Emoji",
+      "detail": "none"
+    },
+    {
+      "id": "S07",
+      "observe": true,
+      "name": "Exclamation marks",
+      "detail": "none"
+    },
+    {
+      "id": "S08",
+      "observe": true,
+      "name": "Title Case or all caps",
+      "detail": "title case: none; uppercase: none"
+    },
+    {
+      "id": "S09",
+      "observe": true,
+      "name": "Tabular figures for money",
+      "detail": "8/11 money elements"
+    },
+    {
+      "id": "S10",
+      "observe": true,
+      "name": "Column width",
+      "detail": "content spans 982px at 1280px"
+    },
+    {
+      "id": "S11",
+      "observe": true,
+      "name": "Motion",
+      "detail": "none"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "blocked_requests": [],
+  "screenshots": {
+    "empty-desktop": "empty-desktop.jpg",
+    "filled-desktop": "filled-desktop.jpg",
+    "filled-mobile": "filled-mobile.jpg"
+  },
+  "missing_hooks_at_start": [],
+  "audit": {
+    "fonts": {
+      "headings": [
+        {
+          "el": "h1.brand",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#people-heading",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#expense-heading",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#standing-heading",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h3#settle-heading",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#expenses-heading",
+          "family": "Fraunces"
+        }
+      ],
+      "ui_total": 60,
+      "ui_plex": 60,
+      "ui_other": [],
+      "ui_main": "IBM Plex Sans",
+      "loaded": [
+        "Fraunces",
+        "IBM Plex Sans",
+        "IBM Plex Sans",
+        "IBM Plex Sans"
+      ]
+    },
+    "colours": [
+      {
+        "colour": "#1F3A4D",
+        "uses": 52
+      },
+      {
+        "colour": "#DCD6CC",
+        "uses": 25
+      },
+      {
+        "colour": "#1B2730",
+        "uses": 25
+      },
+      {
+        "colour": "#76858F",
+        "uses": 16
+      },
+      {
+        "colour": "#51606B",
+        "uses": 13
+      },
+      {
+        "colour": "#FFFFFF",
+        "uses": 11
+      },
+      {
+        "colour": "#E7EEF3",
+        "uses": 6
+      },
+      {
+        "colour": "#F6F3EE",
+        "uses": 3
+      },
+      {
+        "colour": "#A63A22",
+        "uses": 3
+      },
+      {
+        "colour": "#C2462B",
+        "uses": 1
+      },
+      {
+        "colour": "#C9D6DF",
+        "uses": 1
+      },
+      {
+        "colour": "#2E6B57",
+        "uses": 1
+      }
+    ],
+    "off_palette": [
+      {
+        "colour": "#1B2730",
+        "uses": 25,
+        "props": [
+          "color"
+        ],
+        "sample": "label"
+      },
+      {
+        "colour": "#76858F",
+        "uses": 16,
+        "props": [
+          "border"
+        ],
+        "sample": "input#person-name[data-testid=person-name]"
+      },
+      {
+        "colour": "#51606B",
+        "uses": 13,
+        "props": [
+          "color"
+        ],
+        "sample": "span#people-count.count"
+      },
+      {
+        "colour": "#E7EEF3",
+        "uses": 6,
+        "props": [
+          "background"
+        ],
+        "sample": "li[data-testid=person]"
+      },
+      {
+        "colour": "#A63A22",
+        "uses": 3,
+        "props": [
+          "color"
+        ],
+        "sample": "span.bal-amt.owes"
+      },
+      {
+        "colour": "#C9D6DF",
+        "uses": 1,
+        "props": [
+          "color"
+        ],
+        "sample": "p.tagline"
+      }
+    ],
+    "signal_misuse": [],
+    "gradients": [],
+    "shadows": [],
+    "big_radius": [
+      "section.card 14px",
+      "input#person-name[data-testid=person-name] 9px",
+      "button[data-testid=add-person].btn.btn-primary 9px",
+      "li[data-testid=person] 999px",
+      "li[data-testid=person] 999px",
+      "li[data-testid=person] 999px",
+      "section.card 14px",
+      "input#expense-desc[data-testid=expense-desc] 9px",
+      "input#expense-amount[data-testid=expense-amount] 9px",
+      "select#expense-payer[data-testid=expense-payer] 9px"
+    ],
+    "transitions": [],
+    "uppercase": [],
+    "emoji": [],
+    "exclamations": [],
+    "title_case": [],
+    "money": {
+      "elements": 11,
+      "tabular": 8
+    },
+    "negative_red": [
+      "Ben: #A63A22",
+      "Chloe: #A63A22"
+    ],
+    "main_width": 1080,
+    "content_width": 1032,
+    "content_span": 982,
+    "title": "Even Keel — split trip costs so everyone ends up even"
+  },
+  "a11y": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "rules": []
+  },
+  "focus": {
+    "tag": "button",
+    "testid": "add-person",
+    "outline": "solid 3px rgb(194, 70, 43)",
+    "offset": "2px",
+    "shadow": "none"
+  },
+  "summary": {
+    "functional_pass": 15,
+    "functional_total": 15,
+    "functional_rate": 1,
+    "brand_pass": 1,
+    "brand_total": 2,
+    "brand_rate": 0.5,
+    "a11y_serious": 0,
+    "a11y_total": 0,
+    "console_errors": 0,
+    "fatal": null
+  }
+}

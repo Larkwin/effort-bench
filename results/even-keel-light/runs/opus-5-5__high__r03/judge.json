@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.101Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 31808,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2553,
+        "output_tokens_details": {
+          "thinking_tokens": 1119
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.089146,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D carries the masthead, primary buttons and the dark Settle up card. Signal #C2462B is held back for the 4px masthead rule, focus rings, eyebrows and the balance 'even' centre line, all on a warm paper #F3F0E8 base. Fraunces headings and figures with Public Sans UI feel steady and trustworthy, not bank-like. The principle is built in: 'Owes' amounts are set in ink rather than red, owing bars use a soft #D58A73, and the settle lede reads 'Owing is just part of sharing a trip.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, small uppercase eyebrows, tabular serif amounts, consistent 16/20px gaps and 48px controls. The diverging balance bars are well drawn, and the mobile stack is clean with no overflow. Weak spots: each expense's 'Remove' sits alone on its own right-aligned row, inset from the amount column, which bloats every item. The stat strip at the top is visually heavy for three small numbers."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific. Examples: 'No one's on the trip yet. Start with your own name, then add your friends.', 'Ana is already on the trip. Try adding a last initial, like \"Ana B.\"', 'Use at most 2 decimal places, like 24.50.' and 'Your trip is saved in this browser on this device.' Buttons are verbs ('Add person', 'Copy for the group chat', 'Clear the trip' / 'Keep it'), with no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every state is handled: contextual empty states (the settle card varies between no people, no expenses and 'Everyone's even'), and per-field inline errors that keep input and focus the first bad field. Other touches: a live split preview including uneven cents, Undo after removing an expense, a confirm step for a new trip, a copy-to-group-chat action, a localStorage failure warning, and person removal only until someone is used in an expense. Mobile layout is fully usable at 390px."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is cleanly organised in an IIFE with a small h() builder. Money logic is integer cents, with leftover cents assigned in trip order, robust parseAmount and defensive load() validation. The greedy settle uses at most n-1 transfers, and ARIA is careful (aria-invalid, aria-describedby, role=status, sr-only labels on Remove). One semantic flaw: the <legend> is wrapped inside div.split-head, so it is no longer the fieldset's first child and the group loses its accessible name. Banner comments and a duplicated content declaration are minor."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Much of this feels deliberate and brand-specific: the boat mark with a Signal waterline, the dark Settle up card as the payoff, the diverging owes/gets-back bars, and restrained use of the red. Some choices are template-like: 'STEP 1 / STEP 2' eyebrows, the stat-tile strip, and pill chips for both people and checkboxes."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Stat tiles at the top ('Trip total', 'People', 'Expenses') with serif oversized numbers showing 0 on first load",
+          "Pill shapes (border-radius 999px) on both person chips and split checkboxes",
+          "Banner section comments in CSS and JS ('/* ---------- Masthead ---------- */')",
+          "Generic 'STEP 1 / STEP 2' eyebrow pattern"
+        ],
+        "brand_violations": [],
+        "best_detail": "The balance rows use a centred Signal 'even' line with navy bars for 'gets back' and soft salmon bars for 'owes', and the amounts are written as 'Gets back' and 'Owes' in neutral ink, which expresses 'owing is normal' visually rather than flagging debt in alarm red.",
+        "worst_detail": "Each expense's 'Remove' link sits alone on its own right-aligned row below the details, inset from the amount column, which adds dead vertical space to every item and misaligns with the figures above it."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.113Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14694,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2420,
+        "output_tokens_details": {
+          "thinking_tokens": 1129
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.053588,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, headings and primary button. Signal #C2462B appears as a 6px rule under the header, the Add expense button and the left border on transfers, all set on a warm paper #F4F1EA. Fraunces with Public Sans feels steady and trustworthy rather than banky, and the tagline states the principle outright ('Owing a friend is normal'). One slip: 'owes' amounts are coloured red-orange against a green 'is owed', which leans toward a warning signal."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "Typographic hierarchy is clear: Fraunces H2s, 600-weight labels and muted meta lines. Spacing is consistent and the 390px layout is clean. On desktop the short People card leaves a large dead area beside the tall expense form. The full-width Balances card pushes names and amounts more than 900px apart. In the expense rows the Remove button is stacked under the amount via a <br>, which looks bolted on."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'No one is on the trip yet. Add the first name above.', 'Add a description, like \"Groceries\".', 'Ben is already on the trip (names ignore capitals).', 'Everyone is even. Nothing to pay.' Buttons are verbs. The note 'Positive means you're owed money. Negative means you owe.' is slightly off, because the UI never shows signed numbers; it says 'is owed' and 'owes' instead."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief behaviour is present: case-insensitive duplicate check, inline errors that keep the user's input, split boxes defaulting to everyone, newest-first expenses with labelled Remove buttons, and empty states in every section. Focus returns to the right input after adding. Thinner spots: errors don't clear while typing, expense errors render below the submit button, and type=number gives a generic message for non-numeric input."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money logic is correct. Amounts are parsed by regex into integer cents. shares() hands out remainder cents in trip order via S.people.filter. The greedy transfer loop stays within n−1 transfers. Semantics are solid, with labelled inputs, a fieldset/legend for the split, :focus-visible, and the form-error testid toggled only while a message is shown. Against that, the code is terse to the point of hurting readability (S, $, pf, ef, ee). There is a redundant r.dataset.testid alongside setAttribute, conflicting role=alert with aria-live=polite, and an inline style."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette, the Signal underline on the header and the serif/sans pairing read as deliberate choices made for this brand. The overall look is restrained, with no gradients and few shadows. The card-per-section grid and pill name chips feel template-like, and the desktop composition wasn't tuned to the content."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Every section is wrapped in an identical bordered white card, giving uniform weight across the grid",
+          "Pill-shaped name chips (border-radius:99px) in the People list",
+          "Minified single-letter variable naming throughout the script"
+        ],
+        "brand_violations": [
+          "The 'owes' balances use a red-orange (#A53A22) against green 'is owed', which casts owing as a warning and cuts against the principle that owing money between friends is normal"
+        ],
+        "best_detail": "The header tagline 'Owing a friend is normal — this just shows how to level out', paired with balances worded as 'is owed' and 'owes' rather than bare negative numbers, puts the brand principle into the UI itself.",
+        "worst_detail": "On desktop the full-width Balances card strands each name hundreds of pixels from its amount, and a large empty block sits under the People card."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

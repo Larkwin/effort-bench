@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.138Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 24081,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2444,
+        "output_tokens_details": {
+          "thinking_tokens": 1086
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.072602,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour #1F3A4D masthead sits over a 4px Signal #C2462B rule on a warm paper #F5F1EA ground, so the palette is built around the anchors rather than just including them. Fraunces with Public Sans reads steady and trustworthy without feeling like a bank, and the 'keel' centre-line balance bars and keel logo tie the visuals to the name. Using Signal red for every debt ('−$13.33', 'Owes the group' swatch) slightly works against the 'owing is normal' principle, and the avatar palette drifts into a purple #5B4A7A."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif panel headings with step numbers, tabular-num amounts right-aligned, consistent 20px panel gaps and 14px field rhythm. Mobile collapses cleanly with no overflow, and the 44px inputs and buttons stay comfortable. On desktop the left column ends well above the right and leaves a large empty area, and the expense meta lines wrap awkwardly ('$3.34 or / $3.33 each')."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Add everyone who's sharing costs, including you.', 'Ana is already on the trip. Use a different name, like adding a last initial.', and 'Owes $13.33' with no alarm. Buttons are verbs ('Add person', 'Add expense', 'Remove'). Weak spots: the split preview can read 'The extra cents go to the first 1 people added.', and 'That's the fewest needed here' overclaims, because the greedy settle algorithm does not guarantee a minimum."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required states are present. There are tailored empty states per panel, inline errors with role=alert that keep what the user typed, and a live split preview. Focus moves sensibly after deleting an expense, the trip reset asks for confirmation, and each expense shows a per-person share. The settle list is easy to read ('Chloe pays Ana $33.33'), but people cannot be removed or renamed, and the header stats add little."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The money logic is careful. parseAmount works on string digits into integer cents, shares() hands out leftover cents in trip order, and the greedy settle stays within n−1 transfers. Rendering goes through a small el() helper, and localStorage loading is defensive. Minor issues: a float/clear hack on the legend, a redundant role=group inside the fieldset, balance amounts set aria-hidden (the status text covers it), and the panel-note class reused inside settle with an override."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The keel-bar balance visual, numbered steps that follow the workflow, and serif/sans pairing on warm paper feel chosen for this brand rather than taken from a template. Some defaults remain: rounded cards with shadows on every panel, pill chips, and an uppercase stat strip in the header."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Header stat tiles (TRIP TOTAL / EXPENSES / PEOPLE) with large display numerals that add little",
+          "Pill-shaped chips for people and split checkboxes (border-radius:999px)",
+          "Shadowed rounded card on every panel"
+        ],
+        "brand_violations": [
+          "Signal red is used for every negative balance and as the 'Owes the group' swatch, which makes debt read as a warning against the 'owing is normal' principle",
+          "Avatar colour set includes a purple (#5B4A7A) that is outside the Harbour/Signal-built palette"
+        ],
+        "best_detail": "The centred 'keel' bar under each balance, extending navy right for 'is owed' and red-orange left for 'owes', makes the brand name literal and makes balances readable at a glance.",
+        "worst_detail": "The settle-up note asserts 'That's the fewest needed here' even though the greedy algorithm does not guarantee a minimal set of transfers, which is an honesty slip for a brand built on trust."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

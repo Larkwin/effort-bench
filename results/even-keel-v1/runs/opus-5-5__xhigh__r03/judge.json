@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.320Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 26612,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2569,
+        "output_tokens_details": {
+          "thinking_tokens": 1297
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.078914,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "The palette is exact with no tints. Signal appears only on primary buttons and the 24×3 wordmark rule. Negative balances show in Harbour as \"-$13.33\" and positives in Kelp, and errors are Harbour at 500 weight rather than red. Fraunces 600 is used for headings and IBM Plex Sans 400/500 for everything else, tabular-nums is set on body, type sizes stay within 14/16/20/28/40, radii are 6px, borders are 1px Rope, there are no shadows, and the focus style is a 2px Harbour outline with a 2px offset."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear. Balance and transfer amounts are set at 20px right-aligned with a Fog status line beneath, and the tagline is indented 40px to align with the wordmark text. The 8px rhythm holds and mobile reflows cleanly, with Remove dropping below the meta text. The weakness is five equal-weight panels stacked one after another, which flattens the page, and the expenses list sits far below the form that feeds it."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific. Examples: \"Ana is already on the trip. To add another Ana, include a last initial.\", \"Enter an amount with no more than 2 decimal places, like 24.50.\", and \"Everyone is even, so no payments are needed.\" Buttons are short verbs (\"Add person\", \"Remove\", \"Start a new trip\"), and there are no exclamations or filler. The only weak spot is that the empty states are slightly repetitive, with four variants of \"Add people to the trip…\"."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Empty states are tailored to each stage (no people, people but no expenses, all even). Errors appear inline, focus the offending field, set aria-invalid and keep the typed input. A success note follows adding an expense, and removing one moves focus to the next Remove button. Expense rows show per-person shares, including the uneven \"$3.34 or $3.33 each\". Clearing the trip has an inline confirm, and the app syncs across tabs."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "All maths is in integer cents. Leftover cents go out in trip order through sharesFor, and the greedy largest-first settle-up guarantees at most n−1 transfers. Amount parsing is robust to commas, a leading $ and minus signs, and loadTrip validates stored data defensively. Semantics are good: a fieldset/legend for the split, aria-describedby, a live-region announcer and a small h() helper. The only redundancy is minor, such as the .money tabular-nums rule duplicating the body rule."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained. Specific touches include the indented tagline, the custom Harbour checkbox, the bordered checkbox chips, owes/is-owed status text and counts in the section headers, all appropriate to a \"well-made tool\". The uniform panel stack is the one template-like choice."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Uniform stack of five identical panels with equal visual weight",
+          "Repetitive near-identical empty-state sentences across sections",
+          "Section banner comments in JS (/* Storage */, /* Rendering */)"
+        ],
+        "brand_violations": [],
+        "best_detail": "Owing is framed as normal: Harbour \"-$13.33\" with a quiet \"owes\" caption, Kelp for \"is owed\", and Paid/share detail under each name, so every number is explained.",
+        "worst_detail": "The expenses list is placed last, below balances and settle up, which separates it from the form that creates expenses and makes the long page feel like five interchangeable boxes."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

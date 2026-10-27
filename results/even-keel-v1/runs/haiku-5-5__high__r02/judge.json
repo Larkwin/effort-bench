@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.311Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21343,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2595,
+        "output_tokens_details": {
+          "thinking_tokens": 1268
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.068636,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The CSS defines only the seven brand colours. Negative balances render in Harbour (`.neg, .zero { color: var(--harbour) }`) and Signal appears only on primary buttons and the 24×3px wordmark rule. Fraunces 600 and Plex 400/500 load from Google Fonts, money uses tabular-nums, sizes stay on 14/16/20/28, radius is 6px, borders are 1px Rope, there are no shadows, and the focus ring is 2px Harbour with a 2px offset. Minor slips: the error message carries a decorative info icon that does not clarify an action, and inputs and chips use 12px horizontal padding, which is off the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: Fraunces headings, Fog hints, then content. Rope dividers keep a steady list rhythm, and the tagline is indented 40px so it lines up with the wordmark text. Amounts and Remove buttons align right on desktop and wrap cleanly on mobile. The page is long and the four panels carry equal weight, so the results panels (balances, settle up) look no more important than the forms. The people list is just bare name rows."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Empty states are single, actionable sentences that change with context: 'No people yet. Add everyone on the trip, starting with yourself.', 'Add an expense to see who pays whom.', 'Everyone is even. No transfers are needed.' Errors say what to fix: 'Ana is already on the trip. Enter a different name.', 'Enter a description, such as Dinner or Fuel.' Buttons are short sentence-case verbs. There are no exclamation marks or filler, and the user is addressed as 'you'."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required flow works. Expenses list newest first via unshift, invalid input is preserved, errors are inline with role=alert, split checkboxes default to all and remember choices, and focus returns to sensible places after adding or removing. Each expense shows its per-person shares, which makes the leftover-cent rule visible. Gaps: you cannot remove or rename a person after a typo, removing an expense has no undo, and expense errors stay visible after you edit the field."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The script is a clean IIFE with escaped output, integer-cent parsing that rejects more than 2 decimals and accepts commas, and a correct floor-plus-remainder split in trip order. The greedy settle is bounded at n−1 transfers, and localStorage loading is validated. Semantics are good: fieldset/legend, label for every input, aria-invalid and aria-describedby on errors. Small redundancies: computeBalances runs twice per render, and the `.tagline` margin is repeated in the media query."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as restrained and specific to Even Keel. The 'is owed'/'owes' captions under balances, the shares line on each expense, and Harbour hover on primary buttons are all deliberate choices that follow the brand. It does not go far beyond a stack of identical panels, but nothing in it looks like a template default."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four identical bordered panels in a stack with uniform weight; the results sections get no more emphasis than the input forms",
+          "A decorative info SVG inside every error message"
+        ],
+        "brand_violations": [
+          "The error message uses a decorative info icon; icons are only allowed when they clarify an action",
+          "12px horizontal padding on inputs, chips and error boxes is not a multiple of 8px"
+        ],
+        "best_detail": "Each expense lists exact per-person shares (for example 'Ana $3.34, Ben $3.33, Chloe $3.33'), which makes the leftover-cent rule visible and trustworthy.",
+        "worst_detail": "People cannot be removed or corrected once added, so one typo in a name stays on the trip for good."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

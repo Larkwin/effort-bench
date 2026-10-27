@@ -1,0 +1,460 @@
+{
+  "run_id": "haiku-5-5__low__r05",
+  "profile": "light",
+  "checked_at": "2026-10-22T05:04:36.659Z",
+  "functional": [
+    {
+      "id": "F01",
+      "name": "Adds three people",
+      "pass": true,
+      "detail": "3 people listed",
+      "ms": 96
+    },
+    {
+      "id": "F02",
+      "name": "Rejects a duplicate name ignoring case",
+      "pass": true,
+      "detail": "3 people; message shown: true",
+      "ms": 136
+    },
+    {
+      "id": "F03",
+      "name": "Rejects an empty expense with a message",
+      "pass": true,
+      "detail": "0 expenses; message shown: true",
+      "ms": 120
+    },
+    {
+      "id": "F04",
+      "name": "Rejects 3 decimal places and keeps the typed description",
+      "pass": true,
+      "detail": "0 expenses; description field: \"Snacks\"",
+      "ms": 46
+    },
+    {
+      "id": "F05",
+      "name": "Computes balances for two equal splits",
+      "pass": true,
+      "detail": "got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}",
+      "ms": 82
+    },
+    {
+      "id": "F06",
+      "name": "Settle-up zeroes every balance within n−1 transfers",
+      "pass": true,
+      "detail": "2 transfers [{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000},{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}",
+      "ms": 2
+    },
+    {
+      "id": "F07",
+      "name": "Gives leftover cents to the earliest-added people",
+      "pass": true,
+      "detail": "change {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}",
+      "ms": 31
+    },
+    {
+      "id": "F08",
+      "name": "Splits between a subset of people",
+      "pass": true,
+      "detail": "change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}",
+      "ms": 33
+    },
+    {
+      "id": "F09",
+      "name": "Lists expenses newest first",
+      "pass": true,
+      "detail": "first expense: \"Museum Paid by Ana · Split: Ana $10.00, Ben $10.00 $20.00 Remove\"",
+      "ms": 0
+    },
+    {
+      "id": "F10",
+      "name": "Removing an expense restores balances",
+      "pass": true,
+      "detail": "3 expenses; balances {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}, want {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}",
+      "ms": 135
+    },
+    {
+      "id": "F11",
+      "name": "Survives a reload",
+      "pass": true,
+      "detail": "before: 3 people, 3 expenses; after: 3 people, 3 expenses, balances unchanged",
+      "ms": 109
+    },
+    {
+      "id": "F12",
+      "name": "Formats money as Canadian dollars",
+      "pass": true,
+      "detail": "expense amounts and every balance use $0.00 format",
+      "ms": 1
+    },
+    {
+      "id": "F13",
+      "name": "Keyboard focus is visible",
+      "pass": true,
+      "detail": "button[add-person]: outline solid 3px rgb(194, 70, 43), offset 2px, shadow none",
+      "ms": 4
+    },
+    {
+      "id": "F14",
+      "name": "No horizontal scrolling at 390px",
+      "pass": true,
+      "detail": "scrollWidth 390 vs viewport 390",
+      "ms": 1
+    },
+    {
+      "id": "F15",
+      "name": "Shows user input as text, not HTML",
+      "pass": true,
+      "detail": "script ran: false; shown literally: true",
+      "ms": 193
+    }
+  ],
+  "brand": [
+    {
+      "id": "L01",
+      "name": "Uses both anchor colours",
+      "pass": true,
+      "detail": "Harbour used; Signal used"
+    },
+    {
+      "id": "L02",
+      "name": "Owing is not shown as a problem (red)",
+      "pass": false,
+      "detail": "Ben: #A93A22; Chloe: #A93A22"
+    },
+    {
+      "id": "S01",
+      "observe": true,
+      "name": "Typefaces",
+      "detail": "headings: Fraunces; UI: Instrument Sans"
+    },
+    {
+      "id": "S02",
+      "observe": true,
+      "name": "Palette size",
+      "detail": "17 solid colours, 0 with transparency; top: #DDD5C7, #1F3A4D, #1B2A34, #BFB6A6, #55626C, #E3B7AA"
+    },
+    {
+      "id": "S03",
+      "observe": true,
+      "name": "Gradients",
+      "detail": "none"
+    },
+    {
+      "id": "S04",
+      "observe": true,
+      "name": "Shadows or blur",
+      "detail": "section.card; section.card; section.card; section.card (+1)"
+    },
+    {
+      "id": "S05",
+      "observe": true,
+      "name": "Corner radius over 8px",
+      "detail": "10 elements, up to 17px"
+    },
+    {
+      "id": "S06",
+      "observe": true,
+      "name": "Emoji",
+      "detail": "none"
+    },
+    {
+      "id": "S07",
+      "observe": true,
+      "name": "Exclamation marks",
+      "detail": "none"
+    },
+    {
+      "id": "S08",
+      "observe": true,
+      "name": "Title Case or all caps",
+      "detail": "title case: none; uppercase: p.eyebrow"
+    },
+    {
+      "id": "S09",
+      "observe": true,
+      "name": "Tabular figures for money",
+      "detail": "8/11 money elements"
+    },
+    {
+      "id": "S10",
+      "observe": true,
+      "name": "Column width",
+      "detail": "content spans 968px at 1280px"
+    },
+    {
+      "id": "S11",
+      "observe": true,
+      "name": "Motion",
+      "detail": "none"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "blocked_requests": [],
+  "screenshots": {
+    "empty-desktop": "empty-desktop.jpg",
+    "filled-desktop": "filled-desktop.jpg",
+    "filled-mobile": "filled-mobile.jpg"
+  },
+  "missing_hooks_at_start": [],
+  "audit": {
+    "fonts": {
+      "headings": [
+        {
+          "el": "h1",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#people-h",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#expense-h",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#list-h",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#bal-h",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#settle-h",
+          "family": "Fraunces"
+        }
+      ],
+      "ui_total": 61,
+      "ui_plex": 0,
+      "ui_other": [
+        "Instrument Sans (p.eyebrow)",
+        "Instrument Sans (p.lede)",
+        "Instrument Sans (p.hint)",
+        "Instrument Sans (label)"
+      ],
+      "ui_main": "Instrument Sans",
+      "loaded": [
+        "Fraunces",
+        "Fraunces",
+        "Instrument Sans",
+        "Instrument Sans",
+        "Instrument Sans"
+      ]
+    },
+    "colours": [
+      {
+        "colour": "#DDD5C7",
+        "uses": 29
+      },
+      {
+        "colour": "#1F3A4D",
+        "uses": 25
+      },
+      {
+        "colour": "#1B2A34",
+        "uses": 25
+      },
+      {
+        "colour": "#BFB6A6",
+        "uses": 16
+      },
+      {
+        "colour": "#55626C",
+        "uses": 14
+      },
+      {
+        "colour": "#E3B7AA",
+        "uses": 12
+      },
+      {
+        "colour": "#FFFFFF",
+        "uses": 6
+      },
+      {
+        "colour": "#E7EEF1",
+        "uses": 6
+      },
+      {
+        "colour": "#FFFDF9",
+        "uses": 5
+      },
+      {
+        "colour": "#172C3B",
+        "uses": 5
+      },
+      {
+        "colour": "#A93A22",
+        "uses": 5
+      },
+      {
+        "colour": "#C2462B",
+        "uses": 3
+      },
+      {
+        "colour": "#F4F0E8",
+        "uses": 1
+      },
+      {
+        "colour": "#C9D6DD",
+        "uses": 1
+      },
+      {
+        "colour": "#F7F3EC",
+        "uses": 1
+      },
+      {
+        "colour": "#DCE6EB",
+        "uses": 1
+      },
+      {
+        "colour": "#2E6B4F",
+        "uses": 1
+      }
+    ],
+    "off_palette": [
+      {
+        "colour": "#1B2A34",
+        "uses": 25,
+        "props": [
+          "color"
+        ],
+        "sample": "input#person-name[data-testid=person-name]"
+      },
+      {
+        "colour": "#BFB6A6",
+        "uses": 16,
+        "props": [
+          "border"
+        ],
+        "sample": "input#person-name[data-testid=person-name]"
+      },
+      {
+        "colour": "#55626C",
+        "uses": 14,
+        "props": [
+          "color"
+        ],
+        "sample": "p.hint"
+      },
+      {
+        "colour": "#E3B7AA",
+        "uses": 12,
+        "props": [
+          "border"
+        ],
+        "sample": "button[data-testid=delete-expense].btn.btn-quiet"
+      },
+      {
+        "colour": "#E7EEF1",
+        "uses": 6,
+        "props": [
+          "background"
+        ],
+        "sample": "span.avatar"
+      },
+      {
+        "colour": "#172C3B",
+        "uses": 5,
+        "props": [
+          "color"
+        ],
+        "sample": "label"
+      },
+      {
+        "colour": "#A93A22",
+        "uses": 5,
+        "props": [
+          "color"
+        ],
+        "sample": "button[data-testid=delete-expense].btn.btn-quiet"
+      },
+      {
+        "colour": "#C9D6DD",
+        "uses": 1,
+        "props": [
+          "color"
+        ],
+        "sample": "p.eyebrow"
+      },
+      {
+        "colour": "#DCE6EB",
+        "uses": 1,
+        "props": [
+          "color"
+        ],
+        "sample": "p.lede"
+      }
+    ],
+    "signal_misuse": [
+      "span.arrow color",
+      "span.arrow color"
+    ],
+    "gradients": [],
+    "shadows": [
+      "section.card",
+      "section.card",
+      "section.card",
+      "section.card",
+      "section.card"
+    ],
+    "big_radius": [
+      "section.card 14px",
+      "input#person-name[data-testid=person-name] 10px",
+      "button[data-testid=add-person].btn.btn-primary 10px",
+      "span.avatar 17px",
+      "span.avatar 17px",
+      "span.avatar 17px",
+      "section.card 14px",
+      "input#expense-desc[data-testid=expense-desc] 10px",
+      "input#expense-amount[data-testid=expense-amount] 10px",
+      "select#expense-payer[data-testid=expense-payer] 10px"
+    ],
+    "transitions": [],
+    "uppercase": [
+      "p.eyebrow"
+    ],
+    "emoji": [],
+    "exclamations": [],
+    "title_case": [],
+    "money": {
+      "elements": 11,
+      "tabular": 8
+    },
+    "negative_red": [
+      "Ben: #A93A22",
+      "Chloe: #A93A22"
+    ],
+    "main_width": 1000,
+    "content_width": 968,
+    "content_span": 968,
+    "title": "Even Keel"
+  },
+  "a11y": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "rules": []
+  },
+  "focus": {
+    "tag": "button",
+    "testid": "add-person",
+    "outline": "solid 3px rgb(194, 70, 43)",
+    "offset": "2px",
+    "shadow": "none"
+  },
+  "summary": {
+    "functional_pass": 15,
+    "functional_total": 15,
+    "functional_rate": 1,
+    "brand_pass": 1,
+    "brand_total": 2,
+    "brand_rate": 0.5,
+    "a11y_serious": 0,
+    "a11y_total": 0,
+    "console_errors": 0,
+    "fatal": null
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:39:32.921Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14745,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2549,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1173
+        }
+      },
+      "cost_usd": 0.10996,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour header with a 5px Signal bottom rule, warm paper background (#F5F2EB) and Fraunces/Public Sans pairing feel steady and honest rather than banky or playful. The tagline 'Owing a friend is normal.' states the principle outright. However, negative balances use a red-orange #A53820 against a green #1D6B4A for positives, a conventional debt-alarm coding that undercuts that principle."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "The layout is tidy, with consistent 18–20px rhythm, clear Fraunces section headings and tabular numerals in balances and settle-up. Some parts are awkward. Each person is a small pill chip sitting alone in a full-width divided row, which wastes space and reads oddly. The bordered 'Remove' buttons are heavy and dominate each expense row. On desktop the short People card leaves a large empty gap beside the tall expense form."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Add a description, like \"Groceries\".', 'The amount must be a number, like 42.50.', 'You're all even. Nobody needs to pay anyone.', and 'Positive means you're owed money. Negative means you owe.' Buttons use verbs. A few phrases are slightly clunky, such as 'Names must be different, ignoring capitals.', and the balance rows lean on a bare −$13.33 rather than words."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every list has a useful empty state, including the split fieldset ('Add people first, then choose who shares the cost.'). Validation keeps typed values, and the checkbox and payer state survives re-renders. Settle up reads clearly as 'Chloe pays Ana $33.33'. Thinner spots: there is no confirmation after adding an expense, the expense error appears below the button away from the field that caused it, the payer select is empty and unlabelled before people exist, and people cannot be edited or removed."
+        },
+        "code_quality": {
+          "score": 3,
+          "evidence": "The logic is correct. Amount parsing is string-based into integer cents, remainder cents go to people in trip order, the greedy creditor/debtor matching yields at most n−1 transfers, and the form-error testid is toggled properly. Semantics are reasonable, with fieldset/legend, labelled inputs and aria-labels on Remove buttons. Weaker points: the CSS and JS are minified with cryptic ids and names (pl, ep, es, S, T), styles are inlined in JS, the error paragraph combines role=alert with aria-live=polite, and an unused 'title' string is built for balances."
+        },
+        "directed_design": {
+          "score": 3,
+          "evidence": "There are clear deliberate touches: the Signal stripe under the navy header, the serif display face, and the warm off-white cards. But the overall structure is a stock grid of identical bordered cards with Signal-filled primary buttons. A default bright blue #0B6FD6 focus ring sits outside the palette. The result feels like a careful template more than a design specific to Even Keel."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Every section wrapped in an identical bordered rounded card with uniform visual weight",
+          "Off-palette default blue focus outline #0B6FD6 instead of a ring derived from Harbour/Signal",
+          "Pill chips used for people names inside divided list rows, decorative without purpose",
+          "Minified one-line CSS/JS with terse identifiers"
+        ],
+        "brand_violations": [
+          "Negative balances rendered in alarm red-orange (#A53820) opposite green positives, framing owing as a problem despite 'Owing money between friends is normal'",
+          "Signal red-orange is used both for primary action buttons and for 'you owe' amounts, so the brand accent doubles as a debt warning"
+        ],
+        "best_detail": "The navy header with a thin Signal underline and the line 'Owing a friend is normal.' sets the calm, trustworthy tone in one compact gesture.",
+        "worst_detail": "Colouring debts in red against green credits contradicts the brand's central principle that owing a friend is normal, not a problem."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 3,
+    "directed_design": 3,
+    "overall": 7
+  }
+}

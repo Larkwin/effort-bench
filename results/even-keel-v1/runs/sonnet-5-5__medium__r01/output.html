@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Even Keel</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=IBM+Plex+Sans:wght@400;500&display=swap">
+<style>
+*{box-sizing:border-box}
+html{font-size:16px}
+body{margin:0;background:#F6F3EC;color:#1F3A4D;font-family:'IBM Plex Sans',sans-serif;font-size:16px;line-height:1.5}
+main{max-width:720px;margin:0 auto;padding:32px 16px 48px}
+@media(min-width:600px){main{padding-left:24px;padding-right:24px}}
+header{margin-bottom:32px}
+.brand{display:flex;align-items:center;gap:8px}
+.brand::before{content:"";width:24px;height:3px;background:#C2462B;flex:none}
+h1,h2{font-family:'Fraunces',serif;font-weight:600;margin:0;color:#1F3A4D}
+h1{font-size:28px;line-height:1.2}
+h2{font-size:20px;margin-bottom:16px}
+.tag{color:#5B6B75;margin:8px 0 0;font-size:16px}
+section{background:#fff;border:1px solid #D9D2C3;border-radius:6px;padding:24px 16px;margin-bottom:24px}
+@media(min-width:600px){section{padding:24px}}
+label,legend{display:block;font-weight:500;font-size:14px;margin-bottom:4px;padding:0}
+input[type=text],input[type=number],select{width:100%;font:inherit;font-size:16px;color:#1F3A4D;background:#fff;border:1px solid #5B6B75;border-radius:6px;padding:8px 12px;min-height:44px}
+:focus-visible{outline:2px solid #1F3A4D;outline-offset:2px}
+button{font:inherit;font-weight:500;border-radius:6px;min-height:44px;padding:8px 16px;cursor:pointer;transition:background-color .15s}
+.primary{background:#C2462B;color:#fff;border:1px solid #C2462B}
+.primary:hover{background:#A93A22;border-color:#A93A22}
+.ghost{background:#fff;color:#1F3A4D;border:1px solid #D9D2C3}
+.ghost:hover{background:#F6F3EC}
+.row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.row .grow{flex:1 1 200px}
+.field{margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr;gap:0 16px}
+@media(min-width:600px){.grid{grid-template-columns:1fr 1fr}}
+fieldset{border:0;margin:0 0 16px;padding:0;min-width:0}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.checks label{display:flex;align-items:center;gap:8px;font-weight:400;font-size:16px;margin:0;border:1px solid #D9D2C3;border-radius:6px;padding:8px 12px;min-height:44px}
+.checks input{width:20px;height:20px;accent-color:#1F3A4D;margin:0}
+.err{color:#1F3A4D;font-weight:500;font-size:14px;margin:8px 0 0;padding:8px 12px;border:1px solid #1F3A4D;border-radius:6px;background:#fff}
+.err[hidden]{display:none}
+ul{list-style:none;margin:0;padding:0}
+li{border-top:1px solid #D9D2C3;padding:12px 0;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+li:first-child{border-top:0}
+.empty,.meta{color:#5B6B75;font-size:14px;margin:0}
+.empty{font-size:16px}
+.money{font-variant-numeric:tabular-nums;font-weight:500;white-space:nowrap}
+.pos{color:#2F6B4F}
+.info{min-width:0;flex:1 1 200px;overflow-wrap:anywhere}
+.title{font-weight:500}
+.sub{font-size:20px;margin:24px 0 8px;font-family:'Fraunces',serif;font-weight:600}
+</style>
+</head>
+<body>
+<main data-testid="app">
+<header>
+<div class="brand"><h1>Even Keel</h1></div>
+<p class="tag">Split trip costs and end up even.</p>
+</header>
+
+<section aria-labelledby="h-people">
+<h2 id="h-people">People</h2>
+<form id="pf" novalidate>
+<div class="row">
+<div class="grow"><label for="pn">Name</label><input type="text" id="pn" data-testid="person-name" autocomplete="off"></div>
+<button type="submit" class="primary" data-testid="add-person">Add person</button>
+</div>
+<p class="err" id="pe" data-testid="form-error" role="alert" hidden></p>
+</form>
+<div id="plist" style="margin-top:16px"></div>
+</section>
+
+<section aria-labelledby="h-exp">
+<h2 id="h-exp">Expenses</h2>
+<form id="ef" novalidate>
+<div class="grid">
+<div class="field"><label for="ed">Description</label><input type="text" id="ed" data-testid="expense-desc" autocomplete="off"></div>
+<div class="field"><label for="ea">Amount (CAD)</label><input type="text" inputmode="decimal" id="ea" data-testid="expense-amount" autocomplete="off"></div>
+</div>
+<div class="field"><label for="ep">Paid by</label><select id="ep" data-testid="expense-payer"></select></div>
+<fieldset><legend>Split between</legend><div class="checks" id="es" data-testid="expense-split"></div></fieldset>
+<button type="submit" class="primary" data-testid="add-expense">Add expense</button>
+<p class="err" id="ee" data-testid="form-error" role="alert" hidden></p>
+</form>
+<div id="elist" style="margin-top:16px"></div>
+</section>
+
+<section aria-labelledby="h-bal">
+<h2 id="h-bal">Balances</h2>
+<div id="blist"></div>
+<div class="sub" role="heading" aria-level="3">Settle up</div>
+<div id="tlist"></div>
+</section>
+</main>
+<script>
+const fmt=new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'});
+const money=c=>(c<0?'−':'')+fmt.format(Math.abs(c)/100);
+let S={people:[],expenses:[]};
+try{const d=JSON.parse(localStorage.getItem('evenkeel'));if(d&&Array.isArray(d.people)&&Array.isArray(d.expenses))S=d}catch(e){}
+const save=()=>{try{localStorage.setItem('evenkeel',JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function show(el,msg){if(msg){el.textContent=msg;el.hidden=false}else{el.hidden=true;el.textContent=''}}
+
+function shares(e){
+  const order=S.people.filter(p=>e.split.includes(p)); const n=order.length;
+  const out={}; if(!n)return out;
+  const base=Math.floor(e.cents/n); let rem=e.cents-base*n;
+  order.forEach(p=>{out[p]=base+(rem>0?1:0); if(rem>0)rem--});
+  return out;
+}
+function balances(){
+  const b={}; S.people.forEach(p=>b[p]=0);
+  S.expenses.forEach(e=>{
+    if(e.payer in b)b[e.payer]+=e.cents;
+    const sh=shares(e); for(const p in sh)b[p]-=sh[p];
+  });
+  return b;
+}
+function settle(b){
+  const cr=[],db=[];
+  S.people.forEach(p=>{if(b[p]>0)cr.push({p,c:b[p]});else if(b[p]<0)db.push({p,c:-b[p]})});
+  const t=[];
+  cr.sort((a,b)=>b.c-a.c);db.sort((a,b)=>b.c-a.c);
+  let i=0,j=0;
+  while(i<cr.length&&j<db.length){
+    const m=Math.min(cr[i].c,db[j].c);
+    t.push({from:db[j].p,to:cr[i].p,c:m});
+    cr[i].c-=m;db[j].c-=m;
+    if(!cr[i].c)i++; if(!db[j].c)j++;
+  }
+  return t;
+}
+function render(){
+  $('plist').innerHTML=S.people.length?'<ul>'+S.people.map(p=>`<li data-testid="person"><span class="title">${esc(p)}</span></li>`).join('')+'</ul>':'<p class="empty">Add the first person on your trip.</p>';
+  const sel=$('ep').value;
+  $('ep').innerHTML=S.people.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  if(S.people.includes(sel))$('ep').value=sel;
+  const checked=new Set([...document.querySelectorAll('#es input:checked')].map(i=>i.value));
+  const had=new Set([...document.querySelectorAll('#es input')].map(i=>i.value));
+  $('es').innerHTML=S.people.length?S.people.map((p,i)=>`<label for="sp${i}"><input type="checkbox" id="sp${i}" value="${esc(p)}"${(!had.has(p)||checked.has(p))?' checked':''}>${esc(p)}</label>`).join(''):'<p class="empty">Add people to choose who shares the cost.</p>';
+  $('elist').innerHTML=S.expenses.length?'<ul>'+[...S.expenses].reverse().map(e=>`<li data-testid="expense"><div class="info"><div class="title">${esc(e.desc)}</div><p class="meta">Paid by ${esc(e.payer)}. Split between ${e.split.map(esc).join(', ')}.</p></div><span class="money">${money(e.cents)}</span><button type="button" class="ghost" data-testid="delete-expense" data-id="${e.id}" aria-label="Remove ${esc(e.desc)}">Remove</button></li>`).join('')+'</ul>':'<p class="empty">'+(S.people.length?'Add the first expense to start tracking who owes whom.':'Add people first, then log what you spend.')+'</p>';
+  const b=balances();
+  $('blist').innerHTML=S.people.length?'<ul>'+S.people.map(p=>{const c=b[p];
+    const txt=c>0?`is owed ${money(c)}`:c<0?`owes ${money(-c)}`:'is settled';
+    return `<li data-testid="balance" data-person="${esc(p)}" data-cents="${c}"><span class="title">${esc(p)}</span><span class="money ${c>0?'pos':''}">${c>0?'+':''}${money(c)} <span class="meta">${txt}</span></span></li>`}).join('')+'</ul>':'<p class="empty">Balances appear once you add people.</p>';
+  const t=settle(b);
+  $('tlist').innerHTML=t.length?'<ul>'+t.map(x=>`<li data-testid="transfer" data-from="${esc(x.from)}" data-to="${esc(x.to)}" data-cents="${x.c}"><span><span class="title">${esc(x.from)}</span> pays <span class="title">${esc(x.to)}</span></span><span class="money">${money(x.c)}</span></li>`).join('')+'</ul>':'<p class="empty">'+(S.expenses.length?'Everyone is even. Nobody needs to pay anyone.':'Add an expense and the transfers to even up will show here.')+'</p>';
+}
+$('pf').addEventListener('submit',e=>{
+  e.preventDefault();
+  const v=$('pn').value.trim();
+  if(!v)return show($('pe'),'Enter a name.');
+  if(S.people.some(p=>p.toLowerCase()===v.toLowerCase()))return show($('pe'),`${v} is already on the trip. Use a different name.`);
+  S.people.push(v);save();show($('pe'));$('pn').value='';render();$('pn').focus();
+});
+$('ef').addEventListener('submit',e=>{
+  e.preventDefault();
+  const desc=$('ed').value.trim(),amt=$('ea').value.trim().replace(/^\$/,'').replace(/,/g,'');
+  const er=$('ee');
+  if(!desc)return show(er,'Enter a description.');
+  if(!/^\d*\.?\d*$/.test(amt)||amt===''||amt==='.'||!(parseFloat(amt)>0))return show(er,'Enter an amount greater than $0.');
+  if(/\.\d{3,}/.test(amt))return show(er,'Use at most 2 decimal places in the amount.');
+  const [w,f='']=amt.split('.');
+  const cents=parseInt(w||'0',10)*100+parseInt((f+'00').slice(0,2),10);
+  if(cents<=0)return show(er,'Enter an amount greater than $0.');
+  if(!S.people.length)return show(er,'Add at least one person first.');
+  const payer=$('ep').value;
+  if(!payer)return show(er,'Choose who paid.');
+  const split=[...document.querySelectorAll('#es input:checked')].map(i=>i.value);
+  if(!split.length)return show(er,'Choose at least one person to split with.');
+  S.expenses.push({id:Date.now()+Math.random(),desc,cents,payer,split});
+  save();show(er);$('ed').value='';$('ea').value='';render();$('ed').focus();
+});
+$('elist').addEventListener('click',e=>{
+  const b=e.target.closest('[data-id]');if(!b)return;
+  S.expenses=S.expenses.filter(x=>String(x.id)!==b.dataset.id);save();render();
+});
+render();
+</script>
+</body>
+</html>

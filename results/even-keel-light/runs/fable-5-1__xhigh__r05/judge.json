@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.125Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 27480,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2528,
+        "output_tokens_details": {
+          "thinking_tokens": 1188
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.08024,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D carries headings, buttons, avatars and the Settle up card. Signal #C2462B is held back for the header rule, the waterline in the keel logo, focus rings and errors. Negative balances render 'owes $13.33' in navy rather than red, and positive ones use a muted tide green, so owing reads as normal. Fraunces headings and transfer amounts on a warm sail #F4F1EB ground feel steady and trustworthy rather than bank-like or playful."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted subtitles, and tabular-nums money right-aligned in expenses and balances. The centre-zero balance bars give a quiet visual read of who is ahead. Mobile reflows cleanly into one column with a full-width Add expense button. The weaknesses are a card-on-everything layout, pill chips and checkboxes, and a slightly heavy dark Settle up block above Balances, all of which feel somewhat stock."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain, calm and specific and address the user as 'you': 'No one on the trip yet. Add everyone who's chipping in — including you.', 'Ana is already on the trip.', 'Enter an amount over $0.00, with no more than two decimal places — like 42.50.', 'Even Keel keeps this trip in your browser. Nothing is sent anywhere.' Buttons are verbs ('Add person', 'Start a new trip', 'Keep this trip'). One slip: the subtitle 'The fewest transfers to get everyone back to even' overclaims, because a greedy settle is not guaranteed to be minimal."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every section has an empty state that changes with context (no people vs. no expenses vs. all even). Errors are inline, keep typed input and move focus to the right field. The expense form is gated until people exist. Removing a person is blocked when they are in an expense, and resetting the trip asks for inline confirmation with Escape support. Live-region announcements confirm actions, expense rows show uneven cent splits explicitly ('Ana ($3.34)'), and transfers are large and easy to act on."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "Money is handled in integer cents throughout. parseCents uses a strict regex, and shares() hands leftover cents out in trip order. Greedy settle produces at most n−1 transfers. The el() helper and renderAll keep rendering in one place. load() sanitises stored data, and a storage event keeps open tabs in sync. Semantics are solid: fieldset/legend for the split, labelled inputs, role=alert errors, aria-invalid/aria-describedby wiring, a focusable h2 after deletes, and all QA hooks and data attributes are exact."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The custom keel-and-waterline mark, the signal underline accent, navy-not-red debts and the zero-centred balance bars all read as decisions made for this brand. Against that, Inter as the UI face, pill-shaped chips and checkboxes, and a soft gradient on the dark card are template defaults that pull it slightly toward generic."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Subtle decorative linear-gradient on the Settle up card (#24445B to Harbour)",
+          "Pill radius (999px) on person chips and split checkboxes",
+          "Inter as the UI typeface",
+          "Banner-style section comments in the JS ('// ----- Elements -----')"
+        ],
+        "brand_violations": [],
+        "best_detail": "Debts are shown in calm navy with the word 'owes' and a centre-zero bar instead of red negatives, which directly honours 'owing money is normal, not a problem'.",
+        "worst_detail": "The Settle up subtitle promises 'the fewest transfers' while the greedy algorithm only guarantees at most n−1, a small honesty gap for a brand built on trust."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 5,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

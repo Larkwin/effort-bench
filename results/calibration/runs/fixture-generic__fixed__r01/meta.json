@@ -1,0 +1,28 @@
+{
+  "run_id": "fixture-generic__fixed__r01",
+  "model": "fixture-generic",
+  "model_label": "Fixture: generic AI look",
+  "effort": "fixed",
+  "n": 1,
+  "mode": "fixture",
+  "extraction": {
+    "method": "raw",
+    "complete": true,
+    "chatter_chars": 0,
+    "chatter_sample": "",
+    "html_bytes": 10188,
+    "html_lines": 162
+  },
+  "code": {
+    "css_lines": 34,
+    "js_lines": 75,
+    "css_custom_properties": 8,
+    "important": 0,
+    "media_queries": 0,
+    "innerHTML_writes": 7,
+    "comments": 9,
+    "aria_attributes": 0,
+    "labels": 1,
+    "external_scripts": 0
+  }
+}

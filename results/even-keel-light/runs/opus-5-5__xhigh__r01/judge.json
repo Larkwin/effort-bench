@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:47:09.249Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 34012,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2516,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 943
+        }
+      },
+      "cost_usd": 0.186368,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the masthead and the primary text and buttons, and Signal #C2462B is held back for the boot stripe, the Settle up top rule, the arrows and the main 'Add expense' action, all set on a warm 'sail' cream (#F4F1EA). Fraunces for display with Public Sans for body reads steady and trustworthy rather than playful or bank-like. The 'owing is normal' principle is built into the design: debts get a neutral brass bar instead of red, and the subhead says 'Owing just means someone covered you for now.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: the serif section titles, the tabular-figure amounts and the centre-zero balance bars give the right column a strong visual spine. The two-column 5fr/6fr layout collapses cleanly to mobile, and the tally regrids sensibly. Small unevenness: on mobile the Chloe transfer wraps its amount to a second line while Ben's doesn't, so the rows look inconsistent. The inset Signal stripe also curves awkwardly with the 16px card radius, and on desktop the empty state leaves the left column much taller than the right."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The copy is plain, calm and specific throughout. 'Whoever paid, log it here. Even Keel splits it to the cent.' and 'Owed and owing both come to $46.66, so it all evens out.' are good examples. Errors are actionable: 'Ana is already on the trip. If this is someone else, add a last initial, like “ana B.”' and 'Amounts go to the cent. Use at most 2 decimal places, like 12.75.' Buttons are verbs ('Add person', 'Copy for the group chat'), and there are no exclamation marks or marketing filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every brief requirement is covered, and it goes further:\n- Separate empty states for no people versus no expenses, plus an 'all even' state.\n- Per-field inline errors that keep what the user typed and move focus to the problem field.\n- A live split preview that explains where the leftover cents go.\n- Select everyone / Clear, undo after removing an expense, and a success status line.\n- Copy-to-clipboard for settling up, a localStorage failure warning, and focus restored after removal.\nThe mobile layout has no horizontal scroll and 44–48px touch targets."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The integer-cents logic is correct: the leftover cents go to people in trip order, and the greedy creditor/debtor matching guarantees at most n−1 transfers. The code is well organised, with a small h() helper, sanitize-on-load, a cross-tab storage listener, aria-invalid/aria-describedby, a fieldset/legend for the split, and a polite live region. The weakness is duplication: the base/extra share maths is repeated in sharesFor, updatePreview and renderExpenses. Rendering also rebuilds whole lists on every commit, and there are decorative CSS banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It feels deliberate and specific to Even Keel: a boat mark with a keel-line stripe, a masthead 'hull' with a Signal boot stripe, brass for owing, and a quiet cream surface. It holds back from adding colour. Some template habits remain: pill chips and count badges, a soft shadow on every card, and uppercase tracked micro-labels ('IS OWED', 'TRIP TOTAL')."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Soft drop shadow on every card surface (.card box-shadow applied universally)",
+          "Pill shapes for people chips, split chips and count badges (border-radius: 999px everywhere)",
+          "Uppercase letter-spaced micro-labels ('TRIP TOTAL', 'IS OWED', 'OWES')",
+          "Decorative banner comments in CSS ('/* ---------- Masthead: navy hull, sail gap, signal boot stripe ---------- */')",
+          "Indigo/plum avatar colours (#4F5B8C, #7A3E5C) in the rotation that sit outside the brand palette"
+        ],
+        "brand_violations": [],
+        "best_detail": "Owing is shown with a neutral brass bar on a centre-zero track, paired with 'Owing just means someone covered you for now', so the brand principle is expressed in both visuals and copy instead of flagging debt in red.",
+        "worst_detail": "On mobile the settle-up rows wrap inconsistently: Chloe's amount drops to its own line while Ben's stays inline, so the transfer list looks ragged."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

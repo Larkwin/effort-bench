@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:46:10.532Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18474,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2129,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 864
+        }
+      },
+      "cost_usd": 0.116476,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, headings and primary button, and Signal #C2462B is used sparingly for the header rule, the logo ring and the main CTA, all on a warm paper #F5F2EC. Fraunces headings over Inter body read as steady and trustworthy, and the footer states the principle outright. The weak spot is negative balances: they render as Signal red with a minus sign, which frames owing as an alarm and works against 'owing is normal'."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted ledes, right-aligned tabular Fraunces amounts, and evenly divided rows in the people, expense and balance lists. Mobile stacks cleanly with no overflow. However, in the desktop amount/payer row the 'Who paid?' select sits lower than the amount input because of align-items:flex-end plus the hint line. All five cards also carry identical visual weight, so the settle-up result doesn't stand out."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific and address the user as 'you': 'No one here yet… You can add yourself.', 'Try adding a last initial if there are two of them.', '2 transfers and you're done.', 'Everyone is even. Nothing to pay back.' Buttons are verbs. The header tagline just restates the brief, and the 'Newest first.' lede is functional rather than helpful."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states cover every section and change once people exist. Validation is inline, moves focus to the bad field, and keeps what the user typed. Balances add 'owes / is owed / is even' labels, and settle-up gives a transfer count with from→to rows. Thinner spots: Remove has no undo or confirmation, the split checkboxes reset to everyone whenever the form re-renders, and you cannot remove a person."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "State is a small object and rendering is pure. Shares use integer cents with the leftover going to people in the order they were added. The greedy settle stays within n−1 transfers, parseCents uses a strict regex, and HTML is escaped consistently. Semantics are good: form, fieldset/legend, labels, skip link, and sr-only 'pays'. Minor issues: role=alert sits inside an aria-live region, there is no aria-invalid or aria-describedby on errored fields, some styles are inline, and the code has banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The custom keel/wave logo mark, the Signal underline on the navy header, the warm paper tone and the restrained use of red read as deliberate choices for this brand. Fraunces paired with Inter, uniform white cards and pill checkboxes lean toward a familiar template, and so does using brand red for debts."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Inter as the body face, a default-feeling pairing with Fraunces",
+          "Pill-shaped split checkboxes (border-radius:999px)",
+          "Uniform white cards with the same weight for every section",
+          "Banner comments in JS (/* ---------- Render ---------- */)",
+          "Header tagline that restates the brief verbatim"
+        ],
+        "brand_violations": [
+          "Negative balances shown in Signal red with a minus sign ('−$33.33'), which frames owing as a warning and contradicts 'owing money between friends is normal, not a problem'"
+        ],
+        "best_detail": "The footer line 'Owing a friend a little money is normal — this just keeps it clear.' together with the 'is owed / owes' text labels shows the brand principle in plain, calm words.",
+        "worst_detail": "Colouring every debt in the brand's warm red undercuts the calm, non-judgemental stance the rest of the interface works to set up."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

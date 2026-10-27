@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.103Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 26773,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2319,
+        "output_tokens_details": {
+          "thinking_tokens": 1002
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.076736,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D carries headings, buttons and the whole Settle up card. Signal #C2462B is held back for the logo mark, heading ticks and error borders, over a warm paper (#F4F1EA) ground with a sea green (#1C6A5A) for 'is owed'. Negative balances are set in navy rather than red, and the settle-up lead reads 'Owing is normal on a trip.', a direct and quiet expression of the principle. Fraunces with IBM Plex Sans feels trustworthy and human, neither playful nor bank-like."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The desktop hierarchy is clear: a 7/5 grid puts the working forms on the left and the Balances and Settle up summary on the right. Spacing is consistent, and the diverging balance bars plus the serif transfer amounts give the summary real presence. Weaker spots: the Remove buttons float at the bottom-right of each expense row, loosely tied to it, and every section repeats the same card-plus-red-tick treatment, so section weight is uniform. The mobile stack is tidy with no overflow."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Most strings are plain and specific and use 'you': 'Everyone on this trip, you included.', 'Ana covers the extra cent.', 'Saved on this device only. Nothing leaves your browser.', 'You’re all even.' The duplicate error names both people and suggests adding a last initial. One string is redundant: 'A name is required — it can’t be empty.' 'Start with who’s coming' is slightly chatty but stays calm."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every panel has a tailored empty state that changes with context (no people vs. no expenses), and a notice blocks expense entry until people exist. Inline validation errors keep what the user typed and move focus to the field. Removing an expense offers Undo, Start a new trip asks for confirmation inline, and removing a person is blocked once they are part of an expense, with a hint explaining why. Odd-cent allocation is shown per expense, and settle-up rows read plainly as 'Chloe pays Ana $33.33'."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "All maths is in integer cents. sharesFor orders the split by trip order and hands out leftover cents one each, and the greedy creditor/debtor matching produces at most n−1 transfers. The amount parser handles commas, the $ sign, negatives and the decimal limit, user strings are escaped, and load() sanitises what comes back from localStorage. Semantics are solid: fieldset/legend for the split, aria-invalid and aria-describedby wiring on errors, role=status announcements, :has-based focus rings on chips, and deliberate focus restoration after delete and undo."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work reads as deliberate. The navy settle card is the visual destination, navy for debt deliberately avoids alarm, and the type pairing and warm neutrals are chosen with care. Some template habits remain: every section is a rounded white card with the same red tick above its heading, and people appear as pill chips with initial avatars."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Identical decorative red accent tick (h2::before) above every section heading",
+          "Every section boxed in the same rounded bordered card, giving uniform weight",
+          "Pill chips with initial-letter avatar circles for people (border-radius:999px)"
+        ],
+        "brand_violations": [],
+        "best_detail": "Debt is shown in calm Harbour navy rather than alarm red, with the Settle up card opening 'Owing is normal on a trip. 2 payments will bring everyone back to even.', which turns the brand principle into both copy and colour.",
+        "worst_detail": "The Remove buttons are aligned to the bottom-right of each expense row, apart from the amount and description, so they look loosely attached and break the row's reading line."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 5,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

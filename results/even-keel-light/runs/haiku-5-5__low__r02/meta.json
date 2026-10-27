@@ -1,0 +1,60 @@
+{
+  "run_id": "haiku-5-5__low__r02",
+  "model": "claude-haiku-5-5",
+  "model_label": "Haiku 5.5",
+  "model_returned": "claude-haiku-5-5",
+  "effort": "low",
+  "n": 2,
+  "mode": "sync",
+  "prompt_sha": "1573cb6d9883903b",
+  "max_tokens": 128000,
+  "thinking_display": "summarized",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 1611,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 13793,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+      "thinking_tokens": 4277
+    }
+  },
+  "input_tokens": 1611,
+  "output_tokens": 13793,
+  "thinking_tokens": 4277,
+  "thinking_blocks": 1,
+  "cost_usd": 0.007057600000000001,
+  "extraction": {
+    "method": "raw",
+    "complete": true,
+    "chatter_chars": 0,
+    "chatter_sample": "",
+    "html_bytes": 22163,
+    "html_lines": 632
+  },
+  "code": {
+    "css_lines": 242,
+    "js_lines": 299,
+    "css_custom_properties": 13,
+    "important": 0,
+    "media_queries": 2,
+    "innerHTML_writes": 13,
+    "comments": 4,
+    "aria_attributes": 11,
+    "labels": 5,
+    "external_scripts": 0
+  },
+  "started_at": "2026-10-22T02:17:04.625Z",
+  "latency_ms": 54111,
+  "ttfb_ms": 1225,
+  "first_text_ms": 27113,
+  "output_tps": 254.9,
+  "finished_at": "2026-10-22T02:17:58.741Z"
+}

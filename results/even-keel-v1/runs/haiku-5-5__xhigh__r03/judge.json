@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.298Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21634,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2560,
+        "output_tokens_details": {
+          "thinking_tokens": 1178
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.068868,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Every colour comes from the palette and is used in its stated role. Signal appears only on the primary buttons and the 24×3 wordmark rule, positives are in Kelp, and negatives show as Harbour '-$13.33'. Fraunces 600 and Plex 400/500 are loaded, `.money` sets tabular-nums, sizes stay on the 14/16/20/28/40 scale, radius is 6px, there are no shadows, and the focus ring is 2px Harbour with a 2px offset. The deviations are small: input, chip and secondary-button borders use Fog rather than 1px Rope (a commented contrast choice), and input padding is 12px, off the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a 40px Fraunces wordmark, 20px panel headings, 14px Fog metadata, and amounts with Remove buttons right-aligned on a shared edge. Rhythm is a consistent 8/16/24 and the mobile reflow wraps cleanly. Indenting the tagline under the wordmark text is a nice touch. The people list rows with a name only feel airy and slightly bloated. With no people, the empty 'Split between' legend sits over nothing, and the amount hint unbalances the two-column row."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Buttons are short sentence-case verbs: 'Add person', 'Add expense', 'Remove'. Errors say what to fix: 'Enter an amount greater than $0.', 'Use at most 2 decimal places for the amount.', 'Ana is already on this trip. Enter a different name.' Empty states are single next-step sentences, and 'Everyone is even. No payments are needed.' is calm and specific. There is no filler, no exclamation marks and no emoji."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief behaviour is present. Validation keeps typed values and focuses the bad field, split selections survive re-render, Remove moves focus to the next button, and status changes are announced via role=status. The settle-up empty state distinguishes 'no expenses' from 'everyone is even'. The weak spots: with no people the expense panel shows two empty-state notes plus an empty 'Split between' label, and people cannot be removed or renamed, which a user would likely want."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "The code is a tidy IIFE with a small `el()` builder. Amount parsing is strict and done in integer cents, and `splitEvenly` hands out leftover cents in trip order because `split` is filtered through `state.people`. The greedy settle provably stays within n−1 transfers, and `load()` defensively validates stored data. Semantics are good: a fieldset/legend for the split, role=alert errors with aria-invalid, sr-only expense names on Remove buttons, and all QA hooks placed exactly."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained. The hover swap from Signal to Harbour, the chip checked state in Sailcloth with a Harbour border, and the 'Is owed' / 'Owes' labels under balances all feel specific to Even Keel's 'not a bank' tone. The four stacked identical panels are a familiar, safe structure, so the result is slightly template-like rather than distinctive."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Section banner comments in the script (`/* ---------- helpers ---------- */` and similar)"
+        ],
+        "brand_violations": [
+          "Input, chip and secondary-button borders use Fog (#5B6B75) instead of the specified 1px Rope border",
+          "Input and chip horizontal padding of 12px is off the 8px spacing grid"
+        ],
+        "best_detail": "Negative balances show as calm Harbour '-$13.33' with an 'Owes' label while positives get Kelp and 'Is owed', which applies the 'owing is normal' rule precisely and readably.",
+        "worst_detail": "In the no-people state the expense form shows an orphaned 'Split between' legend with nothing under it, alongside two separate empty-state notes in the same panel."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

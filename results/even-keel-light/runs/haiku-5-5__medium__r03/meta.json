@@ -1,0 +1,58 @@
+{
+  "run_id": "haiku-5-5__medium__r03",
+  "model": "claude-haiku-5-5",
+  "model_label": "Haiku 5.5",
+  "model_returned": "claude-haiku-5-5",
+  "effort": "medium",
+  "n": 3,
+  "mode": "batch",
+  "prompt_sha": "1573cb6d9883903b",
+  "max_tokens": 128000,
+  "thinking_display": "summarized",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 1611,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 28183,
+    "output_tokens_details": {
+      "thinking_tokens": 18095
+    },
+    "service_tier": "batch",
+    "inference_geo": "global",
+    "speed": "standard"
+  },
+  "input_tokens": 1611,
+  "output_tokens": 28183,
+  "thinking_tokens": 18095,
+  "thinking_blocks": 1,
+  "cost_usd": 0.0071263,
+  "extraction": {
+    "method": "raw",
+    "complete": true,
+    "chatter_chars": 0,
+    "chatter_sample": "",
+    "html_bytes": 23557,
+    "html_lines": 611
+  },
+  "code": {
+    "css_lines": 153,
+    "js_lines": 361,
+    "css_custom_properties": 12,
+    "important": 0,
+    "media_queries": 2,
+    "innerHTML_writes": 0,
+    "comments": 21,
+    "aria_attributes": 9,
+    "labels": 4,
+    "external_scripts": 0
+  },
+  "batch_id": "msgbatch_01FmMRmrWdGpqf5csRaUHFHt",
+  "batch_created_at": "2026-10-22T04:43:23.623239+00:00",
+  "batch_ended_at": "2026-10-22T04:58:04.546439+00:00",
+  "finished_at": "2026-10-22T05:03:57.226Z"
+}

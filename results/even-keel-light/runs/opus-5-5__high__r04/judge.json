@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.069Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 30013,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2871,
+        "output_tokens_details": {
+          "thinking_tokens": 1394
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.088736,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "The palette is built tightly around Harbour #1F3A4D (masthead rule, dark Settle-up card, positive meters) and Signal #C2462B (primary Add expense button, the 56px accent under the masthead, the keel tip in the logo), all on a warm paper #F5F1EA. Fraunces display with Public Sans UI reads steady and trustworthy, neither playful nor bank-like. The 'owing is normal' principle shows in the neutral 'Owes' and 'Owes the group' labels and the soft coral --owes-bar #D9876F instead of alarm red."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif section titles, small uppercase red eyebrows, a dominant dark Settle-up card, tabular serif figures right-aligned in balances and expenses, and a consistent 20–24px rhythm at both widths. Polish slips in the empty state. `.legend-row{display:flex}` and `.split-tools{display:flex}` override the `hidden` attribute, so the Gets back / Owes legend and the Everyone / Clear buttons show with zero people. The legend also sits awkwardly above the empty box, and the desktop right column is noticeably shorter than the left."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Copy is plain, calm and specific throughout: 'Nobody's here yet. Add everyone on the trip, including you.', 'Everyone's even. Nothing left to settle.', and a duplicate-name error that suggests adding a last initial. Amount errors are precise ('Use at most 2 decimal places, like 42.50.'). Minor inconsistencies: 'Gets back' vs 'Gets money back', and the recorded-payment meta line 'X paid Y back. Split between Y.' reads awkwardly."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every state in the brief is covered: per-field inline errors that keep typed input, focus moved to the first invalid field, live-region announcements, and focus restored after removing an item. Settle-up has a 'Mark as paid' action that records a payment, and there is a confirmed 'Start a new trip' reset. Mobile reorders the layout so the answer follows the forms. Weaknesses are the leaked legend and split tools in the empty state, and recorded payments appearing as 'expense' items that inflate the '3 items' count and could confuse users."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money handling is solid: integer cents throughout, leftover cents assigned in join order via state.people.filter, a robust parseAmount (handles commas, the 2-decimal limit and an upper bound), greedy settlement that stays within n−1 transfers, and validated localStorage loading. Semantics have flaws. The `<legend>` sits inside a div rather than as the fieldset's first child, so the fieldset loses its accessible name. Several `display` rules defeat `[hidden]`. `.btn--small` is unused, and banner comments separate the CSS sections."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "There are clear deliberate choices: a custom keel mark with a Signal-red tip, a navy rule with a short red segment, centre-axis balance meters, and a dark Settle-up 'answer' card. Together they feel specific to Even Keel rather than templated. Some patterns are stock, though: the header stat strip (Trip total / People / Expenses), 'Step 1/2/3' eyebrows, and pill chips with initials avatars."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Header stat strip (TRIP TOTAL $0.00 / PEOPLE 0 / EXPENSES 0) showing zeros on first load",
+          "Banner comments in CSS such as '/* ---------- Masthead ---------- */'",
+          "Unused CSS class .btn--small",
+          "Pill radii (999px) on person chips, split chips and tags"
+        ],
+        "brand_violations": [],
+        "best_detail": "The balance meters grow left or right from a centre keel line, with Harbour navy for 'gets back' and soft coral for 'owes', which shows the evening-out visually while keeping debt calm rather than alarming.",
+        "worst_detail": "`display:flex` on `.legend-row` and `.split-tools` overrides the `hidden` attribute, so a balance legend and Everyone/Clear buttons appear in the empty state with nothing to act on."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

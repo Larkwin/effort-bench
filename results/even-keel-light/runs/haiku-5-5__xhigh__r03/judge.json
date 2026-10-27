@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.075Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 26048,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2472,
+        "output_tokens_details": {
+          "thinking_tokens": 1081
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.076816,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, buttons and headings, and Signal #C2462B appears as a header rule, a mark accent and the transfer left-borders, set on a warm paper (#F4F1EA) neutral. Fraunces display with Instrument Sans reads steady and crafted, neither playful nor corporate. The balance lede reframes debt neutrally (\"Owes means they can settle up\"), though tinting every debtor's amount and meter in red-orange against a green 'is owed' still nudges owing toward a warning state."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Clear hierarchy: serif card titles, tabular-nums amounts, consistent 16–26px card padding, and a balance meter centred on a zero tick that reads at a glance. Mobile stacks cleanly with full-width buttons and wrapping share chips. Weaker spots: expense cards carry a lone right-aligned 'Remove' row that bloats each item, and on desktop the sticky side column leaves a large empty band above Balances in the filled state."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: \"Everyone starts selected. Untick anyone who didn’t share this.\", \"“Ana” is already on the trip. Names ignore capital letters.\", \"2 payments bring everyone to even.\", \"No payments needed. Everyone’s square.\" Buttons are verbs and empty states say what to do next. A few lines are slightly clunky (\"Names ignore capital letters, so each person appears once.\"), and \"petrol\" is an odd choice for a Canadian audience."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has its own empty state, including the intermediate 'Everyone starts even.' state. Errors are inline, focus the offending field and keep what the user typed. Removing an expense moves focus sensibly, a polite live region announces actions, the per-expense share chips make leftover-cent allocation visible, and there is a confirmed 'Start a new trip' reset. Gaps: the payer is not pre-selected, people cannot be removed or renamed, and transfers cannot be marked as paid."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "The IIFE is well organised, with a small h() DOM helper, validated loadState rehydration, and integer-cent parsing via a regex rather than float multiplication. sharesFor allocates remainders in trip order, and the greedy settlePlan guarantees at most n-1 transfers. Semantics are solid: fieldset/legend for the split, label-wrapped checkboxes, aria-invalid with aria-describedby wiring, focus-visible rings including on :has() chips, and prefers-reduced-motion support."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The keel/sail SVG mark echoed in the favicon, the faint waterline stripes and Signal rule on the header, the centred-zero balance meter, and the paper-and-navy palette all feel chosen for this brand. Some defaults remain: shadowed cards everywhere, count pills beside every heading, initial avatars and pill chips are familiar template furniture."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Count badge pills beside the People and Expenses headings that duplicate visible info",
+          "Initial-letter avatar circles repeated in both the people and balance lists",
+          "Banner section comments in JS (/* ---------- Storage ---------- */)",
+          "Every surface is a rounded card with soft shadow, with nested bordered sub-cards for each expense and person"
+        ],
+        "brand_violations": [
+          "Owing is styled in the alert-style red-orange (signal-ink amounts, red meter fills) against a green 'is owed', which leans toward framing debt as a problem despite the 'owing is normal' principle"
+        ],
+        "best_detail": "The balance meter, with a navy zero tick and fills extending left for owes and right for is owed, makes 'even' a literal visual centre line that matches the brand name.",
+        "worst_detail": "Each expense card spends a whole extra row on a lone right-aligned 'Remove' link, making the list feel padded and long, especially on mobile."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

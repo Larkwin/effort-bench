@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:47:28.809Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21261,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2112,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 764
+        }
+      },
+      "cost_usd": 0.127284,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, headings and transfer rules, and a 5px Signal rule under the header ties the two anchors together. Warm paper (#F4F0E8) and cream cards make it feel steady rather than bank-cold, and Fraunces with Public Sans reads honest and quietly confident. The principle is stated outright (\"Owing between friends is normal\"), but the UI then paints every debt and negative bar in Signal red, which quietly codes owing as an alarm."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif h2s, muted subs, then labelled fields, with consistent 46px controls and 1.25–1.75rem card gaps. Balance bars around a centre line and tabular serif amounts are well finished. Weak spots: three full-size bordered 'Remove' buttons dominate the expense list; the stat tiles are cramped at 390px ('TOTAL SPENT' wraps to two lines); and the left column ends far above the right on desktop."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Copy is plain, calm and speaks to 'you': 'Add the first name above. Start with yourself.', '“Ana” is already on the trip. Names can’t repeat, even with different capitals.', and 'Everyone’s even. Nobody needs to pay anyone.' Buttons are verbs. Two lapses: 'Owing between friends is normal' and 'It’s normal for these to be uneven mid-trip' read like the brief recited back, and 'Order matters only for leftover cents' is implementer language."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a useful empty state, and the expenses empty state changes depending on whether people exist. Inline errors focus the offending field, the typed input is kept, and errors clear on input. A Clear all / Select all toggle helps with the split, focus moves to the Expenses heading after a delete, and 'pays' rows are easy to read. Gaps: there is no confirmation or undo on Remove, settle-up offers no way to mark a payment done, and nothing confirms a successful add beyond the list updating."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is tidy and readable: a small h() helper, integer-cents parsing with a comma-aware regex, shares that give leftover cents in trip order, and a greedy settle that guarantees at most n−1 transfers. load() also sanitises localStorage data. Semantic slips: the <legend> sits inside a div, so it isn't the fieldset's first child and loses its grouping semantics; the split error never sets aria-invalid; and banner comments plus an unused --signal-text alias add clutter."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The sailboat mark in paper and Signal, the warm paper palette, the serif money figures and the centre-line balance bars feel chosen for this brand rather than defaulted. Some template habits remain: the three stat tiles at the top add little, initial-avatar pill chips are a stock pattern, and every section sits in an identical bordered card."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Stat tile row (Total spent / Expenses / People) at the top adds little for the task",
+          "Section banner comments in the JS (/* ---------- state ---------- */)",
+          "Initial-letter avatar pills for people, a stock pattern"
+        ],
+        "brand_violations": [
+          "Debts are shown in Signal red text with red bars ('owes'), coding owing as a warning and undercutting 'owing money is normal, not a problem'",
+          "Settle-up and Balances subtitles quote the brand principle almost verbatim instead of expressing it through the design"
+        ],
+        "best_detail": "The balance rows' centre-line bars, green to the right for owed and extending left for owes, with tabular serif amounts, make the whole group's position readable at a glance.",
+        "worst_detail": "Each expense carries a full-size bordered 'Remove' button on its own line, which gives a destructive action as much weight as the expense itself and bloats the list."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

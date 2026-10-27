@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.308Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20013,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2498,
+        "output_tokens_details": {
+          "thinking_tokens": 1049
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.065006,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Colours come only from the seven-colour palette. Signal is used only on primary buttons and the 24×3 wordmark rule. Negative balances are Harbour with a minus sign and positive ones are Kelp. Fraunces 600 and Plex 400/500 are loaded and applied, sizes stay on the 14/16/20/28 scale, and radius, focus ring, shadows and gradients all follow the rules. There are small breaks: input and checkbox borders use Fog instead of Rope, list rows and inputs use 12px padding off the 8px grid, and the settle-up amounts sit in plain text without tabular-nums."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The single 720px column of panels has a clear hierarchy: Fraunces headings, Fog hints, and bordered lists with Rope dividers. Expense rows align amount and Remove button neatly, and the mobile layout reflows cleanly with no overflow. There are a few uneven spots. In the empty state, the 'Split between' legend floats over a blank gap. The balance rows feel a bit tall for three names. The stacked-panel structure is tidy but predictable."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific: 'Each name must be different. Capital letters do not count.', 'Enter an amount greater than $0.', 'Use no more than 2 decimal places, such as 24.50.', 'Everyone is already even.' Buttons are short verbs ('Add person', 'Add expense', 'Remove'). Empty states give the next step in one sentence, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a staged empty state. Validation is inline with role=alert, focuses the offending field, and keeps what the user typed. Balances add 'is owed', 'owes' or 'settled up' labels, and a removal moves focus to a sensible next button. The settle-up list reads naturally ('Chloe pays Ana $33.33.'). Thin spots: the payer select starts on 'Choose a person', which adds a step to every expense, the settle-up hint shows even when there is nothing to settle, and the empty split area gives no cue."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a clean IIFE with a small el() helper. It uses integer cents throughout, a strict regex amount parser, and sanitised localStorage loading. shareMap hands leftover cents out in trip order, and the greedy settle is correctly bounded at n−1 transfers. Semantics are good: fieldset and legend, labels, aria-invalid and aria-describedby, and aria-labels on the remove buttons. Minor issues: the data-hint attribute workaround, computeBalances running twice per render, and removal state tracked through an 'unchecked' Set that sits outside the main state."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained. The Signal-to-Harbour hover, the error styled in Harbour on Sailcloth instead of red, the checkbox chips with a Harbour accent colour, and the 'is owed' / 'owes' sublabels all show attention to this brand's 'owing is normal' stance. The four identical bordered panels are a safe, somewhat template-like structure."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four identically styled stacked panels (People, Expenses, Balances, Settle up) with uniform weight, a fairly template-like scaffold"
+        ],
+        "brand_violations": [
+          "Input, select and checkbox-chip borders use Fog (#5B6B75) instead of the specified 1px Rope borders",
+          "Settle-up transfer amounts ('Chloe pays Ana $33.33.') are in .transfer-text without font-variant-numeric: tabular-nums",
+          "12px padding on inputs, checkbox chips, list rows and the error box breaks the 8px spacing grid"
+        ],
+        "best_detail": "Balances pair the signed amount with a small Fog 'is owed' / 'owes' / 'settled up' label, coloured Kelp or Harbour, which honours the brief's rule that owing is normal while staying instantly readable.",
+        "worst_detail": "In the empty state the 'Split between' legend sits over a blank gap with no hint, which looks like a broken section rather than a deliberate empty state."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

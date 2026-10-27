@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.136Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 39392,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2478,
+        "output_tokens_details": {
+          "thinking_tokens": 1155
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.103564,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D carries the header and the Settle up card, and Signal #C2462B is used sparingly as the header rule, the card top band and the primary buttons. The palette is built out with paper #F6F3EC, sea green #2D6A5C and harbour tints. Fraunces paired with Public Sans reads steady and trustworthy, neither playful nor banking. The principle is built into the design: debts show in calm navy rather than red, with the line 'Owing is normal. It just means a friend covered you for a while.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted ledes, and tabular-nums amounts aligned right in balances and transfers. The diverging balance bar with a centre 'Even' axis is well judged. Two spots are weaker. On desktop the expense rows leave a wide empty middle between the text and the amount and Remove button. On mobile the Remove button sits awkwardly beside the wrapped share text, and the -12px row margins make the dividers overhang slightly."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Labels are plain questions ('What was it for?', 'Who paid?'). Errors are specific and helpful: 'Ana is already on the trip. If this is someone else, add a last initial, like “Ana B.”' and 'Amounts go to the cent, so use at most 2 decimal places, like 48.50.' The Canadian detail 'like an Interac e-Transfer or cash' is a good touch. Buttons are verbs, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every state has an empty message: no people, no expenses, nothing to settle, and 'Everyone’s even.' Beyond the brief it adds a live share preview that explains where leftover cents go, undo after removing an expense, a confirmed 'Start a new trip' reset, and 'Copy as text' for settle-up. People can be removed only until they are part of an expense. Errors keep the typed input and move focus to the bad field."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "Money is handled in integer cents with a strict parseAmount. shares() gives leftover cents in trip order, because splitPeople filters state.people. The greedy settle-up is documented as using at most n−1 transfers. Stored data is validated on load, tabs stay in sync through the storage event, and the markup is semantic: fieldset/legend, aria-invalid, aria-describedby, live regions and a skip link. Small blemishes: banner section comments, an unused --harbour-deep variable, and split logic that is slightly duplicated between shares() and shareSentence()."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The mark, the dark Settle up card with its Signal top band, the axis labels '← Owes / Even / Gets back →' and the 'Every cent is accounted for' checksum all feel made for Even Keel. Some choices still look like a template: uppercase stat tiles in the header, a soft shadow on every card, and pill chips throughout."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Header stat tiles (TRIP TOTAL / PEOPLE / EXPENSES) with uppercase labels and large serif numbers",
+          "Box-shadow applied uniformly to every card via --shadow",
+          "Banner section comments in the CSS and JS ('/* ---------- Header ---------- */')",
+          "Unused CSS variable --harbour-deep"
+        ],
+        "brand_violations": [],
+        "best_detail": "Balances show debt in calm harbour navy and credit in sea green on a diverging bar centred on 'Even', so owing looks normal rather than alarming, exactly as the brand principle asks.",
+        "worst_detail": "The expense rows stretch across the full-width card, leaving a large empty gap between the description block and the amount and Remove button on desktop, and on mobile the Remove button sits awkwardly beside the wrapped share text."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

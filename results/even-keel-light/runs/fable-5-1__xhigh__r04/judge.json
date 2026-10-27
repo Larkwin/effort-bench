@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.141Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 27269,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1998,
+        "output_tokens_details": {
+          "thinking_tokens": 672
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.074518,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the masthead and ink, and Signal #C2462B is kept for primary actions and the small keel triangle in the logo. A warm canvas (#F4F1EA) and a sea green (#1E6B52) for 'is owed' fill out the palette. Debts render in calm navy rather than red, and the note 'Owing and being owed are both just part of a trip' states the brief's principle directly. Fraunces headings with IBM Plex Sans body read as steady and trustworthy, neither playful nor bank-like."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The 5fr/7fr two-column grid gives a clear order: input on the left, results on the right. Cards share consistent 24px padding, numbers use tabular-nums, and the centred 'keel' balance bars make balances legible at a glance. The footer is the weak spot: 'Start a new trip' wraps onto two lines on desktop, and the confirmation row sits permanently beside it, so the page ends untidily at both widths."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific and address the user as 'you'. Examples: 'Log who paid and who it was for. Even Keel splits it equally, to the cent.', '2 transfers and everyone's even.', and 'Ana is already on the trip. Try a different name, or add a surname.' Buttons are verbs ('Add person', 'Keep this trip', 'Yes, start a new trip'). Empty states tell you what to do next, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has an empty state. Validation is inline, keeps the typed values and moves focus to the field at fault. Each expense lists per-person share chips that show the leftover cent going to Ana, and removing an expense moves focus to a sensible next button. However, the reset confirmation ('Yes, start a new trip') is always visible, and 'Select all'/'Clear all' appear before anyone has been added. In both cases the `hidden` attribute is overridden by CSS `display:flex`, so a destructive red button sits on screen at all times."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is well structured: a small el() helper, careful integer-cents parsing in parseAmount, splitShares ordered by when people were added, a greedy settle-up that stays within n−1 transfers, defensive load() validation, aria-invalid/aria-describedby on errors, and a live status region. The main defect is that `.reset{display:flex}` and `.fieldset__tools{display:flex}` defeat `[hidden]`, which is an unguarded fragile spot. Minor nits include inline style strings in render code."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Several choices are specific to the brand: the keel-and-horizon logo mark, balance bars that tip either side of a centre line, navy rather than red for debt, and dashed empty-state wells. These feel intentional. The white rounded cards with soft shadows on every panel and the pill chips for checkboxes and shares are more template-standard."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section sits in an identical white card with the same soft drop shadow (--shadow on .card)",
+          "Pill radii (999px) on split checkboxes and share chips",
+          "Banner-style section comments in the JS ('/* ---------- money maths (integer cents) ---------- */')"
+        ],
+        "brand_violations": [],
+        "best_detail": "The 'keel' balance bars pivot from a centre line, with owed amounts in sea green and debts in calm Harbour navy rather than alarm red, turning the brand name and its principle into a readable visualisation.",
+        "worst_detail": "Because `.reset{display:flex}` overrides the `hidden` attribute, the red 'Yes, start a new trip' confirmation is permanently on screen next to its own trigger, a cluttered footer and an easy accidental wipe of the whole trip."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

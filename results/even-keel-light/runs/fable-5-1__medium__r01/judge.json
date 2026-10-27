@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:46:10.972Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21299,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2216,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 901
+        }
+      },
+      "cost_usd": 0.129516,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header and headings, with a Signal #C2462B rule under the header. Signal also carries the primary buttons, and the warm sand #F3EFE8 ground makes the page feel steady rather than bank-like. Fraunces for display gives quiet confidence, and the settle-up empty state says 'Owing a friend a bit after a trip is normal — this just makes it tidy.' The principle is undercut by colouring every debt in red-orange with red meters against green for 'is owed', which reads as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Clear hierarchy: a Fraunces h2 per card, small uppercase 'STEP 1/2' kickers, tabular Fraunces amounts aligned right, and consistent 14–24px spacing. The balance meters centred on zero are a well-judged touch. Weaker spots: the Remove button sits under the amount and floats loosely in the expense rows, the person chips crowd the full-width Add person button on mobile, and the header's right-aligned note feels detached."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Plain and specific throughout. Labels are 'What was it for?' and 'Who paid?', the settle-up note reads '2 transfers and you're all square', the footer says 'Your trip is saved on this device', and errors give examples ('Enter an amount like 42.50 — numbers only, with up to two decimals.'). Buttons are verbs. The duplicate-name error is a little wordy ('Names need to be different, ignoring upper and lower case')."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every empty state is handled, and the expenses empty state changes once people exist. Validation is inline and keeps typed values, focus moves to the offending field, and checkbox state survives re-renders. Removing an expense moves focus to the next Remove button, 'Start a new trip' asks for confirmation, and a zero-transfer 'Everyone is even' state exists. Gaps: errors are not linked with aria-describedby or aria-invalid, there is no undo on remove, and transfers cannot be marked as paid."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Amounts are parsed to integer cents with a regex and no floats. shares() gives leftover cents in trip order because split is filtered from state.people, and the greedy settle produces at most n−1 transfers. HTML is escaped, load() validates stored data, and semantics are sound (fieldset/legend, labels, aria-live, sr-only 'pays'). Minor issues: inline style attributes, an unused --harbour-deep variable and an unused .btn-secondary class, and the whole app re-renders through innerHTML strings."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The nautical keel mark, the Signal underline on the header, the sand palette, and serif money figures feel chosen for Even Keel rather than taken from a template. Some defaults remain: Inter for body, soft shadows on every card, pill chips, and a two-column card dashboard that many current tools share."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Inter used as the body face",
+          "A soft box-shadow on every card surface",
+          "Pill (999px radius) chips for both people and split checkboxes",
+          "Unused CSS variable --harbour-deep and unused .btn-secondary styles"
+        ],
+        "brand_violations": [
+          "Every negative balance and its meter is coloured red-orange against green for 'is owed', framing owing as a warning and cutting against 'owing money between friends is normal, not a problem'"
+        ],
+        "best_detail": "The settle-up empty state 'Owing a friend a bit after a trip is normal — this just makes it tidy.' voices the brand principle in plain words at exactly the right moment.",
+        "worst_detail": "Red-orange amounts and red meters for everyone who owes, set against green for creditors, turn a normal state into an alarm and contradict the principle the copy states."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

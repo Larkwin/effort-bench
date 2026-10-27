@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:46:41.923Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20516,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2857,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1371
+        }
+      },
+      "cost_usd": 0.139204,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and primary buttons, and Signal appears as a 4px rule under the masthead, the eyebrows and the logo dot. The rest of the palette sits on a warm paper ground (#F4F1EA). Newsreader serif headings with Figtree UI text feel steady and trustworthy rather than bank-like, and the copy states the principle outright: \"Owing each other is normal.\" The one tension is that negative balances are coloured --signal-ink red, which reads as a warning against that principle."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: eyebrow, serif h2, muted hint, then content. Spacing is consistent and amounts use tabular-nums. Mobile at 390px is clean and well stacked. On desktop, the grid areas \"expenses balances\" / \"expenses settle\" with align-items:start leave a visibly larger gap between Balances and Settle up, and there is dead space under the short People card. Each expense also spends a full row on a right-aligned Delete button, which bloats the list."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific and address the user as \"you\". Examples: \"No one has joined yet. Add the people on this trip, starting with you.\", '\"ana\" is already on the trip as \"Ana\".', \"Use at most two decimal places, like 24.50.\" and \"Saved on this device in your browser. Nothing is sent anywhere.\" Buttons are verbs. The eyebrows (\"Where things stand\", \"The ledger\") are a little ornamental, and the tagline \"Nobody keeps score\" is slightly ironic for an app that tallies balances."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states are handled for every section, including a distinct \"Everyone is even\" state. Errors are inline with role=alert and focus moves to the offending field. Typed input is preserved, the split resets to everyone after an add, and focus moves to the Expenses heading after a delete. Each expense shows its per-person shares, which makes the cent allocation transparent. Gaps: delete has no confirm or undo, and a mistyped person cannot be removed."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a tidy IIFE that works in integer cents. parseAmount handles $ and commas and rejects more than two decimals, orderedSplit gives leftover cents in trip order, and the greedy settle-up guarantees at most n−1 transfers. Output is escaped, loaded data is validated, and the semantics are good (fieldset/legend for the split, aria-invalid/aria-describedby wiring, labelled delete buttons). Minor issues: an unused `i` parameter in renderSplit, inline style attributes, :focus rather than :focus-visible, and banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The custom keel/level logo mark, the Signal rule under the navy masthead, the serif-plus-sans pairing and the warm paper tone feel chosen for this brand. Still, the structure (identical white shadowed cards, each with an uppercase eyebrow) leans template-like, and the desktop grid gaps suggest the layout wasn't checked closely with real data."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "An uppercase eyebrow label above every card heading (\"The group\", \"New cost\", \"Next step\"), applied uniformly",
+          "Five uniform white cards, all with the same shadow and radius",
+          "Banner comments in the JS (\"// ---------- State ----------\", \"// ---------- Rendering ----------\")",
+          "Pill chips (border-radius:999px) for the people list"
+        ],
+        "brand_violations": [
+          "Amounts owed are shown in red (.amt.neg uses --signal-ink), which frames owing as a warning despite the principle that owing money is normal",
+          "Delete buttons use the same red as debts, so the colour carries both 'danger' and 'owes'"
+        ],
+        "best_detail": "Each expense lists its exact per-person shares (\"Ana $3.34 · Ben $3.33 · Chloe $3.33\"), making the fair-split rule visible and honest, which fits the brand perfectly.",
+        "worst_detail": "On desktop, the grid gives Expenses two rows and aligns cards to the start, which leaves an uneven gap between Balances and Settle up and a hole under People."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

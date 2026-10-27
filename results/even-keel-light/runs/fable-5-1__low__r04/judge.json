@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.131Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19623,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2423,
+        "output_tokens_details": {
+          "thinking_tokens": 1109
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.063476,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and secondary button, and Signal #C2462B is kept for the primary 'Add expense' action and transfer arrows. The rest of the palette is built to fit: sand #F6F3EE ground, harbour tints, sea green for positive balances. Newsreader serif with Public Sans reads steady and trustworthy, neither playful nor corporate. The one misstep is colouring every negative balance in Signal red, which leans toward 'this is a problem' even though the 'owes' label itself is neutral."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted ledes, and right-aligned serif tabular amounts in balances and expenses. Spacing is consistent at 1.25rem gaps, and the transfer rows on sand read cleanly. Small flaws: the masthead logo sits about 17px left of the card column edge, the desktop left column ends well short of the right, and on mobile each 'Remove' button wraps onto its own line, which makes the expense rows tall."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, specific and use 'you': 'Where everyone stands', 'What each person paid, minus their share of everything', '2 transfers and everyone's square.', 'Your trip is saved in this browser. Nothing leaves your device.' Errors are useful and calm: 'Ana is already on the trip. Names need to be different, ignoring capitals.' and 'Enter the amount in dollars, like 42 or 42.50, with at most two decimals.' Buttons are verbs."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a context-aware empty state, including the expenses one that changes once people exist. Validation shows inline, keeps what the user typed and focuses the offending field. Unchecked split choices survive re-render, settle-up has an 'Everyone's even' state, and the expense header shows a count and total. Gaps: people cannot be removed or renamed, and focus is lost after removing an expense."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cents parsing is regex-validated, the leftover cents are distributed in trip order through state.people.filter, and the greedy settle yields at most n−1 transfers. Semantics are sound: fieldset and legend for the split, labels on every input, role=alert errors, aria-invalid, an sr-only ' pays ' inside transfers, and a skip link. Minor issues: a redundant duplicated .col rule inside the media query, inline style attributes in the JS, and shallow validation of stored state on load."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The custom keel-and-sail SVG, the Newsreader and Public Sans pairing, the sand ground and serif money figures feel chosen for this brand rather than defaulted. Some template habits remain: a soft shadow on every card, pill chips with initials avatars whose colour alternates by index for no reason, and a stack of equal-weight cards."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Same soft box-shadow on every card surface",
+          "Initials avatars alternating navy/red by list index (i % 2), meaning nothing",
+          "Pill-shaped (999px radius) person chips",
+          "Redundant duplicate .col{display:grid;gap:1.25rem} inside and outside the media query"
+        ],
+        "brand_violations": [
+          "Negative balances rendered in Signal red-orange (.neg .val), which frames owing as an alert and works against the principle that owing money is normal"
+        ],
+        "best_detail": "The settle-up card pairs bold 'Chloe → Ana' rows on sand with serif amounts and closes with '2 transfers and everyone's square.', making the outcome both actionable and reassuring.",
+        "worst_detail": "Every negative balance is coloured in warning red, so the balances list visually treats owing as a problem despite the neutral 'owes' label."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

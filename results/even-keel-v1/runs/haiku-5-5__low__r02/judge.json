@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.301Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19395,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2314,
+        "output_tokens_details": {
+          "thinking_tokens": 1069
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.06193,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is limited to the seven tokens and colour roles are respected: Signal appears only on the primary buttons and the wordmark rule, Kelp marks positive balances, and negatives render in Harbour with a minus sign. Fraunces 600 and IBM Plex Sans 400/500 load correctly, `.money` uses tabular-nums, and the 6px radius, absence of shadows and the 2px Harbour focus ring with 2px offset all follow the guidelines. There are small departures: inputs and the Remove button are bordered in Fog rather than Rope, and 12px padding and gaps appear throughout, which breaks the 8px rhythm."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The single centred column is calm and hierarchy is clear: Fraunces section headings, Fog hints, Rope dividers between rows, and expense amounts right-aligned beside the Remove button. Balance rows break that pattern, though, with the amount clustered next to the name ('Ana is owed $46.66') while transfers and expenses right-align their money. The 'Newest first' subhead also sits orphaned above the empty expense state."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Errors say what to fix ('Enter an amount such as 42.50, with at most 2 decimal places.', 'Ana is already on the trip. Enter a different name.'). Empty states give one next step ('No people yet. Add the first person on the trip to start.'), and buttons are short verbs. One wrinkle is 'Ben owes -$13.33', where the word 'owes' and the minus sign double up the negative."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Validation keeps the typed values and moves focus to the offending field. Errors clear on input, focus returns to the Expenses heading after a removal, and the settle-up section distinguishes having no people, having no expenses and everyone being even. One gap: before any people exist, the Paid by select is empty and Split between is blank, with no inline hint there."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The script is a tidy IIFE with a small `h()` element builder and works entirely in integer cents. `splitShares` orders the selected people by trip order and hands leftover cents out one each, and the greedy settlement is correct and stays within n−1 transfers. Semantics are solid (fieldset and legend, aria-invalid, aria-labelled sections, a descriptive aria-label on each Remove), and stored data is validated on load. A minor gap is that `renderFormControls` is only called on person add."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as restrained and specific to the brand: a 'Paper on Sailcloth' panel stack, a Harbour accent-color on the checkboxes, and an underline-on-hover treatment that avoids colour tints. The four identical bordered panels feel somewhat template-like, and the misaligned balance amounts suggest less attention there."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four identical stacked panels with heading plus hint paragraph, a somewhat uniform template rhythm"
+        ],
+        "brand_violations": [
+          "Input, select and secondary-button borders use Fog instead of 1px Rope",
+          "12px padding and gaps (inputs, list items, .item-side) fall outside the 8px multiple / 4px tight-pair rule"
+        ],
+        "best_detail": "Negative balances render in Harbour with a minus sign and a Fog 'owes' label while only positives get Kelp, which treats owing as normal exactly as the brand asks.",
+        "worst_detail": "Balance amounts sit bunched against the names instead of right-aligning like the expense and transfer amounts, which breaks the money column the rest of the page establishes."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

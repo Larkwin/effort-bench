@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.288Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19400,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2722,
+        "output_tokens_details": {
+          "thinking_tokens": 1280
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.06602,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is limited to the seven tokens. Signal appears only on the primary buttons and the wordmark ::before rule (24×3px), and negative balances render in Harbour as \"-$13.33\" while positive ones use Kelp. Fraunces 600 is used for the 28px wordmark and 20px headings, Plex 400/500 for everything else, `.money` has tabular-nums, the focus ring is 2px Harbour with 2px offset, radius is 6px and there are no shadows. Small breaks: 12px paddings on inputs, list rows, the error box and check chips fall outside the 8px/4px spacing rule."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "There is a clear rhythm of Fraunces section heading above a Paper panel, with consistent 32px section gaps and tidy Rope dividers. The tagline is indented 32px so it aligns with the wordmark text. Balances and transfers right-align tabular amounts with quiet Fog qualifiers (\"is owed\", \"pays\"). It is uneven in places: expense amounts sit inline after the description instead of in the right-aligned money column used below. On mobile, Add person goes full width while Add expense stays auto width."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific: \"Enter an amount with at most 2 decimal places.\", \"Someone named ana is already on the trip. Use a different name.\", \"Choose who paid.\" Empty states each give the next step in one sentence (\"Add a person, then log the first thing someone paid for.\", \"Everyone is even. Nothing to settle.\"). Buttons are short verbs (Add person, Add expense, Remove), with no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "The full flow works. Validation shows inline, keeps typed values, focuses the offending field and clears on input. Split checkboxes preserve unchecked state across re-renders, the payer select is disabled with \"Add a person first\" when the trip is empty, and empty states adapt to context. There is a zero-balance \"is even\" state and a role=alert error box. Thinner spots: a single form-level error box rather than one beside each field, no way to remove a person, and the settle-up list is readable but offers no extra cue such as a total."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a small IIFE with clear functions (parseAmount, shares, balances, settle, render*). Cents are parsed from the string with no float maths, leftover cents go in trip order via state.people.filter, and greedy settling guarantees at most n−1 transfers. Semantics are good: fieldset/legend for the split, labels with for, aria-describedby, aria-invalid, and form-error testid applied only while shown. Weaker points are inline style strings inside the el() calls (font-weight:500, display:inline) and light schema validation on load."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result is restrained and specific to Even Keel: \"is owed\"/\"owes\" in Fog beside bold names, the Harbour hover on Signal buttons, the Sailcloth/Harbour error box that avoids red, and an aligned tagline indent. It still reads a little like a standard stacked-panels form template, with five identical heading-plus-panel blocks and no particular emphasis on the settle-up outcome."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Section-by-section identical heading-plus-panel stacking with uniform weight; settle up is not given more prominence than people",
+          "Inline style strings ('font-weight:500', 'display:inline') injected from JS instead of classes"
+        ],
+        "brand_violations": [
+          "Spacing not in multiples of 8 (or 4 for tight pairs): 12px paddings on inputs (8px 12px), list rows (12px 0), error box and checkbox chips"
+        ],
+        "best_detail": "Balances and transfers pair a bold name with a quiet Fog verb (\"is owed\", \"owes\", \"pays\") and a right-aligned tabular amount, with negatives in Harbour and a minus sign, exactly as the brand asks.",
+        "worst_detail": "Expense amounts sit inline after the description rather than in the right-aligned money column used for balances and transfers, so figures don't line up across the page."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:47:34.925Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 25722,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2101,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 789
+        }
+      },
+      "cost_usd": 0.144908,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the masthead, primary buttons and the dark Settle up card. Signal #C2462B is used sparingly: the masthead's bottom rule, the sail in the logo and the 'owes' bars. Warm paper #F5F1E8 and Fraunces with Public Sans give it a steady, trustworthy character that reads neither as a game nor as a bank. The principle is stated outright in 'Owing is normal on a trip. 2 payments make everyone even.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif section heads, consistent 14–16px spacing, tabular figures for amounts, and a centred-zero balance bar that reads at a glance. The mobile stack is clean, with no overflow and a full-width Add expense button. On desktop with data, the sticky right column leaves a large empty gap beside the People card, which looks unbalanced. The header stat row is also a little heavy."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific. Examples: 'Add everyone on the trip, including you.', 'The extra cent goes to Ana.', and the duplicate error '“ana” matches Ana, who is already on the trip. Add a last initial to tell them apart.' Buttons are verbs ('Add person', 'Keep trip', 'Yes, clear everything'), and the footer 'Saved on this device only. No account, nothing sent anywhere.' is honest and useful."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every brief state is handled and goes further: separate empty states for no people, no expenses and everyone even; a live split preview showing who gets the extra cents; undo after removing an expense; a two-step confirm for clearing the trip; people can be removed only while unused. Errors focus the offending field and keep the user's input. Settle-up rows are large and scannable, with arrows and right-aligned amounts."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money logic is clean and correct: integer cents, a strict parseAmount, leftover cents assigned in trip order, and a greedy transfer list that stays within n−1 transfers. Semantics and accessibility are solid: fieldset/legend, aria-invalid/aria-describedby wiring, a live status region, and sr-only labels on buttons. The clear-trip flow is written twice (the inline handler plus openConfirm/rebindClear), with a leftover 're-dispatch' comment and an unused dataset.open flag."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The choices read as deliberate. The serif/sans pairing, the paper background, the navy settle card as the visual destination and the diverging balance bar are all specific to a fair-split tool. A few template-like habits remain: header stat tiles, avatar initials with an assorted tone palette (including a purple), and 999px pill chips everywhere."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Header stat tiles (TOTAL SPENT / PEOPLE / EXPENSES) with uppercase tracked labels",
+          "Avatar initial circles with a rotating tone palette that includes purple #5C4B7A",
+          "Fully rounded 999px pills for both person chips and split checkboxes",
+          "Duplicated clear-trip confirm logic with a stray '// re-dispatch' comment"
+        ],
+        "brand_violations": [
+          "Owing balances are drawn as Signal red bars, which partly reads as a warning against the 'owing is normal' principle, though the copy counters it"
+        ],
+        "best_detail": "The diverging balance bar with a centred 'even' tick, navy for owed and Signal for owes, shows each person's position at a glance while the copy keeps it neutral ('owes $13.33').",
+        "worst_detail": "On desktop with data, the sticky Balances/Settle column floats down and leaves a large blank area beside the People card, breaking the two-column alignment."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

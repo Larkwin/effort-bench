@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:38:50.227Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 26192,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2926,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1412
+        }
+      },
+      "cost_usd": 0.163288,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, headings and focus ring, with a 4px Signal rule under the header. A warm paper (#F6F2EA) and a tide green (#2E6B64) round out a palette that feels steady rather than corporate. Fraunces for display with Figtree for UI suits 'quietly confident', and the tagline 'Owing each other is normal…so nobody has to keep score' states the principle outright. The one misreading: debts are coloured in Signal red text with red meter bars against green for credit, which frames owing as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif h2s in Harbour, small uppercase eyebrows, tabular figures on amounts. Cards and dividers keep a consistent rhythm, and the balance meters centred on zero are a refined touch. Some spacing is uneven. The .pair row has no top margin, so the 'Amount (CAD)' label sits directly under the description input. Each expense puts 'Remove' on its own right-aligned row, which bloats the ledger. The sticky side column also leaves a large empty gap above Balances in the desktop capture."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain, calm and specific. Examples: 'Each share is worked out to the cent.', '2 payments bring everyone to even.', 'Nothing to settle. Everyone is square.' and '“ana” is already on the trip. Names ignore capital letters.' Buttons are verbs ('Add person', 'Start a new trip'), and amount errors give examples ('like 42.50'). Small misses: the eyebrows 'Crew' and 'Where things stand' lean slightly cute, and the placeholder uses 'petrol' for a Canadian audience."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief state is handled. There are distinct empty states per section and multi-error inline messages with aria-invalid. Typed values are kept on rejection, and the draft split and payer survive people being added. Focus moves sensibly after a remove, and a confirm guards the reset. Per-expense share chips make leftover-cent allocation visible ($3.34/$3.33/$3.33), and settle-up lines read 'Chloe pays Ana $33.33'. Gaps: there is no undo for Remove, and on mobile Settle up sits below the full ledger, so it takes a long scroll to reach."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "The code is a clean IIFE with an escaped templating helper. parseAmount is strictly integer-cents and handles commas, a $ prefix, decimal places and safe-integer limits. splitShares hands leftover cents out in trip order, and the greedy settlePlan provably stays within n−1 transfers. Persistence is defensive: load() validates and dedupes stored data. Markup is semantic, using a fieldset/legend for the split, role=alert errors and a polite live region. Only minor nits: one inline style and banner section comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The design reads as deliberate. The palette is built from the two anchors, the logo mark is a balanced-keel glyph with a Signal dot, the zero-centred balance meters fit the 'even' idea, and the tagline is on-principle. Some template habits remain: an eyebrow above every card title, stat pills in the header, identical shadowed cards, and pill radii on chips and share tags."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Uppercase eyebrow label above every card heading ('CREW', 'SPENDING', 'LEDGER', 'PAYMENTS', 'WHERE THINGS STAND')",
+          "Header stat pills ('3 people', '3 expenses', '$130.00 spent') that add little",
+          "Every section is an identical rounded card with the same soft drop shadow",
+          "999px pill radii on stats, split chips and share tags",
+          "Banner section comments in CSS and JS ('/* ---------- Header ---------- */')"
+        ],
+        "brand_violations": [
+          "Negative balances use Signal red text and red meter fills against green for positives, visually treating owing as a problem despite the 'owing is normal' principle"
+        ],
+        "best_detail": "The balance meters, centred on a Harbour zero line with fills extending left or right in proportion to the largest balance, express 'even keel' literally while staying quiet and legible.",
+        "worst_detail": "Owing is colour-coded in alarm red against reassuring green, which undercuts the copy's own message that owing each other is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.267Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 16601,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2185,
+        "output_tokens_details": {
+          "thinking_tokens": 991
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.055052,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is limited to the seven brand variables. Negative balances are left in Harbour and only positive ones get `.owed` Kelp. Signal is used only on `.primary` and the wordmark `::before` rule (24×3px). The type stack is Fraunces 600 and Plex 400/500, the radius is 6px, borders are 1px Rope, and there are no shadows. The focus ring is the specified 2px Harbour with 2px offset. Minor drift: 12px gaps and paddings (brand gap, li padding, input padding) step off the 8px grid, and an 18px checkbox size falls outside the type scale."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a 40px Fraunces wordmark, 20px panel headings, 16px/500 subheads and 14px labels, with consistent 24px panel rhythm. The checkbox chips and the inline name/button row are tidy at both widths. Because the lower half never renders, the Expenses and Balances panels end in orphaned 'Logged so far' and 'Settle up' headings with nothing under them, which looks unfinished."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific: 'Enter an amount with at most 2 decimal places.', 'Someone named Ana is already on the trip. Use a different name.', 'Everyone is selected by default. Uncheck anyone who should not share this cost.' Buttons are short sentence-case verbs, the tagline is one calm line, and there is no filler or exclamation marks anywhere."
+        },
+        "ux_completeness": {
+          "score": 1,
+          "evidence": "renderExpenseForm calls `$('add-expense').disabled`, but the button has no id, so render() throws on every call before renderExpenses and renderBalances run. Screenshot 2 confirms it: with three expenses entered, the expense list, balances and settle-up are all blank. The empty-state messages for those sections never appear either. Only adding people works, so the app's core purpose is undeliverable."
+        },
+        "code_quality": {
+          "score": 2,
+          "evidence": "Structure is otherwise clean. Integer-cents parsing is regex-based, leftover cents go to people in trip order, the greedy settle stays within n−1 transfers, the error testid is toggled correctly, and fieldset/legend and labels are used properly. A single null dereference (`$('add-expense')` with no matching id) breaks all rendering past the form. This is a fatal bug that one load in the browser would have caught."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The look is restrained and specific to Even Keel. The wordmark rule aligns with an indented tagline, the 'Is owed'/'Owes'/'Even' meta labels are sensible, and the chip checkboxes have Harbour accent colour. Nothing is decorative or template-like."
+        },
+        "overall": 3,
+        "ai_tells": [],
+        "brand_violations": [
+          "Several spacing values are 12px (brand gap, list item padding, input/chip horizontal padding), which are not multiples of 8px.",
+          "Checkbox sized 18px, outside the stated 14/16/20/28/40 scale (minor)."
+        ],
+        "best_detail": "Negative balances are kept in Harbour with a plain 'Owes' meta label while only positive ones turn Kelp, which matches the brand's 'owing is normal' stance exactly.",
+        "worst_detail": "`$('add-expense').disabled` targets a non-existent id, so every render throws and the expense list, balances and settle-up never appear, leaving the app unable to show who owes whom."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 1,
+    "code_quality": 2,
+    "directed_design": 4,
+    "overall": 3
+  }
+}

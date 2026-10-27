@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:36:19.294Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 23522,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2701,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1263
+        }
+      },
+      "cost_usd": 0.148108,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Every colour comes from the seven-colour palette via CSS variables, with no tints. Kelp is used only for positive balances, negatives are Harbour with a true minus (U+2212), and Signal appears only on primary buttons and the 24×3px wordmark rule. Fraunces 600 is used for the wordmark and h2s and IBM Plex Sans 400/500 elsewhere. Money spans get tabular-nums, the column is max-width 720px with 24px/16px padding, radii are 6px, borders are 1px Rope, there are no shadows, and the focus ring is a 2px Harbour outline with a 2px offset. The only quibble is the error box's 3px Harbour left border."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The hierarchy is clear: a 40px wordmark, 20px Fraunces panel heads, 500-weight item names over 14px Fog metadata, and amounts right-aligned in each row. Spacing stays on an 8px rhythm, and the mobile layout collapses cleanly, with the amount and Remove button wrapping to their own row. The stack of five identically weighted white panels makes a long scroll, though. Results like Settle up get no more emphasis than the form, and the empty 'Split between' legend floats awkwardly above its hint on first load."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Errors say what to fix and are specific: 'Ana is already on the trip. Enter a different name.', 'Enter an amount greater than $0.', 'Use a period for cents, for example 42.50.' Empty states are single next-step sentences that change with context ('Log your first expense with the form above.', 'Everyone is even, so there is nothing to settle.'). Buttons are short verbs, everything is in sentence case, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required behaviour is present. Case-insensitive duplicate checks, integer-cent splitting with remainder distributed in trip order, newest-first expenses with a total, and kelp 'is owed' versus 'owes' labels are all there. Invalid expenses keep their typed input, show all errors at once, and focus the first bad field. Focus moves sensibly after removal, and a live region announces adds and removals. People cannot be removed or renamed, so a typo is permanent, and there is no way to reset the trip or mark a transfer as settled."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "The code is a well-structured IIFE with separate state, calculation, render and action sections. All arithmetic is in integer cents, and the amount parser is robust: it handles commas, $, negatives, the decimal-place limit and a maximum. loadState validates and sanitises stored data, and a storage event keeps tabs in sync. The greedy creditor/debtor matcher is guaranteed to produce at most n−1 transfers. The markup is semantic: sections labelled by their headings, a fieldset and legend for the split, aria-invalid and aria-describedby on fields, and descriptive aria-labels on Remove buttons."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and specific to Even Keel. Negatives are calm with a true minus, the 'is owed'/'owes' text labels mean colour is not the only cue, the error treatment is a neutral Harbour bar rather than red, and the split checkboxes use Harbour accent-colour. The uniform panel-per-section stacking is the one template-like choice."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Banner-style section comments in the script ('// ---------- Elements ----------', '// ---------- Helpers ----------')",
+          "Five identically styled panels with equal visual weight, so the settle-up result is not distinguished from the input forms"
+        ],
+        "brand_violations": [
+          "The error message box uses a 3px Harbour left border, departing from the 1px Rope border rule"
+        ],
+        "best_detail": "Balances pair a text label ('is owed' in Kelp, 'owes' in Harbour) with a true-minus signed amount, so owing reads as normal and colour is never the only cue.",
+        "worst_detail": "Every section, including the Settle up result, sits in an identical white panel with the same weight, so the page reads as a long uniform stack and the outcome users came for is not elevated."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

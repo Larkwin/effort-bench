@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:47:38.161Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14908,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2475,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1236
+        }
+      },
+      "cost_usd": 0.109132,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour #1F3A4D header carries a 4px Signal #C2462B rule. A warm paper #F6F3EC ground and Fraunces headings over Public Sans body read as steady and trustworthy, not like a bank or a game. Copy like \"so the trip ends level\" fits the brand well. The one misreading is that every debtor amount is painted in a red (--owe:#A33820) against green for creditors, which frames owing as a warning."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "The two-column card layout is tidy, with a consistent 20–24px gap rhythm and good input heights. Settle-up rows have a clear left accent and serif amounts. Several things are uneven: the header text starts at 120px while the cards start at 136px; the underlined 'Remove' buttons sit off the amount's right edge because of their padding; and balances use Public Sans bold while expense and transfer amounts use Fraunces. The 'Add people first.' empty box also floats at half width."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific. Examples: \"No one is on the trip yet. Add the first name above.\", \"These 2 payments bring everyone level.\", \"Everyone is even. Nobody owes anything.\", \"Add a description, like \\\"Groceries\\\".\" and \"Amount can have at most 2 decimal places.\" Buttons are verbs, balance notes are neutral (\"is owed\" / \"owes\" / \"is square\"), and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has its own empty state. Settle up is placed first in the results column, typed values survive validation errors, split selections are preserved across re-renders, and focus returns to the description after adding. A single-person trip and the all-even case are handled. However, the showErr helper appends a stray text node \"0\" after every validation message, so users see a visible glitch. There is also no way to remove or rename a person."
+        },
+        "code_quality": {
+          "score": 3,
+          "evidence": "Money logic is sound: string-parsed integer cents, remainder cents allocated in trip order via state.people.filter, and greedy matching of creditors to debtors that stays within n−1 transfers. Labels, legend/fieldset, aria-live and aria-label on Remove are present. But `box.append(el(...),0)||0` is a real bug that renders a '0'. The `.col` rule is duplicated inside the media query, the CSS and JS are minified to the point of hurting readability, and the amount regex is convoluted."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The choices feel intentional for this brand: a warm paper background instead of grey, a serif display face for headings and money, the Signal stripe used sparingly as a header rule and transfer accent, restrained 6–10px radii and no shadows. Pill name chips and the generic white cards on a background are the most template-like parts."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Pill-shaped person chips (border-radius:999px) are a stock pattern",
+          "Every panel is the same bordered white card, giving the right column fairly uniform visual weight"
+        ],
+        "brand_violations": [
+          "Debtor balances are coloured red (.neg uses #A33820) against green for creditors, framing owing as a problem and contradicting 'owing money between friends is normal'"
+        ],
+        "best_detail": "The settle-up block leads the results column with a calm summary ('These 2 payments bring everyone level.') above clear 'Chloe pays Ana $33.33' rows, which makes acting on it easy.",
+        "worst_detail": "showErr passes a literal 0 to append(), so a stray '0' appears under every validation message."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 3,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

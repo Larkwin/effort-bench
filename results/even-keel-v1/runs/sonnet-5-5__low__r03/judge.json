@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.278Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14732,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2235,
+        "output_tokens_details": {
+          "thinking_tokens": 837
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.051814,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is used correctly: Sailcloth page, Paper panels, 1px Rope borders, 6px radius, Harbour text, Kelp for 'is owed', and negatives in Harbour with a minus. Fraunces 600 and Plex 400/500 load from Google Fonts, `.money` has tabular-nums, and the focus ring is 2px Harbour with a 2px offset. The wordmark rule is 24×3 Signal. One clear break: `.primary:hover{background:#A93A22}` introduces an off-palette darker Signal. Input padding of 12px and a 12px wordmark gap sit outside a strict 8px rhythm, though 4px multiples are arguably allowed."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Three bordered panels with a clear Fraunces h2 hierarchy, consistent 24px panel gaps, and tidy divider-separated lists. Balances and settle-up rows align names left and amounts right. Mobile collapses cleanly with no overflow. Minor unevenness: the 'Amount (CAD)' and 'Paid by' labels and inputs sit a couple of pixels out of line on desktop. The 'Settle up' h3 in Plex 500 reads slightly weak against the Fraunces panel headings."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Errors say what to fix: 'Enter an amount greater than $0.', 'Use at most 2 decimal places in the amount.', 'Ana is already on the trip. Use a different name.' Buttons are short verbs and empty states are single directive sentences. Two weak spots: 'owes −$13.33' doubles the negative and is confusing. 'Log the first expense once you have added people.' still shows after people exist."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required flow works. Name validation is case-insensitive, the split defaults to everyone and preserves unchecked state across re-renders, and invalid input stays in the fields. Focus returns to the first field after adding, and settle-up uses greedy matching within n−1 transfers. There is an 'Everyone is even.' state. Thinner spots: focus is lost after removing an expense, there is no way to remove a person, and the expense empty-state copy doesn't adapt once people exist."
+        },
+        "code_quality": {
+          "score": 3,
+          "evidence": "The integer-cents logic is correct: remainder cents go to people in trip order, amounts are parsed with a regex and a decimal check, and output is escaped. Semantics are reasonable (labelled inputs, a fieldset/legend for the split, role=alert on errors). However, the code is minified-style with cryptic ids (pf, ep, xl, tl) and inline styles. It contains a no-op `money(b[p]>0?b[p]:b[p]).replace(/^−/,'−')` and an unused map index. Errors are not linked to inputs via aria-describedby."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Restrained and specific to the brief: no hero, no shadows, no stat tiles, and an error box drawn in Harbour rather than red, which shows attention to the 'owing is normal' rule. The stacked three-panel form is a familiar pattern but executed with care. Small slips like the hover colour and the 'owes −' phrasing show a few unreviewed decisions."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Minified, cryptic code with ids like 'pf', 'xl', 'tl' and inline styles mixed into template strings",
+          "No-op code: `money(b[p]>0?b[p]:b[p]).replace(/^−/,'−')`"
+        ],
+        "brand_violations": [
+          "Off-palette hover colour #A93A22 on primary buttons (.primary:hover)",
+          "Spacing values off the 8px scale: 12px wordmark gap, 12px input horizontal padding, 12px list row padding"
+        ],
+        "best_detail": "The validation message is shown in a Harbour-bordered box rather than red, which keeps errors calm and fully within the palette.",
+        "worst_detail": "Balances read 'owes −$13.33', which pairs a verb with a minus sign and muddles the very number the app exists to make clear."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 3,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

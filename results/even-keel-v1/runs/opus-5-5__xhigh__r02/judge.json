@@ -1,0 +1,72 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.303Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 28337,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1979,
+        "output_tokens_details": {
+          "thinking_tokens": 780
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.076464,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "The palette is exactly the seven hex values with correct roles. Signal is used only on the Add person and Add expense buttons and the 24×3 wordmark rule. Kelp marks 'is owed' and negatives stay Harbour with a minus sign. Type is Fraunces 600 for headings and IBM Plex Sans 400/500 elsewhere, body has tabular-nums, radius is 6px throughout with 1px Rope borders, there are no shadows or gradients, and focus is a 2px Harbour outline with 2px offset."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "Hierarchy and spacing rhythm are calm and consistent at both widths. The balance rows pair a small status with a larger 20px figure, which reads well. However, every expense row's split line breaks apart into 'Split between Ana, Ben and Chloe (' / '$3.34' / 'or' / '$3.33' / 'each)' because `.expense-meta span { display: block; }` also catches the nested money spans. That leaves a visibly broken, ragged block in the most-read list."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific. Examples: 'Add everyone on the trip, starting with yourself.', 'Ana is already on this trip. To add someone else, include an initial or nickname.', 'Use a period for cents, like 48.50.' and 'Everyone is even, so there is nothing to settle.' Buttons are short sentence-case verbs, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Context-aware empty states, inline per-field errors that keep input, a live split preview, a remove-person option only while unused, a confirmed 'Clear trip', focus management after deletes, and storage-failure notice are all handled. Settle-up rows are clear. The broken split-line layout makes expense rows harder to scan, and 'owes -$13.33' is slightly double-negative."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Well-structured IIFE with an h() helper, integer-cents parsing via regex, and splitCents with leftover cents assigned in trip order via sharesFor sorting. A settle algorithm with a correct ≤ n−1 bound, localStorage sanitize-on-load, and aria-describedby/aria-invalid wiring complete the core. The over-broad CSS descendant selector that breaks the expense meta is a real defect, and some defensive code (NFC normalize try/catch, cross-tab storage sync) is more than needed but not harmful."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Restrained single column, the masthead treatment, the quiet meta counts ('3 expenses, $130.00 total'), and the underline hover on Signal buttons (avoiding a tint) all feel deliberate and specific to the brand. The unfixed expense-row rendering suggests the output wasn't visually reviewed closely."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Expense split line visibly broken across five lines in every row, suggesting no one looked at the rendered output",
+          "Minor over-engineering such as cross-tab storage event sync and NFC normalization"
+        ],
+        "brand_violations": [],
+        "best_detail": "Underlining the Signal buttons on hover instead of darkening them keeps hover feedback within the strict no-tints palette.",
+        "worst_detail": "`.expense-meta span { display: block; }` shatters every 'Split between … ($3.34 or $3.33 each)' line into orphaned fragments like a lone '(' and 'or'."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 3,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

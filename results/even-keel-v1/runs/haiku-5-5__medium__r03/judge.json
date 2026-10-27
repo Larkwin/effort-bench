@@ -1,0 +1,72 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.299Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19825,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2249,
+        "output_tokens_details": {
+          "thinking_tokens": 892
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.06214,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "All colours come from the seven brand variables. Signal is used only on primary buttons and the 24×3px wordmark rule. Negatives render in Harbour with a true minus sign, and positives use Kelp. Fraunces 600 and IBM Plex 400/500 are loaded from Google Fonts, money uses `tabular-nums`, the type sizes stay on 14/16/20/28/40, radius is 6px, and the focus ring is a 2px Harbour outline with a 2px offset, with no shadows. There are small departures: input borders use Fog rather than Rope, and input padding of 8px 12px puts 12 off the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is calm and clear. The Fraunces wordmark and panel headings sit over Plex body text, Rope-divided lists have consistent 16px rhythm, and balances right-align the figure with a small 'is owed'/'owes' caption. The weakness is the Description/Amount row: `align-items: flex-end` plus the amount hint pushes the Description label and input visibly below Amount on desktop. The full-width Paid by select under two half-width fields also feels uneven."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific. Errors tell you what to fix: 'Enter an amount greater than $0.', '\"Ana\" is already on the trip. Enter a different name.', 'Choose at least one person to split between.' Empty states give the next step ('No people yet. Add everyone who is on the trip.'), and the settled state reads 'Everyone is even. No transfers needed.' Buttons are short verbs and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Everything in the brief is covered. The app has empty states for each panel and a settled state, case-insensitive duplicate checks, and expense validation that keeps what you typed. It also has 2-decimal parsing, newest-first expenses with payer and split, Remove that returns focus to the heading, a working settle-up list, and localStorage persistence. Mobile stacks cleanly at 390px. Gaps: you cannot remove a person, there is no confirmation or undo on Remove, and the 'add a person first' error appears in the expense panel while focus jumps to the people input."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is well structured: integer cents throughout, a regex parser that rejects 3+ decimals, leftover cents assigned in trip order, and a greedy settle that guarantees at most n−1 transfers. Rendering uses textContent through a small `el()` helper, and labels, fieldset/legend and `role=alert` errors are semantic. Fragile spots: `aria-invalid` on a previously invalid field is not cleared when a different field errors, so a stale 2px border remains. Expense inputs are not linked to the error via aria-describedby, and there are a couple of inline styles."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained, specific to Even Keel. Negatives are deliberately not red, the error box is Harbour on Paper rather than alarm colours, and the balance caption explains each sign. The single-column panel stack is somewhat template-like, and the misaligned form row suggests nobody checked the result visually."
+        },
+        "overall": 8,
+        "ai_tells": [],
+        "brand_violations": [
+          "Input and secondary-button borders use Fog (#5B6B75) instead of the specified 1px Rope borders.",
+          "Input horizontal padding of 12px is off the 8px spacing scale."
+        ],
+        "best_detail": "Balances show a Kelp '+$46.66 / is owed' or a Harbour '−$13.33 / owes' with a true minus sign, following the brand rule that owing is normal, not an error, while staying unambiguous.",
+        "worst_detail": "The Description and Amount fields are bottom-aligned, so the Amount hint pushes the Description label and input visibly lower than Amount, leaving a broken baseline in the main form on desktop."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

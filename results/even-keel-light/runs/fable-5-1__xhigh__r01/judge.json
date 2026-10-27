@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T00:46:11.350Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 28154,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2392,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1083
+        }
+      },
+      "cost_usd": 0.160456,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "The Harbour #1F3A4D masthead with a 4px Signal border, and Signal reserved for the primary 'Add expense' button and focus rings, show a disciplined palette built around the anchors on warm paper #F6F3EE. Fraunces headings with IBM Plex Sans body read steady and trustworthy, neither playful nor bank-like. Debts are shown in navy ('owes $13.33') rather than red, and credits in a calm sea green, which directly embodies 'owing is normal, not a problem'."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted sub-labels aligned on the baseline, and tabular numerals throughout. The diverging balance bars with a centre tick are a considered touch, and the 5fr/7fr grid collapses cleanly at 390px. Minor unevenness: the empty desktop state leaves a bare 'Split between' label over a blank gap, per-person shares wrap awkwardly on mobile ('Chloe / $10.00'), and every section is the same white rounded card."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific: 'A new trip, ready when you are.', 'No expenses yet. The first one is usually gas, groceries or the place you're staying.', and '2 payments and everyone's even'. Errors are useful and example-led ('Use at most two decimal places, like 42.50.', '“ana” matches Ana, who's already on the trip.'). Buttons are verbs ('Add person', 'Mark as paid', 'Keep this trip'), and the footer honestly states 'Nothing is sent anywhere.'"
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every panel has a tailored empty state, and the settle-up panel switches to 'You're all even. Nothing to settle.' Validation keeps the user's input, focuses the bad field and sets aria-invalid. Beyond the brief, the app adds a live per-person share preview, 'Mark as paid' that logs a Payment entry, Undo after removing an expense, a confirmed 'Start a new trip', and person removal only when that person is unused."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "Integer cents are parsed by regex with no float math. sharesFor distributes leftover cents in trip order by filtering state.people. Greedy settle meets the n−1 bound. All QA hooks are present, including data-cents on balances and transfers. The markup is semantic (fieldset/legend for the split, labelled sections, aria-live status, skip link), localStorage loading is validated defensively, and there is a cross-tab storage listener. Small nits are one inline style and innerHTML for the error icon."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The custom keel/sail mark, navy-for-debt colour logic, header 'pulse' summary and paper tone read as deliberate brand decisions rather than defaults. It still leans on a familiar card-grid dashboard pattern with uniform rounded white cards and pill chips, which keeps it a notch below fully distinctive."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Uniform rounded white cards (14px radius) for every section, giving a slightly template-like dashboard grid",
+          "Pill-shaped checkbox chips (border-radius: 999px) in the split selector",
+          "Dashed banner comments in the JS ('/* ---------- storage ---------- */')"
+        ],
+        "brand_violations": [],
+        "best_detail": "Debts are rendered in calm Harbour navy with a centred diverging bar, while credits are in sea green, so owing money looks ordinary rather than alarming, exactly as the brand principle asks.",
+        "worst_detail": "In the empty state the 'Split between' label sits over a blank gap with no explanation, and on mobile the per-person share lines break mid-pair ('Chloe' / '$10.00')."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

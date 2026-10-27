@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.315Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14812,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2148,
+        "output_tokens_details": {
+          "thinking_tokens": 849
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.051104,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Palette roles are applied closely: Harbour text and focus ring (2px outline, 2px offset), Fog for meta, Rope 1px borders, Signal only on primary buttons and the 24×3px wordmark rule, Kelp for positives, and negatives in Harbour with a true minus sign. Fraunces 600 and Plex 400/500 are loaded, sizes stay on 14/16/20/28, radius is 6px, and there are no shadows. One clear break: `button.primary:hover{background:#A93A22}` introduces an off-palette darkened Signal."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a serif h2 per panel, 14px/500 labels, and money right-aligned in bold tabular figures. The 8/16/24 spacing rhythm is consistent. On mobile the expense meta line breaks awkwardly ('Paid by Chloe · Split / between Ana…') beside the amount and Remove button. Five identical stacked panels give uniform weight, so nothing leads the eye to balances or settle up."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Errors are specific and say what to fix ('Enter an amount greater than $0.', 'Use at most 2 decimal places.', 'Ana is already on the trip. Use a different name.'). Empty states are one actionable sentence and buttons are short verbs. The balance strings '$46.66 is owed' and '−$13.33 owes' read inverted and slightly clumsy; 'is owed $46.66' would be plainer."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required states are handled: the expense form is hidden with a prompt until people exist, the settle-up empty state switches to 'Everyone is even' once expenses exist, inputs are kept on error, and errors clear on input. New people default to checked in the split. Gaps: no way to remove or rename a person, focus is lost after removing an expense, and there is no confirmation or feedback after delete."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money logic is correct: integer cents, remainder cents go to people in trip order via `st.people.filter(p=>x.split.includes(p))`, and the greedy creditor/debtor matching yields at most n−1 transfers. Semantics are solid: labelled sections, a fieldset/legend for the split, role=alert errors, and aria-labels on Remove. Readability suffers from cryptic ids (pf, pn, ee, xl), minified one-liners and a redundant double assignment of the person testid. The amount regex chain is convoluted."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Restrained and brand-specific throughout: a quiet sub-line under the wordmark, a Harbour-bordered error box instead of red, a Harbour accent-colour on the checkboxes, and no decorative extras. It still reads as a straightforward stack of equal panels rather than a considered composition, for example with balances given more prominence."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Minified/terse identifiers and one-line functions (pf, pn, xl, tl) that read as generated rather than authored",
+          "Redundant duplicate assignment `li.dataset.testid='person';li.setAttribute('data-testid','person')`"
+        ],
+        "brand_violations": [
+          "Primary button hover uses #A93A22, a darkened Signal not in the palette (tints/variants disallowed)",
+          "Non-primary button hover uses Sailcloth #F6F3EC as a button fill, a mild stretch of its page-background role"
+        ],
+        "best_detail": "Validation errors are shown in a Harbour-bordered box with instructive copy rather than red, which matches the brand's 'owing is normal, not an error' calm.",
+        "worst_detail": "The off-palette #A93A22 hover on primary buttons breaks the strict no-tints colour rule in the most-used control."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

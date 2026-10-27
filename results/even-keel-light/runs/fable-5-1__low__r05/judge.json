@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.142Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18507,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1729,
+        "output_tokens_details": {
+          "thinking_tokens": 551
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.054304,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The header is a solid Harbour #1F3A4D band and Signal #C2462B is kept for the primary 'Add expense' button and the wordmark's keel line. The palette is built on warm paper #F7F5F1, harbour tints and a muted green for 'is owed'. Fraunces headings give a steady, trustworthy feel, though Inter body text is a safe default. Debts are planned in a soft signal-tint rather than alarm red, which fits 'owing is normal'."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "Hierarchy and spacing are tidy: serif card titles, clear labels, a right-aligned tabular amount column in Expenses, and a clean single column on mobile. But the populated desktop view shows large empty Balances and Settle up cards. The grid-template-areas layout leaves the right column visually heavy. The disabled Add expense button renders as washed-out salmon."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and use 'you': 'Nobody's here yet. Add everyone who's on the trip, including yourself.' and 'Enter the amount in dollars and cents, like 42 or 42.50, with no more than two decimals.' Errors are specific and calm. 'You're all even. Nothing to pay.' matches the voice. 'about $3.34 each' is a slightly vague way to describe an uneven split."
+        },
+        "ux_completeness": {
+          "score": 1,
+          "evidence": "Once any expense exists, balances() references an undefined `p` in `if (p in b || true)` and throws a ReferenceError. That stops renderBalances, so the Balances and Settle up lists stay empty, as screenshots 2 and 3 show. The core outcome of the app, who owes whom, never appears. People, the expense form, validation and the expense list do work."
+        },
+        "code_quality": {
+          "score": 2,
+          "evidence": "The integer-cents share function, the remainder-to-earliest logic and the greedy settle are correct in isolation. However, the stray `if (p in b || true)` line crashes every balance calculation. The markup also has a nonstandard `<label as=\"span\">` inside a legend. Focus is moved to a non-focusable h2 after delete. The error-clearing listener fires on any input. Structure is otherwise readable, with escaping and guarded localStorage."
+        },
+        "directed_design": {
+          "score": 3,
+          "evidence": "There are deliberate touches: a custom keel SVG mark, the Fraunces/Inter pairing, the paper background and restrained signal usage. Still, the white bordered cards with 10px radius, pill chips with avatar initials, and dashed empty-state boxes read as a familiar template rather than something specific to Even Keel."
+        },
+        "overall": 4,
+        "ai_tells": [
+          "Inter as body typeface",
+          "Pill chips with initial avatars for people",
+          "Dashed-border empty state boxes in every card",
+          "Section-label comments like '// ---- Render' in script",
+          "Dead-looking `|| true` conditional suggesting unreviewed code"
+        ],
+        "brand_violations": [
+          "The settle-up list, the core 'everyone ends up even' promise, never renders, so the tool cannot deliver the brand's fairness"
+        ],
+        "best_detail": "The custom keel wordmark, a navy ring with a Signal-coloured waterline, plus a calm Harbour header gives the product a quiet, specific identity.",
+        "worst_detail": "A single stray `if (p in b || true)` throws a ReferenceError, leaving the Balances and Settle up cards blank as soon as an expense is logged."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 1,
+    "code_quality": 2,
+    "directed_design": 3,
+    "overall": 4
+  }
+}

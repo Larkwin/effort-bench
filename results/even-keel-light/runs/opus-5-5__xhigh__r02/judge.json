@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:39:16.522Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 34497,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2384,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 947
+        }
+      },
+      "cost_usd": 0.185668,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the ink, the logo and the dark Settle up card. Signal #C2462B is kept for the primary 'Add expense' button, the focus ring and the 'even' tick on the balance bars, all on a warm cream canvas (#F4F0E8). Owing is shown in brass/ochre rather than alarm red, and the Balances lede says 'Owing just means a friend covered you for now', which states the brand principle directly. Fraunces paired with Public Sans reads steady and trustworthy, not like a bank or a game."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: the dark Settle up card leads the right column, serif headings and tabular figures keep amounts aligned, and spacing follows a consistent 16/24 rhythm. The mobile stack is clean, with no overflow and container queries reflowing the transfers and balances. Minor unevenness: on desktop the balance meta wraps awkwardly ('Paid $90.00 · share' / '$43.34'), the expense dividers bleed past the content edge because of margin-inline:-10px, and the left column ends well short of the right."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific and speak to 'you': 'Add everyone who's sharing costs, including you.', '2 payments and everyone's even.', 'Mark each one as paid once the money's sent.' Errors are useful, for example 'Ana is already on the trip. If this is someone else, add a last initial, like \"Ana B.\"' and 'Use no more than 2 decimal places, like 42.50.' Empty states guide the next step, and the per-expense line 'Ana covers the extra cent' explains the rounding honestly."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every state is handled: an empty state in each section, inline per-field errors that focus the field and keep what was typed, success feedback after adding an expense, and Undo after removing one. Settle up offers 'Mark as paid', which records a payment, plus a confirmed 'Start a new trip' reset. People can only be removed while unused, there is a warning when storage is unavailable, and changes sync across tabs. Settle-up rows are easy to act on at both widths."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled in integer cents throughout. sharesFor sorts by trip order and gives leftover cents one each. The greedy settle matches exact amounts first, so it stays within n−1 transfers. Stored data is sanitised on load, and aria-describedby, aria-invalid, live regions and fieldset/legend are wired correctly, with fallbacks for forced colours and reduced motion. Weak spots: payments are stored in the expenses array and rendered with data-testid=\"expense\", which conflates the two concepts and could confuse expense counts; the file also leans on banner comments and a hand-rolled h() helper, which adds some weight."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Choices are specific to Even Keel: the spirit-level logo mark and the level icon on the 'Everyone's even' state, brass rather than red for owing, a centre 'even' line on the balance bars, and the dark harbour card for the payoff. A few template habits remain: numbered step badges, a stat strip in the masthead, pill chips everywhere, and a soft shadow on every card."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Masthead stat strip (TRIP TOTAL / PEOPLE / EXPENSES) with large serif numbers",
+          "Numbered circular step badges (1, 2, 3) on the card headings",
+          "Soft box-shadow on every card surface",
+          "Pill radii (999px) on person chips, split chips, count badge and tags",
+          "Banner section comments in the CSS and JS (/* ---------- Masthead ---------- */)"
+        ],
+        "brand_violations": [],
+        "best_detail": "Owing balances are shown in a calm brass on a centred 'even' track, under the line 'Owing just means a friend covered you for now', which turns the brand principle into both the visual and the verbal language.",
+        "worst_detail": "Settle-up payments are stored as expense entries carrying data-testid=\"expense\", so marking a transfer as paid adds rows to the expense list and blurs the data model."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

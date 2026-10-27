@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.281Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19956,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2511,
+        "output_tokens_details": {
+          "thinking_tokens": 1021
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.065022,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is used exactly through CSS variables. The wordmark is Fraunces 600 with a 24×3px Signal ::before rule, and Signal appears only on primary buttons and the rule. Negatives are Harbour with a true minus (−$13.33), positives are Kelp, money uses tabular-nums, radius is 6px, there are no shadows, and the focus ring is 2px Harbour with 2px offset. One deviation: input, select, Remove and error borders use Fog or Harbour instead of 1px Rope. That improves control contrast but departs from the border rule."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The layout is a calm single column with clear Fraunces section heads, consistent 16/24px panel padding and Rope dividers. Expense rows align the amount and Remove button neatly on the right, and balances stack the amount over an 'is owed' or 'owes' label. Weak spots: the empty split hint wraps awkwardly into a 160px grid cell ('People you add will appear / here.'), and the Settle up panel, the payoff of the app, has the same visual weight as every other panel. Transfer amounts are weight 400 while balances are 500."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific. Buttons are verbs: 'Add person', 'Add expense', 'Remove'. Errors say what to fix, such as 'Enter an amount greater than $0, such as 24.50.', 'Use at most 2 decimal places.' and 'Ana is already on the trip. Use a different name.' Empty states are single next-step sentences, and the all-settled state reads 'Everyone is even. You have no transfers to make.' The tagline is one short, unmarketed line."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required flows are present:\n- case-insensitive duplicate checks\n- typed values kept on error, with focus moved to the bad field\n- split selection preserved across re-renders and defaulting to everyone\n- newest-first expenses with an aria-labelled Remove that returns focus to the heading\n- an even state for balances and settle-up\n\nOn mobile the layout stacks cleanly. Gaps: the Paid by select is an empty control before anyone is added. You cannot remove or rename a person. Settle-up offers nothing beyond a list, such as a way to mark a transfer as paid."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The script is a tidy IIFE with integer-cents parsing by regex (no float math). Remainder cents go to selected people in trip order. Settlement is a greedy largest-first match, which yields at most n−1 transfers. localStorage loading is defensive, and semantics are solid: a fieldset and legend for the split, aria-invalid, aria-live error slots, and label-for on every input. Minor issues: an inline `<div style=\"height:16px\">` spacer, an unused `.transfer .arrow` rule, a redundant duplicate `.expense .actions` block, and banner-style section comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained, with choices specific to this brand: the true minus sign, a Harbour-bordered error box instead of red, and a Harbour hover on the Signal buttons. These avoid the usual defaults. It still falls back on a stack of identical panels with no emphasis on the settle-up result, which feels slightly template-like."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Banner section comments in JS ('/* ---------- storage ---------- */')",
+          "Unused CSS rule `.transfer .arrow` with no matching markup",
+          "Five identical bordered panels with uniform visual weight, so the settle-up outcome gets no emphasis"
+        ],
+        "brand_violations": [
+          "Input, select and Remove button borders use Fog (#5B6B75) rather than the specified 1px Rope borders",
+          "Invalid-state inputs use 7px/15px padding to offset the 2px border, breaking the 8px spacing grid"
+        ],
+        "best_detail": "Negative balances are shown in Harbour with a true minus sign and a quiet 'owes' label under the figure, exactly the calm 'owing is normal' treatment the brand asks for.",
+        "worst_detail": "The empty-state hint in the split area is squeezed into a 160px grid cell and wraps as 'People you add will appear / here.' beside an empty Paid by select, the one visibly unconsidered moment on first load."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

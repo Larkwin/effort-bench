@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.132Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 24149,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2418,
+        "output_tokens_details": {
+          "thinking_tokens": 1045
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.072478,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the masthead and primary buttons. Signal #C2462B is used sparingly: the 4px masthead rule, the focus ring and the transfer arrows. Debts are drawn in a soft sand (--sand #D6B486) rather than red, which expresses the 'owing is normal' principle visually, and the copy says it outright: 'Owing a bit is normal; it evens out below.' Fraunces with Public Sans reads steady and trustworthy, neither playful nor bank-like."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card headings, muted subheads, tabular numerals and right-aligned bold amounts. The diverging balance bars and the warm paper background are polished, and mobile stacks cleanly with no overflow. However, the `.field + .field{margin-top:16px}` rule also applies inside the `.fields` grid, so 'Who paid?' and its select sit about 16px lower than 'Amount'. Each 'Remove' button also sits on its own row, which makes the expense list taller than it needs to be."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific, and address the user as 'you'. Examples: 'Log what everyone paid. See who settles with whom.', '2 payments and you're all square.', 'No one's here yet.' The errors help the user fix the problem, e.g. 'Ana is already on the trip. If this is someone else, add an initial, like \"ana B.\"' and 'Use at most 2 decimal places, like 24.50.' Buttons are verbs ('Add person', 'Add expense', 'Remove'), with no filler or exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every list has its own empty state. A live split preview explains where the extra cents go, there is an 'Everyone is even' settled state, and Everyone/No one shortcuts sit beside the split chips. Errors show inline, focus the faulty field and keep what the user typed. After a removal, focus moves to the next Remove button or the list heading, and changes are announced through an aria-live region. Transfers read as 'Chloe pays → Ana $33.33' with a count summary, which is easy to act on at the table."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The IIFE is tidy and all money logic stays in integer cents. Leftover cents go out in trip order through orderByTrip, the greedy matching guarantees at most n−1 transfers, and loading from localStorage is defensive and validated. There are weak spots: the `<legend>` is nested inside a div, so it is not a valid fieldset legend and the code patches this with role=group; `buttons` is computed and then discarded with `void buttons;`; describeShares recomputes the base and extra values that shareList already calculates; and the margin rule leaks into the grid layout."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work reflects deliberate decisions: a keel-shaped mark in the logo, a tide/sand bar palette built from the anchors, Signal reserved for accents, and a masthead rule echoing a waterline. A few choices are template-like: the dt/dd stat strip in the header, pill chips for both people and the split selector, and the standard two-column card grid."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Header stat strip (Trip total / Expenses / People) in display numerals is a common dashboard pattern",
+          "Pill-shaped chips (border-radius:999px) used for both the people list and the split checkboxes",
+          "Dead code in removeExpense: `buttons` is collected and then discarded with `void buttons;`"
+        ],
+        "brand_violations": [],
+        "best_detail": "Debts are drawn as soft sand bars against a navy centre tick, with red kept out of the balances entirely, so owing money reads as ordinary rather than alarming, exactly as the brand principle asks.",
+        "worst_detail": "A leaking `.field + .field` margin pushes the 'Who paid?' label and select about 16px below the Amount field on the same row, a visible misalignment in the main form."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.145Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22261,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2293,
+        "output_tokens_details": {
+          "thinking_tokens": 854
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.067452,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and primary buttons, and Signal #C2462B appears as a 4px rule under the header and as the dot on the keel/balance mark. The palette is built out with a warm paper #F6F3EE and a muted sea green. Fraunces paired with IBM Plex Sans feels steady and trustworthy, and the tagline states the principle outright: \"Owing a friend is normal — this just keeps it fair.\" The one bank-like reading is the green-for-owed, red-orange-for-owes balance colouring, which nudges owing toward looking like a problem."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: Fraunces h2s, muted counts aligned to the baseline on the right, and tabular-nums amounts right-aligned in ruled lists. The 5fr/7fr grid puts input on the left and results on the right, with consistent 20–24px rhythm. On mobile the footer loses its horizontal padding because `.foot{padding:18px 0 36px}` overrides `.wrap`, so \"Your trip is saved…\" sits flush against the screen edge. The pill chips for people and split checkboxes are slightly soft for the tone."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific and use \"you\": \"No one here yet. Add everyone who was on the trip, including you.\", \"Ana is already on the trip. Try a nickname or add a last initial.\", and \"2 transfers and everyone is back to zero.\" Buttons are verbs (\"Add expense\", \"Remove\", \"Start a new trip\"). \"Where things stand\" is a nicely on-brand heading. A few strings are terse, such as \"is owed · paid $90.00, share $43.34\", and \"Everyone / No one\" as link labels are slightly ambiguous."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states exist for people, balances, settle-up and expenses, and they change depending on whether people exist yet. Validation is inline with aria-invalid and focus moves to the bad field, while typed values are kept. Split selections persist across re-renders, and the Everyone/No one shortcuts help. Removing an expense moves focus to the next Remove button, a live region announces each action, and clearing the trip asks for confirmation. The settle-up list is easy to read, but the mobile footer edge bug and the lack of an undo for remove are small gaps."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The integer-cents parser rejects more than 2 decimals. shares() sorts the split by trip order before handing out remainder cents, and the greedy settle() is correct and stays within n−1 transfers. load() sanitises stored data against the current people. Semantics are solid: a fieldset/legend for the split, labels on every input, and role=alert errors. There is a little dead CSS (.lede, .transfers .arrow) and the footer padding override bug."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The custom keel mark with a Signal dot, the Harbour masthead with its Signal underline, the Fraunces/Plex pairing and the paper background read as deliberate and specific to Even Keel. The card-per-section layout and pill chips are more template-like, but the restraint (no gradients, no shadows, no emoji) holds throughout."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill-shaped (999px radius) chips for both people and split checkboxes",
+          "Every section wrapped in an identical white bordered card",
+          "Unused CSS rules (.lede, .transfers .arrow) left in the stylesheet"
+        ],
+        "brand_violations": [
+          "Negative balances are coloured in Signal red-orange against green for 'is owed', a debit/credit treatment that frames owing as a warning, in tension with 'owing money is normal'"
+        ],
+        "best_detail": "The tagline \"Owing a friend is normal — this just keeps it fair.\" with \"Where things stand\" as the results heading puts the brand principle directly into the tool's voice without any marketing gloss.",
+        "worst_detail": "On mobile the footer's `padding:18px 0` override strips the wrap gutters, so the storage note and 'Start a new trip' link run flush against the screen edge."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

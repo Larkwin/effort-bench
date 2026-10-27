@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.120Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22064,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2387,
+        "output_tokens_details": {
+          "thinking_tokens": 1065
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.067998,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D carries the masthead and focus rings, and Signal #C2462B is kept for primary actions and the logo tile. Around them sit a warm paper ground (#F5F2EC) and a sea green (#2D6A5A) for credit. Fraunces display numerals paired with Figtree body text feel steady and trustworthy rather than bank-like. Debts are set in navy with a neutral 'owes' label, not red, which honours the principle that owing is normal. The mark and the overall card layout are fairly generic, so it stops short of unmistakable."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif H2s, muted 14px hints, and tabular Fraunces amounts right-aligned in balances and expenses. Spacing rhythm is consistent (20px gaps, 24px card padding) and the checkbox chips are tidy. On desktop the right column ends early, leaving a large empty area beside the expense list. On mobile the Remove links float a little awkwardly mid-row."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Add everyone on the trip, including you.', 'Log what someone paid. Everyone shares it by default. Untick anyone who didn't.', '2 payments will settle the whole trip.' and 'Everyone is even. No payments needed.' Errors are useful, such as 'Ana is already on the trip. Names must be unique, ignoring capitals.' and 'Use at most two decimal places, like 12.50.' The Balances hint slips from 'each person' to 'you're owed' mid-sentence."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "There are distinct empty states for people, expenses, balances and settle-up, including a separate 'no expenses yet' state. Validation errors are inline with role=alert, focus the offending field, and keep the typed values. Role=status confirmations appear after add and remove, and an expandable 'See each share' shows the cent-exact split. On mobile, Balances and Settle up sit below the full expense list, so the answer people want is buried. There is no way to remove a person, which is outside the brief."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cents parsing is careful: string split, a max-2-decimals check, and no floats. Leftover cents go one each in trip order, and the greedy settle guarantees at most n-1 transfers. Output is escaped, loaded localStorage data is validated, and semantics are good (fieldset/legend, labels, details, aria-labels on Remove buttons, focus returned to the heading after delete). Minor issues: an unused `form` parameter in showError, an inline style on #expense-body, and aria-describedby wired to the amount field only."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette reads as deliberate: navy masthead, warm paper, sea-green credit, and debt deliberately left un-alarming. The serif numerals give the money figures character. The layout is still a familiar card-grid template with pill count badges and initial-letter avatars, which feels more competent default than distinctive."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill-shaped count badges ('3 people', '3 expenses · $130.00 total') with border-radius 999px",
+          "Uniform white cards with border and shadow on every section",
+          "Banner comments in JS ('// ---------- State ----------', '// ---------- Rendering ----------')",
+          "Generic initial-letter avatar circles repeated in people and balances lists"
+        ],
+        "brand_violations": [],
+        "best_detail": "Negative balances are shown in calm Harbour navy with a plain 'owes' label, while credits get a quiet sea green, so debt never looks like an error and the 'owing is normal' principle is carried visually.",
+        "worst_detail": "On mobile the Balances and Settle up cards are stacked below the entire expense list, pushing the app's main answer to the bottom of a long scroll."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

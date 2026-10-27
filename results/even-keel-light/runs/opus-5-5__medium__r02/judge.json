@@ -1,0 +1,72 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:39:02.856Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 27003,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2181,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1029
+        }
+      },
+      "cost_usd": 0.151632,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and money figures, while Signal #C2462B is held back for the primary 'Add expense' button, the masthead rule and focus rings. The warm sand/paper neutrals and a muted 'tide' green for 'is owed' build a calm palette around those two colours. Fraunces paired with Public Sans reads steady and trustworthy, and debts are shown in navy rather than alarm red, with the line 'Owing is a normal part of sharing a trip' stating the brand principle outright."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card headings with step numerals, tabular serif amounts, and consistent 14px radii and 20–24px gaps. The diverging balance bars with a centre tick are well judged, and the 390px layout collapses cleanly with no overflow. Two weaker spots: the summary stat strip adds little, and on desktop the left column ends far above the long right column."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Labels are plain questions ('What was it for?', 'Who paid?'), buttons are verbs ('Add person', 'Start a new trip'), and empty states give direction ('Start with your own name, then add your friends'). Errors are specific and calm ('Use at most 2 decimal places, like 12.50.'). The rounding hint, '2 transfers and everyone is even.' and 'Saved on this device only. Nothing leaves your browser.' are honest and precise."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every brief requirement is covered: validation keeps typed values and focuses the bad field, each panel has a tailored empty state, removing an expense offers Undo, the reset asks for confirmation, and focus moves sensibly after deletion. Expense rows show the per-person split ('$3.34 or $3.33 each'), and settle-up rows read 'Chloe pays → Ana $33.33'. Mobile stacks in a logical order."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled in integer cents, leftover cents follow trip order, and the greedy settle produces at most n−1 transfers. localStorage loading is validated, form-error testids are added and removed correctly, labels and fieldset/legend are semantic, and a live region announces changes. Minor issues: a dead `buttons` variable, an unused `at` timestamp, and the no-people error sets aria-invalid on the person input, which the expense form's clearError never clears."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The sailboat mark, navy masthead with Signal underline, diverging balance bars and restrained use of red all feel chosen specifically for Even Keel. Two elements look more template-like: the three-tile stat summary and the pill-shaped chips and avatars."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Stat tiles at the top (Trip total / Expenses / People) with large serif numbers that add little value",
+          "Pill-shaped (999px radius) person chips with initial avatars, a common default pattern"
+        ],
+        "brand_violations": [],
+        "best_detail": "Debts are shown in Harbour navy on a diverging bar beside the line 'Owing is a normal part of sharing a trip', which puts the brand principle into practice rather than flagging owing as a problem.",
+        "worst_detail": "The summary stat strip repeats counts the user can already see and pushes the actual tool down the page."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:39:32.657Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14794,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2300,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 951
+        }
+      },
+      "cost_usd": 0.105176,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D drives the header, headings and primary buttons. Signal appears as a 5px rule under the header, on the transfer left borders and in a darkened form (#A33820) on Add expense. Fraunces with Public Sans on a warm paper background (#F5F1E8 / #FFFDF8) reads as steady and trustworthy rather than bank-like. The main misstep is colouring every 'owes' balance in the same red family, which frames owing as a warning against the stated principle."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The two-column grid is clean, cards are consistent (10px radius, 18px padding, 20px gaps), and balance and expense amounts use tabular numerals. Mobile stacks well with no overflow. A few rough spots: the header text sits about 16px left of the card edges because the header and main use different padding. The empty-state 'Add people first to split with them.' gets squeezed into a single 140px grid cell and wraps awkwardly. On desktop the left column ends well short of the right."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Do these 2 payments and everyone is square.', 'Nobody’s here yet. Add everyone on the trip, including yourself.', 'Add a description, like “Groceries”.' Buttons are verbs ('Add person', 'Remove'). The tagline 'Owing a friend is normal.' states the brand principle outright instead of showing it, and 'Names must be different, ignoring capitals.' is slightly clunky."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has an empty state and validation is thorough: it accepts $ and commas, flags too many decimals separately, and keeps what the user typed. Focus returns to the first field after adding, and Settle up sits first in the right column with clear 'X pays Y' rows. Gaps: Remove deletes immediately with no confirmation or undo. The expense error appears below the button, away from the field that caused it, and nothing confirms an expense was added beyond the list re-rendering."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Cents handling is correct. Shares are distributed in trip order with leftover cents going one each to the earliest-added people, and the greedy largest-creditor/largest-debtor settle-up stays within n-1 transfers. Rendering uses textContent throughout, and the form-error testid is toggled with visibility. Weaknesses: there is no <h1> (the brand is a <p>), the .col grid rule is duplicated inside and outside the media query, and there is a redundant [].filter.call(..., return true). The minified CSS and one-letter class names (.t, .m, .r, .v) hurt readability."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Choices feel intentional and specific to the brand. The navy header with a Signal underline, the serif Fraunces headings, the warm off-white paper and the gold focus ring with a navy halo all reflect a considered palette. Restraint is good: no gradients, no emoji and minimal shadows. The pill name chips and dashed empty-state boxes are the most template-like elements."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Tagline states the brand principle verbatim ('Owing a friend is normal.') rather than expressing it through design",
+          "Dashed-border empty-state boxes repeated identically in every card",
+          "Uniform card treatment for every section with near-equal visual weight"
+        ],
+        "brand_violations": [
+          "Negative balances and the 'owes' label are rendered in Signal-red (#A33820), framing owing as an alarm against the principle that owing money between friends is normal"
+        ],
+        "best_detail": "The settle-up rows ('Chloe pays Ana — $33.33') on a Harbour tint with a Signal edge, introduced by 'Do these 2 payments and everyone is square.', make the outcome calm, specific and easy to act on.",
+        "worst_detail": "Colouring every debtor's balance in warning red undercuts the brand's central principle that owing a friend is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

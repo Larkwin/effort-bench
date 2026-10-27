@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T02:38:08.101Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18530,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2315,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 950
+        }
+      },
+      "cost_usd": 0.12042,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header and headings, and Signal #C2462B drives the primary buttons. Warm paper #F6F3EE and a sea green for 'is owed' and settle-up build a calm palette around the anchors, and Fraunces headings give it a steady, trustworthy feel. The weak spot is that negative balances are shown in Signal-deep red with a minus sign, which leans toward a warning reading even though the lede says 'Owing a friend is normal'."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: Fraunces h2s, a muted lede, then content. Money is set in Fraunces at 1.25rem, right-aligned with nowrap, and the 5fr/7fr grid collapses cleanly to a single column at 390px with no overflow. Expense rows feel bloated because the Remove button sits on its own row. The desktop left column leaves a large empty area beside the long right column, and every section gets the same card weight."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Copy is plain and specific and speaks to 'you': 'No one on the trip yet. Add the first person above — you can include yourself.', 'The fewest transfers that bring everyone back to even.' and 'You’re all even. Nothing to settle.' Errors are useful, for example 'The amount needs to be a number with at most 2 decimal places, like 42 or 42.50.' One string is slightly clunky: 'Names need to be different, ignoring capitals.'"
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a distinct empty state, including a disabled payer select reading 'Add people first' and the hint 'The people you add will appear here, all ticked'. Errors keep what the user typed and move focus to the offending field. Everyone/No one shortcuts are included, and balances carry 'is owed/owes/is even' labels alongside colour. Settle-up rows are readable as 'Chloe → Ana $33.33'. There is no way to remove a person, and Remove acts instantly with no undo or confirmation."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The logic is correct: integer cents, a strict parseCents regex, leftover cents assigned in the order people were added via state.people.filter, and a greedy settle that produces at most n−1 transfers. The localStorage loader is validated, and the markup uses fieldset/legend, labels, role=alert errors and a sr-only ' pays ' in transfers. Gaps: errors are not tied to inputs with aria-describedby or aria-invalid, there are inline styles and some dead CSS (an unused `a` rule, and a `.brand h1 span` colour that only hits the keel dot), and the code uses banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work reads as deliberate. The warm paper ground, Fraunces numerals for money, numbered person chips that quietly encode the 'order added' rule, and a reassuring footer about local storage all feel specific to Even Keel. It is held back from a 5 by the uniform white-card layout, Inter body text and pill chips, which are template-adjacent."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Inter as the body face, a common default pairing",
+          "Every section is an identical bordered white card with equal visual weight",
+          "Pill-shaped (999px radius) person chips",
+          "Banner comments in JS ('// ---------- computations ----------')",
+          "Heavy use of em dashes in UI copy"
+        ],
+        "brand_violations": [
+          "Negative balances are rendered in Signal-deep red with a minus sign ('−$33.33'), which visually frames owing as a warning despite the principle that owing money is normal"
+        ],
+        "best_detail": "The numbered person chips (1 Ana, 2 Ben, 3 Chloe) make the trip order visible, and that order is exactly what decides who gets leftover cents, a quiet bit of honesty that fits the brand.",
+        "worst_detail": "Each expense's Remove button sits on its own full-width row, nearly doubling the row height and making the expense list feel padded and less scannable."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

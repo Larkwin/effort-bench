@@ -1,0 +1,461 @@
+{
+  "run_id": "fable-5-1__medium__r01",
+  "profile": "light",
+  "checked_at": "2026-10-22T00:45:28.831Z",
+  "functional": [
+    {
+      "id": "F01",
+      "name": "Adds three people",
+      "pass": true,
+      "detail": "3 people listed",
+      "ms": 109
+    },
+    {
+      "id": "F02",
+      "name": "Rejects a duplicate name ignoring case",
+      "pass": true,
+      "detail": "3 people; message shown: true",
+      "ms": 136
+    },
+    {
+      "id": "F03",
+      "name": "Rejects an empty expense with a message",
+      "pass": true,
+      "detail": "0 expenses; message shown: true",
+      "ms": 120
+    },
+    {
+      "id": "F04",
+      "name": "Rejects 3 decimal places and keeps the typed description",
+      "pass": true,
+      "detail": "0 expenses; description field: \"Snacks\"",
+      "ms": 46
+    },
+    {
+      "id": "F05",
+      "name": "Computes balances for two equal splits",
+      "pass": true,
+      "detail": "got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}",
+      "ms": 81
+    },
+    {
+      "id": "F06",
+      "name": "Settle-up zeroes every balance within n−1 transfers",
+      "pass": true,
+      "detail": "2 transfers [{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000},{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}",
+      "ms": 2
+    },
+    {
+      "id": "F07",
+      "name": "Gives leftover cents to the earliest-added people",
+      "pass": true,
+      "detail": "change {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}",
+      "ms": 31
+    },
+    {
+      "id": "F08",
+      "name": "Splits between a subset of people",
+      "pass": true,
+      "detail": "change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}",
+      "ms": 33
+    },
+    {
+      "id": "F09",
+      "name": "Lists expenses newest first",
+      "pass": true,
+      "detail": "first expense: \"Museum $20.00 Paid by Ana · Split 2 ways: Ana, Ben Remove\"",
+      "ms": 1
+    },
+    {
+      "id": "F10",
+      "name": "Removing an expense restores balances",
+      "pass": true,
+      "detail": "3 expenses; balances {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}, want {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}",
+      "ms": 135
+    },
+    {
+      "id": "F11",
+      "name": "Survives a reload",
+      "pass": true,
+      "detail": "before: 3 people, 3 expenses; after: 3 people, 3 expenses, balances unchanged",
+      "ms": 123
+    },
+    {
+      "id": "F12",
+      "name": "Formats money as Canadian dollars",
+      "pass": true,
+      "detail": "expense amounts and every balance use $0.00 format",
+      "ms": 1
+    },
+    {
+      "id": "F13",
+      "name": "Keyboard focus is visible",
+      "pass": true,
+      "detail": "button[add-person]: outline solid 3px rgb(194, 70, 43), offset 2px, shadow none",
+      "ms": 4
+    },
+    {
+      "id": "F14",
+      "name": "No horizontal scrolling at 390px",
+      "pass": true,
+      "detail": "scrollWidth 390 vs viewport 390",
+      "ms": 2
+    },
+    {
+      "id": "F15",
+      "name": "Shows user input as text, not HTML",
+      "pass": true,
+      "detail": "script ran: false; shown literally: true",
+      "ms": 200
+    }
+  ],
+  "brand": [
+    {
+      "id": "L01",
+      "name": "Uses both anchor colours",
+      "pass": true,
+      "detail": "Harbour used; Signal used"
+    },
+    {
+      "id": "L02",
+      "name": "Owing is not shown as a problem (red)",
+      "pass": false,
+      "detail": "Ben: #A83A22; Chloe: #A83A22"
+    },
+    {
+      "id": "S01",
+      "observe": true,
+      "name": "Typefaces",
+      "detail": "headings: Fraunces, Inter; UI: Inter"
+    },
+    {
+      "id": "S02",
+      "observe": true,
+      "name": "Palette size",
+      "detail": "14 solid colours, 0 with transparency; top: #1F3A4D, #D9D2C6, #FFFFFF, #B7C2CB, #51606B, #C2462B"
+    },
+    {
+      "id": "S03",
+      "observe": true,
+      "name": "Gradients",
+      "detail": "none"
+    },
+    {
+      "id": "S04",
+      "observe": true,
+      "name": "Shadows or blur",
+      "detail": "section.card; section.card; section.card; section.card (+1)"
+    },
+    {
+      "id": "S05",
+      "observe": true,
+      "name": "Corner radius over 8px",
+      "detail": "10 elements, up to 999px"
+    },
+    {
+      "id": "S06",
+      "observe": true,
+      "name": "Emoji",
+      "detail": "none"
+    },
+    {
+      "id": "S07",
+      "observe": true,
+      "name": "Exclamation marks",
+      "detail": "none"
+    },
+    {
+      "id": "S08",
+      "observe": true,
+      "name": "Title Case or all caps",
+      "detail": "title case: none; uppercase: span.kicker; span.kicker"
+    },
+    {
+      "id": "S09",
+      "observe": true,
+      "name": "Tabular figures for money",
+      "detail": "8/8 money elements"
+    },
+    {
+      "id": "S10",
+      "observe": true,
+      "name": "Column width",
+      "detail": "content spans 982px at 1280px"
+    },
+    {
+      "id": "S11",
+      "observe": true,
+      "name": "Motion",
+      "detail": "none"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "blocked_requests": [],
+  "screenshots": {
+    "empty-desktop": "empty-desktop.jpg",
+    "filled-desktop": "filled-desktop.jpg",
+    "filled-mobile": "filled-mobile.jpg"
+  },
+  "missing_hooks_at_start": [],
+  "audit": {
+    "fonts": {
+      "headings": [
+        {
+          "el": "h1",
+          "family": "Fraunces"
+        },
+        {
+          "el": "span",
+          "family": "Inter"
+        },
+        {
+          "el": "h2#people-heading",
+          "family": "Fraunces"
+        },
+        {
+          "el": "span.kicker",
+          "family": "Inter"
+        },
+        {
+          "el": "h2#expense-heading",
+          "family": "Fraunces"
+        },
+        {
+          "el": "span.kicker",
+          "family": "Inter"
+        },
+        {
+          "el": "h2#balances-heading",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#settle-heading",
+          "family": "Fraunces"
+        }
+      ],
+      "ui_total": 71,
+      "ui_plex": 0,
+      "ui_other": [
+        "Inter (p.topbar-note)",
+        "Inter (label)",
+        "Inter (input#person-name[data-testid=person-name])",
+        "Inter (button[data-testid=add-person].btn.btn-primary)"
+      ],
+      "ui_main": "Inter",
+      "loaded": [
+        "Fraunces",
+        "Fraunces",
+        "Inter",
+        "Inter",
+        "Inter"
+      ]
+    },
+    "colours": [
+      {
+        "colour": "#1F3A4D",
+        "uses": 49
+      },
+      {
+        "colour": "#D9D2C6",
+        "uses": 28
+      },
+      {
+        "colour": "#FFFFFF",
+        "uses": 18
+      },
+      {
+        "colour": "#B7C2CB",
+        "uses": 16
+      },
+      {
+        "colour": "#51606B",
+        "uses": 16
+      },
+      {
+        "colour": "#C2462B",
+        "uses": 15
+      },
+      {
+        "colour": "#1B2730",
+        "uses": 12
+      },
+      {
+        "colour": "#A83A22",
+        "uses": 8
+      },
+      {
+        "colour": "#E4EBF0",
+        "uses": 6
+      },
+      {
+        "colour": "#E8E2D8",
+        "uses": 4
+      },
+      {
+        "colour": "#F3EFE8",
+        "uses": 3
+      },
+      {
+        "colour": "#EAE4DA",
+        "uses": 3
+      },
+      {
+        "colour": "#C9D6E0",
+        "uses": 2
+      },
+      {
+        "colour": "#1F6B55",
+        "uses": 2
+      }
+    ],
+    "off_palette": [
+      {
+        "colour": "#B7C2CB",
+        "uses": 16,
+        "props": [
+          "border"
+        ],
+        "sample": "input#person-name[data-testid=person-name]"
+      },
+      {
+        "colour": "#51606B",
+        "uses": 16,
+        "props": [
+          "color"
+        ],
+        "sample": "span.cur"
+      },
+      {
+        "colour": "#1B2730",
+        "uses": 12,
+        "props": [
+          "color"
+        ],
+        "sample": "input#person-name[data-testid=person-name]"
+      },
+      {
+        "colour": "#A83A22",
+        "uses": 8,
+        "props": [
+          "color"
+        ],
+        "sample": "span.kicker"
+      },
+      {
+        "colour": "#E4EBF0",
+        "uses": 6,
+        "props": [
+          "background"
+        ],
+        "sample": "li[data-testid=person].person"
+      },
+      {
+        "colour": "#E8E2D8",
+        "uses": 4,
+        "props": [
+          "border"
+        ],
+        "sample": "li[data-testid=balance].balance.owes"
+      },
+      {
+        "colour": "#EAE4DA",
+        "uses": 3,
+        "props": [
+          "background"
+        ],
+        "sample": "span.meter"
+      },
+      {
+        "colour": "#C9D6E0",
+        "uses": 2,
+        "props": [
+          "color"
+        ],
+        "sample": "span"
+      },
+      {
+        "colour": "#1F6B55",
+        "uses": 2,
+        "props": [
+          "color",
+          "background"
+        ],
+        "sample": "span.amt.num"
+      }
+    ],
+    "signal_misuse": [
+      "header.topbar border",
+      "span background",
+      "span background",
+      "span.arrow color",
+      "span.arrow color"
+    ],
+    "gradients": [],
+    "shadows": [
+      "section.card",
+      "section.card",
+      "section.card",
+      "section.card",
+      "section.card"
+    ],
+    "big_radius": [
+      "section.card 10px",
+      "li[data-testid=person].person 999px",
+      "span.avatar 14px",
+      "li[data-testid=person].person 999px",
+      "span.avatar 14px",
+      "li[data-testid=person].person 999px",
+      "span.avatar 14px",
+      "section.card 10px",
+      "label.chip 999px",
+      "label.chip 999px"
+    ],
+    "transitions": [],
+    "uppercase": [
+      "span.kicker",
+      "span.kicker"
+    ],
+    "emoji": [],
+    "exclamations": [],
+    "title_case": [],
+    "money": {
+      "elements": 8,
+      "tabular": 8
+    },
+    "negative_red": [
+      "Ben: #A83A22",
+      "Chloe: #A83A22"
+    ],
+    "main_width": 1080,
+    "content_width": 1032,
+    "content_span": 982,
+    "title": "Even Keel — split trip costs fairly"
+  },
+  "a11y": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "rules": []
+  },
+  "focus": {
+    "tag": "button",
+    "testid": "add-person",
+    "outline": "solid 3px rgb(194, 70, 43)",
+    "offset": "2px",
+    "shadow": "none"
+  },
+  "summary": {
+    "functional_pass": 15,
+    "functional_total": 15,
+    "functional_rate": 1,
+    "brand_pass": 1,
+    "brand_total": 2,
+    "brand_rate": 0.5,
+    "a11y_serious": 0,
+    "a11y_total": 0,
+    "console_errors": 0,
+    "fatal": null
+  }
+}

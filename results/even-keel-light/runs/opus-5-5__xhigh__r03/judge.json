@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.148Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 36477,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2456,
+        "output_tokens_details": {
+          "thinking_tokens": 1106
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.097514,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "The Harbour #1F3A4D masthead has a 4px Signal stripe, and Signal is reserved for the primary 'Add expense' button. Both sit on a warm paper (#F3EFE7) palette with sea and sand supporting tones, set in Source Serif 4 headings and IBM Plex Sans. The 'owing is normal' principle is designed in: debts use a calm sand/ochre (--sand-ink #7A4A1E) instead of alarm red, balances read 'Owes' and 'Gets back', and the lede says 'Some people front more than others. That's normal, and it evens out when you settle up.'"
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted ledes, uppercase micro-labels and tabular figures. The diverging balance bars around a centre 'Even' tick and the dotted-leader settle-up rows are well made, and mobile stacks cleanly with full-width actions. However, on first load a blank beige bar sits under the name input (an unpopulated .empty block). On desktop the left column ends well above the right, leaving a large dead area."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The strings are plain, specific and second-person. Examples: 'Enter a name to add someone to the trip.'; the duplicate message 'Ana is already on the trip. To add someone else with the same name, add a last initial'; amount errors such as 'Use no more than 2 decimal places, like 42.50.'. Empty states give concrete examples ('gas, groceries, the cabin'), the settle lede adapts ('2 payments and everyone's even.'), and the footer says 'Saved in this browser, on this device. Nothing is sent anywhere.' There are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Beyond the brief, it adds an undo strip for removed expenses and a live split preview that explains leftover cents. It also has copy-to-clipboard for settle-up, a confirm dialog for a new trip, locked removal of involved people with an explanatory note, cross-tab sync and careful focus management. Inputs are kept on error and the brief's states are handled, but the People card has no empty-state message at all, only an empty grey box."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a tidy IIFE with a small el() helper. Money is integer cents throughout, and parseAmount handles $, commas, decimals and negatives. splitCents orders shares by trip order, and settle() matches exact pairs first and then runs greedy, staying within n−1 transfers. Loaded storage is sanitised, and the markup is semantic (fieldset/legend, labelled lists, aria-live, dialog). One bug: #people-empty is styled with padding but never filled by renderPeople, so a blank block renders. There is also mild duplication of split arithmetic across renderPreview and renderExpenses."
+        },
+        "directed_design": {
+          "score": 5,
+          "evidence": "The choices are specific to Even Keel: a keel/flag boat mark reused in empty states, a sea-versus-sand balance scale instead of green and red, a serif-plus-Plex pairing that reads as trustworthy without feeling like a bank, and Signal used sparingly. The result is restrained and cohesive rather than template-like."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Soft box-shadow applied to every card surface (--shadow on .card)",
+          "Header stat strip (Total spent / Expenses / People) adds little beyond what the page already shows",
+          "Banner-style section comments in JS ('/* ---------- Money logic ---------- */')"
+        ],
+        "brand_violations": [],
+        "best_detail": "Owing is shown in a calm sand tone on a diverging bar around an 'Even' centre line, labelled 'Owes' and 'Gets back', which turns the brand principle into the interface itself.",
+        "worst_detail": "The People card's empty-state container is never populated, so first load shows an unexplained blank beige bar under the name input instead of guidance."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 5,
+    "overall": 8
+  }
+}

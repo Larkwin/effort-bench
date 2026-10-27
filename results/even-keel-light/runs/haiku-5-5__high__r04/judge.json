@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.084Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22180,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2483,
+        "output_tokens_details": {
+          "thinking_tokens": 1203
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.06919,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the header, h2s, avatars and 'owed' bars, with a 4px Signal rule under the masthead. The warm paper #F4F0E8 and tinted neutrals give a steady, trustworthy feel that is neither bank nor game, and Fraunces with Figtree suits 'quietly confident'. The Settle up lede states the principle directly ('Owing each other is normal'). Signal, however, is used for buttons, errors and 'owes' amounts alike, which quietly codes owing as alarm."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The hierarchy is clear: serif card titles, a muted lede, tabular-nums amounts, and centre-zero balance tracks that read at a glance. At 1280px the description input stretches to about 70px tall next to the 46px amount field, because the grid field stretches its rows to match the hint column. The Remove links are also inset from the right-aligned amounts, and the footer sits tight under the last card."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Capitals don't make a name unique, so “ana” and “Ana” are the same person', '“Ana” is already on the trip. Use a different name.', 'Everyone is even. No payments needed.' Buttons are verbs and empty states point to the next step. Minor misses: the placeholder 'petrol' is odd for a Canadian product, and some ledes are slightly wordy explainers."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief state is handled. Empty states adapt in Settle up (no people, no expenses, all even). Validation shows a role=alert message, sets aria-invalid, keeps the typed input and focuses the offending field. Split ticks persist across renders, and each expense shows its per-person shares. The settle-up list is readable but offers no way to mark a transfer done, and deleting an expense has no undo or confirmation."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The IIFE is well structured with an el() helper. parseAmount works in integer cents and handles commas and leading '$'. computeShares hands leftover cents out in trip order. Greedy transfers produce at most n-1, and stored state is validated on load. Semantics are good: fieldset/legend, labels, focus-visible and focus management after delete. Weaker spots: the header is nested inside main so it loses its banner role, there are inline style margins on lists, and a few banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The centre-zero balance bars, the keel-like SVG mark and the paper/navy palette feel chosen for this brand rather than defaulted. Still, the layout is a standard two-column stack of equal white rounded cards with shadows and a lede on every card, which pulls it slightly toward template."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section is an identical white card with 16px radius and drop shadow",
+          "Pill-shaped amount badges in Settle up and pill chips for split checkboxes",
+          "Banner comments in JS ('/* ---------- State & storage ---------- */')",
+          "An explanatory lede paragraph under every card heading"
+        ],
+        "brand_violations": [
+          "Signal red-orange is used both for error messages and for every 'owes' amount and bar, which visually frames owing as a warning despite the 'owing is normal' principle",
+          "Placeholder 'Groceries, dinner, petrol' uses non-Canadian wording for a CAD product"
+        ],
+        "best_detail": "The balance tracks with a centre zero tick, Harbour filling right for 'is owed' and Signal filling left for 'owes', make the whole trip's position legible in a glance.",
+        "worst_detail": "The description input stretches to roughly 70px tall beside the 46px amount input on desktop, a visible alignment bug in the most-used form."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Effort bench</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --panel: #ffffff; --ink: #1d2125; --muted: #5f6870; --line: #dfe1e3; --soft: #eef0f1;
+    --accent: #2f5fa7; --good: #1f7a4d; --bad: #b3401f; --warn: #946200;
+    --heat-0: #f1f5fb; --heat-1: #1e4f94;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #15181b; --panel: #1d2125; --ink: #e7e9eb; --muted: #9aa3ab; --line: #333a40; --soft: #262b30;
+      --accent: #7fa8e8; --good: #5cc28f; --bad: #f08a6a; --warn: #e2b54a; --heat-0: #1f2833; --heat-1: #5d93e6; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  header.top { padding: 16px 24px 0; }
+  header.top h1 { font-size: 20px; margin: 0; }
+  header.top .sub { color: var(--muted); margin-top: 2px; }
+  .mock { background: var(--warn); color: #fff; padding: 6px 24px; font-weight: 600; }
+  nav.tabs { display: flex; gap: 4px; padding: 12px 24px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+  nav.tabs button { border: 1px solid transparent; border-bottom: 0; background: none; color: var(--muted); padding: 8px 14px; font: inherit; cursor: pointer; border-radius: 6px 6px 0 0; }
+  nav.tabs button[aria-selected="true"] { background: var(--panel); color: var(--ink); border-color: var(--line); margin-bottom: -1px; font-weight: 600; }
+  main { padding: 20px 24px 48px; }
+  section.tab[hidden] { display: none; }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .panel h2 { font-size: 15px; margin: 0 0 12px; }
+  .row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 16px; }
+  label.inline { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); }
+  select, input[type="search"], button.btn { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; }
+  button.btn { cursor: pointer; }
+  button.btn:hover { border-color: var(--accent); }
+  button.btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .muted { color: var(--muted); }
+  .small { font-size: 12px; }
+  .mono { font-family: var(--mono); font-size: 12px; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--muted); font-size: 12px; white-space: nowrap; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.heat td.cell { text-align: center; cursor: pointer; padding: 10px 8px; border: 2px solid var(--panel); border-radius: 6px; }
+  table.heat td.cell .v { font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  table.heat td.cell .s { font-size: 11px; opacity: .8; }
+  table.heat th { text-align: center; }
+  table.heat th.rowh { text-align: right; vertical-align: middle; white-space: nowrap; }
+  .sortable th { cursor: pointer; }
+  .sortable tbody tr { cursor: pointer; }
+  .sortable tbody tr:hover { background: var(--soft); }
+  .pill { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 12px; background: var(--soft); }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: middle; }
+  .pass { color: var(--good); } .fail { color: var(--bad); }
+  .delta-good { color: var(--good); } .delta-bad { color: var(--bad); } .delta-flat { color: var(--muted); }
+  .insights li { margin: 4px 0; }
+  .slots { display: grid; gap: 12px; grid-auto-flow: column; grid-auto-columns: minmax(300px, 1fr); overflow-x: auto; padding-bottom: 8px; }
+  .slot { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px; min-width: 0; }
+  .slot select { width: 100%; }
+  .frame { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 6px; background: #fff; margin-top: 8px; }
+  .frame iframe { border: 0; transform-origin: 0 0; position: absolute; top: 0; left: 0; background: #fff; }
+  .frame img { width: 100%; display: block; }
+  .shotbox { max-height: 640px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; margin-top: 8px; }
+  .diff { font-family: var(--mono); font-size: 12px; white-space: pre; overflow: auto; max-height: 560px; border: 1px solid var(--line); border-radius: 6px; }
+  .diff div { padding: 0 8px; }
+  .diff .add { background: rgba(31,122,77,.13); }
+  .diff .del { background: rgba(179,64,31,.13); }
+  .diff .gap { color: var(--muted); background: var(--soft); }
+  details > summary { cursor: pointer; color: var(--accent); }
+  .thinking { white-space: pre-wrap; font-size: 12px; max-height: 360px; overflow: auto; background: var(--soft); padding: 8px; border-radius: 6px; }
+  .ab { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .ab .slot h3 { margin: 0; font-size: 15px; }
+  .reveal { font-weight: 600; }
+  kbd { font-family: var(--mono); font-size: 11px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
+  dialog { border: 1px solid var(--line); border-radius: 10px; padding: 0; width: min(1200px, 96vw); max-height: 92vh; background: var(--panel); color: var(--ink); }
+  dialog .dhead { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); z-index: 1; }
+  dialog .dbody { padding: 16px; }
+  pre.prompt { white-space: pre-wrap; font-size: 13px; background: var(--soft); padding: 12px; border-radius: 6px; max-height: 70vh; overflow: auto; }
+  svg text { fill: var(--muted); font-size: 11px; }
+  svg .axis { stroke: var(--line); }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin-top: 6px; }
+  @media (max-width: 720px) { main { padding: 16px; } .grid2 { grid-template-columns: 1fr; } .ab { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div id="mock" class="mock" hidden>Demo data: these runs are copies of fixture files with simulated metrics and a heuristic stand-in for the judge. Run the real experiment for real numbers.</div>
+<header class="top">
+  <h1 id="title">Effort bench</h1>
+  <div class="sub" id="subtitle"></div>
+</header>
+<nav class="tabs" role="tablist">
+  <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+  <button role="tab" data-tab="runs">Runs</button>
+  <button role="tab" data-tab="compare">Compare</button>
+  <button role="tab" data-tab="ab">Blind A/B</button>
+  <button role="tab" data-tab="setup">Prompt &amp; setup</button>
+</nav>
+<main>
+  <section class="tab" id="tab-overview">
+    <div class="panel">
+      <div class="row" style="justify-content: space-between">
+        <h2 style="margin:0">Model × effort</h2>
+        <label class="inline">Metric <select id="metric"></select></label>
+      </div>
+      <p class="muted small" id="metric-note" style="margin:6px 0 10px"></p>
+      <table class="heat" id="heat"></table>
+      <p class="muted small" style="margin:8px 0 0">Cells show the mean across runs, ± standard deviation, and the number of runs. Click a cell to list its runs.</p>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h2 id="line-title">By effort</h2><div id="line"></div><div class="legend" id="legend1"></div></div>
+      <div class="panel"><h2>Quality against cost per run</h2><div id="scatter"></div><div class="legend" id="legend2"></div></div>
+    </div>
+    <div class="panel"><h2>Deltas worth looking at</h2><ul class="insights" id="insights"></ul></div>
+  </section>
+
+  <section class="tab" id="tab-runs" hidden>
+    <div class="panel">
+      <div class="row" style="margin-bottom:10px">
+        <input type="search" id="run-search" placeholder="Filter runs (e.g. haiku high)" aria-label="Filter runs" style="min-width:260px">
+        <span class="muted small" id="run-count"></span>
+        <button class="btn" id="compare-selected">Compare selected</button>
+      </div>
+      <div style="overflow-x:auto"><table class="sortable" id="runs"></table></div>
+    </div>
+  </section>
+
+  <section class="tab" id="tab-compare" hidden>
+    <div class="panel">
+      <div class="row">
+        <label class="inline">Same effort, every model <select id="q-effort"><option value="">choose…</option></select></label>
+        <label class="inline">Same model, every effort <select id="q-model"><option value="">choose…</option></select></label>
+        <label class="inline">Pick <select id="q-pick"><option value="median">median run</option><option value="best">best run</option><option value="worst">worst run</option></select></label>
+        <span style="flex:1"></span>
+        <label class="inline">View <select id="view-mode"><option value="desktop">Live, desktop</option><option value="mobile">Live, mobile</option><option value="shot">Screenshots</option></select></label>
+        <label class="inline">Zoom <select id="zoom"><option value="fit">fit column</option><option value="0.5">50%</option><option value="1">100%</option></select></label>
+        <label class="inline"><input type="checkbox" id="fill" checked> Fill sample trip</label>
+        <button class="btn" id="add-slot">Add column</button>
+      </div>
+    </div>
+    <div class="slots" id="slots"></div>
+    <div class="panel"><h2>Metrics (Δ against the first column)</h2><div style="overflow-x:auto"><table id="cmp-metrics"></table></div></div>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between"><h2 style="margin:0">Checks</h2><label class="inline"><input type="checkbox" id="only-diff" checked> Only rows that differ</label></div>
+      <div style="overflow-x:auto;margin-top:8px"><table id="cmp-checks"></table></div>
+    </div>
+    <div class="panel"><h2>Judge review</h2><div style="overflow-x:auto"><table id="cmp-judge"></table></div></div>
+    <div class="panel">
+      <div class="row"><h2 style="margin:0">Code diff</h2>
+        <label class="inline">From <select id="diff-a"></select></label>
+        <label class="inline">To <select id="diff-b"></select></label>
+        <span class="muted small" id="diff-stats"></span></div>
+      <div class="diff" id="diff" style="margin-top:10px"></div>
+    </div>
+    <div class="panel"><h2>Thinking summaries</h2><div class="slots" id="cmp-thinking"></div></div>
+  </section>
+
+  <section class="tab" id="tab-ab" hidden>
+    <div class="panel">
+      <div class="row">
+        <label class="inline">Pairs from <select id="ab-pool">
+          <option value="any">any two different cells</option>
+          <option value="effort">same effort, different model</option>
+          <option value="model">same model, different effort</option>
+        </select></label>
+        <label class="inline">View <select id="ab-view"><option value="desktop">desktop</option><option value="mobile">mobile</option></select></label>
+        <span style="flex:1"></span>
+        <span class="muted small"><kbd>A</kbd> left better · <kbd>B</kbd> right better · <kbd>T</kbd> tie · <kbd>S</kbd> skip · <kbd>N</kbd> next</span>
+      </div>
+    </div>
+    <div class="ab" id="ab-pair"></div>
+    <div class="panel row" style="margin-top:12px">
+      <button class="btn primary" data-vote="a">Left is better</button>
+      <button class="btn primary" data-vote="b">Right is better</button>
+      <button class="btn" data-vote="tie">About the same</button>
+      <button class="btn" data-vote="skip">Skip</button>
+      <span class="reveal" id="ab-reveal" aria-live="polite"></span>
+      <button class="btn" id="ab-next" hidden>Next pair</button>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h2>Your preferences</h2><div id="ab-results"></div></div>
+      <div class="panel"><h2>Votes</h2><p class="muted small">Votes stay in this browser. Export them to keep or merge across machines.</p>
+        <div class="row"><button class="btn" id="ab-export">Export votes</button><label class="btn">Import votes <input type="file" id="ab-import" accept="application/json" hidden></label><button class="btn" id="ab-clear">Clear votes</button></div>
+        <p class="small muted" id="ab-count"></p></div>
+    </div>
+  </section>
+
+  <section class="tab" id="tab-setup" hidden>
+    <div class="grid2">
+      <div class="panel"><h2>Prompt sent to every model</h2><pre class="prompt" id="prompt"></pre></div>
+      <div class="panel"><h2>Setup</h2><div id="setup"></div><h2 style="margin-top:16px">Judge rubric</h2><pre class="prompt" id="rubric"></pre></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="detail"><div class="dhead"><strong id="d-title"></strong><div class="row"><button class="btn" id="d-compare">Add to compare</button><button class="btn" id="d-close">Close</button></div></div><div class="dbody" id="d-body"></div></dialog>
+
+<script>
+const BENCH = {"experiment":"calibration","generated_at":"2026-10-21T22:45:34.701Z","mock":false,"prompt":"Build a small web app for the brand described below: **Even Keel**, a trip expense splitter. A group of friends adds the people on the trip, logs who paid for what, and sees who owes whom so everyone ends up even.\n\nDeliver one complete, self-contained HTML file. Reply with the HTML document only, starting at `\u003c!doctype html>`. No explanation before or after it.\n\n## What the app must do\n\n**People**\n- Add a person by name. Names are trimmed, cannot be empty, and must be unique ignoring case (\"ana\" is a duplicate of \"Ana\"). Show a clear inline message when a name is rejected.\n- List everyone on the trip.\n\n**Expenses**\n- Add an expense with: a description (required), an amount in Canadian dollars (required, greater than 0, at most 2 decimal places), who paid (one person), and who it's split between (one or more people; everyone is selected by default).\n- The amount is split equally between the selected people. Work in integer cents. When the cents don't divide evenly, give the leftover cents one each to the selected people in the order they were added to the trip, so the shares always add up exactly to the amount.\n- List expenses, newest first, each with description, amount, payer, and who it was split between. Each expense can be removed.\n- Reject an invalid expense with a clear inline message and keep what the user typed.\n\n**Balances and settling up**\n- Show each person's balance: total they paid minus their total share. Positive means they are owed money; negative means they owe.\n- Show a \"Settle up\" list of transfers (who pays whom, how much) that brings every balance to zero, using at most one fewer transfer than the number of people with a non-zero balance.\n\n**General**\n- Format money as Canadian dollars (for example `$1,234.50`), using `Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' })`.\n- Save everything in `localStorage` so a page reload keeps the trip.\n- Useful empty states before there are people or expenses.\n- Works well from 360px wide (no horizontal scrolling) up to a desktop browser.\n- Accessible: every input has a visible label, everything works by keyboard, focus is always visible, text meets WCAG AA contrast.\n- Plain HTML, CSS and JavaScript in the one file. No frameworks, build steps, or external scripts. The only external resource allowed is the Google Fonts stylesheet for the two brand typefaces.\n\n## QA hooks (required)\n\nAutomated tests drive the app through these attributes. Use them exactly; you may add any other markup you like.\n\n| Element | Attribute(s) |\n|---|---|\n| The `\u003cmain>` element wrapping the app | `data-testid=\"app\"` |\n| Person name input | `data-testid=\"person-name\"` |\n| Add person button | `data-testid=\"add-person\"` |\n| Each person in the people list | `data-testid=\"person\"` |\n| Expense description input | `data-testid=\"expense-desc\"` |\n| Expense amount input | `data-testid=\"expense-amount\"` |\n| Payer `\u003cselect>` (option `value` = person's name) | `data-testid=\"expense-payer\"` |\n| Container of the split checkboxes | `data-testid=\"expense-split\"`, containing one `\u003cinput type=\"checkbox\">` per person whose `value` is the person's name |\n| Add expense button | `data-testid=\"add-expense\"` |\n| Each expense in the list | `data-testid=\"expense\"` |\n| Remove button inside each expense | `data-testid=\"delete-expense\"` |\n| Each person's balance | `data-testid=\"balance\"` plus `data-person=\"\u003cname>\"` and `data-cents=\"\u003csigned integer cents>\"` |\n| Each settle-up transfer | `data-testid=\"transfer\"` plus `data-from=\"\u003cname>\"`, `data-to=\"\u003cname>\"`, `data-cents=\"\u003cpositive integer cents>\"` |\n| Any inline validation message, while shown | `data-testid=\"form-error\"` |\n\n## Even Keel brand guidelines\n\n**Who we are.** Even Keel keeps money between friends simple and fair. The personality is steady, honest and quietly confident: a well-made tool, not a game and not a bank.\n\n**Wordmark.** \"Even Keel\" set in Fraunces 600, Harbour colour, with a short horizontal rule (24 × 3px, Signal) to its left. Under the wordmark, at most one short line of supporting text.\n\n**Colour.** Use only these colours. Tints and opacity variants of them are not allowed.\n\n| Name | Hex | Use |\n|---|---|---|\n| Harbour | `#1F3A4D` | Primary text, wordmark, headings, focus rings |\n| Fog | `#5B6B75` | Secondary text, hints, metadata |\n| Sailcloth | `#F6F3EC` | Page background |\n| Paper | `#FFFFFF` | Panels, inputs, list surfaces |\n| Rope | `#D9D2C3` | Borders and dividers |\n| Signal | `#C2462B` | Primary action buttons only (with Paper text), and the wordmark rule |\n| Kelp | `#2F6B4F` | Positive balances (\"is owed\") |\n\nOwing money is normal, not an error: show negative balances in Harbour with a minus sign, never in red or Signal. Use Signal for nothing except primary buttons and the wordmark rule.\n\n**Type.** Fraunces (600) for the wordmark and headings; IBM Plex Sans (400 and 500) for everything else. Load both from Google Fonts. All money amounts use tabular figures (`font-variant-numeric: tabular-nums`). Size scale: 14, 16, 20, 28, 40px. Sentence case everywhere: no Title Case, no all-caps labels.\n\n**Layout.** A single centred column, max 720px wide, with 24px side padding on desktop and 16px on small screens. Spacing in multiples of 8px (4px allowed for tight pairs). Corner radius 6px on inputs, buttons and panels; no pill shapes. 1px Rope borders. No shadows, no gradients, no blur or glass effects. Transitions only for hover and focus, 150ms or less. Focus ring: 2px Harbour outline with a 2px offset.\n\n**Voice.** Plain, calm and specific. Talk to the user as \"you\". Buttons are short verbs in sentence case (\"Add person\", \"Add expense\", \"Remove\"). Error messages say what to fix (\"Enter an amount greater than $0.\"). Empty states say what to do next in one sentence. No exclamation marks, no emoji, no jokes, no filler like \"Oops\" or \"Awesome\".\n\n**Don't.** No marketing hero, feature cards, testimonials or footer credits. No sample or placeholder data pre-filled. No icons unless they clarify an action; if used, simple inline SVG line icons in Harbour.\n","prompt_sha":"1111d85d7e10f8f3","rubric":"You are reviewing one submission for a design and engineering review. A developer was given the brief below and produced a single-file web app. You will see three screenshots (desktop with no data, desktop with a sample trip entered, mobile with the same trip) and the full HTML source.\n\nReview it the way a senior product designer and a senior front-end engineer would together. Judge only this submission against the brief and the anchors below. Do not guess who or what made it.\n\n\u003cbrief>\n{{BRIEF}}\n\u003c/brief>\n\n## How to score\n\nScore each dimension 1–5 using the anchors. Use the whole scale: a 3 is competent but unremarkable, a 5 is rare. For each score, give the evidence: the concrete elements, colours, lines of copy or CSS rules it rests on, in two or three sentences.\n\n**brand_fidelity**: does it apply the Even Keel guidelines as written (palette and colour roles, the two typefaces, tabular money figures, sentence case, layout, radius, borders, no shadows or gradients, focus ring, wordmark)?\n- 5: every rule applied; nothing off-brand found.\n- 3: the overall look is on-brand but there are several clear rule breaks.\n- 1: the guidelines are largely ignored or replaced with a generic look.\n\n**visual_craft**: hierarchy, alignment, spacing rhythm, typographic quality, density, and polish at both widths.\n- 5: a designer would ship it as is; clear hierarchy, consistent rhythm, nothing awkward.\n- 3: tidy but generic or uneven; some misalignment, cramped or bloated areas.\n- 1: cluttered, broken layout, or no discernible hierarchy.\n\n**copy_voice**: UI text against the voice rules: plain, calm, specific; useful errors and empty states; verb buttons; no filler.\n- 5: every string is purposeful and on-voice.\n- 3: mostly fine with some generic, wordy, or off-voice strings.\n- 1: filler, marketing tone, jokes, exclamation marks, or unclear messages.\n\n**ux_completeness**: the brief's behaviour and states: empty, validation, feedback after actions, readable expense and balance lists, a settle-up that is easy to act on, mobile usability.\n- 5: every state considered and handled well; nothing a user would trip over.\n- 3: the main flow works; some states are thin or missing.\n- 1: key parts of the brief are missing or confusing.\n\n**code_quality**: structure and readability, integer-cents correctness, state handling, semantic HTML and accessibility, no dead or redundant code.\n- 5: clean, correct, idiomatic; easy to extend.\n- 3: works but has duplication, fragile spots, or weak semantics.\n- 1: tangled, likely buggy, or inaccessible.\n\n**directed_design**: does it read as the product of deliberate decisions by someone with taste who was paying attention to this brand, or as unsupervised AI output?\n- 5: cohesive, restrained, specific to Even Keel; choices feel intentional.\n- 3: competent but template-like; a few default-looking choices.\n- 1: generic AI-default look and feel throughout.\n\n**overall**: 1–10, your holistic judgement of the submission as something you would put in front of the client.\n\n## Lists to return\n\n**ai_tells**: specific signs that output went out without human design direction. Name each tell with its evidence. Common examples (not exhaustive, and only list what you actually see): decorative gradients; purple or indigo accents; emoji in headings or empty states; a generic system or Inter typeface where a brand face was specified; cards nested in cards; everything centred; pill buttons or oversized radii; shadows on every surface; an icon on every label; marketing filler (\"effortlessly\", \"seamless\"); \"Welcome to…\" headings; stat tiles with oversized numbers; toasts for every action; uniform visual weight with no hierarchy; sample data left in; banner comments and unused CSS variables in the code. Return an empty list if you see none.\n\n**brand_violations**: each specific Even Keel rule that is broken, with where. Return an empty list if none.\n\n**best_detail** and **worst_detail**: the single strongest and single weakest decision in the submission, one sentence each.\n","config":{"models":[{"id":"claude-fable-5-1","label":"Fable 5.1","price":{"input":10,"output":50}},{"id":"claude-opus-5-5","label":"Opus 5.5","price":{"input":4,"output":20}},{"id":"claude-sonnet-5-5","label":"Sonnet 5.5","price":{"input":2,"output":10}},{"id":"claude-haiku-5-5","label":"Haiku 5.5","price":{"input":0.1,"output":0.5}}],"efforts":["low","medium","high","xhigh","max"],"runs_per_cell":5,"generation":{"max_tokens":128000,"thinking_display":"summarized","concurrency":4,"shuffle":true,"budget_usd":75},"judge":{"model":"claude-opus-5-5","effort":"high","passes":1}},"runs":[{"id":"fixture-almost-right__fixed__r01","dir":"runs/fixture-almost-right__fixed__r01","model":"fixture-almost-right","model_label":"Fixture: almost right","effort":"fixed","n":1,"error":null,"html":"\u003c!doctype html>\n\u003chtml lang=\"en-CA\">\n\u003chead>\n\u003cmeta charset=\"utf-8\">\n\u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\u003ctitle>Even Keel\u003c/title>\n\u003clink rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n\u003clink rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n\u003clink rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500&display=swap\">\n\u003cstyle>\n  :root {\n    --harbour: #1F3A4D; --fog: #5B6B75; --sailcloth: #F6F3EC; --paper: #FFFFFF;\n    --rope: #D9D2C3; --signal: #C2462B; --kelp: #2F6B4F;\n  }\n  * { box-sizing: border-box; }\n  body { margin: 0; background: var(--sailcloth); color: var(--harbour);\n    font: 400 16px/1.5 \"IBM Plex Sans\", system-ui, sans-serif; }\n  main { max-width: 720px; margin: 0 auto; padding: 40px 24px 64px; }\n  .wordmark { display: flex; align-items: center; gap: 12px; }\n  .wordmark::before { content: \"\"; width: 24px; height: 3px; background: var(--signal); flex: none; }\n  h1 { font: 600 40px/1.1 Fraunces, Georgia, serif; margin: 0; }\n  .lede { color: var(--fog); margin: 8px 0 0 36px; }\n  h2 { font: 600 20px/1.3 Fraunces, Georgia, serif; margin: 0 0 16px; }\n  section { background: var(--paper); border: 1px solid var(--rope); border-radius: 6px;\n    padding: 24px; margin-top: 24px; }\n  label, legend { display: block; font-weight: 500; font-size: 14px; margin-bottom: 4px; padding: 0; }\n  fieldset { border: 0; margin: 0 0 16px; padding: 0; min-width: 0; }\n  .field { margin-bottom: 16px; }\n  .grid { display: grid; grid-template-columns: 1fr 160px; gap: 16px; }\n  .inline { display: flex; gap: 8px; align-items: flex-end; }\n  .inline .field { flex: 1; margin: 0; }\n  input[type=\"text\"], select { width: 100%; min-height: 40px; padding: 8px 12px; font: inherit;\n    color: var(--harbour); background: var(--paper); border: 1px solid var(--rope); border-radius: 6px; }\n  input[aria-invalid=\"true\"] { border-color: var(--harbour); }\n  .checks { display: flex; flex-wrap: wrap; gap: 8px 24px; }\n  .checks label { display: flex; align-items: center; gap: 8px; font-weight: 400; font-size: 16px; margin: 0; }\n  .checks input { width: 16px; height: 16px; accent-color: var(--harbour); margin: 0; }\n  button { font: 500 16px/1 \"IBM Plex Sans\", system-ui, sans-serif; min-height: 40px; padding: 8px 16px;\n    border-radius: 6px; cursor: pointer; transition: background-color 150ms, border-color 150ms, color 150ms; }\n  .primary { background: var(--signal); color: var(--paper); border: 1px solid var(--signal); }\n  .primary:hover { background: var(--harbour); border-color: var(--harbour); }\n  .quiet { background: var(--paper); color: var(--harbour); border: 1px solid var(--rope); font-size: 14px; min-height: 32px; padding: 4px 12px; }\n  .quiet:hover { border-color: var(--harbour); }\n  :focus-visible { outline: 2px solid var(--harbour); outline-offset: 2px; }\n  .error { margin: 8px 0 0; font-size: 14px; font-weight: 500; padding-left: 12px; border-left: 3px solid var(--harbour); }\n  .hint, .meta { color: var(--fog); font-size: 14px; }\n  .empty { color: var(--fog); margin: 0; }\n  ul { list-style: none; margin: 0; padding: 0; }\n  .people { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }\n  .people li { padding: 4px 12px; border: 1px solid var(--rope); border-radius: 6px; }\n  .rows li { display: flex; justify-content: space-between; align-items: center; gap: 16px;\n    padding: 12px 0; border-top: 1px solid var(--rope); }\n  .rows li:first-child { border-top: 0; padding-top: 0; }\n  .rows li:last-child { padding-bottom: 0; }\n  .money { font-variant-numeric: tabular-nums; white-space: nowrap; }\n  .owed { color: var(--kelp); }\n  [data-cents^=\"-\"] .money { color: #C2462B; }\n  .end { display: flex; align-items: center; gap: 16px; }\n  .desc { font-weight: 500; overflow-wrap: anywhere; }\n  @media (max-width: 560px) {\n    main { padding: 24px 16px 48px; }\n    h1 { font-size: 28px; }\n    section { padding: 16px; }\n    .grid { grid-template-columns: 1fr; }\n    .rows li { flex-wrap: wrap; }\n  }\n\u003c/style>\n\u003c/head>\n\u003cbody>\n\u003cmain data-testid=\"app\">\n  \u003cheader>\n    \u003ch1 class=\"wordmark\">Even Keel\u003c/h1>\n    \u003cp class=\"lede\">Log shared trip costs and see who owes whom.\u003c/p>\n  \u003c/header>\n\n  \u003csection aria-labelledby=\"people-h\">\n    \u003ch2 id=\"people-h\">People\u003c/h2>\n    \u003cform id=\"person-form\" novalidate>\n      \u003cdiv class=\"inline\">\n        \u003cdiv class=\"field\">\n          \u003clabel for=\"person-name\">Name\u003c/label>\n          \u003cinput id=\"person-name\" type=\"text\" autocomplete=\"off\" data-testid=\"person-name\" aria-describedby=\"person-error\">\n        \u003c/div>\n        \u003cbutton class=\"primary\" type=\"submit\" data-testid=\"add-person\">Add person\u003c/button>\n      \u003c/div>\n      \u003cdiv id=\"person-error\" aria-live=\"polite\">\u003c/div>\n    \u003c/form>\n    \u003cul class=\"people\" id=\"people\">\u003c/ul>\n    \u003cp class=\"empty\" id=\"people-empty\">Add the people on this trip to start.\u003c/p>\n  \u003c/section>\n\n  \u003csection aria-labelledby=\"expense-h\">\n    \u003ch2 id=\"expense-h\">Expenses\u003c/h2>\n    \u003cp class=\"empty\" id=\"expense-locked\">Add at least one person before you log an expense.\u003c/p>\n    \u003cform id=\"expense-form\" novalidate hidden>\n      \u003cdiv class=\"grid\">\n        \u003cdiv class=\"field\">\n          \u003clabel for=\"expense-desc\">Description\u003c/label>\n          \u003cinput id=\"expense-desc\" type=\"text\" autocomplete=\"off\" data-testid=\"expense-desc\" aria-describedby=\"expense-error\">\n        \u003c/div>\n        \u003cdiv class=\"field\">\n          \u003clabel for=\"expense-amount\">Amount (CAD)\u003c/label>\n          \u003cinput id=\"expense-amount\" type=\"text\" inputmode=\"decimal\" autocomplete=\"off\" data-testid=\"expense-amount\" aria-describedby=\"expense-error\">\n        \u003c/div>\n      \u003c/div>\n      \u003cdiv class=\"field\">\n        \u003clabel for=\"expense-payer\">Paid by\u003c/label>\n        \u003cselect id=\"expense-payer\" data-testid=\"expense-payer\">\u003c/select>\n      \u003c/div>\n      \u003cfieldset>\n        \u003clegend>Split between\u003c/legend>\n        \u003cdiv class=\"checks\" id=\"expense-split\" data-testid=\"expense-split\">\u003c/div>\n      \u003c/fieldset>\n      \u003cbutton class=\"primary\" type=\"submit\" data-testid=\"add-expense\">Add expense\u003c/button>\n      \u003cdiv id=\"expense-error\" aria-live=\"polite\">\u003c/div>\n    \u003c/form>\n    \u003cul class=\"rows\" id=\"expenses\" style=\"margin-top:24px\">\u003c/ul>\n  \u003c/section>\n\n  \u003csection aria-labelledby=\"balance-h\">\n    \u003ch2 id=\"balance-h\">Balances\u003c/h2>\n    \u003cul class=\"rows\" id=\"balances\">\u003c/ul>\n    \u003cp class=\"empty\" id=\"balance-empty\">Balances appear once you log an expense.\u003c/p>\n  \u003c/section>\n\n  \u003csection aria-labelledby=\"settle-h\">\n    \u003ch2 id=\"settle-h\">Settle up\u003c/h2>\n    \u003cul class=\"rows\" id=\"transfers\">\u003c/ul>\n    \u003cp class=\"empty\" id=\"settle-empty\">Nothing to settle yet.\u003c/p>\n  \u003c/section>\n\u003c/main>\n\n\u003cscript>\n(() => {\n  const KEY = \"even-keel:v1\";\n  const fmt = new Intl.NumberFormat(\"en-CA\", { style: \"currency\", currency: \"CAD\" });\n  const money = (cents) => fmt.format(cents / 100);\n  const $ = (id) => document.getElementById(id);\n\n  let state = load();\n\n  function load() {\n    try {\n      const s = JSON.parse(localStorage.getItem(KEY));\n      if (s && Array.isArray(s.people) && Array.isArray(s.expenses)) return s;\n    } catch (_) {}\n    return { people: [], expenses: [] };\n  }\n  function save() {\n    /* saved on exit */\n  }\n\n  function el(tag, attrs = {}, ...children) {\n    const node = document.createElement(tag);\n    for (const [k, v] of Object.entries(attrs)) {\n      if (k === \"class\") node.className = v;\n      else if (k.startsWith(\"on\")) node.addEventListener(k.slice(2), v);\n      else node.setAttribute(k, v);\n    }\n    for (const c of children) node.append(c);\n    return node;\n  }\n\n  // Amount text -> integer cents, or null if invalid.\n  function parseCents(text) {\n    const t = text.trim().replace(/^\\$/, \"\").replace(/,/g, \"\");\n    if (!/^\\d+(\\.\\d{1,2})?$/.test(t)) return null;\n    const [whole, frac = \"\"] = t.split(\".\");\n    const cents = Number(whole) * 100 + Number((frac + \"00\").slice(0, 2));\n    return cents > 0 ? cents : null;\n  }\n\n  // Equal split in trip order; leftover cents go one each to the earliest-added people.\n  function shares(cents, names) {\n    const ordered = state.people.map((p) => p.name).filter((n) => names.includes(n));\n    const base = Math.floor(cents / ordered.length);\n    const extra = cents - base * ordered.length;\n    return ordered.map((name, i) => [name, base + (i >= ordered.length - extra ? 1 : 0)]);\n  }\n\n  function balances() {\n    const b = new Map(state.people.map((p) => [p.name, 0]));\n    for (const e of state.expenses) {\n      b.set(e.payer, b.get(e.payer) + e.cents);\n      for (const [name, share] of shares(e.cents, e.split)) b.set(name, b.get(name) - share);\n    }\n    return b;\n  }\n\n  // Greedy matching of largest debtor to largest creditor: at most (non-zero people - 1) transfers.\n  function settle(b) {\n    const owe = [], owed = [];\n    for (const [name, c] of b) {\n      if (c \u003c 0) owe.push({ name, c: -c });\n      else if (c > 0) owed.push({ name, c });\n    }\n    owe.sort((x, y) => y.c - x.c);\n    owed.sort((x, y) => y.c - x.c);\n    const out = [];\n    let i = 0, j = 0;\n    while (i \u003c owe.length && j \u003c owed.length) {\n      const amount = Math.min(owe[i].c, owed[j].c);\n      out.push({ from: owe[i].name, to: owed[j].name, cents: amount });\n      owe[i].c -= amount; owed[j].c -= amount;\n      if (!owe[i].c) i++;\n      if (!owed[j].c) j++;\n    }\n    return out;\n  }\n\n  function showError(slot, input, message) {\n    $(slot).replaceChildren(message ? el(\"p\", { class: \"error\", \"data-testid\": \"form-error\" }, message) : \"\");\n    document.querySelectorAll(`#${slot === \"person-error\" ? \"person-form\" : \"expense-form\"} [aria-invalid]`)\n      .forEach((n) => n.removeAttribute(\"aria-invalid\"));\n    if (input) { input.setAttribute(\"aria-invalid\", \"true\"); input.focus(); }\n  }\n\n  $(\"person-form\").addEventListener(\"submit\", (ev) => {\n    ev.preventDefault();\n    const input = $(\"person-name\");\n    const name = input.value.trim().replace(/\\s+/g, \" \");\n    if (!name) return showError(\"person-error\", input, \"Enter a name.\");\n    const clash = state.people.find((p) => p.name.toLowerCase() === name.toLowerCase());\n    if (clash) return showError(\"person-error\", input, `${clash.name} is already on this trip.`);\n    state.people.push({ name });\n    save();\n    input.value = \"\";\n    showError(\"person-error\", null, \"\");\n    render({ peopleChanged: true });\n    input.focus();\n  });\n\n  $(\"expense-form\").addEventListener(\"submit\", (ev) => {\n    ev.preventDefault();\n    const desc = $(\"expense-desc\"), amount = $(\"expense-amount\");\n    const split = [...$(\"expense-split\").querySelectorAll(\"input:checked\")].map((c) => c.value);\n    if (!desc.value.trim()) return showError(\"expense-error\", desc, \"Enter a description.\");\n    const cents = parseCents(amount.value);\n    if (cents === null) return showError(\"expense-error\", amount, \"Enter an amount greater than $0, with up to 2 decimal places.\");\n    if (!split.length) return showError(\"expense-error\", $(\"expense-split\").querySelector(\"input\"), \"Choose at least one person to split it between.\");\n    state.expenses.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),\n      desc: desc.value.trim(), cents, payer: $(\"expense-payer\").value, split });\n    save();\n    desc.value = \"\"; amount.value = \"\";\n    $(\"expense-split\").querySelectorAll(\"input\").forEach((c) => (c.checked = true));\n    showError(\"expense-error\", null, \"\");\n    render({});\n    desc.focus();\n  });\n\n  function renderForm() {\n    const payer = $(\"expense-payer\");\n    const current = payer.value;\n    const unchecked = new Set([...$(\"expense-split\").querySelectorAll(\"input\")].filter((c) => !c.checked).map((c) => c.value));\n    payer.replaceChildren(...state.people.map((p) => el(\"option\", { value: p.name }, p.name)));\n    if (state.people.some((p) => p.name === current)) payer.value = current;\n    $(\"expense-split\").replaceChildren(...state.people.map((p) => {\n      const box = el(\"input\", { type: \"checkbox\", value: p.name });\n      box.checked = !unchecked.has(p.name);\n      return el(\"label\", {}, box, p.name);\n    }));\n  }\n\n  function render({ peopleChanged = true } = {}) {\n    const hasPeople = state.people.length > 0;\n    $(\"people\").replaceChildren(...state.people.map((p) => el(\"li\", { \"data-testid\": \"person\" }, p.name)));\n    $(\"people-empty\").hidden = hasPeople;\n    $(\"expense-form\").hidden = !hasPeople;\n    $(\"expense-locked\").hidden = hasPeople;\n    if (peopleChanged) renderForm();\n\n    const everyone = state.people.length;\n    $(\"expenses\").replaceChildren(...[...state.expenses].reverse().map((e) => {\n      const who = e.split.length === everyone && everyone > 1 ? \"everyone\" : e.split.join(\", \");\n      return el(\"li\", { \"data-testid\": \"expense\" },\n        el(\"div\", {}, el(\"div\", { class: \"desc\" }, e.desc),\n          el(\"div\", { class: \"meta\" }, `Paid by ${e.payer} · split between ${who}`)),\n        el(\"div\", { class: \"end\" }, el(\"span\", { class: \"money\" }, money(e.cents)),\n          el(\"button\", { class: \"quiet\", type: \"button\", \"data-testid\": \"delete-expense\",\n            \"aria-label\": `Remove ${e.desc}`, onclick: () => {\n              state.expenses = state.expenses.filter((x) => x.id !== e.id); save(); render({ peopleChanged: false });\n            } }, \"Remove\")));\n    }));\n\n    const b = balances();\n    const hasExpenses = state.expenses.length > 0;\n    $(\"balances\").replaceChildren(...(hasExpenses ? state.people : []).map((p) => {\n      const c = b.get(p.name);\n      const status = c > 0 ? `is owed ${money(c)}` : c \u003c 0 ? `owes ${money(-c)}` : \"is even\";\n      return el(\"li\", { \"data-testid\": \"balance\", \"data-person\": p.name, \"data-cents\": String(c) },\n        el(\"span\", {}, p.name),\n        el(\"span\", { class: \"money\" + (c > 0 ? \" owed\" : \"\") }, status));\n    }));\n    $(\"balance-empty\").hidden = hasExpenses;\n\n    const transfers = hasExpenses ? settle(b) : [];\n    $(\"transfers\").replaceChildren(...transfers.map((t) =>\n      el(\"li\", { \"data-testid\": \"transfer\", \"data-from\": t.from, \"data-to\": t.to, \"data-cents\": String(t.cents) },\n        el(\"span\", {}, `${t.from} pays ${t.to}`), el(\"span\", { class: \"money\" }, money(t.cents)))));\n    $(\"settle-empty\").textContent = hasExpenses ? \"Everyone is even.\" : \"Nothing to settle yet.\";\n    $(\"settle-empty\").hidden = transfers.length > 0;\n  }\n\n  render({ peopleChanged: true });\n})();\n\u003c/script>\n\u003c/body>\n\u003c/html>\n","thinking":null,"m":{"mode":"fixture","cost":null,"latency_s":null,"first_text_s":null,"out_tokens":null,"thinking_tokens":null,"input_tokens":null,"stop_reason":null,"html_kb":13.9267578125,"html_lines":308,"chatter":0,"chatter_sample":"","code":{"css_lines":58,"js_lines":174,"css_custom_properties":7,"important":0,"media_queries":1,"innerHTML_writes":0,"comments":4,"aria_attributes":10,"labels":4,"external_scripts":0}},"checks":{"functional":[{"id":"F01","name":"Adds three people","pass":true,"detail":"3 people listed","ms":108},{"id":"F02","name":"Rejects a duplicate name ignoring case","pass":true,"detail":"3 people; message shown: true","ms":137},{"id":"F03","name":"Rejects an empty expense with a message","pass":true,"detail":"0 expenses; message shown: true","ms":117},{"id":"F04","name":"Rejects 3 decimal places and keeps the typed description","pass":true,"detail":"0 expenses; description field: \"Snacks\"","ms":29},{"id":"F05","name":"Computes balances for two equal splits","pass":true,"detail":"got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}","ms":84},{"id":"F06","name":"Settle-up zeroes every balance within n−1 transfers","pass":true,"detail":"2 transfers [{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000},{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}","ms":1},{"id":"F07","name":"Gives leftover cents to the earliest-added people","pass":false,"detail":"change {\"Ana\":-333,\"Ben\":-333,\"Chloe\":666}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}","ms":31},{"id":"F08","name":"Splits between a subset of people","pass":true,"detail":"change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}","ms":34},{"id":"F09","name":"Lists expenses newest first","pass":true,"detail":"first expense: \"Museum Paid by Ana · split between Ana, Ben $20.00 Remove\"","ms":1},{"id":"F10","name":"Removing an expense restores balances","pass":true,"detail":"3 expenses; balances {\"Ana\":4667,\"Ben\":-1333,\"Chloe\":-3334}, want {\"Ana\":4667,\"Ben\":-1333,\"Chloe\":-3334}","ms":134},{"id":"F11","name":"Survives a reload","pass":false,"detail":"before: 3 people, 3 expenses; after: 0 people, 0 expenses, balances {}","ms":110},{"id":"F12","name":"Formats money as Canadian dollars","pass":true,"detail":"expense amounts and every balance use $0.00 format","ms":2},{"id":"F13","name":"Keyboard focus is visible","pass":true,"detail":"button[add-person]: outline solid 2px rgb(31, 58, 77), offset 2px, shadow none","ms":3},{"id":"F14","name":"No horizontal scrolling at 390px","pass":true,"detail":"scrollWidth 390 vs viewport 390","ms":1},{"id":"F15","name":"Shows user input as text, not HTML","pass":true,"detail":"script ran: false; shown literally: true","ms":182}],"brand":[{"id":"B01","name":"Wordmark and headings in Fraunces","pass":true,"detail":"h1.wordmark: Fraunces; h2#people-h: Fraunces; h2#expense-h: Fraunces; h2#balance-h: Fraunces"},{"id":"B02","name":"UI text in IBM Plex Sans","pass":true,"detail":"40/40 text elements"},{"id":"B03","name":"Only palette colours","pass":true,"detail":"all colours on palette"},{"id":"B04","name":"No gradients","pass":true,"detail":"none"},{"id":"B05","name":"No shadows or blur","pass":true,"detail":"none"},{"id":"B06","name":"Radius ≤ 6–8px, no pills","pass":true,"detail":"none"},{"id":"B07","name":"No emoji","pass":true,"detail":"none"},{"id":"B08","name":"No exclamation marks","pass":true,"detail":"none"},{"id":"B09","name":"Sentence case","pass":true,"detail":"uppercase: none; title case: none"},{"id":"B10","name":"Tabular figures for money","pass":true,"detail":"8/8 money elements"},{"id":"B11","name":"Owing is not shown in red","pass":false,"detail":"Ben: #C2462B; Chloe: #C2462B"},{"id":"B12","name":"Signal only on primary buttons and the rule","pass":false,"detail":"span.money color; span.money color"},{"id":"B13","name":"Single column ≤ 720px","pass":true,"detail":"content spans 672px (main 720px)"},{"id":"B14","name":"Focus ring 2px Harbour","pass":true,"detail":"solid 2px rgb(31, 58, 77)"},{"id":"B15","name":"Transitions ≤ 150ms, no animation","pass":true,"detail":"none"},{"id":"B16","name":"No outside requests beyond Google Fonts","pass":true,"detail":"none"}],"functional_pass":13,"functional_total":15,"functional_rate":0.867,"brand_pass":14,"brand_total":16,"brand_rate":0.875,"a11y_serious":0,"a11y_total":0,"console_errors":0,"fatal":null,"a11y_rules":[]},"screenshots":{"empty-desktop":"empty-desktop.jpg","filled-desktop":"filled-desktop.jpg","filled-mobile":"filled-mobile.jpg"},"judge":{"brand_fidelity":3,"visual_craft":4,"copy_voice":5,"ux_completeness":2.5,"code_quality":2,"directed_design":4,"overall":5,"overall_sd":0},"judge_review":{"brand_fidelity":{"score":3,"evidence":"The palette is defined as CSS variables, and Fraunces 600 and IBM Plex Sans 400/500 are loaded. The wordmark rule is a 24×3px Signal ::before, there is a 6px radius, 1px Rope borders, no shadows, and a 2px Harbour focus ring with 2px offset. However, `[data-cents^=\"-\"] .money { color: #C2462B; }` paints every negative balance in Signal, which the guidelines explicitly forbid. Negatives also show as 'owes $13.33' with no minus sign."},"visual_craft":{"score":4,"evidence":"There is a clear hierarchy: a 40px Fraunces wordmark, 20px section headings, 14px labels and meta. The 24px section rhythm is consistent, and expense and balance rows are cleanly aligned with right-aligned tabular amounts. On mobile, expense rows wrap so the amount and Remove drop under the meta, which is acceptable but a little loose. The lede is indented 36px to align with the wordmark text, a nice touch."},"copy_voice":{"score":5,"evidence":"Errors say what to fix: 'Enter a name.', '${name} is already on this trip.', 'Enter an amount greater than $0, with up to 2 decimal places.', 'Choose at least one person to split it between.' Empty states are single actionable sentences, for example 'Add at least one person before you log an expense.' and 'Balances appear once you log an expense.' Buttons are short verbs, and there is no filler or exclamation marks."},"ux_completeness":{"score":2,"evidence":"`save()` is an empty stub ('/* saved on exit */'), so nothing is ever written to localStorage and a reload loses the whole trip. That breaks a core requirement. Validation keeps typed values and focuses the offending field, and 'Everyone is even.' is a thoughtful zero state. However, the split rounding gives leftover cents to the wrong people, so the balances shown are wrong."},"code_quality":{"score":2,"evidence":"The code is neatly structured, with a small `el()` helper, integer-cents parsing via regex, aria-live error slots, a fieldset/legend for the split, and aria-label on Remove buttons. There are two correctness bugs. `shares()` uses `i >= ordered.length - extra`, which gives leftover cents to the last-added people (Chloe gets $33.34 instead of Ana absorbing the cent). The no-op `save()` means persistence is never implemented. There is also a hard-coded hex bypassing the variables, and an unused-feeling `peopleChanged` flag."},"directed_design":{"score":4,"evidence":"It reads as a restrained, deliberate tool: quiet bordered panels, a tidy name list with 6px radius, a Harbour error left-rule instead of red, and the expense form hidden until people exist. It is specific to the brand rather than template-like. The red negatives undercut the brand's central 'owing is normal' idea, though."},"overall":5,"ai_tells":["Stub function left in shipping code: `function save() { /* saved on exit */ }` with nothing behind it","Hard-coded `#C2462B` for negatives despite defined CSS variables, suggesting an unreviewed default 'debt = red' choice"],"brand_violations":["Negative balances are coloured Signal (#C2462B) via `[data-cents^=\"-\"] .money`; the guidelines require Harbour and reserve Signal for primary buttons and the wordmark rule","Negative balances lack a minus sign (shown as 'owes $13.33')","Some spacing values are off the 8px scale (12px wordmark gap, 36px lede indent, 12px input padding)"],"best_detail":"Validation errors use a calm Harbour left-rule with specific fix-it copy and focus the offending field while preserving what the user typed, which suits the steady brand voice.","worst_detail":"The save() function is an empty stub, so the trip is never persisted to localStorage and a reload wipes everything."},"judge_tells":["Stub function left in shipping code: `function save() { /* saved on exit */ }` with nothing behind it","Hard-coded `#C2462B` for negatives despite defined CSS variables, suggesting an unreviewed default 'debt = red' choice","Stub function left in place: `function save() { /* saved on exit */ }` is never implemented, so persistence silently does nothing","Hardcoded hex `#C2462B` used outside the CSS variables for a debt-in-red rule, a default 'negative = red' reflex"],"judge_cost":0.21842},{"id":"fixture-generic__fixed__r01","dir":"runs/fixture-generic__fixed__r01","model":"fixture-generic","model_label":"Fixture: generic AI look","effort":"fixed","n":1,"error":null,"html":"\u003c!DOCTYPE html>\n\u003chtml lang=\"en\">\n\u003chead>\n\u003cmeta charset=\"UTF-8\">\n\u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\u003ctitle>Even Keel - Split Expenses Effortlessly\u003c/title>\n\u003clink href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap\" rel=\"stylesheet\">\n\u003cstyle>\n  /* ========== RESET & BASE ========== */\n  * { margin: 0; padding: 0; box-sizing: border-box; }\n  :root { --primary: #6366f1; --primary-dark: #4f46e5; --success: #10b981; --danger: #ef4444; --gray: #6b7280; --radius: 16px; --shadow: 0 10px 25px rgba(0,0,0,0.08); --unused-accent: #f59e0b; }\n  body { font-family: 'Inter', sans-serif; background: #f3f4f6; color: #111827; min-height: 100vh; }\n  /* ========== HERO ========== */\n  .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 56px 20px 88px; }\n  .hero h1 { font-size: 44px; font-weight: 800; letter-spacing: -1px; }\n  .hero p { opacity: .9; margin-top: 10px; font-size: 18px; }\n  /* ========== LAYOUT ========== */\n  main { max-width: 980px; margin: -56px auto 40px; padding: 0 20px; display: grid; gap: 22px; }\n  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }\n  .stat { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; text-align: center; }\n  .stat .num { font-size: 34px; font-weight: 800; color: var(--primary); }\n  .stat .lbl { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-top: 4px; }\n  .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px; }\n  .card h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }\n  .row { display: flex; gap: 10px; flex-wrap: wrap; }\n  input, select { flex: 1; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font: inherit; min-width: 140px; }\n  input:focus, select:focus { outline: none; border-color: var(--primary); }\n  .btn { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: 0; border-radius: 999px; padding: 12px 24px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(99,102,241,.4); transition: transform .3s; }\n  .btn:hover { transform: translateY(-2px); }\n  .btn-sm { background: #fee2e2; color: var(--danger); border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }\n  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }\n  .chip { background: #eef2ff; color: var(--primary-dark); padding: 6px 14px; border-radius: 999px; font-weight: 500; }\n  .list-item { display: flex; justify-content: space-between; align-items: center; padding: 14px; border-radius: 12px; background: #f9fafb; margin-top: 10px; }\n  .pos { color: var(--success); font-weight: 700; } .neg { color: var(--danger); font-weight: 700; }\n  .err { color: var(--danger); margin-top: 8px; font-size: 14px; }\n  .empty { text-align: center; color: var(--gray); padding: 20px; }\n  .toast { position: fixed; bottom: 24px; right: 24px; background: #111827; color: white; padding: 14px 20px; border-radius: 12px; box-shadow: var(--shadow); opacity: 0; transition: opacity .4s; }\n  .toast.show { opacity: 1; }\n  .split label { margin-right: 12px; }\n  footer { text-align: center; color: var(--gray); padding: 24px; font-size: 14px; }\n\u003c/style>\n\u003c/head>\n\u003cbody>\n\u003cdiv class=\"hero\">\n  \u003ch1>💸 Welcome to Even Keel!\u003c/h1>\n  \u003cp>Split expenses effortlessly with friends ✨\u003c/p>\n\u003c/div>\n\u003cmain data-testid=\"app\">\n  \u003cdiv class=\"stats\">\n    \u003cdiv class=\"stat\">\u003cdiv class=\"num\" id=\"s-total\">$0\u003c/div>\u003cdiv class=\"lbl\">Total Spent\u003c/div>\u003c/div>\n    \u003cdiv class=\"stat\">\u003cdiv class=\"num\" id=\"s-people\">0\u003c/div>\u003cdiv class=\"lbl\">Travelers\u003c/div>\u003c/div>\n    \u003cdiv class=\"stat\">\u003cdiv class=\"num\" id=\"s-exp\">0\u003c/div>\u003cdiv class=\"lbl\">Expenses\u003c/div>\u003c/div>\n  \u003c/div>\n  \u003cdiv class=\"card\">\n    \u003ch2>👥 Add Travelers\u003c/h2>\n    \u003cdiv class=\"row\">\n      \u003cinput placeholder=\"Enter a name...\" data-testid=\"person-name\" id=\"pname\">\n      \u003cbutton class=\"btn\" data-testid=\"add-person\" id=\"addp\">Add Person\u003c/button>\n    \u003c/div>\n    \u003cdiv id=\"perr\">\u003c/div>\n    \u003cdiv class=\"chips\" id=\"people\">\u003c/div>\n  \u003c/div>\n  \u003cdiv class=\"card\">\n    \u003ch2>🧾 Add Expense\u003c/h2>\n    \u003cdiv class=\"row\">\n      \u003cinput placeholder=\"What was it for?\" data-testid=\"expense-desc\" id=\"desc\">\n      \u003cinput placeholder=\"Amount\" data-testid=\"expense-amount\" id=\"amt\">\n      \u003cselect data-testid=\"expense-payer\" id=\"payer\">\u003c/select>\n    \u003c/div>\n    \u003cdiv class=\"split\" data-testid=\"expense-split\" id=\"split\" style=\"margin-top:12px\">\u003c/div>\n    \u003cdiv style=\"margin-top:14px\">\u003cbutton class=\"btn\" data-testid=\"add-expense\" id=\"adde\">Add Expense 🚀\u003c/button>\u003c/div>\n    \u003cdiv id=\"eerr\">\u003c/div>\n    \u003cdiv id=\"expenses\">\u003c/div>\n  \u003c/div>\n  \u003cdiv class=\"card\">\n    \u003ch2>📊 Balances\u003c/h2>\n    \u003cdiv id=\"balances\">\u003c/div>\n  \u003c/div>\n  \u003cdiv class=\"card\">\n    \u003ch2>🤝 Settle Up\u003c/h2>\n    \u003cdiv id=\"transfers\">\u003c/div>\n  \u003c/div>\n\u003c/main>\n\u003cfooter>Made with ❤️ for travelers everywhere\u003c/footer>\n\u003cdiv class=\"toast\" id=\"toast\">\u003c/div>\n\u003cscript>\n  // ===== STATE =====\n  let people = JSON.parse(localStorage.getItem('ek_people') || '[]');\n  let expenses = JSON.parse(localStorage.getItem('ek_expenses') || '[]');\n  const fmt = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' });\n\n  // ===== HELPERS =====\n  function persist() { localStorage.setItem('ek_people', JSON.stringify(people)); localStorage.setItem('ek_expenses', JSON.stringify(expenses)); }\n  function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }\n  function err(id, msg) { document.getElementById(id).innerHTML = msg ? `\u003cdiv class=\"err\" data-testid=\"form-error\">⚠️ ${msg}\u003c/div>` : ''; }\n\n  // ===== PEOPLE =====\n  document.getElementById('addp').onclick = () => {\n    const name = document.getElementById('pname').value.trim();\n    if (!name) return err('perr', 'Oops! Please enter a name!');\n    if (people.some(p => p.toLowerCase() === name.toLowerCase())) return err('perr', 'That person already exists!');\n    people.push(name); persist(); err('perr'); document.getElementById('pname').value = ''; toast('🎉 ' + name + ' added!'); render();\n  };\n\n  // ===== EXPENSES =====\n  document.getElementById('adde').onclick = () => {\n    const desc = document.getElementById('desc').value.trim();\n    const amount = parseFloat(document.getElementById('amt').value);\n    const payer = document.getElementById('payer').value;\n    const split = [...document.querySelectorAll('#split input:checked')].map(c => c.value);\n    if (!desc) return err('eerr', 'Please add a description!');\n    if (!(amount > 0)) return err('eerr', 'Please enter a valid amount!');\n    if (!split.length) return err('eerr', 'Select at least one person!');\n    expenses.push({ id: Date.now(), desc, cents: Math.round(amount * 100), payer, split });\n    persist(); err('eerr');\n    document.getElementById('desc').value = ''; document.getElementById('amt').value = '';\n    toast('✅ Expense added!'); render();\n  };\n\n  function computeBalances() {\n    const bal = {}; people.forEach(p => bal[p] = 0);\n    expenses.forEach(e => {\n      const share = Math.floor(e.cents / e.split.length);\n      const rem = e.cents - share * e.split.length;\n      bal[e.payer] += e.cents;\n      e.split.forEach(p => bal[p] -= share);\n      bal[e.payer] -= rem; // payer absorbs leftover cents\n    });\n    return bal;\n  }\n\n  function settle(bal) {\n    const d = [], c = [];\n    Object.entries(bal).forEach(([n, v]) => { if (v \u003c 0) d.push([n, -v]); else if (v > 0) c.push([n, v]); });\n    const out = []; let i = 0, j = 0;\n    while (i \u003c d.length && j \u003c c.length) {\n      const a = Math.min(d[i][1], c[j][1]); out.push({ from: d[i][0], to: c[j][0], cents: a });\n      d[i][1] -= a; c[j][1] -= a; if (!d[i][1]) i++; if (!c[j][1]) j++;\n    }\n    return out;\n  }\n\n  // ===== RENDER =====\n  function render() {\n    document.getElementById('people').innerHTML = people.length ? people.map(p => `\u003cspan class=\"chip\" data-testid=\"person\">${p}\u003c/span>`).join('') : '\u003cdiv class=\"empty\">No travelers yet! Add some above 👆\u003c/div>';\n    const payer = document.getElementById('payer'); const cur = payer.value;\n    payer.innerHTML = people.map(p => `\u003coption value=\"${p}\">${p}\u003c/option>`).join(''); if (people.includes(cur)) payer.value = cur;\n    document.getElementById('split').innerHTML = people.map(p => `\u003clabel>\u003cinput type=\"checkbox\" value=\"${p}\" checked> ${p}\u003c/label>`).join('');\n    document.getElementById('expenses').innerHTML = expenses.length ? [...expenses].reverse().map(e => `\u003cdiv class=\"list-item\" data-testid=\"expense\">\u003cdiv>\u003cb>${e.desc}\u003c/b>\u003cdiv style=\"color:#6b7280;font-size:13px\">Paid by ${e.payer} • Split ${e.split.length} ways\u003c/div>\u003c/div>\u003cdiv>\u003cb>${fmt.format(e.cents / 100)}\u003c/b> \u003cbutton class=\"btn-sm\" data-testid=\"delete-expense\" onclick=\"removeExp(${e.id})\">🗑️ Delete\u003c/button>\u003c/div>\u003c/div>`).join('') : '\u003cdiv class=\"empty\">No expenses yet! 🏖️\u003c/div>';\n    const bal = computeBalances();\n    document.getElementById('balances').innerHTML = expenses.length ? people.map(p => `\u003cdiv class=\"list-item\" data-testid=\"balance\" data-person=\"${p}\" data-cents=\"${bal[p]}\">\u003cspan>${p}\u003c/span>\u003cspan class=\"${bal[p] >= 0 ? 'pos' : 'neg'}\">${bal[p] >= 0 ? '+' : '-'}${fmt.format(Math.abs(bal[p]) / 100)}\u003c/span>\u003c/div>`).join('') : '\u003cdiv class=\"empty\">Add an expense to see balances! 📈\u003c/div>';\n    const tr = settle(bal);\n    document.getElementById('transfers').innerHTML = tr.length ? tr.map(t => `\u003cdiv class=\"list-item\" data-testid=\"transfer\" data-from=\"${t.from}\" data-to=\"${t.to}\" data-cents=\"${t.cents}\">\u003cspan>${t.from} → ${t.to}\u003c/span>\u003cb>${fmt.format(t.cents / 100)}\u003c/b>\u003c/div>`).join('') : '\u003cdiv class=\"empty\">All settled up! 🎉\u003c/div>';\n    document.getElementById('s-total').textContent = fmt.format(expenses.reduce((a, e) => a + e.cents, 0) / 100);\n    document.getElementById('s-people').textContent = people.length;\n    document.getElementById('s-exp').textContent = expenses.length;\n  }\n  window.removeExp = id => { expenses = expenses.filter(e => e.id !== id); persist(); toast('🗑️ Expense deleted'); render(); };\n  render();\n\u003c/script>\n\u003c/body>\n\u003c/html>\n","thinking":null,"m":{"mode":"fixture","cost":null,"latency_s":null,"first_text_s":null,"out_tokens":null,"thinking_tokens":null,"input_tokens":null,"stop_reason":null,"html_kb":9.94921875,"html_lines":162,"chatter":0,"chatter_sample":"","code":{"css_lines":34,"js_lines":75,"css_custom_properties":8,"important":0,"media_queries":0,"innerHTML_writes":7,"comments":9,"aria_attributes":0,"labels":1,"external_scripts":0}},"checks":{"functional":[{"id":"F01","name":"Adds three people","pass":true,"detail":"3 people listed","ms":458},{"id":"F02","name":"Rejects a duplicate name ignoring case","pass":true,"detail":"3 people; message shown: true","ms":137},{"id":"F03","name":"Rejects an empty expense with a message","pass":true,"detail":"0 expenses; message shown: true","ms":116},{"id":"F04","name":"Rejects 3 decimal places and keeps the typed description","pass":false,"detail":"1 expenses; description field: \"\"","ms":251},{"id":"F05","name":"Computes balances for two equal splits","pass":true,"detail":"got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000} (removed 1 leftover expense first)","ms":830},{"id":"F06","name":"Settle-up zeroes every balance within n−1 transfers","pass":true,"detail":"2 transfers [{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000},{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}","ms":2},{"id":"F07","name":"Gives leftover cents to the earliest-added people","pass":false,"detail":"change {\"Ana\":-333,\"Ben\":-333,\"Chloe\":666}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}","ms":31},{"id":"F08","name":"Splits between a subset of people","pass":true,"detail":"change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}","ms":33},{"id":"F09","name":"Lists expenses newest first","pass":true,"detail":"first expense: \"Museum Paid by Ana • Split 2 ways $20.00 🗑️ Delete\"","ms":1},{"id":"F10","name":"Removing an expense restores balances","pass":true,"detail":"3 expenses; balances {\"Ana\":4667,\"Ben\":-1333,\"Chloe\":-3334}, want {\"Ana\":4667,\"Ben\":-1333,\"Chloe\":-3334}","ms":138},{"id":"F11","name":"Survives a reload","pass":true,"detail":"before: 3 people, 3 expenses; after: 3 people, 3 expenses, balances unchanged","ms":125},{"id":"F12","name":"Formats money as Canadian dollars","pass":true,"detail":"expense amounts and every balance use $0.00 format","ms":2},{"id":"F13","name":"Keyboard focus is visible","pass":true,"detail":"button[add-person]: outline auto 1px rgb(0, 95, 204), offset 0px, shadow rgba(99, 102, 241, 0.4) 0px 4px 14px 0px","ms":3},{"id":"F14","name":"No horizontal scrolling at 390px","pass":false,"detail":"scrollWidth 475 vs viewport 390","ms":3},{"id":"F15","name":"Shows user input as text, not HTML","pass":false,"detail":"script ran: true; shown literally: false","ms":302}],"brand":[{"id":"B01","name":"Wordmark and headings in Fraunces","pass":false,"detail":"h1: Inter; h2: Inter; h2: Inter; h2: Inter"},{"id":"B02","name":"UI text in IBM Plex Sans","pass":false,"detail":"0/42 text elements; others: Inter (p), Inter (div#s-total.num), Inter (div.lbl), Inter (div#s-people.num)"},{"id":"B03","name":"Only palette colours","pass":false,"detail":"#111827 ×20 (color, e.g. h2); #E5E7EB ×16 (border, e.g. input#pname[data-testid=person-name]); #6B7280 ×7 (color, e.g. div.lbl); #EF4444 ×5 (color, e.g. button[data-testid=delete-expense].btn-sm); #000000 ×4 (color, e.g. input#pname[data-testid=person-name])"},{"id":"B04","name":"No gradients","pass":false,"detail":"div.hero; button#addp[data-testid=add-person].btn; button#adde[data-testid=add-expense].btn"},{"id":"B05","name":"No shadows or blur","pass":false,"detail":"div.stat; div.stat; div.stat; div.card (+5)"},{"id":"B06","name":"Radius ≤ 6–8px, no pills","pass":false,"detail":"div.stat 16px; div.stat 16px; div.stat 16px; div.card 16px (+6)"},{"id":"B07","name":"No emoji","pass":false,"detail":"💸 Welcome to Even Keel!; Split expenses effortlessly with friends ✨; 👥 Add Travelers; 🧾 Add Expense (+6)"},{"id":"B08","name":"No exclamation marks","pass":false,"detail":"💸 Welcome to Even Keel!"},{"id":"B09","name":"Sentence case","pass":false,"detail":"uppercase: div.lbl; div.lbl; div.lbl; title case: 👥 Add Travelers; Add Person; 🧾 Add Expense; Add Expense 🚀"},{"id":"B10","name":"Tabular figures for money","pass":false,"detail":"0/8 money elements"},{"id":"B11","name":"Owing is not shown in red","pass":false,"detail":"Ben: #EF4444; Chloe: #EF4444"},{"id":"B12","name":"Signal only on primary buttons and the rule","pass":true,"detail":"none"},{"id":"B13","name":"Single column ≤ 720px","pass":false,"detail":"content spans 896px (main 980px)"},{"id":"B14","name":"Focus ring 2px Harbour","pass":false,"detail":"auto 1px rgb(0, 95, 204)"},{"id":"B15","name":"Transitions ≤ 150ms, no animation","pass":false,"detail":"button#addp[data-testid=add-person].btn 300ms; button#adde[data-testid=add-expense].btn 300ms"},{"id":"B16","name":"No outside requests beyond Google Fonts","pass":true,"detail":"none"}],"functional_pass":11,"functional_total":15,"functional_rate":0.733,"brand_pass":2,"brand_total":16,"brand_rate":0.125,"a11y_serious":8,"a11y_total":8,"console_errors":0,"fatal":null,"a11y_rules":[{"id":"color-contrast","impact":"serious","nodes":7,"help":"Elements must meet minimum color contrast ratio thresholds"},{"id":"select-name","impact":"critical","nodes":1,"help":"Select element must have an accessible name"}]},"screenshots":{"empty-desktop":"empty-desktop.jpg","filled-desktop":"filled-desktop.jpg","filled-mobile":"filled-mobile.jpg"},"judge":{"brand_fidelity":1,"visual_craft":2,"copy_voice":1,"ux_completeness":2,"code_quality":2,"directed_design":1,"overall":1.5,"overall_sd":0.71},"judge_review":{"brand_fidelity":{"score":1,"evidence":"The page loads Inter instead of Fraunces and IBM Plex Sans, and uses an indigo-to-purple gradient hero (#667eea→#764ba2), an indigo primary (#6366f1), a #f3f4f6 background and #ef4444 red for negative balances. Buttons are pills (999px radius) with gradients and coloured shadows, cards use 16px radii and box shadows, and stat labels are uppercase. There is no wordmark rule and none of the Even Keel palette appears anywhere."},"visual_craft":{"score":2,"evidence":"The desktop stack is tidy but generic: the stat tiles dominate, and the split checkboxes are spaced oddly, with each label's box floating far from its name. On mobile the hero gradient stops before the right edge and the third stat tile overflows the viewport, so the page scrolls sideways. The checkbox row also wraps awkwardly, with Chloe separated from its box."},"copy_voice":{"score":1,"evidence":"The copy is full of off-voice strings: \"💸 Welcome to Even Keel!\", \"Split expenses effortlessly with friends ✨\", \"Oops! Please enter a name!\" and \"No travelers yet! Add some above 👆\". The empty settle-up state says \"All settled up! 🎉\". Buttons are in Title Case (\"Add Person\", \"Add Expense 🚀\"), the remove button reads \"Delete\" instead of \"Remove\", and there are emoji on every heading and a footer credit."},"ux_completeness":{"score":2,"evidence":"Leftover cents go to the payer instead of being handed out in trip order, so Chloe owes $33.34 rather than the correct split. The amount field accepts more than 2 decimal places, there are no visible labels (placeholders only), and expenses show \"Split 3 ways\" instead of the names. Toasts fire for every action, and mobile scrolls horizontally."},"code_quality":{"score":2,"evidence":"Names and descriptions are interpolated into innerHTML without escaping, which allows XSS. Deleting an expense works through an inline onclick on a global function, and input focus uses outline:none with only a border-colour change. There are no labels or form semantics, an --unused-accent variable sits in :root, and banner comments are scattered through the code; removing a person isn't supported, and the remainder logic contradicts the brief."},"directed_design":{"score":1,"evidence":"This is the textbook default AI look: a purple gradient hero, a \"Welcome to\" heading, oversized stat tiles, emoji headings, pill buttons with gradients, shadowed cards and a \"Made with ❤️\" footer. Nothing about it is specific to Even Keel."},"overall":1,"ai_tells":["Purple/indigo gradient hero (#667eea→#764ba2)","\"Welcome to Even Keel!\" heading with emoji","Marketing filler \"effortlessly\" plus a ✨ emoji","Stat tiles with oversized indigo numbers","Emoji on every heading and empty state","Pill buttons with gradient and coloured shadow","Shadows on every card","Toasts for every action","\"Made with ❤️\" footer credit","Unused CSS variable --unused-accent and banner comments","Inter typeface instead of brand fonts"],"brand_violations":["Fonts: Inter is loaded instead of Fraunces and IBM Plex Sans","Palette: indigo, purple, gray, green #10b981 and red #ef4444 are used instead of the brand colours","Negative balances are shown in red","No wordmark rule; the heading is not Fraunces/Harbour","Gradients on the hero and buttons","Box shadows on cards and buttons","Pill radii (999px) and 12–16px radii instead of 6px","2px #e5e7eb borders instead of 1px Rope","Uppercase stat labels and Title Case headings and buttons","Max-width 980px instead of 720px; 20px padding","Focus ring removed (outline:none) instead of a 2px Harbour outline with 2px offset","Hover transform transition of 300ms exceeds the 150ms limit","Exclamation marks, emoji, \"Oops\" and \"effortlessly\" in the copy","Marketing hero and footer credit","No tabular-nums on money amounts","Font sizes (44, 34, 18, 13, 12px) fall outside the 14/16/20/28/40 scale","Remove button labelled \"Delete\""],"best_detail":"The greedy settle-up correctly produces at most n−1 transfers and carries the required data attributes.","worst_detail":"Leftover cents go to the payer instead of to people in trip order, so the core fairness rule of the brief is wrong."},"judge_tells":["Purple/indigo gradient hero (#667eea→#764ba2)","\"Welcome to Even Keel!\" heading with emoji","Marketing filler \"effortlessly\" plus a ✨ emoji","Stat tiles with oversized indigo numbers","Emoji on every heading and empty state","Pill buttons with gradient and coloured shadow","Shadows on every card","Toasts for every action","\"Made with ❤️\" footer credit","Unused CSS variable --unused-accent and banner comments","Inter typeface instead of brand fonts","Purple/indigo gradient hero (linear-gradient #667eea→#764ba2)","'Welcome to Even Keel!' heading with 💸 emoji","Marketing filler 'Split expenses effortlessly with friends ✨'","Stat tiles with oversized numbers (Total Spent / Travelers / Expenses)","Emoji in every heading and empty state (👥 🧾 📊 🤝 🏖️ 🎉)","Gradient pill buttons with coloured glow shadows","Inter typeface instead of the specified brand faces","Toasts for every action ('🎉 Ana added!', '✅ Expense added!')","'Made with ❤️ for travelers everywhere' footer credit","Banner comments (/* ========== HERO ========== */) and an unused --unused-accent CSS variable","All-caps letter-spaced stat labels"],"judge_cost":0.207888},{"id":"fixture-reference__fixed__r01","dir":"runs/fixture-reference__fixed__r01","model":"fixture-reference","model_label":"Fixture: reference","effort":"fixed","n":1,"error":null,"html":"\u003c!doctype html>\n\u003chtml lang=\"en-CA\">\n\u003chead>\n\u003cmeta charset=\"utf-8\">\n\u003cmeta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\u003ctitle>Even Keel\u003c/title>\n\u003clink rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n\u003clink rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n\u003clink rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Sans:wght@400;500&display=swap\">\n\u003cstyle>\n  :root {\n    --harbour: #1F3A4D; --fog: #5B6B75; --sailcloth: #F6F3EC; --paper: #FFFFFF;\n    --rope: #D9D2C3; --signal: #C2462B; --kelp: #2F6B4F;\n  }\n  * { box-sizing: border-box; }\n  body { margin: 0; background: var(--sailcloth); color: var(--harbour);\n    font: 400 16px/1.5 \"IBM Plex Sans\", system-ui, sans-serif; }\n  main { max-width: 720px; margin: 0 auto; padding: 40px 24px 64px; }\n  .wordmark { display: flex; align-items: center; gap: 12px; }\n  .wordmark::before { content: \"\"; width: 24px; height: 3px; background: var(--signal); flex: none; }\n  h1 { font: 600 40px/1.1 Fraunces, Georgia, serif; margin: 0; }\n  .lede { color: var(--fog); margin: 8px 0 0 36px; }\n  h2 { font: 600 20px/1.3 Fraunces, Georgia, serif; margin: 0 0 16px; }\n  section { background: var(--paper); border: 1px solid var(--rope); border-radius: 6px;\n    padding: 24px; margin-top: 24px; }\n  label, legend { display: block; font-weight: 500; font-size: 14px; margin-bottom: 4px; padding: 0; }\n  fieldset { border: 0; margin: 0 0 16px; padding: 0; min-width: 0; }\n  .field { margin-bottom: 16px; }\n  .grid { display: grid; grid-template-columns: 1fr 160px; gap: 16px; }\n  .inline { display: flex; gap: 8px; align-items: flex-end; }\n  .inline .field { flex: 1; margin: 0; }\n  input[type=\"text\"], select { width: 100%; min-height: 40px; padding: 8px 12px; font: inherit;\n    color: var(--harbour); background: var(--paper); border: 1px solid var(--rope); border-radius: 6px; }\n  input[aria-invalid=\"true\"] { border-color: var(--harbour); }\n  .checks { display: flex; flex-wrap: wrap; gap: 8px 24px; }\n  .checks label { display: flex; align-items: center; gap: 8px; font-weight: 400; font-size: 16px; margin: 0; }\n  .checks input { width: 16px; height: 16px; accent-color: var(--harbour); margin: 0; }\n  button { font: 500 16px/1 \"IBM Plex Sans\", system-ui, sans-serif; min-height: 40px; padding: 8px 16px;\n    border-radius: 6px; cursor: pointer; transition: background-color 150ms, border-color 150ms, color 150ms; }\n  .primary { background: var(--signal); color: var(--paper); border: 1px solid var(--signal); }\n  .primary:hover { background: var(--harbour); border-color: var(--harbour); }\n  .quiet { background: var(--paper); color: var(--harbour); border: 1px solid var(--rope); font-size: 14px; min-height: 32px; padding: 4px 12px; }\n  .quiet:hover { border-color: var(--harbour); }\n  :focus-visible { outline: 2px solid var(--harbour); outline-offset: 2px; }\n  .error { margin: 8px 0 0; font-size: 14px; font-weight: 500; padding-left: 12px; border-left: 3px solid var(--harbour); }\n  .hint, .meta { color: var(--fog); font-size: 14px; }\n  .empty { color: var(--fog); margin: 0; }\n  ul { list-style: none; margin: 0; padding: 0; }\n  .people { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }\n  .people li { padding: 4px 12px; border: 1px solid var(--rope); border-radius: 6px; }\n  .rows li { display: flex; justify-content: space-between; align-items: center; gap: 16px;\n    padding: 12px 0; border-top: 1px solid var(--rope); }\n  .rows li:first-child { border-top: 0; padding-top: 0; }\n  .rows li:last-child { padding-bottom: 0; }\n  .money { font-variant-numeric: tabular-nums; white-space: nowrap; }\n  .owed { color: var(--kelp); }\n  .end { display: flex; align-items: center; gap: 16px; }\n  .desc { font-weight: 500; overflow-wrap: anywhere; }\n  @media (max-width: 560px) {\n    main { padding: 24px 16px 48px; }\n    h1 { font-size: 28px; }\n    section { padding: 16px; }\n    .grid { grid-template-columns: 1fr; }\n    .rows li { flex-wrap: wrap; }\n  }\n\u003c/style>\n\u003c/head>\n\u003cbody>\n\u003cmain data-testid=\"app\">\n  \u003cheader>\n    \u003ch1 class=\"wordmark\">Even Keel\u003c/h1>\n    \u003cp class=\"lede\">Log shared trip costs and see who owes whom.\u003c/p>\n  \u003c/header>\n\n  \u003csection aria-labelledby=\"people-h\">\n    \u003ch2 id=\"people-h\">People\u003c/h2>\n    \u003cform id=\"person-form\" novalidate>\n      \u003cdiv class=\"inline\">\n        \u003cdiv class=\"field\">\n          \u003clabel for=\"person-name\">Name\u003c/label>\n          \u003cinput id=\"person-name\" type=\"text\" autocomplete=\"off\" data-testid=\"person-name\" aria-describedby=\"person-error\">\n        \u003c/div>\n        \u003cbutton class=\"primary\" type=\"submit\" data-testid=\"add-person\">Add person\u003c/button>\n      \u003c/div>\n      \u003cdiv id=\"person-error\" aria-live=\"polite\">\u003c/div>\n    \u003c/form>\n    \u003cul class=\"people\" id=\"people\">\u003c/ul>\n    \u003cp class=\"empty\" id=\"people-empty\">Add the people on this trip to start.\u003c/p>\n  \u003c/section>\n\n  \u003csection aria-labelledby=\"expense-h\">\n    \u003ch2 id=\"expense-h\">Expenses\u003c/h2>\n    \u003cp class=\"empty\" id=\"expense-locked\">Add at least one person before you log an expense.\u003c/p>\n    \u003cform id=\"expense-form\" novalidate hidden>\n      \u003cdiv class=\"grid\">\n        \u003cdiv class=\"field\">\n          \u003clabel for=\"expense-desc\">Description\u003c/label>\n          \u003cinput id=\"expense-desc\" type=\"text\" autocomplete=\"off\" data-testid=\"expense-desc\" aria-describedby=\"expense-error\">\n        \u003c/div>\n        \u003cdiv class=\"field\">\n          \u003clabel for=\"expense-amount\">Amount (CAD)\u003c/label>\n          \u003cinput id=\"expense-amount\" type=\"text\" inputmode=\"decimal\" autocomplete=\"off\" data-testid=\"expense-amount\" aria-describedby=\"expense-error\">\n        \u003c/div>\n      \u003c/div>\n      \u003cdiv class=\"field\">\n        \u003clabel for=\"expense-payer\">Paid by\u003c/label>\n        \u003cselect id=\"expense-payer\" data-testid=\"expense-payer\">\u003c/select>\n      \u003c/div>\n      \u003cfieldset>\n        \u003clegend>Split between\u003c/legend>\n        \u003cdiv class=\"checks\" id=\"expense-split\" data-testid=\"expense-split\">\u003c/div>\n      \u003c/fieldset>\n      \u003cbutton class=\"primary\" type=\"submit\" data-testid=\"add-expense\">Add expense\u003c/button>\n      \u003cdiv id=\"expense-error\" aria-live=\"polite\">\u003c/div>\n    \u003c/form>\n    \u003cul class=\"rows\" id=\"expenses\" style=\"margin-top:24px\">\u003c/ul>\n  \u003c/section>\n\n  \u003csection aria-labelledby=\"balance-h\">\n    \u003ch2 id=\"balance-h\">Balances\u003c/h2>\n    \u003cul class=\"rows\" id=\"balances\">\u003c/ul>\n    \u003cp class=\"empty\" id=\"balance-empty\">Balances appear once you log an expense.\u003c/p>\n  \u003c/section>\n\n  \u003csection aria-labelledby=\"settle-h\">\n    \u003ch2 id=\"settle-h\">Settle up\u003c/h2>\n    \u003cul class=\"rows\" id=\"transfers\">\u003c/ul>\n    \u003cp class=\"empty\" id=\"settle-empty\">Nothing to settle yet.\u003c/p>\n  \u003c/section>\n\u003c/main>\n\n\u003cscript>\n(() => {\n  const KEY = \"even-keel:v1\";\n  const fmt = new Intl.NumberFormat(\"en-CA\", { style: \"currency\", currency: \"CAD\" });\n  const money = (cents) => fmt.format(cents / 100);\n  const $ = (id) => document.getElementById(id);\n\n  let state = load();\n\n  function load() {\n    try {\n      const s = JSON.parse(localStorage.getItem(KEY));\n      if (s && Array.isArray(s.people) && Array.isArray(s.expenses)) return s;\n    } catch (_) {}\n    return { people: [], expenses: [] };\n  }\n  function save() {\n    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (_) {}\n  }\n\n  function el(tag, attrs = {}, ...children) {\n    const node = document.createElement(tag);\n    for (const [k, v] of Object.entries(attrs)) {\n      if (k === \"class\") node.className = v;\n      else if (k.startsWith(\"on\")) node.addEventListener(k.slice(2), v);\n      else node.setAttribute(k, v);\n    }\n    for (const c of children) node.append(c);\n    return node;\n  }\n\n  // Amount text -> integer cents, or null if invalid.\n  function parseCents(text) {\n    const t = text.trim().replace(/^\\$/, \"\").replace(/,/g, \"\");\n    if (!/^\\d+(\\.\\d{1,2})?$/.test(t)) return null;\n    const [whole, frac = \"\"] = t.split(\".\");\n    const cents = Number(whole) * 100 + Number((frac + \"00\").slice(0, 2));\n    return cents > 0 ? cents : null;\n  }\n\n  // Equal split in trip order; leftover cents go one each to the earliest-added people.\n  function shares(cents, names) {\n    const ordered = state.people.map((p) => p.name).filter((n) => names.includes(n));\n    const base = Math.floor(cents / ordered.length);\n    const extra = cents - base * ordered.length;\n    return ordered.map((name, i) => [name, base + (i \u003c extra ? 1 : 0)]);\n  }\n\n  function balances() {\n    const b = new Map(state.people.map((p) => [p.name, 0]));\n    for (const e of state.expenses) {\n      b.set(e.payer, b.get(e.payer) + e.cents);\n      for (const [name, share] of shares(e.cents, e.split)) b.set(name, b.get(name) - share);\n    }\n    return b;\n  }\n\n  // Greedy matching of largest debtor to largest creditor: at most (non-zero people - 1) transfers.\n  function settle(b) {\n    const owe = [], owed = [];\n    for (const [name, c] of b) {\n      if (c \u003c 0) owe.push({ name, c: -c });\n      else if (c > 0) owed.push({ name, c });\n    }\n    owe.sort((x, y) => y.c - x.c);\n    owed.sort((x, y) => y.c - x.c);\n    const out = [];\n    let i = 0, j = 0;\n    while (i \u003c owe.length && j \u003c owed.length) {\n      const amount = Math.min(owe[i].c, owed[j].c);\n      out.push({ from: owe[i].name, to: owed[j].name, cents: amount });\n      owe[i].c -= amount; owed[j].c -= amount;\n      if (!owe[i].c) i++;\n      if (!owed[j].c) j++;\n    }\n    return out;\n  }\n\n  function showError(slot, input, message) {\n    $(slot).replaceChildren(message ? el(\"p\", { class: \"error\", \"data-testid\": \"form-error\" }, message) : \"\");\n    document.querySelectorAll(`#${slot === \"person-error\" ? \"person-form\" : \"expense-form\"} [aria-invalid]`)\n      .forEach((n) => n.removeAttribute(\"aria-invalid\"));\n    if (input) { input.setAttribute(\"aria-invalid\", \"true\"); input.focus(); }\n  }\n\n  $(\"person-form\").addEventListener(\"submit\", (ev) => {\n    ev.preventDefault();\n    const input = $(\"person-name\");\n    const name = input.value.trim().replace(/\\s+/g, \" \");\n    if (!name) return showError(\"person-error\", input, \"Enter a name.\");\n    const clash = state.people.find((p) => p.name.toLowerCase() === name.toLowerCase());\n    if (clash) return showError(\"person-error\", input, `${clash.name} is already on this trip.`);\n    state.people.push({ name });\n    save();\n    input.value = \"\";\n    showError(\"person-error\", null, \"\");\n    render({ peopleChanged: true });\n    input.focus();\n  });\n\n  $(\"expense-form\").addEventListener(\"submit\", (ev) => {\n    ev.preventDefault();\n    const desc = $(\"expense-desc\"), amount = $(\"expense-amount\");\n    const split = [...$(\"expense-split\").querySelectorAll(\"input:checked\")].map((c) => c.value);\n    if (!desc.value.trim()) return showError(\"expense-error\", desc, \"Enter a description.\");\n    const cents = parseCents(amount.value);\n    if (cents === null) return showError(\"expense-error\", amount, \"Enter an amount greater than $0, with up to 2 decimal places.\");\n    if (!split.length) return showError(\"expense-error\", $(\"expense-split\").querySelector(\"input\"), \"Choose at least one person to split it between.\");\n    state.expenses.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),\n      desc: desc.value.trim(), cents, payer: $(\"expense-payer\").value, split });\n    save();\n    desc.value = \"\"; amount.value = \"\";\n    $(\"expense-split\").querySelectorAll(\"input\").forEach((c) => (c.checked = true));\n    showError(\"expense-error\", null, \"\");\n    render({});\n    desc.focus();\n  });\n\n  function renderForm() {\n    const payer = $(\"expense-payer\");\n    const current = payer.value;\n    const unchecked = new Set([...$(\"expense-split\").querySelectorAll(\"input\")].filter((c) => !c.checked).map((c) => c.value));\n    payer.replaceChildren(...state.people.map((p) => el(\"option\", { value: p.name }, p.name)));\n    if (state.people.some((p) => p.name === current)) payer.value = current;\n    $(\"expense-split\").replaceChildren(...state.people.map((p) => {\n      const box = el(\"input\", { type: \"checkbox\", value: p.name });\n      box.checked = !unchecked.has(p.name);\n      return el(\"label\", {}, box, p.name);\n    }));\n  }\n\n  function render({ peopleChanged = true } = {}) {\n    const hasPeople = state.people.length > 0;\n    $(\"people\").replaceChildren(...state.people.map((p) => el(\"li\", { \"data-testid\": \"person\" }, p.name)));\n    $(\"people-empty\").hidden = hasPeople;\n    $(\"expense-form\").hidden = !hasPeople;\n    $(\"expense-locked\").hidden = hasPeople;\n    if (peopleChanged) renderForm();\n\n    const everyone = state.people.length;\n    $(\"expenses\").replaceChildren(...[...state.expenses].reverse().map((e) => {\n      const who = e.split.length === everyone && everyone > 1 ? \"everyone\" : e.split.join(\", \");\n      return el(\"li\", { \"data-testid\": \"expense\" },\n        el(\"div\", {}, el(\"div\", { class: \"desc\" }, e.desc),\n          el(\"div\", { class: \"meta\" }, `Paid by ${e.payer} · split between ${who}`)),\n        el(\"div\", { class: \"end\" }, el(\"span\", { class: \"money\" }, money(e.cents)),\n          el(\"button\", { class: \"quiet\", type: \"button\", \"data-testid\": \"delete-expense\",\n            \"aria-label\": `Remove ${e.desc}`, onclick: () => {\n              state.expenses = state.expenses.filter((x) => x.id !== e.id); save(); render({ peopleChanged: false });\n            } }, \"Remove\")));\n    }));\n\n    const b = balances();\n    const hasExpenses = state.expenses.length > 0;\n    $(\"balances\").replaceChildren(...(hasExpenses ? state.people : []).map((p) => {\n      const c = b.get(p.name);\n      const status = c > 0 ? `is owed ${money(c)}` : c \u003c 0 ? `owes ${money(-c)}` : \"is even\";\n      return el(\"li\", { \"data-testid\": \"balance\", \"data-person\": p.name, \"data-cents\": String(c) },\n        el(\"span\", {}, p.name),\n        el(\"span\", { class: \"money\" + (c > 0 ? \" owed\" : \"\") }, status));\n    }));\n    $(\"balance-empty\").hidden = hasExpenses;\n\n    const transfers = hasExpenses ? settle(b) : [];\n    $(\"transfers\").replaceChildren(...transfers.map((t) =>\n      el(\"li\", { \"data-testid\": \"transfer\", \"data-from\": t.from, \"data-to\": t.to, \"data-cents\": String(t.cents) },\n        el(\"span\", {}, `${t.from} pays ${t.to}`), el(\"span\", { class: \"money\" }, money(t.cents)))));\n    $(\"settle-empty\").textContent = hasExpenses ? \"Everyone is even.\" : \"Nothing to settle yet.\";\n    $(\"settle-empty\").hidden = transfers.length > 0;\n  }\n\n  render({ peopleChanged: true });\n})();\n\u003c/script>\n\u003c/body>\n\u003c/html>\n","thinking":null,"m":{"mode":"fixture","cost":null,"latency_s":null,"first_text_s":null,"out_tokens":null,"thinking_tokens":null,"input_tokens":null,"stop_reason":null,"html_kb":13.9130859375,"html_lines":307,"chatter":0,"chatter_sample":"","code":{"css_lines":57,"js_lines":174,"css_custom_properties":7,"important":0,"media_queries":1,"innerHTML_writes":0,"comments":3,"aria_attributes":10,"labels":4,"external_scripts":0}},"checks":{"functional":[{"id":"F01","name":"Adds three people","pass":true,"detail":"3 people listed","ms":107},{"id":"F02","name":"Rejects a duplicate name ignoring case","pass":true,"detail":"3 people; message shown: true","ms":138},{"id":"F03","name":"Rejects an empty expense with a message","pass":true,"detail":"0 expenses; message shown: true","ms":117},{"id":"F04","name":"Rejects 3 decimal places and keeps the typed description","pass":true,"detail":"0 expenses; description field: \"Snacks\"","ms":46},{"id":"F05","name":"Computes balances for two equal splits","pass":true,"detail":"got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}","ms":67},{"id":"F06","name":"Settle-up zeroes every balance within n−1 transfers","pass":true,"detail":"2 transfers [{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000},{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}","ms":1},{"id":"F07","name":"Gives leftover cents to the earliest-added people","pass":true,"detail":"change {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}","ms":31},{"id":"F08","name":"Splits between a subset of people","pass":true,"detail":"change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}","ms":34},{"id":"F09","name":"Lists expenses newest first","pass":true,"detail":"first expense: \"Museum Paid by Ana · split between Ana, Ben $20.00 Remove\"","ms":1},{"id":"F10","name":"Removing an expense restores balances","pass":true,"detail":"3 expenses; balances {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}, want {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}","ms":134},{"id":"F11","name":"Survives a reload","pass":true,"detail":"before: 3 people, 3 expenses; after: 3 people, 3 expenses, balances unchanged","ms":113},{"id":"F12","name":"Formats money as Canadian dollars","pass":true,"detail":"expense amounts and every balance use $0.00 format","ms":2},{"id":"F13","name":"Keyboard focus is visible","pass":true,"detail":"button[add-person]: outline solid 2px rgb(31, 58, 77), offset 2px, shadow none","ms":3},{"id":"F14","name":"No horizontal scrolling at 390px","pass":true,"detail":"scrollWidth 390 vs viewport 390","ms":1},{"id":"F15","name":"Shows user input as text, not HTML","pass":true,"detail":"script ran: false; shown literally: true","ms":185}],"brand":[{"id":"B01","name":"Wordmark and headings in Fraunces","pass":true,"detail":"h1.wordmark: Fraunces; h2#people-h: Fraunces; h2#expense-h: Fraunces; h2#balance-h: Fraunces"},{"id":"B02","name":"UI text in IBM Plex Sans","pass":true,"detail":"40/40 text elements"},{"id":"B03","name":"Only palette colours","pass":true,"detail":"all colours on palette"},{"id":"B04","name":"No gradients","pass":true,"detail":"none"},{"id":"B05","name":"No shadows or blur","pass":true,"detail":"none"},{"id":"B06","name":"Radius ≤ 6–8px, no pills","pass":true,"detail":"none"},{"id":"B07","name":"No emoji","pass":true,"detail":"none"},{"id":"B08","name":"No exclamation marks","pass":true,"detail":"none"},{"id":"B09","name":"Sentence case","pass":true,"detail":"uppercase: none; title case: none"},{"id":"B10","name":"Tabular figures for money","pass":true,"detail":"8/8 money elements"},{"id":"B11","name":"Owing is not shown in red","pass":true,"detail":"none"},{"id":"B12","name":"Signal only on primary buttons and the rule","pass":true,"detail":"none"},{"id":"B13","name":"Single column ≤ 720px","pass":true,"detail":"content spans 672px (main 720px)"},{"id":"B14","name":"Focus ring 2px Harbour","pass":true,"detail":"solid 2px rgb(31, 58, 77)"},{"id":"B15","name":"Transitions ≤ 150ms, no animation","pass":true,"detail":"none"},{"id":"B16","name":"No outside requests beyond Google Fonts","pass":true,"detail":"none"}],"functional_pass":15,"functional_total":15,"functional_rate":1,"brand_pass":16,"brand_total":16,"brand_rate":1,"a11y_serious":0,"a11y_total":0,"console_errors":0,"fatal":null,"a11y_rules":[]},"screenshots":{"empty-desktop":"empty-desktop.jpg","filled-desktop":"filled-desktop.jpg","filled-mobile":"filled-mobile.jpg"},"judge":{"brand_fidelity":4,"visual_craft":4,"copy_voice":5,"ux_completeness":4,"code_quality":4,"directed_design":4,"overall":8,"overall_sd":0},"judge_review":{"brand_fidelity":{"score":4,"evidence":"The palette is held strictly to the seven tokens in :root with correct roles: Signal appears only on .primary and the wordmark ::before rule (24×3px), Kelp only on .owed, and the error uses a Harbour left border rather than red. Fraunces 600 and Plex 400/500 load from Google Fonts, .money has tabular-nums, the type scale is 14/16/20/28/40, radius is 6px with no pills, there are no shadows, and the focus ring is 2px Harbour with a 2px offset. Breaks: negative balances read \"owes $13.33\" with no minus sign, and several spacings are 12px or 36px (wordmark gap, input and row padding, lede indent), which are not multiples of 8."},"visual_craft":{"score":4,"evidence":"Hierarchy is clear: a 40px Fraunces wordmark, 20px serif section headings, 14px medium labels, and Fog metadata under bold expense descriptions. The lede is indented to line up with the wordmark text, and rows use quiet Rope dividers. On mobile the Description and Amount fields stack with field margin plus grid gap, leaving a visibly bloated 32px gap. The empty Expenses panel carries extra bottom space from the inline margin-top on the empty list. On mobile the amount and Remove button drop to a left-aligned second line, which looks a little loose."},"copy_voice":{"score":5,"evidence":"Every string is plain and specific. Buttons are \"Add person\", \"Add expense\" and \"Remove\". Errors say what to fix: \"Enter an amount greater than $0, with up to 2 decimal places.\" and \"Ana is already on this trip.\" Empty states point to the next step (\"Add at least one person before you log an expense.\"), and \"Paid by Ben · split between everyone\" is a humane summary. There are no exclamation marks, filler or emoji."},"ux_completeness":{"score":4,"evidence":"The expense form stays hidden until people exist and is replaced by a clear instruction. Errors are inline and focus the offending field while keeping its input. The parser accepts \"$1,234.50\". Split checkboxes preserve the user's choices across re-renders, and the balance and settle sections cover the no-expenses, all-even and transfer states. Gaps: removing an expense drops focus to the body, there is no confirmation or feedback after a removal, and people cannot be removed or renamed if mistyped."},"code_quality":{"score":4,"evidence":"Money is handled in integer cents throughout. parseCents avoids float maths, shares() distributes the remainder in trip order, and the greedy settle() is correct within the n−1 bound. The state, load/save and render structure is compact, and the small el() helper keeps rendering readable, with proper labels, a fieldset/legend, aria-describedby, aria-live and aria-invalid. Minor fragility: showError picks its form with a string ternary, one inline style is left on #expenses, and aria-invalid lands on a single checkbox for the split error."},"directed_design":{"score":4,"evidence":"The interface is restrained and specific to the brand: the Signal rule is a pseudo-element, the hover state shifts primary buttons to Harbour instead of a tint, errors are marked with a Harbour bar rather than red, and the balance wording is gentle. It is a sequence of four identical white panels, which is somewhat template-like, but nothing feels like an unexamined default."},"overall":8,"ai_tells":[],"brand_violations":["Negative balances are shown as \"owes $13.33\" without the required minus sign.","Several spacings are not multiples of 8: 12px wordmark gap, 8px 12px input padding, 4px 12px chip padding, 12px row padding, and the 36px lede indent."],"best_detail":"Errors are marked with a 3px Harbour left border and Harbour text instead of red, which honours both the no-red rule and the calm voice while still drawing the eye.","worst_detail":"Balances drop the minus sign the brief explicitly asked for, and the mobile expense rows leave the amount and Remove button orphaned on a left-aligned second line."},"judge_tells":["Four visually identical stacked panels with uniform weight; Balances and Settle up get no differentiation as the payoff of the app"],"judge_cost":0.23015999999999998}]};
+
+// ---------- data prep ----------
+const runs = BENCH.runs;
+const byId = new Map(runs.map((r) => [r.id, r]));
+const models = BENCH.config.models;
+const efforts = BENCH.config.efforts;
+const COLORS = ["#2f6db5", "#c26a2b", "#2f8f6b", "#8a4fb0", "#b03a5b", "#6b7a2f"];
+const modelColor = Object.fromEntries(models.map((m, i) => [m.id, COLORS[i % COLORS.length]]));
+const modelLabel = Object.fromEntries(models.map((m) => [m.id, m.label]));
+const cellKey = (m, e) => `${m}|${e}`;
+const cells = new Map();
+for (const r of runs) { const k = cellKey(r.model, r.effort); if (!cells.has(k)) cells.set(k, []); cells.get(k).push(r); }
+
+const mean = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
+const sd = (xs) => { if (xs.length < 2) return null; const m = mean(xs); return Math.sqrt(xs.reduce((a, b) => a + (b - m) ** 2, 0) / (xs.length - 1)); };
+const median = (xs) => { if (!xs.length) return null; const s = [...xs].sort((a, b) => a - b); const h = s.length >> 1; return s.length % 2 ? s[h] : (s[h - 1] + s[h]) / 2; };
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const f1 = (v) => (v == null ? "—" : v.toFixed(1));
+const f2 = (v) => (v == null ? "—" : v.toFixed(2));
+const usd = (v) => (v == null ? "—" : v === 0 ? "$0" : v < 0.1 ? "$" + v.toFixed(4) : v < 10 ? "$" + v.toFixed(3) : "$" + v.toFixed(2));
+const kfmt = (v) => (v == null ? "—" : v >= 1000 ? (v / 1000).toFixed(v >= 10000 ? 0 : 1) + "k" : String(Math.round(v)));
+const pct = (v) => (v == null ? "—" : Math.round(v) + "%");
+
+// Line-set similarity: share of distinct non-blank lines two outputs have in common.
+const lineSets = new Map();
+function lineSet(r) { if (!lineSets.has(r.id)) lineSets.set(r.id, new Set((r.html || "").split("\n").map((l) => l.trim()).filter(Boolean))); return lineSets.get(r.id); }
+function similarity(a, b) { const A = lineSet(a), B = lineSet(b); if (!A.size && !B.size) return null; let i = 0; for (const x of A) if (B.has(x)) i++; return i / (A.size + B.size - i); }
+
+const DIM_LABELS = { brand_fidelity: "Brand fidelity", visual_craft: "Visual craft", copy_voice: "Copy and voice", ux_completeness: "UX completeness", code_quality: "Code quality", directed_design: "Directed design (vs. unsupervised AI)" };
+const METRICS = [
+  { key: "overall", label: "Judge: overall (1–10)", get: (r) => r.judge?.overall, better: "high", fmt: f1 },
+  ...Object.entries(DIM_LABELS).map(([k, l]) => ({ key: k, label: `Judge: ${l.toLowerCase()} (1–5)`, get: (r) => r.judge?.[k], better: "high", fmt: f1 })),
+  { key: "functional", label: "Functional checks passed", get: (r) => r.checks ? r.checks.functional_rate * 100 : null, better: "high", fmt: pct },
+  { key: "brand", label: "Brand lint passed", get: (r) => r.checks ? r.checks.brand_rate * 100 : null, better: "high", fmt: pct },
+  { key: "a11y", label: "Serious accessibility issues", get: (r) => r.checks?.a11y_serious, better: "low", fmt: f1 },
+  { key: "cost", label: "Cost per run", get: (r) => r.m.cost, better: "low", fmt: usd },
+  { key: "latency", label: "Total latency (s)", get: (r) => r.m.latency_s, better: "low", fmt: f1 },
+  { key: "first_text", label: "Time to first visible text (s)", get: (r) => r.m.first_text_s, better: "low", fmt: f1 },
+  { key: "out_tokens", label: "Output tokens (incl. thinking)", get: (r) => r.m.out_tokens, better: null, fmt: kfmt },
+  { key: "thinking_tokens", label: "Thinking tokens", get: (r) => r.m.thinking_tokens, better: null, fmt: kfmt },
+  { key: "html_kb", label: "HTML size (KB)", get: (r) => r.m.html_kb, better: null, fmt: f1 },
+  { key: "chatter", label: "Characters outside the HTML", get: (r) => r.m.chatter, better: "low", fmt: kfmt },
+  { key: "consistency", label: "Within-cell similarity of code", cell: (rs) => { const s = []; for (let i = 0; i < rs.length; i++) for (let j = i + 1; j < rs.length; j++) { const v = similarity(rs[i], rs[j]); if (v != null) s.push(v * 100); } return s; }, better: null, fmt: pct,
+    note: "Average share of lines that two runs in the same cell have in common. High means the model writes nearly the same app every time; low means it varies." },
+  { key: "ab", label: "Your blind A/B win rate", cell: (rs) => { const w = abWinRates().cell[rs[0] && cellKey(rs[0].model, rs[0].effort)]; return w && w.n ? [w.rate * 100] : []; }, better: "high", fmt: pct,
+    note: "Share of your blind comparisons this cell won (ties count half). Vote in the Blind A/B tab." },
+];
+const metricByKey = Object.fromEntries(METRICS.map((m) => [m.key, m]));
+function cellValues(metric, m, e) {
+  const rs = cells.get(cellKey(m, e)) || [];
+  if (metric.cell) return metric.cell(rs);
+  return rs.map(metric.get).filter((v) => v != null && !Number.isNaN(v));
+}
+
+// ---------- header ----------
+const totalCost = runs.reduce((s, r) => s + (r.m.cost || 0), 0);
+const judgeCost = runs.reduce((s, r) => s + (r.judge_cost || 0), 0);
+document.getElementById("mock").hidden = !BENCH.mock;
+document.getElementById("title").textContent = `Effort bench: ${BENCH.experiment}`;
+document.title = `Effort bench: ${BENCH.experiment}`;
+document.getElementById("subtitle").textContent = `${runs.length} runs · ${models.length} models × ${efforts.length} effort levels · generation ${usd(totalCost)} + judging ${usd(judgeCost)} · judge ${BENCH.config.judge?.model ?? "none"} at ${BENCH.config.judge?.effort ?? "?"} · report built ${BENCH.generated_at.slice(0, 16).replace("T", " ")}`;
+
+// ---------- tabs ----------
+function showTab(name) {
+  document.querySelectorAll("nav.tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === name)));
+  document.querySelectorAll("section.tab").forEach((s) => (s.hidden = s.id !== `tab-${name}`));
+  if (name === "compare") renderCompare();
+  if (name === "ab" && !abState.pair) nextPair();
+}
+document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
+
+// ---------- colour scale ----------
+function heatColor(t) {
+  const parse = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const a = hexRgb(parse("--heat-0")), b = hexRgb(parse("--heat-1"));
+  const c = a.map((x, i) => Math.round(x + (b[i] - x) * t));
+  const lum = (0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]) / 255;
+  return { bg: `rgb(${c.join(",")})`, fg: lum > 0.55 ? "#1d2125" : "#ffffff" };
+}
+function hexRgb(h) { h = h.replace("#", ""); return [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16)); }
+
+// ---------- overview ----------
+const metricSel = document.getElementById("metric");
+metricSel.innerHTML = METRICS.map((m) => `<option value="${m.key}">${esc(m.label)}</option>`).join("");
+const hasJudge = runs.some((r) => r.judge);
+metricSel.value = hasJudge ? "overall" : "functional";
+metricSel.addEventListener("change", renderOverview);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", renderOverview);
+
+function renderOverview() {
+  const metric = metricByKey[metricSel.value];
+  document.getElementById("metric-note").textContent = metric.note || (metric.better === "high" ? "Higher is better; darker cells are better." : metric.better === "low" ? "Lower is better; darker cells are better." : "Neither direction is better; darker cells are larger.");
+  const stats = {};
+  for (const m of models) for (const e of efforts) {
+    const v = cellValues(metric, m.id, e);
+    stats[cellKey(m.id, e)] = { mean: mean(v), sd: sd(v), n: v.length };
+  }
+  const means = Object.values(stats).map((s) => s.mean).filter((v) => v != null);
+  const lo = Math.min(...means), hi = Math.max(...means);
+  const norm = (v) => { if (v == null || hi === lo) return 0.5; let t = (v - lo) / (hi - lo); return metric.better === "low" ? 1 - t : t; };
+  const heat = document.getElementById("heat");
+  heat.innerHTML = `<thead><tr><th></th>${efforts.map((e) => `<th>${esc(e)}</th>`).join("")}</tr></thead><tbody>` +
+    models.map((m) => `<tr><th class="rowh"><span class="dot" style="background:${modelColor[m.id]}"></span>${esc(m.label)}</th>` +
+      efforts.map((e) => {
+        const s = stats[cellKey(m.id, e)];
+        if (s.mean == null) return `<td class="cell" data-m="${m.id}" data-e="${e}" style="background:var(--soft)"><div class="v">—</div><div class="s">n=${(cells.get(cellKey(m.id, e)) || []).length}</div></td>`;
+        const c = heatColor(norm(s.mean) * 0.85 + 0.05);
+        return `<td class="cell" data-m="${m.id}" data-e="${e}" style="background:${c.bg};color:${c.fg}"><div class="v">${metric.fmt(s.mean)}</div><div class="s">${s.sd != null ? "± " + metric.fmt(s.sd) + " · " : ""}n=${s.n}</div></td>`;
+      }).join("") + "</tr>").join("") + "</tbody>";
+  heat.querySelectorAll("td.cell").forEach((td) => td.addEventListener("click", () => {
+    document.getElementById("run-search").value = `${td.dataset.m.replace(/^claude-/, "")} ${td.dataset.e}`;
+    renderRuns(); showTab("runs");
+  }));
+
+  // Line chart: metric by effort per model
+  document.getElementById("line-title").textContent = `${metric.label} by effort`;
+  lineChart(document.getElementById("line"), {
+    xs: efforts,
+    series: models.map((m) => ({ name: m.label, color: modelColor[m.id], values: efforts.map((e) => stats[cellKey(m.id, e)].mean),
+      points: metric.cell ? [] : efforts.flatMap((e, i) => cellValues(metric, m.id, e).map((v) => [i, v])) })),
+    fmt: metric.fmt, log: metric.key === "cost",
+  });
+  document.getElementById("legend1").innerHTML = document.getElementById("legend2").innerHTML =
+    models.map((m) => `<span><span class="dot" style="background:${modelColor[m.id]}"></span>${esc(m.label)}</span>`).join("") +
+    `<span class="muted">small dots are single runs</span>`;
+
+  // Scatter: quality vs cost
+  const yMetric = hasJudge ? METRICS[0] : metricByKey.functional;
+  scatter(document.getElementById("scatter"), {
+    points: runs.filter((r) => r.m.cost && yMetric.get(r) != null).map((r) => ({ x: r.m.cost, y: yMetric.get(r), color: modelColor[r.model], id: r.id, label: `${r.model_label} · ${r.effort}` })),
+    cellPoints: [...cells.entries()].map(([k, rs]) => {
+      const xs = rs.map((r) => r.m.cost).filter(Boolean), ys = rs.map(yMetric.get).filter((v) => v != null);
+      if (!xs.length || !ys.length) return null;
+      return { x: mean(xs), y: mean(ys), color: modelColor[rs[0].model], label: rs[0].effort.slice(0, 2) };
+    }).filter(Boolean),
+    xLabel: "cost per run (log scale)", yLabel: yMetric.label, xfmt: usd, yfmt: yMetric.fmt,
+  });
+  renderInsights();
+}
+
+// ---------- SVG charts ----------
+function lineChart(el, { xs, series, fmt, log }) {
+  const W = 560, H = 280, L = 56, R = 16, T = 12, B = 32;
+  const all = series.flatMap((s) => [...s.values.filter((v) => v != null), ...s.points.map((p) => p[1])]);
+  if (!all.length) { el.innerHTML = `<p class="muted">No data for this metric yet.</p>`; return; }
+  const tf = (v) => (log ? Math.log10(Math.max(v, 1e-6)) : v);
+  let lo = Math.min(...all.map(tf)), hi = Math.max(...all.map(tf));
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const pad = (hi - lo) * 0.08; lo -= pad; hi += pad;
+  const x = (i) => L + (xs.length === 1 ? (W - L - R) / 2 : (i * (W - L - R)) / (xs.length - 1));
+  const y = (v) => T + (H - T - B) * (1 - (tf(v) - lo) / (hi - lo));
+  const ticks = 4;
+  let g = "";
+  for (let k = 0; k <= ticks; k++) {
+    const tv = lo + ((hi - lo) * k) / ticks, yy = T + (H - T - B) * (1 - k / ticks);
+    g += `<line class="axis" x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}"/><text x="${L - 6}" y="${yy + 4}" text-anchor="end">${esc(fmt(log ? 10 ** tv : tv))}</text>`;
+  }
+  xs.forEach((e, i) => (g += `<text x="${x(i)}" y="${H - 10}" text-anchor="middle">${esc(e)}</text>`));
+  const jit = (i, k) => ((k * 7919) % 11 - 5) * 1.6;
+  for (const s of series) {
+    s.points.forEach(([i, v], k) => (g += `<circle cx="${x(i) + jit(i, k)}" cy="${y(v)}" r="2.2" fill="${s.color}" opacity=".35"/>`));
+    const pts = s.values.map((v, i) => (v == null ? null : [x(i), y(v)]));
+    let d = "", pen = false;
+    pts.forEach((p) => { if (!p) { pen = false; return; } d += `${pen ? "L" : "M"}${p[0]},${p[1]}`; pen = true; });
+    g += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2"/>`;
+    pts.forEach((p, i) => p && (g += `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${s.color}"><title>${esc(s.name)} · ${esc(xs[i])}: ${esc(fmt(s.values[i]))}</title></circle>`));
+  }
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="line chart">${g}</svg>`;
+}
+
+function scatter(el, { points, cellPoints, xLabel, yLabel, xfmt, yfmt }) {
+  const W = 560, H = 300, L = 56, R = 16, T = 12, B = 40;
+  if (!points.length) { el.innerHTML = `<p class="muted">Needs cost and ${esc(yLabel.toLowerCase())} data.</p>`; return; }
+  const lx = (v) => Math.log10(v);
+  let x0 = Math.min(...points.map((p) => lx(p.x))), x1 = Math.max(...points.map((p) => lx(p.x)));
+  let y0 = Math.min(...points.map((p) => p.y)), y1 = Math.max(...points.map((p) => p.y));
+  if (x0 === x1) { x0 -= 0.5; x1 += 0.5; } if (y0 === y1) { y0 -= 1; y1 += 1; }
+  const px = (x1 - x0) * 0.06, py = (y1 - y0) * 0.08; x0 -= px; x1 += px; y0 -= py; y1 += py;
+  const X = (v) => L + ((lx(v) - x0) / (x1 - x0)) * (W - L - R);
+  const Y = (v) => T + (1 - (v - y0) / (y1 - y0)) * (H - T - B);
+  let g = "";
+  for (let k = 0; k <= 4; k++) {
+    const yv = y0 + ((y1 - y0) * k) / 4, yy = Y(yv);
+    g += `<line class="axis" x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}"/><text x="${L - 6}" y="${yy + 4}" text-anchor="end">${esc(yfmt(yv))}</text>`;
+  }
+  for (let e = Math.ceil(x0); e <= Math.floor(x1); e++) {
+    const xx = X(10 ** e);
+    g += `<line class="axis" x1="${xx}" x2="${xx}" y1="${T}" y2="${H - B}"/><text x="${xx}" y="${H - B + 14}" text-anchor="middle">${esc(xfmt(10 ** e))}</text>`;
+  }
+  g += `<text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle">${esc(xLabel)}</text>`;
+  for (const p of points) g += `<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="3" fill="${p.color}" opacity=".45" style="cursor:pointer" data-id="${esc(p.id)}"><title>${esc(p.label)}: ${esc(yfmt(p.y))} at ${esc(xfmt(p.x))}</title></circle>`;
+  for (const c of cellPoints) g += `<g><circle cx="${X(c.x)}" cy="${Y(c.y)}" r="9" fill="${c.color}" stroke="var(--panel)" stroke-width="1.5"/><text x="${X(c.x)}" y="${Y(c.y) + 3.5}" text-anchor="middle" style="fill:#fff;font-size:9px;font-weight:600">${esc(c.label)}</text></g>`;
+  el.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="scatter chart">${g}</svg><p class="muted small" style="margin:4px 0 0">Big dots are cell means, labelled with the first two letters of the effort level. Up and to the left is better. Click a small dot to open that run.</p>`;
+  el.querySelectorAll("circle[data-id]").forEach((c) => c.addEventListener("click", () => openDetail(c.dataset.id)));
+}
+
+// ---------- insights ----------
+function renderInsights() {
+  const out = [];
+  const cellMean = (key, get) => { const rs = cells.get(key) || []; return mean(rs.map(get).filter((v) => v != null)); };
+  const q = hasJudge ? METRICS[0] : metricByKey.functional;
+  const qName = hasJudge ? "judge overall" : "functional pass rate";
+  const list = [...cells.keys()].map((k) => ({ k, m: k.split("|")[0], e: k.split("|")[1], q: cellMean(k, q.get), c: cellMean(k, (r) => r.m.cost), lat: cellMean(k, (r) => r.m.latency_s) })).filter((x) => x.q != null);
+  const name = (x) => `${modelLabel[x.m]} at ${x.e}`;
+  if (list.length) {
+    const best = list.reduce((a, b) => (b.q > a.q ? b : a));
+    out.push(`Highest ${qName}: <b>${esc(name(best))}</b> (${q.fmt(best.q)}, ${usd(best.c)} per run).`);
+    const tol = hasJudge ? 0.5 : 5;
+    const near = list.filter((x) => x.q >= best.q - tol && x.c != null).sort((a, b) => a.c - b.c)[0];
+    if (near && near.k !== best.k) out.push(`Cheapest cell within ${hasJudge ? "0.5 points" : "5 points"} of the best: <b>${esc(name(near))}</b> (${q.fmt(near.q)} at ${usd(near.c)}, ${best.c && near.c ? (best.c / near.c).toFixed(1) + "× cheaper" : ""}).`);
+  }
+  for (const m of models) {
+    const row = efforts.map((e) => list.find((x) => x.m === m.id && x.e === e)).filter(Boolean);
+    if (row.length < 2) continue;
+    const lo = row[0], hi = row[row.length - 1];
+    const peak = row.reduce((a, b) => (b.q > a.q ? b : a));
+    const dq = hi.q - lo.q;
+    out.push(`${esc(m.label)}: ${lo.e} → ${hi.e} changes ${qName} by <b>${dq >= 0 ? "+" : ""}${q.fmt(dq)}</b>${lo.c && hi.c ? ` for ${(hi.c / lo.c).toFixed(1)}× the cost` : ""}${lo.lat && hi.lat ? ` and ${(hi.lat / lo.lat).toFixed(1)}× the time` : ""}; best at <b>${esc(peak.e)}</b>.`);
+  }
+  // Most common failures
+  const fails = {}, total = runs.filter((r) => r.checks).length;
+  for (const r of runs) for (const c of [...(r.checks?.functional || []), ...(r.checks?.brand || [])]) if (!c.pass) (fails[c.id] ||= { name: c.name, n: 0, by: {} }), fails[c.id].n++, (fails[c.id].by[r.model] = (fails[c.id].by[r.model] || 0) + 1);
+  const topFails = Object.entries(fails).sort((a, b) => b[1].n - a[1].n).slice(0, 4);
+  for (const [id, f] of topFails) {
+    const worst = Object.entries(f.by).sort((a, b) => b[1] - a[1])[0];
+    out.push(`Check ${id} "${esc(f.name)}" fails in ${Math.round((100 * f.n) / total)}% of runs; ${esc(modelLabel[worst[0]] || worst[0])} accounts for ${worst[1]}.`);
+  }
+  // Judge's AI tells by theme
+  const themes = { gradient: /gradient/i, emoji: /emoji/i, shadow: /shadow/i, "pill or big radius": /pill|radius|rounded/i, "generic typeface": /inter\b|system font|generic (sans|font|type)/i, "purple or indigo": /purple|indigo|violet/i, "marketing filler": /filler|marketing|effortless|seamless|welcome/i, "stat tiles": /stat (tile|card)|big number/i, "centred everything": /centred|centered/i, "card nesting": /nested|card[s]? (in|within)/i, toasts: /toast/i };
+  const counts = {};
+  for (const r of runs) for (const t of r.judge_tells || []) for (const [k, re] of Object.entries(themes)) if (re.test(t)) (counts[k] ||= new Set()).add(r.id);
+  const tt = Object.entries(counts).sort((a, b) => b[1].size - a[1].size).slice(0, 5);
+  if (tt.length) out.push(`Most frequent AI tells the judge named: ${tt.map(([k, s]) => `${esc(k)} (${s.size} runs)`).join(", ")}.`);
+  const ab = abWinRates();
+  if (ab.votes >= 10) {
+    out.push(`Your blind votes agree with the judge on ${Math.round(ab.agree * 100)}% of ${ab.decisive} decisive pairs where the judge also had a preference.`);
+  }
+  document.getElementById("insights").innerHTML = out.map((s) => `<li>${s}</li>`).join("") || `<li class="muted">Not enough data yet.</li>`;
+}
+
+// ---------- runs table ----------
+const RUN_COLS = [
+  ["Run", (r) => r.id, (r) => `<span class="dot" style="background:${modelColor[r.model]}"></span>${esc(r.model_label)} · ${esc(r.effort)} · #${r.n}`],
+  ["Overall", (r) => r.judge?.overall, (r) => f1(r.judge?.overall), true],
+  ["Directed", (r) => r.judge?.directed_design, (r) => f1(r.judge?.directed_design), true],
+  ["Brand fid.", (r) => r.judge?.brand_fidelity, (r) => f1(r.judge?.brand_fidelity), true],
+  ["Functional", (r) => r.checks?.functional_pass, (r) => (r.checks ? `${r.checks.functional_pass}/15` : "—"), true],
+  ["Brand lint", (r) => r.checks?.brand_pass, (r) => (r.checks ? `${r.checks.brand_pass}/16` : "—"), true],
+  ["A11y", (r) => r.checks?.a11y_serious, (r) => r.checks?.a11y_serious ?? "—", true],
+  ["Cost", (r) => r.m.cost, (r) => usd(r.m.cost), true],
+  ["Latency", (r) => r.m.latency_s, (r) => (r.m.latency_s != null ? r.m.latency_s.toFixed(1) + "s" : "—"), true],
+  ["Output tok", (r) => r.m.out_tokens, (r) => kfmt(r.m.out_tokens), true],
+  ["Thinking", (r) => r.m.thinking_tokens, (r) => kfmt(r.m.thinking_tokens), true],
+  ["HTML", (r) => r.m.html_kb, (r) => (r.m.html_kb != null ? r.m.html_kb.toFixed(0) + "KB" : "—"), true],
+  ["Stop", (r) => r.m.stop_reason, (r) => (r.error ? `<span class="fail">error</span>` : r.m.stop_reason === "end_turn" ? "end" : `<span class="fail">${esc(r.m.stop_reason)}</span>`)],
+];
+let runSort = { col: 0, dir: 1 };
+const selected = new Set();
+function renderRuns() {
+  const q = document.getElementById("run-search").value.toLowerCase().split(/\s+/).filter(Boolean);
+  const hay = (r) => `${r.id} ${r.model_label} ${r.effort}`.toLowerCase();
+  let rows = runs.filter((r) => q.every((t) => hay(r).includes(t)));
+  const [, get] = RUN_COLS[runSort.col];
+  rows.sort((a, b) => { const x = get(a), y = get(b); if (x == null) return 1; if (y == null) return -1; return (x > y ? 1 : x < y ? -1 : 0) * runSort.dir; });
+  document.getElementById("run-count").textContent = `${rows.length} of ${runs.length} runs · tick rows to compare`;
+  const t = document.getElementById("runs");
+  t.innerHTML = `<thead><tr><th></th>${RUN_COLS.map(([h, , , num], i) => `<th class="${num ? "num" : ""}" data-i="${i}">${h}${runSort.col === i ? (runSort.dir > 0 ? " ▲" : " ▼") : ""}</th>`).join("")}</tr></thead><tbody>` +
+    rows.map((r) => `<tr data-id="${esc(r.id)}"><td><input type="checkbox" aria-label="select ${esc(r.id)}" ${selected.has(r.id) ? "checked" : ""}></td>${RUN_COLS.map(([, , show, num]) => `<td class="${num ? "num" : ""}">${show(r)}</td>`).join("")}</tr>`).join("") + "</tbody>";
+  t.querySelectorAll("th[data-i]").forEach((th) => th.addEventListener("click", () => { const i = +th.dataset.i; runSort = { col: i, dir: runSort.col === i ? -runSort.dir : i === 0 ? 1 : -1 }; renderRuns(); }));
+  t.querySelectorAll("tbody tr").forEach((tr) => tr.addEventListener("click", (ev) => {
+    const id = tr.dataset.id;
+    if (ev.target.type === "checkbox") { ev.target.checked ? selected.add(id) : selected.delete(id); return; }
+    openDetail(id);
+  }));
+}
+document.getElementById("run-search").addEventListener("input", renderRuns);
+document.getElementById("compare-selected").addEventListener("click", () => { if (selected.size) { slots = [...selected].slice(0, 6); showTab("compare"); } });
+
+// ---------- iframes ----------
+const SHIM = "<scr" + "ipt>(function(){function mk(){var s={};return{getItem:function(k){return Object.prototype.hasOwnProperty.call(s,k)?s[k]:null},setItem:function(k,v){s[k]=String(v)},removeItem:function(k){delete s[k]},clear:function(){s={}},key:function(i){return Object.keys(s)[i]||null},get length(){return Object.keys(s).length}}}try{Object.defineProperty(window,'localStorage',{value:mk(),configurable:true})}catch(e){}try{Object.defineProperty(window,'sessionStorage',{value:mk(),configurable:true})}catch(e){}})();</scr" + "ipt>";
+const FILL = "<scr" + "ipt>(function(){function q(i){return document.querySelector('[data-testid=\"'+i+'\"]')}function sv(el,v){if(!el)return;var d=Object.getOwnPropertyDescriptor(Object.getPrototypeOf(el),'value');d&&d.set?d.set.call(el,v):el.value=v;el.dispatchEvent(new Event('input',{bubbles:true}));el.dispatchEvent(new Event('change',{bubbles:true}))}function ck(el){el&&el.click()}var S=[];['Ana','Ben','Chloe'].forEach(function(n){S.push(function(){sv(q('person-name'),n);ck(q('add-person'))})});[['Groceries','90','Ana'],['Fuel','30.00','Ben'],['Coffee','10','Chloe']].forEach(function(e){S.push(function(){sv(q('expense-desc'),e[0]);sv(q('expense-amount'),e[1]);var s=q('expense-payer');if(s){s.value=e[2];s.dispatchEvent(new Event('change',{bubbles:true}))}ck(q('add-expense'))})});var i=0;function nx(){if(i<S.length){try{S[i++]()}catch(e){}setTimeout(nx,40)}else{try{document.activeElement&&document.activeElement.blur();window.scrollTo(0,0)}catch(e){}}}window.addEventListener('load',function(){setTimeout(nx,150)})})();</scr" + "ipt>";
+function srcdoc(r, fill) {
+  let h = r.html || "<p style='font:14px system-ui;padding:16px'>No HTML was extracted from this run.</p>";
+  const at = h.search(/<head[^>]*>/i);
+  if (at !== -1) { const end = h.indexOf(">", at) + 1; h = h.slice(0, end) + SHIM + h.slice(end); }
+  else { const hi = h.search(/<html[^>]*>/i); h = hi !== -1 ? h.slice(0, h.indexOf(">", hi) + 1) + SHIM + h.slice(h.indexOf(">", hi) + 1) : SHIM + h; }
+  if (fill) h = /<\/body>/i.test(h) ? h.replace(/<\/body>(?![\s\S]*<\/body>)/i, FILL + "</body>") : h + FILL;
+  return h;
+}
+function framed(container, r, mode, fill, height = 620, zoom = "fit") {
+  container.innerHTML = "";
+  if (mode === "shot") {
+    const s = r.screenshots || {};
+    const key = fill ? "filled-desktop" : "empty-desktop";
+    container.innerHTML = s[key] ? `<div class="shotbox" style="max-height:${height}px"><img src="${esc(r.dir + "/" + s[key])}" alt="screenshot of ${esc(r.id)}" style="width:100%;display:block"></div>` : `<p class="muted">No screenshot.</p>`;
+    return;
+  }
+  const vw = mode === "mobile" ? 390 : 1280;
+  const box = document.createElement("div");
+  box.className = "frame";
+  container.append(box);
+  const f = document.createElement("iframe");
+  f.setAttribute("sandbox", "allow-scripts allow-forms allow-modals");
+  f.setAttribute("title", `output of ${r.id}`);
+  f.srcdoc = srcdoc(r, fill);
+  const spacer = document.createElement("div");
+  spacer.style.height = "1px";
+  box.append(f, spacer);
+  let centred = false;
+  const fit = () => {
+    const w = box.clientWidth || 300;
+    const scale = zoom === "fit" ? Math.min(1, w / vw) : Number(zoom);
+    f.style.width = vw + "px";
+    f.style.height = Math.round(height / scale) + "px";
+    f.style.transform = `scale(${scale})`;
+    box.style.height = height + "px";
+    // Zoomed past the column width: let the box scroll sideways over a spacer the size of the scaled page.
+    box.style.overflow = vw * scale > w + 1 ? "auto" : "hidden";
+    spacer.style.width = vw * scale + "px";
+    // Most layouts are centred, so start a zoomed view in the middle rather than on the empty left margin.
+    if (!centred && vw * scale > w + 1) { box.scrollLeft = (vw * scale - w) / 2; centred = true; }
+  };
+  fit();
+  new ResizeObserver(fit).observe(box);
+}
+
+// ---------- detail dialog ----------
+const dlg = document.getElementById("detail");
+let detailId = null;
+document.getElementById("d-close").addEventListener("click", () => dlg.close());
+document.getElementById("d-compare").addEventListener("click", () => { if (!slots.includes(detailId)) slots.push(detailId); dlg.close(); showTab("compare"); });
+function openDetail(id) {
+  const r = byId.get(id); detailId = id;
+  document.getElementById("d-title").textContent = `${r.model_label} · ${r.effort} · run ${r.n}`;
+  const checks = [...(r.checks?.functional || []), ...(r.checks?.brand || [])];
+  const j = r.judge_review;
+  document.getElementById("d-body").innerHTML = `
+    <div class="row" style="align-items:flex-start">
+      <div style="flex:2;min-width:320px"><div class="row"><label class="inline">View <select id="d-view"><option value="desktop">desktop</option><option value="mobile">mobile</option><option value="shot">screenshot</option></select></label><label class="inline"><input type="checkbox" id="d-fill" checked> Fill sample trip</label></div><div id="d-frame"></div></div>
+      <div style="flex:1;min-width:280px">
+        <table>${[["Cost", usd(r.m.cost)], ["Latency", r.m.latency_s != null ? r.m.latency_s.toFixed(1) + "s" : "—"], ["First text", r.m.first_text_s != null ? r.m.first_text_s.toFixed(1) + "s" : "—"], ["Output tokens", kfmt(r.m.out_tokens)], ["Thinking tokens", kfmt(r.m.thinking_tokens)], ["Stop reason", esc(r.m.stop_reason)], ["HTML", `${f1(r.m.html_kb)} KB, ${r.m.html_lines ?? "—"} lines`], ["Outside the HTML", r.m.chatter ? `${r.m.chatter} chars: “${esc(r.m.chatter_sample)}”` : "nothing"], ["Mode", esc(r.m.mode)], ["Console errors", r.checks?.console_errors ?? "—"], ["A11y", r.checks ? `${r.checks.a11y_serious ?? "?"} serious, ${r.checks.a11y_total ?? "?"} total` : "—"]].map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("")}</table>
+        ${r.error ? `<p class="fail">${esc(r.error)}</p>` : ""}
+      </div>
+    </div>
+    ${j ? `<h3>Judge</h3><table>${Object.entries(DIM_LABELS).map(([k, l]) => `<tr><th style="width:220px">${l}</th><td class="num">${j[k]?.score ?? "—"}</td><td>${esc(j[k]?.evidence ?? j[k]?.rationale)}</td></tr>`).join("")}<tr><th>Overall</th><td class="num">${j.overall}</td><td></td></tr></table>
+      <p><b>AI tells:</b> ${j.ai_tells?.length ? j.ai_tells.map(esc).join("; ") : "none"}</p><p><b>Brand violations:</b> ${j.brand_violations?.length ? j.brand_violations.map(esc).join("; ") : "none"}</p><p><b>Best:</b> ${esc(j.best_detail)}<br><b>Worst:</b> ${esc(j.worst_detail)}</p>` : ""}
+    <h3>Checks</h3><table>${checks.map((c) => `<tr><td class="${c.pass ? "pass" : "fail"}">${c.pass ? "✓" : "✗"}</td><td class="mono">${c.id}</td><td>${esc(c.name)}</td><td class="muted small">${esc(c.detail)}</td></tr>`).join("")}</table>
+    ${r.checks?.a11y_rules?.length ? `<p class="small"><b>Accessibility rules failed:</b> ${r.checks.a11y_rules.map((x) => `${esc(x.id)} (${x.impact}, ${x.nodes})`).join(", ")}</p>` : ""}
+    ${r.thinking ? `<details><summary>Thinking summary</summary><div class="thinking">${esc(r.thinking)}</div></details>` : ""}
+    <details><summary>Source</summary><div class="diff" style="max-height:420px">${esc(r.html || "")}</div></details>`;
+  const draw = () => framed(document.getElementById("d-frame"), r, document.getElementById("d-view").value, document.getElementById("d-fill").checked, 560);
+  document.getElementById("d-view").addEventListener("change", draw);
+  document.getElementById("d-fill").addEventListener("change", draw);
+  dlg.showModal();
+  draw();
+}
+
+// ---------- compare ----------
+let slots = [];
+const groupedOptions = (sel) => models.map((m) => `<optgroup label="${esc(m.label)}">${efforts.flatMap((e) => (cells.get(cellKey(m.id, e)) || []).map((r) => `<option value="${esc(r.id)}" ${r.id === sel ? "selected" : ""}>${esc(m.label)} · ${esc(e)} · #${r.n}${r.judge?.overall != null ? ` (${f1(r.judge.overall)})` : ""}</option>`)).join("")}</optgroup>`).join("");
+const qScore = (r) => r.judge?.overall ?? (r.checks ? r.checks.functional_rate * 10 : null);
+function pickFrom(rs, how) {
+  const scored = rs.filter((r) => qScore(r) != null).sort((a, b) => qScore(a) - qScore(b));
+  if (!scored.length) return rs[0];
+  if (how === "best") return scored[scored.length - 1];
+  if (how === "worst") return scored[0];
+  return scored[Math.floor((scored.length - 1) / 2)];
+}
+document.getElementById("q-effort").innerHTML += efforts.map((e) => `<option>${esc(e)}</option>`).join("");
+document.getElementById("q-model").innerHTML += models.map((m) => `<option value="${m.id}">${esc(m.label)}</option>`).join("");
+document.getElementById("q-effort").addEventListener("change", (ev) => { const e = ev.target.value; if (!e) return; slots = models.map((m) => pickFrom(cells.get(cellKey(m.id, e)) || [], document.getElementById("q-pick").value)).filter(Boolean).map((r) => r.id); ev.target.value = ""; renderCompare(); });
+document.getElementById("q-model").addEventListener("change", (ev) => { const m = ev.target.value; if (!m) return; slots = efforts.map((e) => pickFrom(cells.get(cellKey(m, e)) || [], document.getElementById("q-pick").value)).filter(Boolean).map((r) => r.id); ev.target.value = ""; renderCompare(); });
+document.getElementById("add-slot").addEventListener("click", () => { slots.push(runs[0].id); renderCompare(); });
+["view-mode", "fill", "zoom"].forEach((id) => document.getElementById(id).addEventListener("change", renderSlots));
+document.getElementById("only-diff").addEventListener("change", renderCompareTables);
+["diff-a", "diff-b"].forEach((id) => document.getElementById(id).addEventListener("change", renderDiff));
+
+function renderCompare() {
+  if (!slots.length) { const e = efforts.includes("high") ? "high" : efforts[0]; slots = models.map((m) => pickFrom(cells.get(cellKey(m.id, e)) || [], "median")).filter(Boolean).map((r) => r.id); }
+  if (!slots.length) { document.getElementById("slots").innerHTML = `<p class="muted">No runs to compare yet.</p>`; return; }
+  renderSlots(); renderCompareTables();
+  const opts = slots.map((id, i) => `<option value="${i}">${i + 1}. ${esc(byId.get(id).model_label)} · ${esc(byId.get(id).effort)} · #${byId.get(id).n}</option>`).join("");
+  document.getElementById("diff-a").innerHTML = opts; document.getElementById("diff-b").innerHTML = opts;
+  document.getElementById("diff-b").value = String(Math.min(1, slots.length - 1));
+  renderDiff();
+}
+function renderSlots() {
+  const wrap = document.getElementById("slots");
+  wrap.innerHTML = "";
+  slots.forEach((id, i) => {
+    const r = byId.get(id);
+    const d = document.createElement("div");
+    d.className = "slot";
+    d.innerHTML = `<div class="row" style="gap:6px;flex-wrap:nowrap"><span class="dot" style="background:${modelColor[r.model]}"></span><select aria-label="column ${i + 1}">${groupedOptions(id)}</select><button class="btn" title="remove column" aria-label="remove column ${i + 1}">✕</button></div><div class="small muted" style="margin-top:4px">${r.judge?.overall != null ? `overall ${f1(r.judge.overall)} · ` : ""}${r.checks ? `functional ${r.checks.functional_pass}/15 · brand ${r.checks.brand_pass}/16 · ` : ""}${usd(r.m.cost)} · ${r.m.latency_s != null ? r.m.latency_s.toFixed(0) + "s" : "—"}</div><div class="fr"></div>`;
+    d.querySelector("select").addEventListener("change", (ev) => { slots[i] = ev.target.value; renderCompare(); });
+    d.querySelector("button").addEventListener("click", () => { slots.splice(i, 1); renderCompare(); });
+    wrap.append(d);
+    framed(d.querySelector(".fr"), r, document.getElementById("view-mode").value, document.getElementById("fill").checked, 620, document.getElementById("zoom").value);
+  });
+}
+const CMP_METRICS = ["overall", "brand_fidelity", "visual_craft", "copy_voice", "ux_completeness", "code_quality", "directed_design", "functional", "brand", "a11y", "cost", "latency", "first_text", "out_tokens", "thinking_tokens", "html_kb", "chatter"];
+function renderCompareTables() {
+  const rs = slots.map((id) => byId.get(id));
+  const head = `<thead><tr><th></th>${rs.map((r, i) => `<th class="num"><span class="dot" style="background:${modelColor[r.model]}"></span>${i + 1}. ${esc(r.model_label)} · ${esc(r.effort)}</th>`).join("")}</tr></thead>`;
+  document.getElementById("cmp-metrics").innerHTML = head + "<tbody>" + CMP_METRICS.map((k) => {
+    const m = metricByKey[k]; const base = m.get(rs[0]);
+    return `<tr><th>${esc(m.label)}</th>${rs.map((r, i) => {
+      const v = m.get(r);
+      if (i === 0 || v == null || base == null) return `<td class="num">${m.fmt(v)}</td>`;
+      const d = v - base;
+      const cls = !m.better || Math.abs(d) < 1e-9 ? "delta-flat" : (d > 0) === (m.better === "high") ? "delta-good" : "delta-bad";
+      const rel = base !== 0 && ["cost", "latency", "out_tokens", "thinking_tokens", "html_kb"].includes(k) ? ` (${(v / base).toFixed(1)}×)` : "";
+      return `<td class="num">${m.fmt(v)} <span class="small ${cls}">${d > 0 ? "▲" : d < 0 ? "▼" : "="}${m.fmt(Math.abs(d))}${rel}</span></td>`;
+    }).join("")}</tr>`;
+  }).join("") + "</tbody>";
+
+  const only = document.getElementById("only-diff").checked;
+  const ids = [...new Map(rs.flatMap((r) => [...(r.checks?.functional || []), ...(r.checks?.brand || [])].map((c) => [c.id, c.name]))).entries()];
+  const rows = ids.map(([id, name]) => {
+    const vals = rs.map((r) => [...(r.checks?.functional || []), ...(r.checks?.brand || [])].find((c) => c.id === id));
+    const differ = new Set(vals.map((v) => (v ? v.pass : null))).size > 1;
+    if (only && !differ) return "";
+    return `<tr><td class="mono">${id}</td><td>${esc(name)}</td>${vals.map((v) => `<td title="${esc(v?.detail)}" class="${v ? (v.pass ? "pass" : "fail") : "muted"}">${v ? (v.pass ? "✓" : "✗") + ` <span class="small muted">${esc((v.detail || "").slice(0, 70))}</span>` : "—"}</td>`).join("")}</tr>`;
+  }).join("");
+  document.getElementById("cmp-checks").innerHTML = `<thead><tr><th></th><th></th>${rs.map((r, i) => `<th>${i + 1}. ${esc(r.model_label)} · ${esc(r.effort)}</th>`).join("")}</tr></thead><tbody>${rows || `<tr><td colspan="9" class="muted">Every check matches across these runs.</td></tr>`}</tbody>`;
+
+  const j = rs.map((r) => r.judge_review);
+  document.getElementById("cmp-judge").innerHTML = head + "<tbody>" +
+    Object.entries(DIM_LABELS).map(([k, l]) => `<tr><th>${l}</th>${j.map((x) => `<td><b>${x?.[k]?.score ?? "—"}</b> <span class="small">${esc(x?.[k]?.evidence ?? x?.[k]?.rationale)}</span></td>`).join("")}</tr>`).join("") +
+    `<tr><th>AI tells</th>${j.map((x) => `<td class="small">${x ? (x.ai_tells.length ? x.ai_tells.map(esc).join("<br>") : "none") : "—"}</td>`).join("")}</tr>` +
+    `<tr><th>Brand violations</th>${j.map((x) => `<td class="small">${x ? (x.brand_violations.length ? x.brand_violations.map(esc).join("<br>") : "none") : "—"}</td>`).join("")}</tr>` +
+    `<tr><th>Best</th>${j.map((x) => `<td class="small">${esc(x?.best_detail)}</td>`).join("")}</tr><tr><th>Worst</th>${j.map((x) => `<td class="small">${esc(x?.worst_detail)}</td>`).join("")}</tr></tbody>`;
+
+  document.getElementById("cmp-thinking").innerHTML = rs.map((r, i) => `<div class="slot"><b>${i + 1}. ${esc(r.model_label)} · ${esc(r.effort)}</b> <span class="small muted">${kfmt(r.m.thinking_tokens)} thinking tokens</span><div class="thinking" style="margin-top:6px">${r.thinking ? esc(r.thinking) : "No thinking summary (thinking display omitted, or the model skipped thinking)."}</div></div>`).join("");
+}
+
+// Line diff with an LCS table, trimmed of common prefix and suffix first.
+function lineDiff(a, b) {
+  const A = a.split("\n"), B = b.split("\n");
+  let s = 0; while (s < A.length && s < B.length && A[s] === B[s]) s++;
+  let e = 0; while (e < A.length - s && e < B.length - s && A[A.length - 1 - e] === B[B.length - 1 - e]) e++;
+  const a2 = A.slice(s, A.length - e), b2 = B.slice(s, B.length - e);
+  const n = a2.length, m = b2.length;
+  if (n * m > 8e6) return null;
+  const dp = new Uint32Array((n + 1) * (m + 1));
+  for (let i = n - 1; i >= 0; i--) for (let j = m - 1; j >= 0; j--) dp[i * (m + 1) + j] = a2[i] === b2[j] ? dp[(i + 1) * (m + 1) + j + 1] + 1 : Math.max(dp[(i + 1) * (m + 1) + j], dp[i * (m + 1) + j + 1]);
+  const ops = A.slice(0, s).map((l) => [" ", l]);
+  let i = 0, j = 0;
+  while (i < n && j < m) {
+    if (a2[i] === b2[j]) { ops.push([" ", a2[i]]); i++; j++; }
+    else if (dp[(i + 1) * (m + 1) + j] >= dp[i * (m + 1) + j + 1]) ops.push(["-", a2[i++]]);
+    else ops.push(["+", b2[j++]]);
+  }
+  while (i < n) ops.push(["-", a2[i++]]);
+  while (j < m) ops.push(["+", b2[j++]]);
+  return ops.concat(A.slice(A.length - e).map((l) => [" ", l]));
+}
+function renderDiff() {
+  const ia = +document.getElementById("diff-a").value, ib = +document.getElementById("diff-b").value;
+  const ra = byId.get(slots[ia]), rb = byId.get(slots[ib]);
+  const out = document.getElementById("diff"), stats = document.getElementById("diff-stats");
+  if (!ra || !rb) { out.textContent = ""; return; }
+  const ops = lineDiff(ra.html || "", rb.html || "");
+  if (!ops) { out.textContent = "These files are too large to diff in the browser."; stats.textContent = ""; return; }
+  const add = ops.filter((o) => o[0] === "+").length, del = ops.filter((o) => o[0] === "-").length, same = ops.length - add - del;
+  const sim = similarity(ra, rb);
+  stats.textContent = `+${add} −${del} · ${same} unchanged lines · ${sim != null ? Math.round(sim * 100) : "—"}% of distinct lines shared`;
+  const keep = new Set();
+  ops.forEach((o, k) => { if (o[0] !== " ") for (let d = -3; d <= 3; d++) keep.add(k + d); });
+  let html = "", skipped = 0;
+  ops.forEach((o, k) => {
+    if (!keep.has(k)) { skipped++; return; }
+    if (skipped) { html += `<div class="gap">⋯ ${skipped} unchanged lines</div>`; skipped = 0; }
+    html += `<div class="${o[0] === "+" ? "add" : o[0] === "-" ? "del" : ""}">${o[0]} ${esc(o[1])}</div>`;
+  });
+  if (skipped) html += `<div class="gap">⋯ ${skipped} unchanged lines</div>`;
+  out.innerHTML = html || `<div class="gap">Identical.</div>`;
+}
+
+// ---------- blind A/B ----------
+const AB_KEY = `effort-bench:ab:${BENCH.experiment}`;
+const loadVotes = () => { try { return JSON.parse(localStorage.getItem(AB_KEY)) || []; } catch { return []; } };
+const saveVotes = (v) => { try { localStorage.setItem(AB_KEY, JSON.stringify(v)); } catch {} };
+const abState = { pair: null, voted: false };
+function nextPair() {
+  const pool = document.getElementById("ab-pool").value;
+  const usable = runs.filter((r) => r.html);
+  if (usable.length < 2) { document.getElementById("ab-pair").innerHTML = `<p class="muted">Needs at least two runs with HTML.</p>`; return; }
+  let a, b, tries = 0;
+  do {
+    a = usable[Math.floor(Math.random() * usable.length)];
+    b = usable[Math.floor(Math.random() * usable.length)];
+    tries++;
+  } while (tries < 500 && (a.model === b.model && a.effort === b.effort || (pool === "effort" && (a.effort !== b.effort || a.model === b.model)) || (pool === "model" && (a.model !== b.model || a.effort === b.effort))));
+  abState.pair = [a.id, b.id]; abState.voted = false;
+  document.getElementById("ab-reveal").textContent = "";
+  document.getElementById("ab-next").hidden = true;
+  renderPair();
+}
+function renderPair() {
+  const [a, b] = abState.pair.map((id) => byId.get(id));
+  const wrap = document.getElementById("ab-pair");
+  wrap.innerHTML = `<div class="slot"><h3>Left</h3><div class="fr"></div></div><div class="slot"><h3>Right</h3><div class="fr"></div></div>`;
+  const mode = document.getElementById("ab-view").value;
+  framed(wrap.querySelectorAll(".fr")[0], a, mode, true, 680);
+  framed(wrap.querySelectorAll(".fr")[1], b, mode, true, 680);
+}
+function vote(w) {
+  if (!abState.pair || abState.voted) return;
+  if (w === "skip") return nextPair();
+  const [a, b] = abState.pair.map((id) => byId.get(id));
+  const v = loadVotes(); v.push({ a: a.id, b: b.id, winner: w, pool: document.getElementById("ab-pool").value, at: new Date().toISOString() }); saveVotes(v);
+  abState.voted = true;
+  const tag = (r) => `${r.model_label} · ${r.effort} · #${r.n}${r.judge?.overall != null ? ` (judge ${f1(r.judge.overall)})` : ""}`;
+  document.getElementById("ab-reveal").textContent = `Left was ${tag(a)}. Right was ${tag(b)}.`;
+  document.getElementById("ab-next").hidden = false;
+  renderAbResults();
+}
+document.querySelectorAll("[data-vote]").forEach((b) => b.addEventListener("click", () => vote(b.dataset.vote)));
+document.getElementById("ab-next").addEventListener("click", nextPair);
+document.getElementById("ab-pool").addEventListener("change", nextPair);
+document.getElementById("ab-view").addEventListener("change", () => abState.pair && renderPair());
+document.addEventListener("keydown", (ev) => {
+  if (document.getElementById("tab-ab").hidden || ev.target.matches("input, select, textarea") || ev.metaKey || ev.ctrlKey) return;
+  const k = ev.key.toLowerCase();
+  if (k === "a") vote("a"); else if (k === "b") vote("b"); else if (k === "t") vote("tie"); else if (k === "s") vote("skip"); else if (k === "n" && abState.voted) nextPair();
+});
+function abWinRates() {
+  const votes = loadVotes().filter((v) => byId.has(v.a) && byId.has(v.b));
+  const tally = { model: {}, effort: {}, cell: {} };
+  const add = (group, key, score) => { const t = (tally[group][key] ||= { w: 0, n: 0 }); t.w += score; t.n++; };
+  let decisive = 0, agree = 0;
+  for (const v of votes) {
+    const ra = byId.get(v.a), rb = byId.get(v.b);
+    const sa = v.winner === "a" ? 1 : v.winner === "tie" ? 0.5 : 0;
+    for (const [r, s] of [[ra, sa], [rb, 1 - sa]]) { add("model", r.model, s); add("effort", r.effort, s); add("cell", cellKey(r.model, r.effort), s); }
+    const ja = ra.judge?.overall, jb = rb.judge?.overall;
+    if (v.winner !== "tie" && ja != null && jb != null && ja !== jb) { decisive++; if ((ja > jb) === (v.winner === "a")) agree++; }
+  }
+  for (const g of Object.values(tally)) for (const t of Object.values(g)) t.rate = t.w / t.n;
+  return { ...tally, votes: votes.length, decisive, agree: decisive ? agree / decisive : null };
+}
+function renderAbResults() {
+  const t = abWinRates();
+  document.getElementById("ab-count").textContent = `${t.votes} votes recorded in this browser.`;
+  const tbl = (title, obj, label) => `<h3 style="font-size:13px;margin:12px 0 4px">${title}</h3><table><tbody>${Object.entries(obj).sort((a, b) => b[1].rate - a[1].rate).map(([k, v]) => `<tr><td>${esc(label(k))}</td><td class="num">${Math.round(v.rate * 100)}%</td><td class="num muted small">${v.n} appearances</td></tr>`).join("") || `<tr><td class="muted">No votes yet.</td></tr>`}</tbody></table>`;
+  document.getElementById("ab-results").innerHTML =
+    (t.decisive ? `<p>You agreed with the judge on <b>${Math.round(t.agree * 100)}%</b> of ${t.decisive} decisive pairs.</p>` : "") +
+    tbl("By model", t.model, (k) => modelLabel[k] || k) + tbl("By effort", t.effort, (k) => k) +
+    tbl("By cell", t.cell, (k) => `${modelLabel[k.split("|")[0]]} · ${k.split("|")[1]}`);
+}
+document.getElementById("ab-export").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify({ experiment: BENCH.experiment, votes: loadVotes() }, null, 2)], { type: "application/json" });
+  const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `ab-votes-${BENCH.experiment}.json`; a.click();
+});
+document.getElementById("ab-import").addEventListener("change", async (ev) => {
+  const f = ev.target.files[0]; if (!f) return;
+  try {
+    const data = JSON.parse(await f.text());
+    const have = loadVotes(); const seen = new Set(have.map((v) => v.at + v.a + v.b));
+    saveVotes([...have, ...(data.votes || []).filter((v) => !seen.has(v.at + v.a + v.b))]);
+    renderAbResults(); renderOverview();
+  } catch { alert("That file isn't a votes export."); }
+});
+document.getElementById("ab-clear").addEventListener("click", () => { if (confirm("Delete every vote stored in this browser for this experiment?")) { saveVotes([]); renderAbResults(); } });
+
+// ---------- setup ----------
+document.getElementById("prompt").textContent = BENCH.prompt;
+document.getElementById("rubric").textContent = BENCH.rubric;
+const g = BENCH.config.generation || {};
+document.getElementById("setup").innerHTML = `<table>${[
+  ["Models", models.map((m) => `${esc(m.label)} <span class="muted mono">${esc(m.id)}</span> ${m.price ? `<span class="muted small">$${m.price.input}/$${m.price.output} per MTok</span>` : ""}`).join("<br>")],
+  ["Effort levels", efforts.map(esc).join(", ")],
+  ["Runs per cell", BENCH.config.runs_per_cell],
+  ["max_tokens", g.max_tokens],
+  ["Thinking display", esc(g.thinking_display)],
+  ["Prompt hash", `<span class="mono">${esc(BENCH.prompt_sha)}</span>`],
+  ["Judge", `${esc(BENCH.config.judge?.model)} at ${esc(BENCH.config.judge?.effort)}, ${BENCH.config.judge?.passes} pass(es) per run`],
+].map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join("")}</table>`;
+
+renderOverview(); renderRuns(); renderAbResults();
+</script>
+</body>
+</html>

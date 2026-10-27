@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.066Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 17460,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2200,
+        "output_tokens_details": {
+          "thinking_tokens": 854
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.05692,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D drives headings, the masthead rule and checked split chips, and Signal #C2462B drives the primary buttons, all on a warm paper #F5F1EA. Fraunces headings with Instrument Sans body feel steady and crafted, neither playful nor bank-like, and the navy disc with a level red bar reads as an 'even keel' mark. The weak point is debt: negative balances use signal-dark red with a minus sign while credits get green, which frames owing as a warning more than the brief's 'normal, not a problem' principle allows."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear, with serif card titles, muted counts aligned right, tabular-num amounts right-aligned and consistent 14px row rhythm with hairline dividers. The mobile layout stacks cleanly with no overflow. A few things are uneven: the empty state shows a bare 'Split between' legend with nothing under it, the outlined Remove buttons stacked under each amount make the expense rows taller than needed, and every section sits in an identical card."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The tagline 'Log what you paid. See who owes whom. Get back to even.' is plain and specific. Errors are useful and calm: '“ana” is already on the trip.' and 'Enter an amount greater than zero, with at most 2 decimal places (for example 42.50).' Empty states guide the next step, such as 'Add everyone coming on the trip, including yourself.' and 'Everyone is even. Nothing to settle.', and buttons are verbs."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Validation keeps typed input, focuses the offending field, and clears the error as you type. New people default to checked while earlier unticks are preserved, and deletion moves focus to a sensible place. Balances pair the amount with an 'is owed'/'owes' label, and Settle up reads 'Chloe pays Ana $33.33'. Gaps: the split area has no empty message when there are no people, aria-invalid is never set on the amount field, and there is no way to mark a transfer as done or remove a person."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cents parsing uses a strict regex, and splitCents hands leftover cents out in trip order because the selected people are re-filtered by state.people. The greedy settle-up guarantees at most n−1 transfers. HTML is escaped, a fieldset/legend wraps the checkboxes, and errors use role=alert. There is minor cruft: unused .transfer .arrow and .sr-only rules, a no-op Array.prototype.filter(…return true), inline style attributes, and HTML strings assembled by concatenation."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The warm paper, serif masthead with a 2px navy rule and the custom keel mark read as deliberate choices for this brand rather than defaults. The restraint holds throughout, with no gradients, no emoji, modest radii and no shadows. It still leans on a familiar card-grid template, and red-for-negative is a default finance reflex rather than a choice shaped by the brand principle."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Unused CSS left in: .transfer .arrow and .sr-only are defined but never used",
+          "Every section wrapped in an identical bordered card with the same dashed empty-state box"
+        ],
+        "brand_violations": [
+          "Negative balances and the 'owes' label are shown in signal-dark red with a minus sign, which frames owing as an alarm against the principle that owing money is normal",
+          "Signal red is used both for the primary action buttons and for debt and the destructive Remove action, blurring its meaning"
+        ],
+        "best_detail": "The settle-up rows ('Chloe pays Ana' with a bold tabular amount in Harbour navy) are calm, plain and immediately actionable.",
+        "worst_detail": "Colouring debtors red against green creditors turns a normal 'owes' into a warning state, contrary to the brand's central principle."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

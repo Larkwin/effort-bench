@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.292Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 18457,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2724,
+        "output_tokens_details": {
+          "thinking_tokens": 1379
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.064154,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is used strictly by role. Signal appears only on the .primary buttons and the .wordmark::before 24×3px rule, negatives render in Harbour with a true minus (\\u2212), and positives in Kelp. Fraunces 600 and Plex 400/500 are loaded from Google Fonts, and .money uses tabular-nums. Radius is 6px, borders are 1px Rope, there are no shadows, and the focus ring is 2px Harbour with a 2px offset. The one small break is input padding of 8px 12px, where 12px is not on the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The stacked Paper panels on Sailcloth have a calm, clear hierarchy: a 40px wordmark, 20px Fraunces section heads and 14px Fog meta. Balance and transfer rows align money right with consistent 16px row rhythm. Two spots are weaker. On first load an empty bordered 'Split between' fieldset and a blank disabled select look unfinished. The expense list also butts up against the Add expense button with only 16px of separation inside the same panel."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific. Examples: 'Enter an amount greater than $0 with at most 2 decimal places.', '\"ana\" is already on the trip. Enter a different name.', 'Everyone is even. No payments are needed.', plus the 'is owed'/'owes' labels. Buttons are short verbs, and there are no exclamations or filler. One flaw: the expenses empty state 'Add one after you have people on the trip' still shows after people have been added."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required flows work. Validation errors are inline and announced via an aria-live region, typed values are kept, and focus moves to the offending field. Each section has an empty state, and the settle-up handles the all-even case. Mobile reflows cleanly: Add person wraps under the input, and the amount and Remove button drop below each expense. The weaker states are the empty split fieldset before any people exist, focus being lost to body after Remove, and no aria-invalid or aria-describedby linking errors to their fields."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a tidy IIFE with a single state object, guarded localStorage load and save, and textContent-only rendering. Money is handled in integer cents throughout: parseCents uses a regex rather than floats, shares() assigns leftover cents in trip order, and a greedy settle produces at most n−1 transfers. It uses semantic labels, fieldset and legend, and type=submit forms. Minor issues: dead code (right.insertAdjacentText('afterend','')), inline style strings built in JS, duplicate .neg/.zero rules, and balances computed twice per render."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result reads as deliberate and restrained, closely tuned to the brand. Examples are the underline hover on the Signal buttons instead of a darker tint, a Harbour-bordered error box rather than red, and Harbour accent-color on the checkboxes. It is still a fairly standard stacked-card form layout. It lacks a distinctive touch, and the empty-state form controls look unconsidered."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Dead no-op line `right.insertAdjacentText('afterend', '')` left in renderBalances"
+        ],
+        "brand_violations": [
+          "Input padding of 8px 12px uses 12px, which is off the 8px spacing grid (input[type=text], select, .error)"
+        ],
+        "best_detail": "Negative balances are shown in Harbour with a true minus sign and a quiet Fog 'owes' label, while positives get Kelp and 'is owed', which carries the brand's 'owing is normal' stance exactly.",
+        "worst_detail": "Before any people exist, the expense form shows a blank disabled select and an empty bordered 'Split between' box with no in-place guidance, which looks broken rather than intentionally empty."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

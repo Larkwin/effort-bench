@@ -1,0 +1,329 @@
+{
+  "run_id": "opus-5-5__low__r03",
+  "profile": "strict",
+  "checked_at": "2026-10-26T23:56:33.208Z",
+  "functional": [
+    {
+      "id": "F01",
+      "name": "Adds three people",
+      "pass": true,
+      "detail": "3 people listed",
+      "ms": 105
+    },
+    {
+      "id": "F02",
+      "name": "Rejects a duplicate name ignoring case",
+      "pass": true,
+      "detail": "3 people; message shown: true",
+      "ms": 136
+    },
+    {
+      "id": "F03",
+      "name": "Rejects an empty expense with a message",
+      "pass": true,
+      "detail": "0 expenses; message shown: true",
+      "ms": 116
+    },
+    {
+      "id": "F04",
+      "name": "Rejects 3 decimal places and keeps the typed description",
+      "pass": true,
+      "detail": "0 expenses; description field: \"Snacks\"",
+      "ms": 32
+    },
+    {
+      "id": "F05",
+      "name": "Computes balances for two equal splits",
+      "pass": true,
+      "detail": "got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}",
+      "ms": 66
+    },
+    {
+      "id": "F06",
+      "name": "Settle-up zeroes every balance within n−1 transfers",
+      "pass": true,
+      "detail": "2 transfers [{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000},{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}",
+      "ms": 1
+    },
+    {
+      "id": "F07",
+      "name": "Gives leftover cents to the earliest-added people",
+      "pass": true,
+      "detail": "change {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}",
+      "ms": 32
+    },
+    {
+      "id": "F08",
+      "name": "Splits between a subset of people",
+      "pass": true,
+      "detail": "change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}",
+      "ms": 34
+    },
+    {
+      "id": "F09",
+      "name": "Lists expenses newest first",
+      "pass": true,
+      "detail": "first expense: \"Museum Paid by Ana · Split between Ana, Ben $20.00 Remove\"",
+      "ms": 1
+    },
+    {
+      "id": "F10",
+      "name": "Removing an expense restores balances",
+      "pass": true,
+      "detail": "3 expenses; balances {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}, want {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}",
+      "ms": 135
+    },
+    {
+      "id": "F11",
+      "name": "Survives a reload",
+      "pass": true,
+      "detail": "before: 3 people, 3 expenses; after: 3 people, 3 expenses, balances unchanged",
+      "ms": 104
+    },
+    {
+      "id": "F12",
+      "name": "Formats money as Canadian dollars",
+      "pass": true,
+      "detail": "expense amounts and every balance use $0.00 format",
+      "ms": 1
+    },
+    {
+      "id": "F13",
+      "name": "Keyboard focus is visible",
+      "pass": true,
+      "detail": "button[add-person]: outline solid 2px rgb(31, 58, 77), offset 2px, shadow none",
+      "ms": 5
+    },
+    {
+      "id": "F14",
+      "name": "No horizontal scrolling at 390px",
+      "pass": true,
+      "detail": "scrollWidth 390 vs viewport 390",
+      "ms": 1
+    },
+    {
+      "id": "F15",
+      "name": "Shows user input as text, not HTML",
+      "pass": true,
+      "detail": "script ran: false; shown literally: true",
+      "ms": 187
+    }
+  ],
+  "brand": [
+    {
+      "id": "B01",
+      "name": "Wordmark and headings in Fraunces",
+      "pass": true,
+      "detail": "h1: Fraunces; h2#h-people: Fraunces; h2#h-exp: Fraunces; h2#h-bal: Fraunces"
+    },
+    {
+      "id": "B02",
+      "name": "UI text in IBM Plex Sans",
+      "pass": true,
+      "detail": "40/40 text elements"
+    },
+    {
+      "id": "B03",
+      "name": "Only palette colours",
+      "pass": true,
+      "detail": "all colours on palette"
+    },
+    {
+      "id": "B04",
+      "name": "No gradients",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B05",
+      "name": "No shadows or blur",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B06",
+      "name": "Radius ≤ 6–8px, no pills",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B07",
+      "name": "No emoji",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B08",
+      "name": "No exclamation marks",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B09",
+      "name": "Sentence case",
+      "pass": true,
+      "detail": "uppercase: none; title case: none"
+    },
+    {
+      "id": "B10",
+      "name": "Tabular figures for money",
+      "pass": true,
+      "detail": "8/8 money elements"
+    },
+    {
+      "id": "B11",
+      "name": "Owing is not shown in red",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B12",
+      "name": "Signal only on primary buttons and the rule",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B13",
+      "name": "Single column ≤ 720px",
+      "pass": true,
+      "detail": "content spans 672px (main 720px)"
+    },
+    {
+      "id": "B14",
+      "name": "Focus ring 2px Harbour",
+      "pass": true,
+      "detail": "solid 2px rgb(31, 58, 77)"
+    },
+    {
+      "id": "B15",
+      "name": "Transitions ≤ 150ms, no animation",
+      "pass": true,
+      "detail": "none"
+    },
+    {
+      "id": "B16",
+      "name": "No outside requests beyond Google Fonts",
+      "pass": true,
+      "detail": "none"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "blocked_requests": [],
+  "screenshots": {
+    "empty-desktop": "empty-desktop.jpg",
+    "filled-desktop": "filled-desktop.jpg",
+    "filled-mobile": "filled-mobile.jpg"
+  },
+  "missing_hooks_at_start": [],
+  "audit": {
+    "fonts": {
+      "headings": [
+        {
+          "el": "h1",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-people",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-exp",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-bal",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-set",
+          "family": "Fraunces"
+        }
+      ],
+      "ui_total": 40,
+      "ui_plex": 40,
+      "ui_other": [],
+      "ui_main": "IBM Plex Sans",
+      "loaded": [
+        "Fraunces",
+        "IBM Plex Sans",
+        "IBM Plex Sans"
+      ]
+    },
+    "colours": [
+      {
+        "colour": "#D9D2C3",
+        "uses": 51
+      },
+      {
+        "colour": "#1F3A4D",
+        "uses": 38
+      },
+      {
+        "colour": "#FFFFFF",
+        "uses": 13
+      },
+      {
+        "colour": "#C2462B",
+        "uses": 11
+      },
+      {
+        "colour": "#5B6B75",
+        "uses": 4
+      },
+      {
+        "colour": "#F6F3EC",
+        "uses": 1
+      },
+      {
+        "colour": "#2F6B4F",
+        "uses": 1
+      }
+    ],
+    "off_palette": [],
+    "signal_misuse": [],
+    "gradients": [],
+    "shadows": [],
+    "big_radius": [],
+    "transitions": [],
+    "uppercase": [],
+    "emoji": [],
+    "exclamations": [],
+    "title_case": [],
+    "money": {
+      "elements": 8,
+      "tabular": 8
+    },
+    "negative_red": [],
+    "main_width": 720,
+    "content_width": 672,
+    "content_span": 672,
+    "title": "Even Keel"
+  },
+  "a11y": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "rules": []
+  },
+  "focus": {
+    "tag": "button",
+    "testid": "add-person",
+    "outline": "solid 2px rgb(31, 58, 77)",
+    "offset": "2px",
+    "shadow": "none"
+  },
+  "summary": {
+    "functional_pass": 15,
+    "functional_total": 15,
+    "functional_rate": 1,
+    "brand_pass": 16,
+    "brand_total": 16,
+    "brand_rate": 1,
+    "a11y_serious": 0,
+    "a11y_total": 0,
+    "console_errors": 0,
+    "fatal": null
+  }
+}

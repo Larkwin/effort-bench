@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.307Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 16132,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2318,
+        "output_tokens_details": {
+          "thinking_tokens": 1135
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.055444,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Every colour used comes from the palette. Signal appears only on the primary buttons and the h1::before 24×3px rule, negatives are Harbour (.neg), positives Kelp, and errors use a Harbour left border rather than red. Fraunces 600 and Plex 400/500 load from Google Fonts, type sizes stay on 40/28/16/14, radius is 6px, there are no shadows, and the focus ring is exactly 2px Harbour with a 2px offset. The only slips are minor spacing values off the 8px grid (12px input and list-row padding)."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear. Fraunces section headings sit over quiet Plex labels, and Rope-divided rows with right-aligned tabular amounts read cleanly on desktop. On mobile, Ana's 'is owed $46.66' wraps below her name while Ben's and Chloe's balances stay inline, which breaks the list's rhythm. The full-width 'Paid by' select also looks stretched on desktop."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific. Examples: 'Ana is already on the trip. Enter a different name.', 'Enter an amount as a number with at most 2 decimal places, like 12.50.', and 'Everyone is even. There is nothing to settle.' Buttons are short verbs and there is no filler. The only off note is 'owes −$13.33', which doubles the negative by pairing a verb with a minus sign."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has an empty state that says what to do next. Validation focuses the offending field, sets aria-invalid, and keeps the typed values. Split checkboxes default to everyone, including newly added people, and settle-up switches to a 'nothing to settle' message once balances are even. Gaps are small: expense errors appear below the button and aren't tied to their fields with aria-describedby, and people can't be removed."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Amounts are parsed by string into integer cents, with no float math. shares() hands leftover cents out in trip order, and settle() is a greedy creditor/debtor match that stays within n−1 transfers. The code is compact with a single render path. Weak spots: empty-state <p> elements are inserted directly inside <ul>, which is invalid; inline style attributes are mixed with classes; and money(-c).replace('-','') is redundant."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result is restrained and on-brand. Errors are marked with a Harbour rule instead of red, the wordmark is handled correctly, and there is no decorative excess. It still reads like a standard stacked-panel template, and the uneven wrapping in the mobile balances suggests no one checked the small-screen layout closely."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Minified, densely packed JS and CSS with inline style attributes ('font-weight:500') sprinkled through the render code"
+        ],
+        "brand_violations": [
+          "Spacing off the 8px grid: input padding 8px 12px and li.item padding 12px 0"
+        ],
+        "best_detail": "Validation errors are shown in Harbour with a 3px Harbour left rule rather than red, which keeps owing and mistakes calm, exactly in the brand's spirit.",
+        "worst_detail": "On mobile, the flex-wrap on balance rows pushes 'is owed $46.66' onto its own line under Ana while the other balances stay inline, making the list look broken."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

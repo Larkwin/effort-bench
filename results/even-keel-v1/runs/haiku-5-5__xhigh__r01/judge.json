@@ -1,0 +1,69 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:36:07.874Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22299,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2768,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1614
+        }
+      },
+      "cost_usd": 0.144556,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "All colours come from the seven tokens in :root and are used in their assigned roles. Signal appears only on .btn-primary and the 24×3px wordmark rule. Negative balances render in Harbour as \"-$13.33\" and positive ones in Kelp. Fraunces 600 is used for the wordmark and h2s, IBM Plex 400/500 for everything else, with tabular-nums on body, 6px radii, 1px Rope borders, no shadows, and a 2px Harbour outline with 2px offset."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is calm and clear: Fraunces panel titles, Fog 14px hints, Rope dividers, and amounts right-aligned in tabular figures. On desktop, `.form-row { align-items: flex-end }` combined with the hint under Amount pushes the Description label and input about 50px below the Amount label, which looks visibly misaligned. A full 44px bordered Remove button on every expense also adds bulk to the list."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Errors say what to fix: \"Enter an amount greater than $0.\", \"Ana is already on the trip. Enter a different name.\", \"Choose at least one person to split between.\" Empty states point to the next step (\"Add people above before you log an expense.\"). Buttons are short verbs, and there are no exclamation marks, emoji or filler. The balance labels \"is owed\" / \"owes\" are plain and helpful."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every empty state is covered, including \"Everyone is even. No payments needed.\" Validation keeps typed values, focuses the bad field and sets aria-invalid. The selected payer persists between expenses, and each expense shows its per-person shares, so leftover cents are visible. The settle-up list reads as plain sentences (\"Chloe pays Ana $33.33\"). There is no undo or confirmation on Remove, and the misaligned desktop form slightly hurts scanning."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "Amounts are parsed by regex straight into integer cents with no float maths. sharesFor hands out leftover cents in trip order, and the greedy settle produces at most n−1 transfers. load() validates stored data before using it, all output passes through esc(), and the markup uses fieldset/legend, role=alert errors, a role=status live region, and programmatic focus after removal. Mixing ES5 var style with Set/Map/padEnd is a minor inconsistency."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result is restrained and specific to Even Keel. Checkbox chips switch to a Harbour border when checked, and buttons underline on hover rather than shifting colour, which keeps Signal pure. Explanatory hints sit under each panel title. The four identical stacked panels and the oversized Remove buttons feel somewhat default."
+        },
+        "overall": 9,
+        "ai_tells": [],
+        "brand_violations": [],
+        "best_detail": "Each expense lists its exact per-person shares (\"Ana $3.34, Ben $3.33, Chloe $3.33\"), which makes the leftover-cents rule visible and builds trust that the split is fair.",
+        "worst_detail": "On desktop, the Description field sits about 50px lower than the Amount field beside it, because the row is bottom-aligned and only Amount has a hint underneath."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

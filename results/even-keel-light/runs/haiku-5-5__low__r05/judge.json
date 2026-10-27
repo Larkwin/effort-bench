@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.078Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20367,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2337,
+        "output_tokens_details": {
+          "thinking_tokens": 985
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.064104,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and primary buttons. Signal #C2462B is used sparingly as the masthead rule, focus ring and transfer arrows. The warm paper #F4F0E8 and Fraunces/Instrument Sans pairing feel steady and trustworthy rather than bank-like. Debts are coloured in Signal red against a green 'is owed'. That is softened by plain labels ('owes') and no minus signs, but it still mildly codes owing as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif h2s, muted hints and tabular-nums amounts, with consistent 20px card padding and gaps, and the 390px layout stacks cleanly. Several things are uneven. The masthead band stops at 1000px on desktop, leaving beige gutters on both sides. The right column leaves a large empty area below Settle up. Expense rows stack the amount above the Remove button, so the amount sits higher than the description."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'No one yet. Add the people on your trip, starting with you.', '\"Ana\" is already on the trip. Names must be unique.', 'Your trip is saved on this device.' and verb buttons. Two lapses. The note 'Positive means you are owed. Negative means you owe.' contradicts the display, which shows no signs. 'Chloe pays → Ana' doubles the verb and the arrow."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Empty states exist for every section and adapt, e.g. 'Everyone is even. Nothing to settle.' Validation is inline with role=alert, focuses the bad field and keeps typed values. Everyone is preselected in the split, shown as pill checkboxes, and the expense meta lists each person's cents-accurate share. Gaps: focus is lost after Remove, there is no confirmation or undo, and on mobile the balances sit far below a long expense list."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled correctly in integer cents. parseAmount uses a regex with no floats, sharesFor gives leftover cents in trip order, and the greedy settle bounds the number of transfers. Semantics are sound: a fieldset/legend for the split, sections with aria-labelledby, and labels for every input. Weaknesses: a dead statement in the Remove handler (`$(\"expenses-body\").querySelector(...) && null;`), an unused .sr-only class, and a '-5' amount gets the decimal-places message instead of a clear one."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette, serif masthead with a Signal rule and warm paper ground are clearly deliberate choices for Even Keel. Explanatory hints such as 'Order here sets how leftover cents are shared' show attention to the brief. Other parts lean on a common template: white shadowed cards with 14px radii, initials avatars and pill checkboxes."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Soft drop shadow plus border on every card (--shadow applied to .card)",
+          "Initials avatar circles in the people list ('AN', 'BE', 'CH') that add little",
+          "Dead code line in the delete handler: `$(\"expenses-body\").querySelector(\"h2, .empty, ul\") && null;`",
+          "Unused .sr-only utility class"
+        ],
+        "brand_violations": [
+          "Balances colour debts in Signal red against green for credit, which leans toward treating owing as a problem rather than as normal"
+        ],
+        "best_detail": "Each expense shows its exact per-person split ('Ana $3.34, Ben $3.33, Chloe $3.33'), which makes the leftover-cent fairness rule visible and builds trust in a quiet way.",
+        "worst_detail": "The balance footnote 'Positive means you are owed. Negative means you owe.' describes signs the UI never shows, because amounts are displayed as absolute values with 'owes' or 'is owed' labels."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.108Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15935,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2264,
+        "output_tokens_details": {
+          "thinking_tokens": 916
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.05451,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D carries the header, headings and primary buttons. Signal #C2462B appears only as a 6px header rule, the focus ring and the settle-up accent bar, all on a warm sand #F6F2EA ground. Fraunces with Public Sans reads steady and trustworthy rather than bank-like, and the tagline 'Owing a friend is normal; this just shows you how to square up' states the principle directly. The one misreading is the red -$13.33 / 'owes' treatment (--owe:#9E3520) against green for 'is owed', which codes owing as a warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif section heads, muted hints, then content, on a consistent 14–20px rhythm. The mobile stack is clean, with no overflow, 44px targets and a split grid that wraps sensibly. On desktop the right column ends well above the left, leaving dead space under Settle up. The full-width expense rows strand the amounts far from their descriptions, and the bordered Remove buttons are heavier than the rows they sit in."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Errors are plain and specific: 'Add a description so everyone knows what this was for.', 'Use at most 2 decimal places for the amount.', 'Ana is already on the trip. Names must be different, ignoring capitals.' Empty states point to the next step, and buttons are verbs ('Add person', 'Add expense', 'Remove'). 'Order matters only for leftover cents.' exposes an implementation detail most users won't care about, and 'to get started' is slightly stock."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief state is handled: empty states in each section, inline role=alert errors that keep typed input, split checkboxes default to everyone and preserve unchecked choices across re-renders, focus returns to the input after adding, and there is an 'Everyone is even' state. The settle-up rows ('Chloe pays Ana $33.33') are easy to act on. Gaps: errors persist until the next successful submit rather than clearing on edit, removal has no undo, and the error on the expense form sits below the button and is not tied to a specific field."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The money logic is correct. Integer cents are used throughout, leftover cents go to selected people in trip order via state.people.filter, greedy settlement yields at most n−1 transfers, and amount validation uses a regex plus Math.round. Semantics are good: a fieldset/legend for the split, labelled inputs, aria-labelledby sections, and per-expense aria-labels on Remove. Readability suffers from minified-style names (el, $, x, d, r), inline style tweaks (box.firstChild.style.marginTop, sp.style.display) and missing aria-invalid or describedby on the expense fields."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette, type pairing and use of Signal as a sparing accent feel chosen for Even Keel rather than defaulted. The header's red keel-line is a quiet brand gesture. The card-per-section grid and pill name chips are more template-like, and the red/green balance convention is a reflex rather than a brand decision."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill-shaped people chips with border-radius:999px",
+          "Uniform white card wrapping every section with identical treatment",
+          "Conventional red/green positive-negative balance colouring applied by reflex"
+        ],
+        "brand_violations": [
+          "Negative balances are shown in red with a minus sign (.neg color #9E3520), framing owing as a problem despite the principle that owing money is normal"
+        ],
+        "best_detail": "The settle-up rows ('Chloe pays Ana' with the amount in Fraunces and a Signal left rule) turn the answer into a clear, calm, actionable instruction, using the brand accent where it matters most.",
+        "worst_detail": "Colouring debts red and credits green contradicts the 'owing is normal' principle that the tagline itself states."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

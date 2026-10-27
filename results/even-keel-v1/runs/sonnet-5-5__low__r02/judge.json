@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.314Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 14317,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2120,
+        "output_tokens_details": {
+          "thinking_tokens": 943
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.049834,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Palette, Fraunces/Plex loading, the 24×3 Signal rule before the wordmark, 6px radii, 1px Rope borders, no shadows and a 2px Harbour focus ring with 2px offset are all applied. Negative balances are correctly Harbour with a minus sign. Two colours fall outside the palette: `button.primary:hover{background:#A93A22}` is an off-palette darker Signal, and the split checkboxes render in default browser blue because no accent-color is set."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clean: Fraunces section headings, 14px Fog metadata under each expense, and right-aligned tabular amounts in balances and transfers. The 8px rhythm holds and the 390px layout stacks without overflow. Weak spots are the default blue checkboxes and the doubled balance string ('owes $13.33 (−$13.33)'), which reads cluttered on mobile."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Enter an amount greater than $0.', 'Use at most 2 decimal places in the amount.', 'Ana is already on the trip. Use a different name.' Empty states point to a next step: 'Add people first, then log what you spend.' and 'Everyone is even.' The redundant 'owes $X (−$X)' phrasing and the slightly odd 'even' label for a zero balance are the only rough edges."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required flows work. Typed values are kept when validation fails, the payer selection and checkbox states survive a re-render, and empty states adapt to context (no people vs no expenses). Settle-up rows are easy to read. Error messages use role=alert but are not tied to their inputs with aria-invalid or aria-describedby, and the expense error sits below the button, far from the field it refers to."
+        },
+        "code_quality": {
+          "score": 3,
+          "evidence": "The logic is correct: integer cents are parsed from the string, leftover cents go out in trip order, greedy matching keeps transfers at most n−1, and the form-error testid is toggled on and off. Readability suffers from minified style, cryptic IDs (pf, ep, tl) and inline styles. `esc()` does not escape quotes, so a name containing `\"` breaks the `value=` and `data-person` attributes."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Restrained and specific to the brand: a quiet three-panel column, Harbour-on-Paper text, Kelp used only for 'is owed', and no decoration. The browser-default blue checkboxes and the generic outlined 'Remove' buttons are the few places where it looks like defaults were left unexamined."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Default browser blue checkboxes left unstyled in an otherwise curated palette",
+          "Minified, terse code with single-letter IDs and inline style attributes"
+        ],
+        "brand_violations": [
+          "Off-palette hover colour #A93A22 on primary buttons (shades of Signal are not allowed)",
+          "Split checkboxes render in default browser blue, a colour outside the palette"
+        ],
+        "best_detail": "Negative balances are shown in Harbour as 'owes $13.33' while only positive balances use Kelp, which follows the brand's 'owing is normal' rule exactly.",
+        "worst_detail": "Balance rows repeat the amount as 'owes $13.33 (−$13.33)', redundant copy that adds clutter, especially at mobile width."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 3,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

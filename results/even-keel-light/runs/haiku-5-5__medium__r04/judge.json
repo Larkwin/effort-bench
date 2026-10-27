@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.135Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 17735,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1967,
+        "output_tokens_details": {
+          "thinking_tokens": 555
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.05514,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D drives the header, headings and primary buttons. Signal #C2462B appears as a 4px rule under the header and in focus rings, set on a warm paper (#F4F0E8) and card (#FFFDF9) palette that feels steady rather than bank-like. Fraunces headings with Figtree body suit 'quietly confident', and balances read 'is owed'/'owes' instead of minus signs. The one misreading is that every debtor's amount is painted in Signal red, which frames owing as an alert and works against the brief's principle."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "There is a clear hierarchy: serif card titles, muted hints, and tabular serif amounts aligned right in the expense, balance and settle lists. Hairline dividers keep the rhythm even, and the mobile view stacks cleanly with a full-width Add expense button. Weaknesses: the desktop 5fr/7fr grid leaves a large void under Expenses, the empty-state expense form shows a blank select and a 'Split between' label with nothing under it, and the pill chips sit slightly apart from the 10px-radius fields."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "The copy is plain and specific throughout: 'Untick anyone who didn't share this one.', 'The fewest payments that bring everyone back to even.', '2 payments will settle the trip.' Errors say exactly what to do: 'Enter an amount greater than $0 with at most 2 decimal places, like 42.50.' The Balances hint 'Owed money is positive; money owed is negative.' is clumsy and contradicts the display, which shows unsigned amounts with words."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Each card has its own empty state, and the settle card's message changes with context (no people, no expenses, everyone even). Errors are inline with role=alert, focus moves to the faulty field, and typed values are kept. Settle-up rows are easy to read and end with a summary count. Thin spots: the expense form is fully exposed but unusable before anyone is added, removing an expense has no undo or confirmation, and the only confirmation after adding a person is the list updating."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "A single IIFE with a small state object and pure helpers: shares() works in integer cents with base plus remainder in trip order, and settle() is a greedy match with a comment explaining the n-1 bound. Persisted data is validated on load, output is escaped, and the markup uses fieldset/legend, aria-invalid/aria-describedby, and focus management to headings after delete. Minor issues: input and change listeners are duplicated, clearErrors strips every aria-describedby in the document, and the parser quietly accepts forms like '1.500'."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The Harbour bar with a Signal underline, the warm paper ground, and the Fraunces/Figtree pairing read as deliberate choices for this brand, with no gradients, emoji or icon clutter. The card grid, initial avatars and pill checkbox chips are fairly standard patterns that pull it slightly toward template territory."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Initial-letter avatar circles in the People list are a stock pattern that adds little",
+          "Pill-shaped (999px radius) checkbox chips beside 10px-radius fields",
+          "Every section sits in an identical rounded card with the same weight"
+        ],
+        "brand_violations": [
+          "Debtor balances ('$13.33 owes') are coloured in Signal red as a warning, which frames owing as a problem against the principle 'Owing money between friends is normal, not a problem'",
+          "The Balances hint talks about positive/negative values while the UI shows unsigned amounts, which is less plain than the voice asks for"
+        ],
+        "best_detail": "Balances are shown as an absolute amount followed by 'is owed' or 'owes' in calm muted text, with a settle summary line ('2 payments will settle the trip.'), which makes the money plain and human.",
+        "worst_detail": "Before anyone is added, the expense form shows an empty payer dropdown and a bare 'Split between' label instead of a prompt to add people first.\nworst_detail_placeholder"
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

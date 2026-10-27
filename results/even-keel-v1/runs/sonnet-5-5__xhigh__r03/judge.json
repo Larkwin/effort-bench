@@ -1,0 +1,72 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.271Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20854,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2368,
+        "output_tokens_details": {
+          "thinking_tokens": 1054
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.065388,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "The palette is exactly the seven hexes in their roles: Signal is limited to `.btn-primary` and the wordmark `.rule`, Kelp marks positive balances, and negatives show in Harbour as `-$13.33`. The type sizes stay on the 14/16/20/28/40 scale, with Fraunces 600 for the wordmark and h2s and Plex 400/500 for everything else. Money uses tabular-nums, and the layout follows the rules: 6px radius, 1px Rope borders, no shadows, a 2px Harbour focus ring with 2px offset, 150ms transitions, a 720px column, and 24px/16px side padding."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is calm and clear: serif headings, label/hint pairs, expense rows with the amount right-aligned and a quiet secondary Remove button, and an 8px spacing rhythm throughout. The mobile stack is clean, with no overflow. The no-people state is awkward, though: the split hint is placed inside the 136px auto-fill grid, so it wraps into a narrow three-line ragged column. The bordered people chips also look like clickable buttons."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The strings are plain and specific and address the user as 'you'. Examples: 'Add the first person on your trip to get started.', 'Ana is already on this trip. Use a different name.', 'Enter the amount as a number, like 24.50.' and 'Everyone is even. Nobody needs to pay anyone.' Buttons are short verbs, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required states are covered. Every panel has an empty state, and settle-up switches to an 'everyone is even' state once expenses exist. Validation is inline, sets aria-invalid, focuses the field and keeps what the user typed. Focus is restored after a removal, a live region announces actions, and the payer select is disabled until people exist. The weak spots are the cramped split-between empty hint, a 'selected by default' hint shown when nothing can be selected, and a settle-up list that is readable but plain."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is in integer cents throughout. Leftover cents follow the order people were added, because the split is filtered through state.people. The greedy max-creditor/max-debtor settle-up guarantees at most n−1 transfers. Loading from localStorage is defensive, and the h() helper keeps rendering tidy, with good semantics (fieldset/legend, labelled sections). Minor blemishes: an unused `.form-gap` selector, the misspelled storage key 'evenkel', a setTimeout-based announce, and banner comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained. Primary buttons hover to Harbour instead of a tint, the error box is a neutral Sailcloth panel so it doesn't look like a red alarm, and balances read 'is owed'/'owes' in Fog under the name. It is still a fairly standard stack of five identical panels, and settle-up gets no special emphasis."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Banner section comments in the JS, such as '/* ---------- helpers ---------- */'",
+          "Uniform stack of five identically styled panels with equal visual weight"
+        ],
+        "brand_violations": [],
+        "best_detail": "Negative balances are shown in Harbour with a minus sign and a Fog 'owes' label, while the error box uses neutral Sailcloth/Rope, so owing money and mistakes never look alarming, exactly as the brand asks.",
+        "worst_detail": "With no people, the 'Add people to your trip to choose who shares an expense.' hint is rendered inside the 136px checkbox grid and wraps into a cramped three-line column under an irrelevant 'Everyone is selected by default' hint."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

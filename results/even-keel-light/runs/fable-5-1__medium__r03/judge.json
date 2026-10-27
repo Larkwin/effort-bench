@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.134Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22668,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2560,
+        "output_tokens_details": {
+          "thinking_tokens": 1235
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.070936,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D carries headings, primary buttons and selected chips. Signal #C2462B is held back for step eyebrows, focus rings, transfer arrows and checkbox accents, on a warm paper (#F6F3EE) ground. Fraunces with IBM Plex Sans reads steady and trustworthy, and the principle is built in: negative balances use calm Harbour on a Harbour tint rather than red, and the lead says \"Being owed or owing a bit is just how trips go.\" The keel-and-dot logo mark is small but specific."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear. Serif headings and serif tabular amounts set money apart from Plex body text, and list rows use consistent hairline dividers and spacing. Mobile stacks cleanly, and the settle-up rows reflow so the amount drops onto its own line under 420px. Weak spots: on desktop the transfer grid (1fr auto 1fr auto) leaves a wide gap between \"Chloe →\" and \"Ana\", and the Remove buttons float under the amounts with a slightly loose rhythm."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Errors are specific and calm, for example \"“Ana” is already on the trip. Try a nickname or add a last initial.\" and \"The amount has to be more than $0.00.\" Empty states are useful (\"Add the first person — probably you.\"), and the settle note is honest (\"the fewest transfers we could find\"). Minor slips: \"paid for 1 thing\" is a little clunky, and \"Everyone\"/\"No one\" are not verb buttons."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required state is handled: empty states for each card, inline validation that keeps input and focuses the offending field, split selections preserved across re-renders, an all-even state, a confirm before \"Start a new trip\", and focus moved after a delete. Gaps: no undo for Remove, and no way to remove a person. The step numbering is also inconsistent: Expenses and Settle up have no step, and Step 3 sits below an unnumbered card."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled in integer cents with a string parser (no float math). The remainder goes to people in trip order via sharesFor, the greedy settle gives at most n−1 transfers, and output is escaped throughout. State, rendering and events are cleanly separated. Blemishes: an invalid `<label as=\"span\">` inside a legend plus a redundant role=group/aria-labelledby, many inline styles injected from JS for empty states, and a duplicated `.col` grid rule."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The choices feel intentional and tied to the brand. Owing is shown in Harbour rather than alarm red, Signal is used sparingly, and the warm paper, serif money figures and diverging balance bars all fit. It still leans on familiar patterns: a white card with a shadow for every section, uppercase step eyebrows and pill chips."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Subtle decorative top gradient on body (linear-gradient #EEF2F4 → paper)",
+          "Every section is an identical bordered white card with the same soft shadow",
+          "Uppercase letter-spaced 'STEP 1/2/3' eyebrow labels, applied inconsistently",
+          "Pill-shaped (999px radius) checkbox chips"
+        ],
+        "brand_violations": [],
+        "best_detail": "Negative balances are rendered in calm Harbour navy on a Harbour tint, while positives get a quiet green, which directly enacts 'owing money between friends is normal, not a problem'.",
+        "worst_detail": "The step numbering breaks down: Step 3 'Where everyone stands' sits under an unnumbered Expenses card, and Settle up has no step at all, which muddles the sequence the eyebrows promise."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

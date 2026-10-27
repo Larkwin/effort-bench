@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.295Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15701,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2082,
+        "output_tokens_details": {
+          "thinking_tokens": 812
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.052222,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette and colour roles are mostly right. Signal appears only on primary buttons and the 24×3 wordmark rule, negative balances are Harbour with a real minus sign ('−$13.33 owes'), Kelp marks positive balances, and Fraunces/Plex load correctly with tabular-nums on .money. There are three breaks: the off-palette hover colour `.primary:hover{background:#A93A22}`, input borders in Fog (#5B6B75) instead of Rope, and non-8px spacing values (h1 gap 12px, li padding 12px, input padding 12px)."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Desktop is calm and well ordered. It has a clear Fraunces heading per panel, consistent 24px panel rhythm, right-aligned tabular amounts, and quiet Rope dividers. On mobile, flex-wrap with `flex:1 1 200px` makes Ana's longer '$46.66 is owed' drop to its own line while Ben and Chloe stay inline. The expense Remove buttons also wrap under the metadata, which looks a little loose."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Buttons are short sentence-case verbs ('Add person', 'Add expense', 'Remove'). Errors say what to fix ('Enter an amount greater than $0.', 'Use at most 2 decimal places in the amount.', 'Ana is already on the trip. Enter a different name.'). Empty states are one actionable sentence ('Add the first person on your trip.'), and there is no filler, emoji or exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required states are covered. Each panel has an empty state, and the expense form is hidden until people exist with an explanation. Settle-up messaging changes with context ('Log an expense…', 'Everyone is even…'). Typed values are kept on error, split selections survive re-render, and focus returns to the first field after adding. A malformed amount such as '1,000' or 'abc' gets the misleading 'greater than $0' message, and errors are not linked to their fields via aria-describedby."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cents parsing avoids floats. Leftover cents go to people in trip order by filtering state.people, the greedy settle-up yields at most n−1 transfers, and localStorage loading is guarded. Semantics are solid: labels, fieldset/legend for the split, role=alert errors, aria-label on Remove. The code is minified and terse, though, with one-letter names, an `el_` variable and inline style attributes, which hurts readability and extension."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result is restrained and specific to the brief. It follows the wordmark construction, Harbour error styling instead of red, and a 'is owed' / 'owes' balance phrasing that reads as a deliberate choice. The five identical stacked panels are a bit template-like, but nothing is decorative or default-looking."
+        },
+        "overall": 8,
+        "ai_tells": [],
+        "brand_violations": [
+          "Primary button hover uses #A93A22, a colour outside the palette",
+          "Input and select borders use Fog #5B6B75 rather than 1px Rope",
+          "Spacing values break the 8px grid: h1 gap 12px, li padding 12px 0, input padding 8px 12px, ghost button padding 4px 12px"
+        ],
+        "best_detail": "Negative balances are shown in Harbour as '−$13.33 owes' beside a Kelp '$46.66 is owed', which treats owing as normal exactly as the brand asks.",
+        "worst_detail": "On mobile the flex-wrap rule breaks Ana's balance onto a second line while the others stay inline, so the balances list reads inconsistently at 390px."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

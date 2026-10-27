@@ -1,0 +1,436 @@
+{
+  "run_id": "fable-5-1__low__r01",
+  "profile": "light",
+  "checked_at": "2026-10-22T00:45:28.831Z",
+  "functional": [
+    {
+      "id": "F01",
+      "name": "Adds three people",
+      "pass": true,
+      "detail": "3 people listed",
+      "ms": 111
+    },
+    {
+      "id": "F02",
+      "name": "Rejects a duplicate name ignoring case",
+      "pass": true,
+      "detail": "3 people; message shown: true",
+      "ms": 141
+    },
+    {
+      "id": "F03",
+      "name": "Rejects an empty expense with a message",
+      "pass": true,
+      "detail": "0 expenses; message shown: true",
+      "ms": 135
+    },
+    {
+      "id": "F04",
+      "name": "Rejects 3 decimal places and keeps the typed description",
+      "pass": true,
+      "detail": "0 expenses; description field: \"Snacks\"",
+      "ms": 32
+    },
+    {
+      "id": "F05",
+      "name": "Computes balances for two equal splits",
+      "pass": true,
+      "detail": "got {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}, want {\"Ana\":5000,\"Ben\":-1000,\"Chloe\":-4000}",
+      "ms": 66
+    },
+    {
+      "id": "F06",
+      "name": "Settle-up zeroes every balance within n−1 transfers",
+      "pass": true,
+      "detail": "2 transfers [{\"from\":\"Chloe\",\"to\":\"Ana\",\"cents\":4000},{\"from\":\"Ben\",\"to\":\"Ana\",\"cents\":1000}]; residual {\"Ana\":0,\"Ben\":0,\"Chloe\":0}",
+      "ms": 2
+    },
+    {
+      "id": "F07",
+      "name": "Gives leftover cents to the earliest-added people",
+      "pass": true,
+      "detail": "change {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}, want {\"Ana\":-334,\"Ben\":-333,\"Chloe\":667}",
+      "ms": 31
+    },
+    {
+      "id": "F08",
+      "name": "Splits between a subset of people",
+      "pass": true,
+      "detail": "change {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}, want {\"Ana\":1000,\"Ben\":-1000,\"Chloe\":0}",
+      "ms": 33
+    },
+    {
+      "id": "F09",
+      "name": "Lists expenses newest first",
+      "pass": true,
+      "detail": "first expense: \"Museum $20.00 Ana paid · split between Ana, Ben Remove\"",
+      "ms": 0
+    },
+    {
+      "id": "F10",
+      "name": "Removing an expense restores balances",
+      "pass": true,
+      "detail": "3 expenses; balances {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}, want {\"Ana\":4666,\"Ben\":-1333,\"Chloe\":-3333}",
+      "ms": 135
+    },
+    {
+      "id": "F11",
+      "name": "Survives a reload",
+      "pass": true,
+      "detail": "before: 3 people, 3 expenses; after: 3 people, 3 expenses, balances unchanged",
+      "ms": 123
+    },
+    {
+      "id": "F12",
+      "name": "Formats money as Canadian dollars",
+      "pass": true,
+      "detail": "expense amounts and every balance use $0.00 format",
+      "ms": 2
+    },
+    {
+      "id": "F13",
+      "name": "Keyboard focus is visible",
+      "pass": true,
+      "detail": "button[add-person]: outline none 3px rgb(255, 255, 255), offset 0px, shadow rgb(255, 255, 255) 0px 0px 0px 3px, rgb(194, 70, 43) 0px 0px 0px 6px",
+      "ms": 5
+    },
+    {
+      "id": "F14",
+      "name": "No horizontal scrolling at 390px",
+      "pass": true,
+      "detail": "scrollWidth 390 vs viewport 390",
+      "ms": 1
+    },
+    {
+      "id": "F15",
+      "name": "Shows user input as text, not HTML",
+      "pass": true,
+      "detail": "script ran: false; shown literally: true",
+      "ms": 195
+    }
+  ],
+  "brand": [
+    {
+      "id": "L01",
+      "name": "Uses both anchor colours",
+      "pass": true,
+      "detail": "Harbour used; Signal used"
+    },
+    {
+      "id": "L02",
+      "name": "Owing is not shown as a problem (red)",
+      "pass": false,
+      "detail": "Ben: #C2462B; Chloe: #C2462B"
+    },
+    {
+      "id": "S01",
+      "observe": true,
+      "name": "Typefaces",
+      "detail": "headings: Fraunces; UI: Inter"
+    },
+    {
+      "id": "S02",
+      "observe": true,
+      "name": "Palette size",
+      "detail": "13 solid colours, 0 with transparency; top: #1F3A4D, #D6D0C4, #B8C3CB, #4D6271, #FFFFFF, #1A2A36"
+    },
+    {
+      "id": "S03",
+      "observe": true,
+      "name": "Gradients",
+      "detail": "none"
+    },
+    {
+      "id": "S04",
+      "observe": true,
+      "name": "Shadows or blur",
+      "detail": "section.card; section.card; section.card; section.card (+1)"
+    },
+    {
+      "id": "S05",
+      "observe": true,
+      "name": "Corner radius over 8px",
+      "detail": "10 elements, up to 999px"
+    },
+    {
+      "id": "S06",
+      "observe": true,
+      "name": "Emoji",
+      "detail": "none"
+    },
+    {
+      "id": "S07",
+      "observe": true,
+      "name": "Exclamation marks",
+      "detail": "none"
+    },
+    {
+      "id": "S08",
+      "observe": true,
+      "name": "Title Case or all caps",
+      "detail": "title case: none; uppercase: none"
+    },
+    {
+      "id": "S09",
+      "observe": true,
+      "name": "Tabular figures for money",
+      "detail": "8/8 money elements"
+    },
+    {
+      "id": "S10",
+      "observe": true,
+      "name": "Column width",
+      "detail": "content spans 1074px at 1280px"
+    },
+    {
+      "id": "S11",
+      "observe": true,
+      "name": "Motion",
+      "detail": "none"
+    }
+  ],
+  "console_errors": [],
+  "page_errors": [],
+  "blocked_requests": [],
+  "screenshots": {
+    "empty-desktop": "empty-desktop.jpg",
+    "filled-desktop": "filled-desktop.jpg",
+    "filled-mobile": "filled-mobile.jpg"
+  },
+  "missing_hooks_at_start": [],
+  "audit": {
+    "fonts": {
+      "headings": [
+        {
+          "el": "h1",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-people",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-add",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-expenses",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-balances",
+          "family": "Fraunces"
+        },
+        {
+          "el": "h2#h-settle",
+          "family": "Fraunces"
+        }
+      ],
+      "ui_total": 68,
+      "ui_plex": 0,
+      "ui_other": [
+        "Inter (a.skip)",
+        "Inter (p)",
+        "Inter (p.lede)",
+        "Inter (label)"
+      ],
+      "ui_main": "Inter",
+      "loaded": [
+        "Fraunces",
+        "Inter",
+        "Inter",
+        "Inter"
+      ]
+    },
+    "colours": [
+      {
+        "colour": "#1F3A4D",
+        "uses": 50
+      },
+      {
+        "colour": "#D6D0C4",
+        "uses": 28
+      },
+      {
+        "colour": "#B8C3CB",
+        "uses": 28
+      },
+      {
+        "colour": "#4D6271",
+        "uses": 16
+      },
+      {
+        "colour": "#FFFFFF",
+        "uses": 13
+      },
+      {
+        "colour": "#1A2A36",
+        "uses": 12
+      },
+      {
+        "colour": "#C2462B",
+        "uses": 6
+      },
+      {
+        "colour": "#E3EAEF",
+        "uses": 6
+      },
+      {
+        "colour": "#ECE8DF",
+        "uses": 6
+      },
+      {
+        "colour": "#F5F2EC",
+        "uses": 3
+      },
+      {
+        "colour": "#0000EE",
+        "uses": 1
+      },
+      {
+        "colour": "#C9D6DE",
+        "uses": 1
+      },
+      {
+        "colour": "#2E6B5E",
+        "uses": 1
+      }
+    ],
+    "off_palette": [
+      {
+        "colour": "#B8C3CB",
+        "uses": 28,
+        "props": [
+          "border"
+        ],
+        "sample": "input#person-name[data-testid=person-name]"
+      },
+      {
+        "colour": "#4D6271",
+        "uses": 16,
+        "props": [
+          "color"
+        ],
+        "sample": "p.lede"
+      },
+      {
+        "colour": "#1A2A36",
+        "uses": 12,
+        "props": [
+          "color"
+        ],
+        "sample": "input#person-name[data-testid=person-name]"
+      },
+      {
+        "colour": "#E3EAEF",
+        "uses": 6,
+        "props": [
+          "background"
+        ],
+        "sample": "span.avatar"
+      },
+      {
+        "colour": "#ECE8DF",
+        "uses": 6,
+        "props": [
+          "border"
+        ],
+        "sample": "li[data-testid=person]"
+      },
+      {
+        "colour": "#0000EE",
+        "uses": 1,
+        "props": [
+          "color"
+        ],
+        "sample": "a.skip"
+      },
+      {
+        "colour": "#C9D6DE",
+        "uses": 1,
+        "props": [
+          "color"
+        ],
+        "sample": "p"
+      },
+      {
+        "colour": "#2E6B5E",
+        "uses": 1,
+        "props": [
+          "color"
+        ],
+        "sample": "span.bal.pos"
+      }
+    ],
+    "signal_misuse": [
+      "div.wrap border",
+      "span.bal.neg color",
+      "span.bal.neg color",
+      "span.arrow color",
+      "span.arrow color"
+    ],
+    "gradients": [],
+    "shadows": [
+      "section.card",
+      "section.card",
+      "section.card",
+      "section.card",
+      "section.card"
+    ],
+    "big_radius": [
+      "section.card 10px",
+      "span.avatar 17px",
+      "span.avatar 17px",
+      "span.avatar 17px",
+      "section.card 10px",
+      "label 999px",
+      "label 999px",
+      "label 999px",
+      "section.card 10px",
+      "section.card 10px"
+    ],
+    "transitions": [],
+    "uppercase": [],
+    "emoji": [],
+    "exclamations": [],
+    "title_case": [],
+    "money": {
+      "elements": 8,
+      "tabular": 8
+    },
+    "negative_red": [
+      "Ben: #C2462B",
+      "Chloe: #C2462B"
+    ],
+    "main_width": 1120,
+    "content_width": 1120,
+    "content_span": 1074,
+    "title": "Even Keel — split trip costs fairly"
+  },
+  "a11y": {
+    "critical": 0,
+    "serious": 0,
+    "moderate": 0,
+    "minor": 0,
+    "rules": []
+  },
+  "focus": {
+    "tag": "button",
+    "testid": "add-person",
+    "outline": "none 3px rgb(255, 255, 255)",
+    "offset": "0px",
+    "shadow": "rgb(255, 255, 255) 0px 0px 0px 3px, rgb(194, 70, 43) 0px 0px 0px 6px"
+  },
+  "summary": {
+    "functional_pass": 15,
+    "functional_total": 15,
+    "functional_rate": 1,
+    "brand_pass": 1,
+    "brand_total": 2,
+    "brand_rate": 0.5,
+    "a11y_serious": 0,
+    "a11y_total": 0,
+    "console_errors": 0,
+    "fatal": null
+  }
+}

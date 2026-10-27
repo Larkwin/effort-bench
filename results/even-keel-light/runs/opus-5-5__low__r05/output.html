@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Even Keel: trip expense splitter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --harbour:#1F3A4D;--harbour-2:#2C5068;--signal:#C2462B;--signal-dk:#A33A22;
+  --sand:#F6F2EA;--paper:#FFFDF9;--line:#DCD4C6;--ink:#1B2730;--muted:#55636D;
+  --owed:#1E6B4F;--owes:#A33A22;--focus:#C2462B;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--sand);color:var(--ink);font:400 16px/1.5 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2{font-family:Fraunces,Georgia,serif;font-weight:650;letter-spacing:-.01em;margin:0}
+header{background:var(--harbour);color:#fff;padding:28px 20px 72px}
+.wrap{max-width:1080px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{flex:none}
+h1{font-size:1.75rem}
+header p{margin:8px 0 0;color:#D5E0E8;max-width:36rem}
+main{max-width:1080px;margin:-48px auto 48px;padding:0 16px;display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:880px){main{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}.col{display:grid;gap:20px;align-content:start}}
+.col{display:grid;gap:20px;align-content:start;min-width:0}
+section{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+section h2{font-size:1.25rem;color:var(--harbour);margin-bottom:4px}
+.sub{color:var(--muted);margin:0 0 16px;font-size:.94rem}
+label,.lbl{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px;color:var(--ink)}
+input[type=text],select{width:100%;font:inherit;padding:10px 12px;border:1.5px solid #8A969E;border-radius:8px;background:#fff;color:var(--ink);min-height:44px}
+input:focus-visible,select:focus-visible,button:focus-visible,.chk input:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.row{display:flex;gap:8px}
+.row input{flex:1;min-width:0}
+.field{margin-bottom:14px}
+.grid2{display:grid;gap:14px;grid-template-columns:1fr}
+@media(min-width:520px){.grid2{grid-template-columns:1fr 1fr}}
+button{font:600 .95rem "Public Sans",sans-serif;border-radius:8px;border:0;padding:10px 16px;min-height:44px;cursor:pointer}
+.primary{background:var(--harbour);color:#fff}
+.primary:hover{background:var(--harbour-2)}
+.accent{background:var(--signal);color:#fff}
+.accent:hover{background:var(--signal-dk)}
+.ghost{background:transparent;color:var(--signal-dk);border:1.5px solid transparent;padding:6px 10px;min-height:36px}
+.ghost:hover{border-color:var(--line)}
+.err{color:var(--owes);font-weight:600;font-size:.9rem;margin:8px 0 0;display:flex;gap:6px}
+.err::before{content:"!";display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--owes);color:#fff;font-size:.75rem;flex:none;margin-top:2px}
+ul{list-style:none;margin:0;padding:0}
+.people{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.people li{background:#EAF0F4;color:var(--harbour);border-radius:999px;padding:5px 12px;font-weight:600;font-size:.92rem;overflow-wrap:anywhere}
+fieldset{border:0;padding:0;margin:0 0 14px;min-width:0}
+legend{font-weight:600;font-size:.9rem;margin-bottom:6px;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chk{display:flex;align-items:center;gap:8px;border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;font-weight:500;margin:0;cursor:pointer;overflow-wrap:anywhere}
+.chk input{width:18px;height:18px;accent-color:var(--harbour);margin:0}
+.splitbtns{display:flex;gap:4px;margin-top:6px}
+.empty{color:var(--muted);background:var(--sand);border:1.5px dashed var(--line);border-radius:10px;padding:16px;margin:0;font-size:.94rem}
+.exp li{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-top:1px solid var(--line)}
+.exp li:first-child{border-top:0;padding-top:0}
+.exp .body{flex:1;min-width:0}
+.exp .t{font-weight:600;overflow-wrap:anywhere}
+.exp .m{color:var(--muted);font-size:.9rem;overflow-wrap:anywhere}
+.amt{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.bal li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:baseline}
+.bal li:first-child{border-top:0}
+.bal .n{font-weight:600;overflow-wrap:anywhere;min-width:0}
+.bal .s{font-size:.85rem;color:var(--muted);display:block;font-weight:400}
+.pos{color:var(--owed)}.neg{color:var(--owes)}.zero{color:var(--muted)}
+.tr li{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;padding:12px 14px;background:#EAF0F4;border-radius:10px;margin-bottom:8px;border-left:4px solid var(--signal)}
+.tr .who{flex:1;min-width:0;overflow-wrap:anywhere}
+.tr b{color:var(--harbour)}
+.total{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="#fff" stroke-width="2"/><path d="M6 19h22" stroke="#C2462B" stroke-width="3" stroke-linecap="round"/><path d="M9 23c3 2 13 2 16 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+    <h1>Even Keel</h1>
+  </div>
+  <p>Add who's on the trip, log what each of you paid, and see the few transfers that leave everyone even.</p>
+</div></header>
+
+<main data-testid="app">
+  <div class="col">
+    <section aria-labelledby="h-people">
+      <h2 id="h-people">People</h2>
+      <p class="sub">Everyone sharing costs on this trip.</p>
+      <form id="pform" novalidate>
+        <label for="pname">Name</label>
+        <div class="row">
+          <input type="text" id="pname" data-testid="person-name" autocomplete="off" aria-describedby="perr">
+          <button class="primary" type="submit" data-testid="add-person">Add person</button>
+        </div>
+        <div id="perr" aria-live="polite"></div>
+      </form>
+      <div id="plist"></div>
+    </section>
+
+    <section aria-labelledby="h-add">
+      <h2 id="h-add">Add an expense</h2>
+      <p class="sub">Split equally, to the cent.</p>
+      <form id="eform" novalidate>
+        <div class="field"><label for="edesc">What was it for?</label>
+          <input type="text" id="edesc" data-testid="expense-desc" placeholder="Groceries, gas, cabin…" autocomplete="off"></div>
+        <div class="grid2">
+          <div class="field"><label for="eamt">Amount (CAD)</label>
+            <input type="text" id="eamt" data-testid="expense-amount" inputmode="decimal" placeholder="0.00" autocomplete="off"></div>
+          <div class="field"><label for="epayer">Paid by</label>
+            <select id="epayer" data-testid="expense-payer"></select></div>
+        </div>
+        <fieldset>
+          <legend>Split between</legend>
+          <div class="chips" id="esplit" data-testid="expense-split"></div>
+          <div class="splitbtns" id="splitbtns"></div>
+        </fieldset>
+        <button class="accent" type="submit" data-testid="add-expense">Add expense</button>
+        <div id="eerr" aria-live="polite"></div>
+      </form>
+    </section>
+  </div>
+
+  <div class="col">
+    <section aria-labelledby="h-settle">
+      <h2 id="h-settle">Settle up</h2>
+      <p class="sub">The shortest way for everyone to end up even.</p>
+      <div id="tlist" aria-live="polite"></div>
+    </section>
+    <section aria-labelledby="h-bal">
+      <h2 id="h-bal">Balances</h2>
+      <p class="sub">What you paid minus your share.</p>
+      <div id="blist"></div>
+    </section>
+    <section aria-labelledby="h-exp">
+      <h2 id="h-exp">Expenses</h2>
+      <p class="sub">Newest first.</p>
+      <div id="elist"></div>
+    </section>
+  </div>
+</main>
+<footer>Saved on this device. Owing a friend is normal. This just keeps it clear.</footer>
+
+<script>
+(function(){
+const KEY='evenkeel.v1';
+const fmt=new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'});
+const money=c=>fmt.format(c/100);
+let S={people:[],expenses:[],nextId:1};
+try{const d=JSON.parse(localStorage.getItem(KEY));if(d&&Array.isArray(d.people)&&Array.isArray(d.expenses))S=Object.assign(S,d);}catch(e){}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let splitSel=null; // set of names; null = everyone
+
+function showErr(el,msg){el.innerHTML=msg?'<p class="err" data-testid="form-error" role="alert">'+esc(msg)+'</p>':'';}
+
+function shares(e){
+  const order=S.people.filter(p=>e.split.includes(p));
+  const n=order.length,base=Math.floor(e.cents/n),rem=e.cents-base*n,out={};
+  order.forEach((p,i)=>out[p]=base+(i<rem?1:0));
+  return out;
+}
+function balances(){
+  const b={};S.people.forEach(p=>b[p]=0);
+  S.expenses.forEach(e=>{
+    b[e.payer]=(b[e.payer]||0)+e.cents;
+    const sh=shares(e);for(const p in sh)b[p]-=sh[p];
+  });
+  return b;
+}
+function transfers(b){
+  const cr=[],db=[];
+  S.people.forEach(p=>{if(b[p]>0)cr.push({p,v:b[p]});else if(b[p]<0)db.push({p,v:-b[p]});});
+  cr.sort((a,c)=>c.v-a.v);db.sort((a,c)=>c.v-a.v);
+  const out=[];let i=0,j=0;
+  while(i<db.length&&j<cr.length){
+    const m=Math.min(db[i].v,cr[j].v);
+    out.push({from:db[i].p,to:cr[j].p,c:m});
+    db[i].v-=m;cr[j].v-=m;
+    if(!db[i].v)i++;if(!cr[j].v)j++;
+  }
+  return out;
+}
+
+function render(){
+  const P=S.people;
+  $('plist').innerHTML=P.length?'<ul class="people">'+P.map(p=>'<li data-testid="person">'+esc(p)+'</li>').join('')+'</ul>'
+    :'<p class="empty" style="margin-top:14px">No one yet. Start by adding yourself, then your friends.</p>';
+
+  const prevPayer=$('epayer').value;
+  $('epayer').innerHTML=P.length?P.map(p=>'<option value="'+esc(p)+'">'+esc(p)+'</option>').join(''):'<option value="">Add people first</option>';
+  if(P.includes(prevPayer))$('epayer').value=prevPayer;
+  $('epayer').disabled=!P.length;
+
+  const sel=splitSel?splitSel:new Set(P);
+  $('esplit').innerHTML=P.length?P.map((p,i)=>'<label class="chk"><input type="checkbox" value="'+esc(p)+'"'+(sel.has(p)?' checked':'')+'> '+esc(p)+'</label>').join('')
+    :'<p class="empty" style="width:100%">People you add will appear here.</p>';
+  $('splitbtns').innerHTML=P.length>1?'<button type="button" class="ghost" data-all="1">Everyone</button><button type="button" class="ghost" data-all="0">No one</button>':'';
+
+  const ex=S.expenses.slice().reverse();
+  $('elist').innerHTML=ex.length?'<ul class="exp">'+ex.map(e=>{
+    const all=e.split.length===P.length&&P.length>1;
+    return '<li data-testid="expense"><div class="body"><div class="t">'+esc(e.desc)+'</div><div class="m">'+esc(e.payer)+' paid · split '+(all?'between everyone':'between '+esc(S.people.filter(p=>e.split.includes(p)).join(', ')))+'</div></div><span class="amt">'+money(e.cents)+'</span><button class="ghost" data-testid="delete-expense" data-id="'+e.id+'" aria-label="Remove '+esc(e.desc)+'">Remove</button></li>';
+  }).join('')+'</ul><div class="total"><span>Trip total</span><span class="amt">'+money(S.expenses.reduce((a,e)=>a+e.cents,0))+'</span></div>'
+    :'<p class="empty">No expenses yet. When someone pays for something, add it here.</p>';
+
+  const b=balances();
+  $('blist').innerHTML=P.length?'<ul class="bal">'+P.map(p=>{
+    const c=b[p],cls=c>0?'pos':c<0?'neg':'zero',lab=c>0?'is owed':c<0?'owes':'even';
+    return '<li data-testid="balance" data-person="'+esc(p)+'" data-cents="'+c+'"><span class="n">'+esc(p)+'<span class="s">'+lab+'</span></span><span class="amt '+cls+'">'+(c>0?'+':c<0?'−':'')+money(Math.abs(c))+'</span></li>';
+  }).join('')+'</ul>':'<p class="empty">Balances show up once people are on the trip.</p>';
+
+  const T=transfers(b);
+  $('tlist').innerHTML=T.length?'<ul class="tr">'+T.map(t=>'<li data-testid="transfer" data-from="'+esc(t.from)+'" data-to="'+esc(t.to)+'" data-cents="'+t.c+'"><span class="who"><b>'+esc(t.from)+'</b> pays <b>'+esc(t.to)+'</b></span><span class="amt">'+money(t.c)+'</span></li>').join('')+'</ul>'
+    :'<p class="empty">'+(S.expenses.length?'Everyone is even. Nothing to settle.':'Nothing to settle yet. Transfers appear here as expenses are added.')+'</p>';
+}
+
+$('pform').addEventListener('submit',ev=>{
+  ev.preventDefault();
+  const inp=$('pname'),name=inp.value.trim();
+  if(!name){showErr($('perr'),'Enter a name to add someone.');inp.focus();return;}
+  if(S.people.some(p=>p.toLowerCase()===name.toLowerCase())){showErr($('perr'),'"'+name+'" is already on the trip. Try adding a last initial.');inp.focus();return;}
+  if(splitSel)splitSel.add(name);
+  S.people.push(name);save();showErr($('perr'),'');inp.value='';render();inp.focus();
+});
+$('pname').addEventListener('input',()=>showErr($('perr'),''));
+
+$('esplit').addEventListener('change',()=>{
+  splitSel=new Set([...$('esplit').querySelectorAll('input:checked')].map(c=>c.value));
+});
+$('splitbtns').addEventListener('click',ev=>{
+  const b=ev.target.closest('button');if(!b)return;
+  splitSel=b.dataset.all==='1'?null:new Set();render();
+});
+
+$('eform').addEventListener('submit',ev=>{
+  ev.preventDefault();
+  const err=$('eerr'),desc=$('edesc').value.trim(),raw=$('eamt').value.trim().replace(/[$,\s]/g,'');
+  const payer=$('epayer').value;
+  const split=[...$('esplit').querySelectorAll('input:checked')].map(c=>c.value);
+  if(!S.people.length){showErr(err,'Add at least one person before logging an expense.');$('pname').focus();return;}
+  if(!desc){showErr(err,'Add a short description, like "Groceries".');$('edesc').focus();return;}
+  if(!raw){showErr(err,'Enter an amount, like 42.50.');$('eamt').focus();return;}
+  if(!/^\d+(\.\d{1,2})?$|^\.\d{1,2}$/.test(raw)){showErr(err,'Enter the amount as a number with at most 2 decimal places, like 42.50.');$('eamt').focus();return;}
+  const [w,f='']=raw.split('.');const cents=parseInt(w||'0',10)*100+parseInt((f+'00').slice(0,2),10);
+  if(!(cents>0)){showErr(err,'The amount needs to be more than $0.00.');$('eamt').focus();return;}
+  if(cents>99999999999){showErr(err,'That amount is too large.');$('eamt').focus();return;}
+  if(!S.people.includes(payer)){showErr(err,'Choose who paid.');$('epayer').focus();return;}
+  if(!split.length){showErr(err,'Choose at least one person to split this between.');const c=$('esplit').querySelector('input');c&&c.focus();return;}
+  S.expenses.push({id:S.nextId++,desc,cents,payer,split});save();
+  showErr(err,'');$('edesc').value='';$('eamt').value='';splitSel=null;render();$('edesc').focus();
+});
+
+$('elist').addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-testid="delete-expense"]');if(!b)return;
+  S.expenses=S.expenses.filter(e=>e.id!==+b.dataset.id);save();render();
+  const next=$('elist').querySelector('[data-testid="delete-expense"]');(next||$('edesc')).focus();
+});
+
+render();
+})();
+</script>
+</body>
+</html>

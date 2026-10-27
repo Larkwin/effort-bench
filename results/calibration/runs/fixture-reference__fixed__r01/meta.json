@@ -1,0 +1,28 @@
+{
+  "run_id": "fixture-reference__fixed__r01",
+  "model": "fixture-reference",
+  "model_label": "Fixture: reference",
+  "effort": "fixed",
+  "n": 1,
+  "mode": "fixture",
+  "extraction": {
+    "method": "raw",
+    "complete": true,
+    "chatter_chars": 0,
+    "chatter_sample": "",
+    "html_bytes": 14247,
+    "html_lines": 307
+  },
+  "code": {
+    "css_lines": 57,
+    "js_lines": 174,
+    "css_custom_properties": 7,
+    "important": 0,
+    "media_queries": 1,
+    "innerHTML_writes": 0,
+    "comments": 3,
+    "aria_attributes": 10,
+    "labels": 4,
+    "external_scripts": 0
+  }
+}

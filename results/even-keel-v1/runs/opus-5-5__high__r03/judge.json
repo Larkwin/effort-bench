@@ -1,0 +1,71 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.319Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 24071,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2499,
+        "output_tokens_details": {
+          "thinking_tokens": 1215
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.073132,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Every colour used is a literal palette hex. Signal appears only on .btn-primary and .wordmark-rule, and negative balances use .owes { color: #1F3A4D } with a minus sign while positives are Kelp. Fraunces 600 and IBM Plex Sans 400/500 are loaded from Google Fonts, .money sets tabular-nums, and font sizes stay on the 14/16/20/28/40 scale. Radius is 6px throughout, borders are 1px Rope, there are no shadows or gradients, and the focus ring is a 2px Harbour outline with a 2px offset."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: Fraunces section heads, 14px Fog metadata right-aligned in each panel head, and 20px balance figures with an 'is owed'/'owes' label beneath. Spacing sits consistently on the 8px grid. Rows wrap cleanly at 390px, with amount and Remove dropping under the description. The four identical stacked panels are a little uniform, and on mobile the Add person button sits alone under the input, which feels slightly loose."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Buttons are short sentence-case verbs ('Add person', 'Add expense', 'Remove'). Errors say what to fix ('Use at most 2 decimal places, for example 42.50.', '“Ana” is already on the trip. Enter a different name.'). Empty states vary by context ('Add an expense to see who pays whom.', 'Everyone is even, so there is nothing to settle.'). The only small wobble is the hint 'What was it for.', which is a question punctuated as a statement."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Each panel has context-aware empty states, and the payer select shows 'Add people first'. Validation messages appear inline, move focus to the offending field and keep typed values. Expenses list newest first, and after a removal focus moves to the next row's Remove button. A polite live region announces adds and removes. Balances show paid and share breakdowns, settle-up is a scannable 'Chloe pays Ana $33.33' list with a transfer count, and the parser tolerates '$' and thousands commas."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a tidy IIFE with a small el() helper and separate render functions. Integer-cents share logic follows trip order, and the greedy settle produces at most n−1 transfers. load() defensively validates stored data. Semantics are solid: a fieldset/legend for the split, labels plus aria-describedby, role=alert errors, and aria-invalid. Minor fragilities: an inline style on #people-empty, identity keyed on display name in expenses, and dated ES5 var style."
+        },
+        "directed_design": {
+          "score": 5,
+          "evidence": "The result is restrained and specific to the brand. The wordmark rule is built exactly to spec, custom checkbox chips use a Harbour fill with a Paper check, and the select chevron is an inline Harbour SVG. A neutral Sailcloth error box avoids red, keeping with 'owing is normal'. Choices like 'Paid minus share' meta text and hiding Remove for people tied to expenses read as deliberate product thinking."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Mildly uniform layout: four same-weight white panels stacked identically, with a little template feel"
+        ],
+        "brand_violations": [],
+        "best_detail": "Each balance row pairs the signed total with a plain 'is owed'/'owes' word and a 'Paid $90.00 · share $43.34' breakdown, so the number is both on-brand in colour and self-explanatory.",
+        "worst_detail": "The description hint 'What was it for.' is a question punctuated with a period, the one string that reads slightly off in otherwise precise copy."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 5,
+    "overall": 9
+  }
+}

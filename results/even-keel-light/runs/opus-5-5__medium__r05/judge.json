@@ -1,0 +1,77 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.056Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 25410,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2777,
+        "output_tokens_details": {
+          "thinking_tokens": 1355
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.07859,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, secondary button and positive keel bars. Signal #C2462B drives the primary CTA, eyebrows and the small 'waterline' accent, all on a warm paper #F5F2EC ground. Source Serif 4 with Public Sans reads steady and trustworthy, and the keel-bar balance visual and logo tie directly to the name. The one misstep is that negative balances use the same Signal colour as the error boxes, which nudges 'owes' toward 'problem'."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, small uppercase eyebrows, tabular-num figures right-aligned, and consistent 20/28px gaps. On mobile the balance grid restacks the bar under the name and amount cleanly. Small flaws: the red waterline stub starts at the viewport edge rather than on the content grid, header content (x≈60) and card edges (x≈84) don't line up, and the header stat strip is a bit heavy for the empty state."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific and address the user as 'you': 'Saved on this device. Reloading keeps your trip.', 'Ana is already on the trip. Try adding a last initial, like \"Ana B.\"', 'Use at most 2 decimal places, like 24.50.', '2 payments even everyone out.' Balance labels are neutral ('Owes $13.33', 'Is owed', 'All square'). Buttons are verbs, and the empty states say what to do next."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every state is handled: empty states for people, expenses, balances and settle-up; inline errors that keep what the user typed; focus moved to the offending field; and a live split preview ('$10.00 split 3 ways: $3.33 or $3.34 each'). After actions, focus is managed and screen-reader announcements fire; removing an expense moves focus to the next Remove button. The reset asks for confirmation. Settle-up rows are big and scannable ('Chloe → Ana $33.33'), and the 390px layout has no overflow."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money handling is clean in integer cents: a strict parseAmount, a shareList that hands leftover cents out in trip order, and greedy settling that guarantees at most n−1 transfers. Loaded state is validated, form-error testids appear only while an error is shown, and the IIFE has small, readable render functions. Weak spots: the legend sits inside a div rather than as the fieldset's first child, which breaks the group's accessible name; focus relies on a box-shadow-only outline; and people are keyed by name throughout."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The keel-bar balance visualization with its centre line and owes/is-owed legend, the waterline accent and the logo show brand-specific thinking. The restrained, warm palette avoids default SaaS styling. Some template patterns remain: the header stat strip, an eyebrow on every card, initial-avatar pills, and dashed empty-state boxes inside cards."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Header stat strip (Trip total / People / Expenses) showing zeros on first load",
+          "Uppercase eyebrow label above every card heading ('STEP 1', 'WHERE THINGS STAND', 'HISTORY')",
+          "Initial-avatar pill chips for people (circle 'A' + name)",
+          "Banner comments in the JS ('/* ---------- Money logic ---------- */')",
+          "Boxed sub-surfaces inside cards (dashed empty-state boxes, bordered transfer rows)"
+        ],
+        "brand_violations": [
+          "Negative balances and their keel bars use Signal red-orange, the same colour as the validation error boxes, which subtly frames owing money as an error state against the 'owing is normal' principle"
+        ],
+        "best_detail": "The keel bar for each balance, centred on zero with navy extending right for 'is owed' and orange extending left for 'owes', makes the group's position readable at a glance and fits the brand name.",
+        "worst_detail": "Reusing Signal red for both debt bars and error messages ties owing money to the visual language of mistakes."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

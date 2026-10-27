@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.139Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22039,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2449,
+        "output_tokens_details": {
+          "thinking_tokens": 928
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.068568,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and total bar, and Signal #C2462B is used sparingly: a 4px header rule, the primary button, the arrows and the focus ring. Both sit on a warm sand #F6F2EB ground, with Fraunces for display type and Inter for body. The balances lede states the principle outright (\"Owing a friend a bit is normal — this just keeps it clear\"). That intent is undercut by negative balances in red-orange with a minus sign against moss-green positives, a ledger convention that frames owing as the bad state."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The 5fr/7fr grid is clear: inputs on the left, outcomes on the right. Card padding and the 0.5–1.25rem gaps keep a consistent rhythm, and amounts use Fraunces with tabular numerals for a clear money hierarchy. Weak spots: the description placeholder truncates to \"e.g. Groceries, Tuesd\" in the half-width desktop field, and the alternating navy/red initial avatars (\"AN\", \"BE\", \"CH\") are arbitrary and a little clumsy. The solid navy \"Trip total so far\" bar is heavier than anything else in the expenses card."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, specific and use \"you\" throughout: \"Log what you each paid. See who owes whom. End the trip even.\", \"Add everyone on the trip, including you.\" and \"2 transfers and you're done.\" Errors tell people what to do: \"Ana is already on the trip. Try a nickname or add a last initial.\" and \"Enter the amount as a number, like 42.50.\" Buttons are verbs (Add, Add expense, Remove). The footer privacy line is calm and useful."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has a distinct empty state, and the expenses one changes depending on whether people exist yet. Validation is inline with role=alert, sets aria-invalid, moves focus to the bad field and keeps what was typed. There is a polite live region for adds and removes, an 'all even' settled state, and the payer and split selections survive re-renders. Removal has no undo, people cannot be removed or renamed, and transfers have no way to be marked as done, so settle-up is readable but passive."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money handling is correct: integer cents throughout, the shares() remainder goes to people in trip order, and the greedy settle() gives at most n−1 transfers. The input regex rejects more than 2 decimals before the value is rounded. Semantics are good: fieldset/legend for the split, labels on every input, a skip link, an sr-only \"pays\" between transfer names, and `:has(input:focus-visible)` for chip focus. Minor leftovers include the unused 'html' branch in el(), the unused createdAt field, inline style strings, and the expense-split input listener not clearing payer state; none of these are bugs."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The choices feel aimed at this brand: the keel-and-waterline logo mark, the Signal underline on the masthead, warm sand instead of grey, a serif for figures, and section titles like \"Where you each stand\". It still uses a familiar white-card-with-soft-shadow pattern on every section and pill chips everywhere, which keeps it a notch away from distinctive."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section is a white card with the same soft box-shadow and 10px radius, giving uniform surface treatment across the page",
+          "Pill-shaped (999px radius) chips used for both the people list and the split checkboxes",
+          "Alternating avatar colours by index (i % 2 ? ' alt') with two-letter initials, decoration with no meaning",
+          "Inter as the body face, a default-leaning choice even though it is paired with Fraunces"
+        ],
+        "brand_violations": [
+          "Negative balances are rendered in Signal-deep red with a '−' sign against green positives, a red/green debt convention that frames owing as a problem, against the principle that owing between friends is normal"
+        ],
+        "best_detail": "The balances lede, \"What you paid, minus your share of everything. Owing a friend a bit is normal — this just keeps it clear,\" explains the maths and lands the brand principle in one calm sentence.",
+        "worst_detail": "Colouring every debtor's balance red-orange next to green creditors quietly contradicts the 'owing is normal' line printed right above it."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

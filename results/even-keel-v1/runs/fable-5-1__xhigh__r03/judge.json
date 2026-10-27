@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.275Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22446,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2619,
+        "output_tokens_details": {
+          "thinking_tokens": 1326
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.071082,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette sits in CSS variables limited to the seven brand hexes, and the wordmark is correct: Fraunces 600 in Harbour with a 24×3px Signal rule. IBM Plex Sans is loaded at 400/500, money uses tabular-nums, sizes stay on the 14/16/20/28 scale, and radii are 6px with 1px Rope borders, no shadows, and a 2px Harbour focus ring at 2px offset. Negative balances show as \"-$13.33\" in Harbour, and only positive ones use Kelp. The one stretch is `.btn-primary:hover` filling the button with Harbour, which uses a text/heading colour as a button surface."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif section heads, Fog 14px metadata and right-aligned tabular amounts on even 16px row rhythm with Rope dividers. Mobile stacks cleanly with no overflow. On desktop the 'Paid by' select stretches to the height of the split fieldset, so it is visibly taller than the other inputs. The non-interactive people chips are styled like buttons."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific: \"Add everyone on the trip, starting with yourself.\", \"“Ana” is already on the trip. Enter a different name.\", \"Enter an amount with at most 2 decimal places, like 42.50.\" Buttons are short sentence-case verbs ('Add person', 'Remove'). Empty states change with context ('Log an expense to see who pays whom.', 'Everyone is even, so no transfers are needed.'), and there is no filler or exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required states are handled: contextual empty states, inline errors that focus the offending field and keep what the user typed, and expense meta showing uneven per-person shares. Settle up reads as 'Chloe pays Ana $33.33'. Also present: Select all/none, live-region announcements, and focus moving to a neighbouring item after Remove. People cannot be removed or corrected once added, so a typo means the trip carries a wrong name."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "State is kept in integer cents. `sharesFor` filters by trip order so leftover cents go to early-added people, and a greedy debtor/creditor match gives at most n−1 transfers. `parseAmount` handles $, commas, sign and decimals without float maths, and `load()` validates stored data defensively. Semantics are good (fieldset/legend, label `for`, aria-invalid/describedby, role=status), and a small `el` helper keeps rendering readable."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The work feels deliberate and restrained: the tagline is indented to align with the wordmark text, money columns are right-aligned, and errors use a Harbour left rule instead of red. Owe/owed notes appear under the amounts. The structure is still a conventional stack of four panels, and the stretched select suggests no final visual pass."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Banner-style section comments in the script ('/* ---------- helpers ---------- */', '/* ---------- maths ---------- */')"
+        ],
+        "brand_violations": [
+          "Primary button hover fills with Harbour (`.btn-primary:hover { background: var(--harbour) }`), using a text/heading/focus colour as a button surface"
+        ],
+        "best_detail": "Negative balances are shown calmly as '-$13.33' in Harbour with an 'owes' note, while only positive balances turn Kelp, which follows the 'owing is normal' rule exactly.",
+        "worst_detail": "On desktop the 'Paid by' select stretches to the height of the split-between fieldset, so it looks noticeably taller and misaligned against every other input."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

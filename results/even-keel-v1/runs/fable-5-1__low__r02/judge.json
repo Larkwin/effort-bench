@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.304Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 17730,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2352,
+        "output_tokens_details": {
+          "thinking_tokens": 1024
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.05898,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is held to the seven hex values. Negatives render in Harbour with a minus sign and positives in Kelp (.owed), and Signal appears only on .primary buttons and the wordmark ::before rule (24×3px). Fraunces 600 is used for the h1 and h2s, Plex 400/500 for everything else, with tabular-nums on .money, 6px radii, 1px Rope borders, no shadows, and a 2px Harbour focus outline with 2px offset. Small slips: several 12px spacings (wordmark gap, .checks padding, input padding) that are off the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear and calm: a 28px wordmark, 20px panel headings, 14px Fog metadata, and right-aligned tabular amounts with a stacked Remove button. Rhythm is consistent across both widths, and mobile stacks Add person to full width cleanly. The one awkward spot is the split-between empty state, a paragraph trapped in a 140px grid cell that wraps into three ragged lines inside a bordered box."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific. Errors say what to fix: 'Enter a description.', 'Ana is already on the trip. Use a different name.', 'Use at most 2 decimal places for the amount.' Empty states give the next step: 'Log the first thing someone paid for and it will appear here.', 'Everyone is even. Nothing to settle.' Buttons are short verbs in sentence case, with no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required states are handled. There are empty states in every panel and a disabled payer select reading 'Add a person first'. Validation is inline and keeps typed values, focus moves to the offending field, and the split selection persists when people are added. Expenses list newest first, and balances carry is owed / owes / is even labels. Minor gaps: the expense error appears below the button, far from the field it refers to, and errors don't clear as the user corrects them."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is compact and readable. It works in integer cents via a string-parsed parseCents, gives remainder cents to selected people in trip order, and settles with a greedy debtor/creditor match that guarantees at most n−1 transfers. Semantics are solid: fieldset/legend for the split, role=alert on errors, and aria-label 'Remove Coffee'. Minor issues: a dead .visually-hidden class, an unused input[type=number] selector, inline margin styles, a duplicated amount-normalisation step, and no aria-describedby or aria-invalid on fields."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and restrained. The tagline is indented to align with the wordmark text, the primary hover swaps to Harbour rather than a Signal tint, and the error text is Harbour rather than red, in keeping with 'owing is normal'. It is specific to Even Keel rather than a template. It stops short of distinctive, though: four identical panels stacked with uniform treatment."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Dead utility CSS: .visually-hidden is defined but never used",
+          "Unused input[type=number] selector even though the amount field is type=text"
+        ],
+        "brand_violations": [
+          "Spacing off the 8px grid: 12px wordmark gap, 12px input horizontal padding and 12px .checks padding",
+          "Negative amounts use an ASCII hyphen ('-$13.33') rather than a true minus sign (minor)"
+        ],
+        "best_detail": "Validation errors are set in Harbour, and negative balances show in Harbour with a plain 'owes' label, which honours the brand's 'owing is normal, not an error' stance throughout.",
+        "worst_detail": "The split-between empty message sits inside a 140px grid cell and wraps into a ragged three-line block inside its bordered box on desktop."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

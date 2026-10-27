@@ -1,0 +1,59 @@
+{
+  "run_id": "sonnet-5-5__high__r02",
+  "model": "claude-sonnet-5-5",
+  "model_label": "Sonnet 5.5",
+  "model_returned": "claude-sonnet-5-5",
+  "provider": "anthropic",
+  "effort": "high",
+  "n": 2,
+  "mode": "batch",
+  "prompt_sha": "1111d85d7e10f8f3",
+  "max_tokens": 128000,
+  "thinking_display": "summarized",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 2251,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 15607,
+    "output_tokens_details": {
+      "thinking_tokens": 6376
+    },
+    "service_tier": "batch",
+    "inference_geo": "global",
+    "speed": "standard"
+  },
+  "input_tokens": 2251,
+  "output_tokens": 15607,
+  "thinking_tokens": 6376,
+  "thinking_blocks": 1,
+  "cost_usd": 0.080286,
+  "extraction": {
+    "method": "raw",
+    "complete": true,
+    "chatter_chars": 0,
+    "chatter_sample": "",
+    "html_bytes": 21539,
+    "html_lines": 537
+  },
+  "code": {
+    "css_lines": 157,
+    "js_lines": 294,
+    "css_custom_properties": 7,
+    "important": 0,
+    "media_queries": 1,
+    "innerHTML_writes": 1,
+    "comments": 8,
+    "aria_attributes": 11,
+    "labels": 4,
+    "external_scripts": 0
+  },
+  "batch_id": "msgbatch_01Njf1ufNaPiqZoAfJ7GKMQ5",
+  "batch_created_at": "2026-10-26T23:43:12.890111+00:00",
+  "batch_ended_at": "2026-10-26T23:55:45.931119+00:00",
+  "finished_at": "2026-10-26T23:56:17.589Z"
+}

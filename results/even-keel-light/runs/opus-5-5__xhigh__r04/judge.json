@@ -1,0 +1,75 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.104Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 36546,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2507,
+        "output_tokens_details": {
+          "thinking_tokens": 1113
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.098162,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Harbour #1F3A4D carries the brand: headings, primary buttons and the dark Settle up panel all use it. Signal is kept for small accents: step rings, the logo waterline, focus outlines and the 'pays' verb in --signal-light. Source Serif 4 numerals with IBM Plex Sans feel steady and trustworthy without looking like a bank. Negative balances use a muted 'shallows' blue, not red, and the line 'Owing just means someone else covered more so far. Settling up evens it out.' states the brief's principle directly."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif section titles, serif tabular money figures, a warm paper ground, and a deliberate shift into the navy settle panel. The keel bars align on a shared centre line. There are some uneven spots: the 'Split between' legend sits almost against the amount/payer row because `.split { margin: 0 }` overrides the form's sibling spacing. Expense row dividers bleed past the content edge via negative margin-inline, and on mobile the '3 people' badge squeezes the subtitle."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The voice is plain, calm and addresses the user as 'you' throughout. Errors are specific: 'Use a period for cents, like 42.50.' and 'Ana is already on the trip… try adding a last initial, like “Ana B.”'. Empty states point to the next step ('log it in step 2'), and the settle copy reads '2 payments and everyone’s even.' Buttons are verbs ('Add expense', 'Copy payments', 'Keep it'), and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Every state is handled: empty states, inline errors per field with input preserved and focus moved, a success status after adding, and a live split preview that explains leftover cents. Removal has undo, people can only be removed once they are unused, 'Start a new trip' asks for confirmation, a storage-failure warning is built in, and the settle panel has a 'Copy payments' action for the group chat. Mobile stacks cleanly at 390px with no horizontal overflow."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "Amounts are parsed as strings into integer cents, with no float multiplication. `splitShares` gives the remainder to people in trip order via `sortIdsByTrip`, and `computeTransfers` matches exact amounts first and then runs a greedy pass, which guarantees at most n−1 transfers. Loaded data is sanitised, and accessibility is thorough: fieldset/legend, aria-invalid plus aria-describedby on errors, live regions, focus restored after deletes, and forced-colors rules. The only weak spot is the overall size, with some signature-caching complexity."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The keel balance bar with '← Owes / Is owed →', the sailboat mark with its Signal waterline, and the inverted navy settle panel are choices specific to this brand. Around them sit more template-like pieces: numbered step circles, pill chips with initial avatars, count pill badges, and an uppercase 'TRIP TOTAL' stat tile."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill shapes everywhere (border-radius: 999px) on person chips, split checkboxes and count badges",
+          "Initial-letter avatar circles in pastel tints on chips and balance rows",
+          "Uppercase letter-spaced 'TRIP TOTAL' stat tile with an oversized number",
+          "A soft box-shadow on every card surface",
+          "Banner-style section comments in the JS ('/* ---------- State and storage ---------- */')"
+        ],
+        "brand_violations": [],
+        "best_detail": "The keel bar under each balance, with navy for 'is owed' and soft shallows-blue for 'owes' around a central keel line, shows the balance visually and treats owing as normal rather than alarming.",
+        "worst_detail": "The 'Split between' fieldset loses its top margin to a specificity clash and crowds the amount/payer row, the one visibly cramped spot in an otherwise even rhythm."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

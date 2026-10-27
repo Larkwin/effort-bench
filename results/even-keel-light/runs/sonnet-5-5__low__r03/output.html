@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Even Keel · Trip expenses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--harbour:#1F3A4D;--signal:#C2462B;--paper:#F5F2EC;--card:#fff;--ink:#1B2A35;--muted:#52606b;--line:#D9D4C9;--pos:#1D6B4F;--tint:#E8EEF2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 'Public Sans',system-ui,sans-serif}
+h1,h2{font-family:Fraunces,Georgia,serif;margin:0;line-height:1.15}
+header{background:var(--harbour);color:#fff;padding:24px 16px 28px;border-bottom:6px solid var(--signal)}
+.wrap{max-width:1040px;margin:0 auto}
+header h1{font-size:2rem}
+header p{margin:6px 0 0;color:#d5e0e8;max-width:46ch}
+main{max-width:1040px;margin:0 auto;padding:20px 16px 48px;display:grid;gap:20px;grid-template-columns:1fr}
+@media(min-width:820px){main{grid-template-columns:1fr 1fr;align-items:start}.wide{grid-column:1/-1}}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+h2{font-size:1.3rem;color:var(--harbour);margin-bottom:12px}
+label,legend{display:block;font-weight:600;font-size:.9rem;margin:12px 0 4px;color:var(--harbour);padding:0}
+input[type=text],input[type=number],select{width:100%;font:inherit;padding:10px 12px;border:1.5px solid #8895a0;border-radius:6px;background:#fff;color:var(--ink);min-height:44px}
+.row{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.row>div{flex:1 1 180px}
+button{font:inherit;font-weight:600;min-height:44px;padding:8px 16px;border-radius:6px;border:2px solid var(--harbour);background:var(--harbour);color:#fff;cursor:pointer}
+button:hover{background:#162c3b}
+button.ghost{background:#fff;color:var(--harbour);min-height:36px;padding:4px 10px}
+button.ghost:hover{background:var(--tint)}
+button.go{background:var(--signal);border-color:var(--signal);margin-top:14px}
+button.go:hover{background:#a53a22}
+:focus-visible{outline:3px solid #E59A00;outline-offset:2px}
+.err{color:#9B2C16;font-weight:600;margin:8px 0 0;font-size:.92rem}
+.err:empty{display:none}
+ul{list-style:none;margin:0;padding:0}
+.empty{color:var(--muted);margin:4px 0}
+.chips li{display:inline-block;background:var(--tint);color:var(--harbour);border-radius:99px;padding:4px 14px;margin:0 6px 6px 0;font-weight:500}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+.checks{display:flex;flex-wrap:wrap;gap:6px 14px}
+.checks label{display:flex;align-items:center;gap:6px;font-weight:500;margin:0;min-height:36px;color:var(--ink)}
+.checks input{width:20px;height:20px;accent-color:var(--harbour)}
+.exp{border-top:1px solid var(--line);padding:12px 0;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+.exp:first-child{border-top:0}
+.exp div{min-width:0;overflow-wrap:anywhere}
+.amt{font-weight:600;font-variant-numeric:tabular-nums}
+.sub{color:var(--muted);font-size:.88rem}
+.bal,.tr{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.bal:first-child,.tr:first-child{border-top:0}
+.pos{color:var(--pos);font-weight:600}.neg{color:#A73A22;font-weight:600}
+.tr strong{color:var(--harbour)}
+.note{color:var(--muted);font-size:.9rem;margin:0 0 8px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Even Keel</h1><p>Log what everyone paid. You'll see who owes whom, so the trip ends level.</p></div></header>
+<main data-testid="app">
+<section>
+<h2>People</h2>
+<form id="pf" novalidate>
+<label for="pn">Name</label>
+<div class="row"><div><input type="text" id="pn" data-testid="person-name" autocomplete="off"></div>
+<button type="submit" data-testid="add-person">Add person</button></div>
+<p class="err" id="pe" role="alert"></p>
+</form>
+<ul id="people" class="chips" style="margin-top:12px"></ul>
+<p class="empty" id="pempty">No one is on the trip yet. Add the first name above.</p>
+</section>
+
+<section>
+<h2>Add an expense</h2>
+<form id="ef" novalidate>
+<label for="ed" style="margin-top:0">Description</label>
+<input type="text" id="ed" data-testid="expense-desc" autocomplete="off">
+<label for="ea">Amount (CAD)</label>
+<input type="text" inputmode="decimal" id="ea" data-testid="expense-amount" placeholder="0.00" autocomplete="off">
+<label for="ep">Paid by</label>
+<select id="ep" data-testid="expense-payer"></select>
+<fieldset><legend>Split between</legend>
+<div class="checks" id="es" data-testid="expense-split"></div></fieldset>
+<p class="err" id="ee" role="alert"></p>
+<button type="submit" class="go" data-testid="add-expense">Add expense</button>
+</form>
+</section>
+
+<section>
+<h2>Balances</h2>
+<p class="note">Positive means you're owed. Negative means you owe.</p>
+<div id="bals"></div>
+</section>
+
+<section>
+<h2>Settle up</h2>
+<div id="settle"></div>
+</section>
+
+<section class="wide">
+<h2>Expenses</h2>
+<div id="exps"></div>
+</section>
+</main>
+<script>
+const fmt=new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'});
+const money=c=>fmt.format(c/100);
+let S;try{S=JSON.parse(localStorage.getItem('evenkeel'))}catch(e){}
+if(!S||!Array.isArray(S.people)||!Array.isArray(S.expenses))S={people:[],expenses:[]};
+const save=()=>{try{localStorage.setItem('evenkeel',JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function setErr(id,msg,inp){const e=$(id);e.textContent=msg;if(msg)e.setAttribute('data-testid','form-error');else e.removeAttribute('data-testid');}
+function shares(e){const n=e.split.length,b=Math.floor(e.cents/n),r=e.cents-b*n;
+const order=S.people.filter(p=>e.split.includes(p));const m={};
+order.forEach((p,i)=>m[p]=b+(i<r?1:0));return m}
+function balances(){const b={};S.people.forEach(p=>b[p]=0);
+S.expenses.forEach(e=>{if(b[e.payer]!==undefined)b[e.payer]+=e.cents;const m=shares(e);for(const p in m)b[p]-=m[p]});return b}
+function transfers(b){const d=[],c=[];
+for(const p of S.people){if(b[p]<0)d.push([p,-b[p]]);else if(b[p]>0)c.push([p,b[p]])}
+const out=[];d.sort((a,b)=>b[1]-a[1]);c.sort((a,b)=>b[1]-a[1]);
+let i=0,j=0;while(i<d.length&&j<c.length){const x=Math.min(d[i][1],c[j][1]);
+out.push({from:d[i][0],to:c[j][0],cents:x});d[i][1]-=x;c[j][1]-=x;if(!d[i][1])i++;if(!c[j][1])j++}
+return out}
+function render(){
+$('pempty').style.display=S.people.length?'none':'';
+$('people').innerHTML=S.people.map(p=>`<li data-testid="person">${esc(p)}</li>`).join('');
+const sel=$('ep'),cur=sel.value;
+sel.innerHTML=S.people.map(p=>`<option value="${esc(p)}">${esc(p)}</option>`).join('');
+if(S.people.includes(cur))sel.value=cur;
+const checked=new Set([...$('es').querySelectorAll('input:checked')].map(i=>i.value));
+const known=new Set([...$('es').querySelectorAll('input')].map(i=>i.value));
+$('es').innerHTML=S.people.length?S.people.map((p,i)=>`<label><input type="checkbox" value="${esc(p)}" ${(!known.has(p)||checked.has(p))?'checked':''}>${esc(p)}</label>`).join(''):'<span class="empty">Add people to split with.</span>';
+const b=balances();
+$('bals').innerHTML=S.people.length?S.people.map(p=>{const c=b[p];
+return `<div class="bal" data-testid="balance" data-person="${esc(p)}" data-cents="${c}"><span>${esc(p)}</span><span class="${c>0?'pos':c<0?'neg':''}">${c>0?'is owed ':c<0?'owes ':'is even · '}${c?money(Math.abs(c)):money(0)}</span></div>`}).join(''):'<p class="empty">Balances show up once people join the trip.</p>';
+const t=transfers(b);
+$('settle').innerHTML=!S.expenses.length?'<p class="empty">Nothing to settle yet. Log an expense and the transfers appear here.</p>':t.length?'<p class="note">These transfers bring everyone level.</p>'+t.map(x=>`<div class="tr" data-testid="transfer" data-from="${esc(x.from)}" data-to="${esc(x.to)}" data-cents="${x.cents}"><span><strong>${esc(x.from)}</strong> pays <strong>${esc(x.to)}</strong></span><span class="amt">${money(x.cents)}</span></div>`).join(''):'<p class="empty">Everyone is even. Nothing to pay.</p>';
+$('exps').innerHTML=S.expenses.length?[...S.expenses].reverse().map(e=>`<div class="exp" data-testid="expense"><div><strong>${esc(e.desc)}</strong> · <span class="amt">${money(e.cents)}</span><div class="sub">Paid by ${esc(e.payer)} · Split between ${e.split.map(esc).join(', ')}</div></div><button type="button" class="ghost" data-testid="delete-expense" data-id="${e.id}" aria-label="Remove ${esc(e.desc)}">Remove</button></div>`).join(''):'<p class="empty">No expenses yet. Add the first one when someone pays for something.</p>';
+}
+$('pf').addEventListener('submit',e=>{e.preventDefault();
+const n=$('pn').value.trim();
+if(!n)return setErr('pe','Enter a name to add someone.');
+if(S.people.some(p=>p.toLowerCase()===n.toLowerCase()))return setErr('pe',`"${n}" is already on the trip. Names must be different.`);
+S.people.push(n);save();setErr('pe','');$('pn').value='';render();$('pn').focus()});
+$('ef').addEventListener('submit',e=>{e.preventDefault();
+const d=$('ed').value.trim(),a=$('ea').value.trim().replace(/^\$/,'').replace(/,/g,'');
+const split=[...$('es').querySelectorAll('input:checked')].map(i=>i.value);
+const payer=$('ep').value;
+if(!d)return setErr('ee','Add a description, like "Groceries".');
+if(!a||!/^\d*\.?\d*$/.test(a)||isNaN(+a))return setErr('ee','Enter the amount as a number, like 42.50.');
+if(!/^\d+(\.\d{1,2})?$|^\.\d{1,2}$/.test(a))return setErr('ee','The amount can have at most 2 decimal places.');
+const cents=Math.round(parseFloat(a)*100);
+if(cents<=0)return setErr('ee','The amount must be greater than $0.');
+if(!S.people.length||!payer)return setErr('ee','Add people to the trip first, then choose who paid.');
+if(!split.length)return setErr('ee','Choose at least one person to split between.');
+S.expenses.push({id:Date.now()+Math.random(),desc:d,cents,payer,split});
+save();setErr('ee','');$('ed').value='';$('ea').value='';render();$('ed').focus()});
+$('exps').addEventListener('click',e=>{const b=e.target.closest('[data-id]');if(!b)return;
+S.expenses=S.expenses.filter(x=>String(x.id)!==b.dataset.id);save();render();$('ed').focus()});
+render();
+</script>
+</body>
+</html>

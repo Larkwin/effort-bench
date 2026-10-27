@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.322Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22679,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2579,
+        "output_tokens_details": {
+          "thinking_tokens": 1346
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.071148,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The CSS defines only the seven brand hexes. Signal is confined to the wordmark rule and .btn-primary, Kelp marks positive balances, and negatives stay Harbour with a minus sign (-$13.33). Fraunces 600 is used for the 28px wordmark and 20px headings, Plex 400/500 for everything else, tabular-nums on .money, 6px radius, no shadows, and a 2px Harbour outline with 2px offset. The one deviation is that inputs, the select and the secondary Remove button use 1px Fog borders instead of Rope; this is defensible for non-text contrast but departs from the written rule."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The column is clean and well aligned, with an 8px rhythm, a clear heading/label/hint hierarchy and right-aligned tabular money that scans well in balances and settle-up at both widths. Expense rows feel bloated, though: each Remove button sits on its own line below the metadata, adding about 60px per item. Five equal-weight panels stacked in a row make the page long and uniform."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific: 'No one is on the trip yet. Add each person above to start.', 'Ana is already on the trip. Enter a different name.', 'Enter the amount with at most 2 decimal places, such as 24.50.' and 'Everyone is even. No payments are needed.' Buttons are short verbs ('Add person', 'Add expense', 'Remove'), and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has an empty state, including a distinct 'everyone is even' case. Validation is inline with role=alert and keeps the typed values, and focus returns to sensible targets after adding or removing. Balances carry 'Is owed'/'Owes' labels so the sign is never ambiguous. Before anyone is added, the expense form still shows an empty, enabled Paid by select, and there is no way to remove a mistakenly added person."
+        },
+        "code_quality": {
+          "score": 5,
+          "evidence": "The script is a small h() DOM helper with clear sections for storage, money logic, errors and rendering. parseAmount works in integer cents and accepts '$' and thousands separators; sharesFor hands out leftover cents in trip order; greedy settlement satisfies the n−1 bound. loadState sanitizes stored data, aria-describedby/aria-invalid are managed carefully, and the fieldset/legend semantics are correct. The only blemish is a single inline style."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result is restrained and specific to Even Keel: a quiet wordmark with the indented tagline, Harbour hover on primary buttons rather than an invented darker red, an error state in Harbour with a line icon instead of red, and calm status labels. The stacked identical panels and the heavy Remove buttons still read somewhat template-like."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Banner section comments in the JS ('/* ---------- money logic ---------- */')",
+          "Every section wrapped in an identical bordered panel with uniform visual weight"
+        ],
+        "brand_violations": [
+          "Text inputs, the select and the secondary Remove button use 1px Fog (#5B6B75) borders rather than Rope borders"
+        ],
+        "best_detail": "Validation errors are shown in Harbour with a small line icon and specific fix-it copy, so mistakes read as calm guidance rather than alarm, exactly as the brand asks.",
+        "worst_detail": "Each expense's full-height Remove button sits alone on its own row, making the expense list much taller and heavier than its content warrants."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 5,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

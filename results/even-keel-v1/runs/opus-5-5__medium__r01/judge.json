@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:36:15.678Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22272,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2684,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1296
+        }
+      },
+      "cost_usd": 0.142768,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is used strictly as specified. Signal appears only on the two primary buttons and the 24×3px wordmark rule, positives are Kelp, and negatives are Harbour with a minus sign. Fraunces 600 sets the wordmark and headings and Plex 400/500 the body; sizes stay on the 14/16/20/28/40 scale, `.money` uses tabular-nums, and the 2px Harbour focus ring with 2px offset matches. Small departures: several 12px gaps and paddings (wordmark gap, input padding, balance row padding) fall off the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "There is a clear single-column hierarchy. Right-aligned money columns, Fog metadata lines and calm dividers make the balances and settle-up panels read well at both widths. The people chips sit flush under the name input, touching the full-width Add person button on mobile, because `ul.list{margin:0}` overrides `.people-list{margin-top:16px}`. The bordered Remove button under every expense also adds bulk, and the 'Split between' legend is offset by a couple of pixels from the other labels."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific. Empty states give a next step ('Add an expense to see who should pay whom.'), and errors say what to fix ('Ana is already on the trip. Enter a different name.', 'Enter an amount greater than $0.'). Closure lines are helpful ('These 2 transfers bring everyone to zero.', 'Everyone is even. There is nothing to settle.'). Buttons are short verbs, with no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All brief behaviours are present: case-insensitive duplicate check, inline errors that keep input, everyone split by default with selections preserved across re-renders, newest-first expenses with removal, and labelled 'Is owed / Owes / Even' balances. Focus management after removal and errors is thoughtful, and an aria-live status announces actions. Thin spots are the cramped people chips and the lack of any way to remove a person added by mistake."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is cleanly organised into load/save, parsing, shares, balances, settle and render. Money is integer cents with string-based parsing, the remainder goes to people in trip order, and a greedy creditor/debtor match guarantees at most n−1 transfers. Loading from storage is validated, and the markup is semantic (fieldset/legend, labelled lists, aria-invalid, role=alert). Weak spots are inline style hacks (`style:'margin-top:16px'`, `.style.marginBottom`) and the specificity bug that drops the people-list margin."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as restrained and specific to Even Keel. Using Kelp only for 'is owed', a Harbour left-border error instead of red, and an underline-on-hover primary button instead of a colour shift show attention to the colour rules. It is still somewhat template-like, with five identical white panels of equal weight and a heavy outlined Remove button repeated on every row."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Banner section comments in the script ('/* ---------- State ---------- */', '/* ---------- Rendering ---------- */')",
+          "Every section is an identical bordered white panel with the same heading treatment, giving uniform visual weight across input forms and results"
+        ],
+        "brand_violations": [
+          "Spacing off the 8px grid: 12px wordmark gap, 12px input padding, and 12px balance/transfer row padding (only 4px is allowed for tight pairs)"
+        ],
+        "best_detail": "Error messages use a Harbour left-bar callout and a thicker Harbour border on the invalid input instead of red, which keeps the 'owing is normal, nothing is an error colour' rule while still being clearly visible.",
+        "worst_detail": "A CSS specificity slip (`ul.list{margin:0}` beating `.people-list{margin-top:16px}`) leaves the people chips jammed against the name input, and against the Add person button on mobile."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

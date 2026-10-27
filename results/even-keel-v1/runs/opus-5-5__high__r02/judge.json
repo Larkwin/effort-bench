@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.290Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 25747,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2566,
+        "output_tokens_details": {
+          "thinking_tokens": 1061
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.077154,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "All seven hex values are defined as custom properties and used in their assigned roles. Signal appears only on .btn-primary and the wordmark ::before rule (24×3px). Negative balances render in Harbour with a minus sign (-$13.33), positives in Kelp, and zero in Fog. Fraunces 600 is used for h1/h2, Plex 400/500 for everything else, and .money carries tabular-nums. The layout holds to 720px max width with 24/16px side padding, 6px radius, 1px Rope borders, no shadows, and a 2px Harbour focus outline at 2px offset. The only debatable call is a small Harbour line icon on error messages."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear. Fraunces section heads sit over a quiet Fog summary on the right ('3 people', '2 transfers', 'Total $130.00'). Balance figures at 20px/500 have a small status label above them. The tagline is indented 40px so it aligns under the wordmark text. Spacing follows an 8px rhythm, and the mobile reflow (stacked fields, Remove buttons dropping below expense meta) is tidy. The weakness is five equally weighted bordered panels stacked in a long column, which feels a little uniform and form-heavy on desktop."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific. Hints include 'In Canadian dollars, such as 42.50.' and 'Everyone is selected. Clear anyone who is not sharing this cost.' Errors say what to fix: 'Use no more than 2 decimal places, such as 42.50.' and 'Ana is already on the trip. Enter a different name.' Empty states are context-aware single sentences: 'Log an expense to see who should pay whom.' and 'Everyone is even. No transfers are needed.' Buttons are short verbs, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 5,
+          "evidence": "Empty states change with context. Validation errors appear inline, preserve the user's input, and move focus to the first invalid field. New people default to checked in the split. The expense meta shows '$3.34 or $3.33 each' for uneven splits, and per-person 'Paid · Share' lines make balances legible. Removing a person who appears in an expense is blocked with a specific message. Extras include a confirm-guarded Clear trip, live-region announcements, focus management after removals, and cross-tab storage sync."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money logic works in integer cents. shares() gives leftover cents in trip order, and greedy matching keeps the transfer count at most n−1. Amount parsing is strict, and the -0 case is guarded. Semantics are strong: forms, fieldset/legend for the split, aria-describedby, aria-invalid, and the form-error testid set only while an error is shown. Minor blemishes: a duplicated focus rule for inputs, an inline style on #people-empty, banner-style section comments, and the split-text 'each' calculation reimplemented in renderExpenses instead of reusing shares()."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as deliberate and specific to Even Keel. Examples: the tagline aligned to the wordmark text, the 'is owed / owes / is even' status labels, hover shown as an underline rather than a colour shift, and the Harbour chevron on the select. Restraint is consistent throughout. It loses a point because the panel-per-section stack is the default structure, with no attempt to group the results (balances and settle up) more meaningfully than the inputs."
+        },
+        "overall": 9,
+        "ai_tells": [
+          "Banner-style section comments in JS ('/* ---------- Storage ---------- */', '/* ---------- Rendering ---------- */')",
+          "Every section gets an identical bordered panel, giving uniform visual weight across inputs and results"
+        ],
+        "brand_violations": [
+          "Decorative info-circle icon on error messages (.error::before) is not clarifying an action, though it is a Harbour inline SVG line icon"
+        ],
+        "best_detail": "The uneven-split meta line 'Split between Ana, Ben and Chloe · $3.34 or $3.33 each' makes the remainder-cents rule visible and trustworthy without any explanation.",
+        "worst_detail": "Five equally weighted bordered panels stacked in one long column make the desktop page feel form-heavy, with the settle-up answer sitting well below the fold.  ,"
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 5,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 9
+  }
+}

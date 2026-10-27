@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.286Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 20826,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2328,
+        "output_tokens_details": {
+          "thinking_tokens": 912
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.064932,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Only the seven palette variables are used, and Signal is limited to the .btn-primary buttons and the 24×3px wordmark rule. Negatives render in Harbour with a minus sign, positives in Kelp. Fraunces 600 is used for the h1/h2 and Plex 400/500 for everything else, with tabular-nums on .money, 6px radii, 1px Rope borders, no shadows, and a 2px Harbour focus ring with 2px offset. The deviations are small: several spacings break the 8px grid (brand gap 12px, li padding 12px, input padding 8px 12px, tagline indent 36px, margin-top:12px hints)."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a Fraunces wordmark, 20px panel headings, 14px medium labels and Fog meta lines. Amounts and Remove buttons sit right-aligned, and settle-up rows put bold names against tabular amounts. The mobile layout reflows sensibly, with amount and Remove wrapping under the description and the payer select stacking. It is slightly utilitarian; four equal-weight panels give balances and settle-up no more emphasis than the forms, and the 28px wordmark feels a touch small against the page."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Copy is plain and specific throughout. Errors say what to fix: 'Enter an amount greater than $0.', 'Ana is already on the trip. Enter a different name.', 'Choose at least one person to split between.' Empty states each give the next step in one sentence ('No one is on the trip yet. Add the first person above.'), the meta line reads 'Paid by Chloe. Split between Ana, Ben and Chloe.', and the summary says '2 transfers bring everyone to even.' Buttons are short verbs and there is no filler or exclamation."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required behaviours are present: case-insensitive duplicate checks, amount parsing that tolerates $ and commas, inline role=alert errors that keep user input, newest-first expenses with Remove, an 'is owed/owes/is even' note on balances, an 'Everyone is even' state, and focus returned to the description after add or remove. Context-aware empty messages change once people exist. Gaps: people cannot be removed or renamed, there is no confirmation or undo on Remove, and the amount hint loses its aria-describedby association after an error is shown."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a tidy IIFE with separate state, calculation, render and action sections and a small el() helper. Money uses integer cents throughout, leftover cents go to participants in trip order, the greedy settle produces at most n−1 transfers, localStorage loads are validated, and a storage event syncs other tabs. There are a few blemishes. showError/clearError overwrite and then delete the amount field's aria-describedby="
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "Choices are restrained and brand-specific: no icons apart from a Harbour SVG chevron on the select, a bordered Paper error box rather than red, Kelp only on positive balances, and names bolded in transfers. Error messages that name the existing person show attention to detail. The four stacked equal panels are a safe, somewhat template-like structure, but nothing reads as a generic AI default."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Section banner comments in the JS ('// ---------- State ----------' etc.), a mild tell",
+          "Unused createdAt field stored on every expense"
+        ],
+        "brand_violations": [
+          "Spacing off the 8px grid: .brand gap 12px, li padding 12px, input/error padding 8px 12px, hint margin-top 12px, tagline left margin 36px"
+        ],
+        "best_detail": "The settle-up section pairs bold 'Chloe pays Ana' rows with right-aligned tabular amounts and a quiet '2 transfers bring everyone to even.' summary, which makes the result immediately actionable.",
+        "worst_detail": "showError replaces the amount input's aria-describedby and clearError then removes it entirely, so the 'Dollars and cents' hint is silently disconnected for screen readers after the first error."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

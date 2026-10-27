@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.122Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 21533,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2237,
+        "output_tokens_details": {
+          "thinking_tokens": 892
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.065436,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D anchors the masthead, headings and primary button, and Signal #C2462B is used sparingly as a 4px rule under the header, the Add expense button and the focus ring. Warm sand #F5F1EA ties the palette together, and Fraunces headings give a steady, trustworthy character. The lede states the principle directly: 'Owing a friend is normal — this just keeps it clear.' The main weakness is that negative balances are coloured Signal red with a minus sign, which reads like the debit styling the principle asks you to avoid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, soft ledes, then content. The 5fr/7fr grid puts input on the left and results on the right, and the 390px layout stacks cleanly with no overflow. Transfer rows are well weighted, with Fraunces amounts on a sand tile. Two things are uneven: balance amounts use Inter while expense and transfer amounts use Fraunces, and each expense carries a full bordered Remove button on its own line, which makes the list tall and heavy."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain, calm and specific and speak to 'you': 'Log what each of you paid. See who owes whom. End the trip even.', 'Where everyone stands', 'is owed' / 'owes', and 'You are all even. Nobody owes anyone anything.' Errors say exactly what to fix ('Enter the amount as dollars and cents, like 42 or 42.50, with at most two decimals.'). Empty states also tell you the next step ('including yourself')."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Each section has an empty state, and these change with context (people but no expenses, all even). Validation is inline, keeps what you typed, focuses the offending field, and clears on input. The split list includes Select everyone and Clear, there is a reset with a confirm, and the header shows a running total. Gaps: people cannot be removed or renamed, expense removal has no undo, and the 'add people first' error appears in the expense form while focus jumps to the People card."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is well structured: an IIFE, a small el() helper, and textContent rendering throughout. Amounts are parsed into integer cents with a strict regex, leftover cents go out in trip order, and greedy settling guarantees at most n−1 transfers. The markup is semantic, with a fieldset/legend for the split, aria-labelled sections and role=alert errors. Weaker spots: re-rendering everything on each change, a few inline styles, the checkbox focus ring depending on :has() (the native outline is suppressed), and banner-style section comments."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette, the custom keel-and-waves SVG mark, the red rule under the header and Fraunces paired with sand all feel chosen for this brand rather than taken from defaults. The card-per-section layout, Inter body text, pill chips with initial avatars and the header stat strip are more template-like."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Inter as the body face, a common default pairing",
+          "Pill-shaped (999px radius) chips for people and split checkboxes, with initial avatars",
+          "Banner comments in the JS ('// ---------- State ----------', '// ---------- Render ----------')",
+          "Uniform white bordered card for every section"
+        ],
+        "brand_violations": [
+          "Negative balances are rendered in Signal red with a minus sign ('−$33.33'), which frames owing as a warning despite the 'owing is normal' principle"
+        ],
+        "best_detail": "The settle-up rows ('Chloe pays → Ana' with a Fraunces $33.33 on a sand tile, plus a '2 transfers' count) make the outcome immediately clear and easy to act on.",
+        "worst_detail": "Each expense has a full-size bordered Remove button on its own line, which nearly doubles the row height and gives a destructive action more visual weight than the expense itself."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

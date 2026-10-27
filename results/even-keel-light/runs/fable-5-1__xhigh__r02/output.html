@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Even Keel · Split trip costs so everyone ends up even</title>
+<meta name="description" content="Even Keel splits the costs of a trip between friends and works out exactly who pays whom.">
+<meta name="theme-color" content="#1F3A4D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --harbour:#1F3A4D;
+    --harbour-deep:#162D3D;
+    --harbour-tint:#E8EEF2;
+    --signal:#C2462B;
+    --signal-deep:#A33A22;
+    --signal-tint:#FBECE7;
+    --tide:#1E6B5C;
+    --paper:#F5F1EA;
+    --card:#FFFFFF;
+    --ink:#1B2A35;
+    --ink-soft:#52626E;
+    --placeholder:#65747F;
+    --line:#DDD6CB;
+    --line-strong:#8F8779;
+    --radius:12px;
+    --radius-sm:8px;
+    --font-display:"Fraunces", Georgia, "Times New Roman", serif;
+    --font-body:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;background:var(--paper)}
+  body{margin:0;font-family:var(--font-body);font-size:1rem;line-height:1.5;color:var(--ink);background:var(--paper);min-height:100vh}
+  h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.2;margin:0;color:var(--harbour)}
+  p,fieldset{margin:0}
+  fieldset{padding:0;border:0;min-width:0}
+  legend{padding:0}
+  ul{list-style:none;margin:0;padding:0}
+  button,input,select{font:inherit;color:inherit;margin:0}
+  button{cursor:pointer}
+  [hidden]{display:none !important}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  :focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+  ::placeholder{color:var(--placeholder);opacity:1}
+  .money-num{font-variant-numeric:tabular-nums}
+
+  .skip{position:absolute;left:12px;top:-120px;z-index:20;background:#fff;color:var(--harbour);padding:10px 14px;border-radius:var(--radius-sm);font-weight:600;text-decoration:none;border:2px solid var(--harbour)}
+  .skip:focus{top:12px}
+
+  .wrap{width:min(100% - 32px, 1120px);margin-inline:auto}
+
+  /* Masthead */
+  .masthead{background:var(--harbour);color:#fff;border-bottom:4px solid var(--signal)}
+  .masthead-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 28px;padding:20px 0 22px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand h1{color:#fff;font-size:1.8rem;letter-spacing:-.01em}
+  .brand svg{width:36px;height:36px;flex:none}
+  .tagline{color:#CBD7DF;font-size:.95rem;max-width:36ch}
+
+  /* Layout */
+  .app{display:grid;gap:20px;padding:24px 0 24px}
+  .col{display:grid;gap:20px;align-content:start;min-width:0}
+  @media (min-width:900px){
+    .app{grid-template-columns:minmax(0,7fr) minmax(0,9fr);gap:24px;padding:32px 0 32px}
+    .col{gap:24px}
+  }
+
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:0 1px 2px rgba(31,58,77,.05);min-width:0}
+  @media (min-width:600px){.card{padding:24px}}
+  .card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:12px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+  .card h2{font-size:1.4rem}
+  .card h2:focus-visible{outline-offset:4px}
+  .count{color:var(--ink-soft);font-size:.9rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .lead{color:var(--ink-soft);font-size:.95rem;margin-bottom:12px}
+  .lead strong{color:var(--ink);font-weight:600}
+
+  /* Forms */
+  .field{display:grid;gap:6px;margin-bottom:16px}
+  .label{font-weight:600;font-size:.95rem;color:var(--harbour)}
+  .label-note{font-weight:500;color:var(--ink-soft);font-size:.85rem;margin-left:4px}
+  .hint{font-size:.85rem;color:var(--ink-soft)}
+  .row{display:flex;gap:10px;align-items:stretch}
+  .row .input{flex:1 1 auto;min-width:0}
+  .input,.select{width:100%;min-height:44px;padding:0 12px;border:1.5px solid var(--line-strong);border-radius:var(--radius-sm);background:#fff;color:var(--ink)}
+  .input:focus-visible,.select:focus-visible{border-color:var(--harbour)}
+  .input[aria-invalid="true"],.select[aria-invalid="true"]{border-color:var(--signal-deep);box-shadow:inset 0 0 0 1px var(--signal-deep)}
+  .select{appearance:none;-webkit-appearance:none;padding-right:40px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4 6l4 4 4-4' fill='none' stroke='%231F3A4D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+  .select:disabled{color:var(--ink-soft);background-color:#F3F0EA;cursor:not-allowed}
+  .money{position:relative}
+  .money .cur{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-soft);pointer-events:none}
+  .money .input{padding-left:28px;font-variant-numeric:tabular-nums}
+
+  .split-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .split-tools{display:flex;gap:4px}
+  .split{display:flex;flex-wrap:wrap;gap:8px}
+  .check{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 14px 0 10px;border:1.5px solid var(--line-strong);border-radius:999px;cursor:pointer;background:#fff;max-width:100%;color:var(--ink)}
+  .check:hover{background:var(--harbour-tint)}
+  .check input{width:18px;height:18px;margin:0;accent-color:var(--harbour);flex:none}
+  .check input:focus-visible{outline:3px solid var(--signal);outline-offset:2px}
+  .check-name{overflow-wrap:anywhere}
+  .check:has(input:checked){background:var(--harbour-tint);border-color:var(--harbour);font-weight:500}
+  .check:has(input:focus-visible){outline:3px solid var(--signal);outline-offset:2px}
+  .check:has(input:focus-visible) input{outline:none}
+
+  .error-slot:empty{display:none}
+  .error{display:flex;gap:10px;align-items:flex-start;margin-top:10px;padding:10px 12px;border-radius:var(--radius-sm);background:var(--signal-tint);color:#8E3119;font-size:.93rem;border-left:3px solid var(--signal)}
+  .error-icon{flex:none;width:20px;height:20px;border-radius:50%;background:var(--signal);color:#fff;font-weight:700;font-size:.8rem;display:inline-grid;place-items:center;margin-top:2px}
+  #expense-error-slot:not(:empty){margin-bottom:16px}
+  #expense-error-slot .error{margin-top:0}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:var(--radius-sm);border:1.5px solid transparent;font-weight:600;white-space:nowrap;transition:background-color .12s ease}
+  .btn-signal{background:var(--signal);color:#fff}
+  .btn-signal:hover{background:var(--signal-deep)}
+  .btn-harbour{background:var(--harbour);color:#fff}
+  .btn-harbour:hover{background:var(--harbour-deep)}
+  .btn-ghost{background:transparent;color:var(--harbour);border-color:var(--line-strong)}
+  .btn-ghost:hover{background:var(--harbour-tint)}
+  .btn-block{width:100%}
+  .btn-text{background:none;border:0;color:var(--ink-soft);min-height:36px;padding:4px 8px;border-radius:6px;text-decoration:underline;text-underline-offset:3px;font-weight:500;font-size:.9rem}
+  .btn-text:hover{color:var(--signal-deep);background:var(--signal-tint)}
+
+  /* People */
+  .people{display:flex;flex-wrap:wrap;gap:8px}
+  .person{display:inline-flex;align-items:center;gap:8px;padding:5px 14px 5px 5px;border-radius:999px;background:var(--harbour-tint);color:var(--harbour);font-weight:500;max-width:100%}
+  .avatar{width:28px;height:28px;border-radius:50%;background:var(--harbour);color:#fff;display:inline-grid;place-items:center;font-size:.8rem;font-weight:600;flex:none}
+  .person-name{overflow-wrap:anywhere}
+
+  .empty{color:var(--ink-soft);padding:14px 16px;border:1.5px dashed var(--line-strong);border-radius:var(--radius-sm);font-size:.95rem}
+
+  /* Expenses */
+  .expense{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;padding:14px 0;border-top:1px solid var(--line)}
+  .expense:first-child{border-top:0;padding-top:4px}
+  .expense-desc{grid-column:1;grid-row:1;font-weight:600;overflow-wrap:anywhere}
+  .expense-amount{grid-column:2;grid-row:1;font-family:var(--font-display);font-weight:600;font-size:1.2rem;color:var(--harbour);font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1.3}
+  .expense-meta{grid-column:1;grid-row:2;color:var(--ink-soft);font-size:.9rem;overflow-wrap:anywhere}
+  .expense-meta b{font-weight:600;color:var(--ink)}
+  .expense .btn-text{grid-column:2;grid-row:2;justify-self:end;align-self:start;margin-right:-8px}
+
+  /* Balances */
+  .balance{padding:14px 0;border-top:1px solid var(--line)}
+  .balance:first-child{border-top:0;padding-top:4px}
+  .balance-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .balance-name{font-weight:600;overflow-wrap:anywhere}
+  .net{white-space:nowrap;font-size:.95rem}
+  .net-amt{font-family:var(--font-display);font-weight:600;font-size:1.2rem;font-variant-numeric:tabular-nums}
+  .net.owed{color:var(--tide)}
+  .net.owes{color:var(--harbour)}
+  .net.even{color:var(--ink-soft)}
+  .bar{position:relative;height:6px;background:var(--harbour-tint);border-radius:3px;margin:8px 0 6px;overflow:hidden}
+  .bar::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--line-strong)}
+  .bar span{position:absolute;top:0;bottom:0;border-radius:3px}
+  .bar .pos{left:50%;background:var(--tide)}
+  .bar .neg{right:50%;background:var(--harbour)}
+  .balance-detail{color:var(--ink-soft);font-size:.88rem;font-variant-numeric:tabular-nums}
+
+  /* Settle up */
+  .transfer{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:4px 12px;padding:12px 0;border-top:1px solid var(--line)}
+  .transfer:first-child{border-top:0;padding-top:4px}
+  .transfer .who{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+  .transfer .who b{font-weight:600}
+  .transfer .pays{color:var(--ink-soft);font-size:.9rem;margin:0 6px}
+  .transfer .amt{font-family:var(--font-display);font-weight:600;font-size:1.2rem;color:var(--signal-deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .principle{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.88rem}
+
+  /* Footer */
+  .foot{padding:8px 0 48px;color:var(--ink-soft);font-size:.9rem;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between}
+  .reset{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .reset p{flex:1 1 100%;color:var(--ink)}
+  @media (min-width:600px){.reset p{flex:0 1 auto}}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the app</a>
+
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <div class="brand">
+      <svg viewBox="0 0 36 36" aria-hidden="true" focusable="false">
+        <circle cx="18" cy="18" r="16" fill="none" stroke="#fff" stroke-width="2"/>
+        <path d="M9 17.5 C11 25 14 27.5 18 27.5 S25 25 27 17.5 Z" fill="#C2462B"/>
+        <path d="M6 17.5h24" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+      <h1>Even Keel</h1>
+    </div>
+    <p class="tagline">Split the costs of a trip so everyone ends up even.</p>
+  </div>
+</header>
+
+<main id="main" class="wrap app" data-testid="app" tabindex="-1">
+  <p id="status" class="sr-only" aria-live="polite"></p>
+
+  <div class="col">
+    <!-- People -->
+    <section class="card" aria-labelledby="people-heading">
+      <div class="card-head">
+        <h2 id="people-heading">People</h2>
+        <span class="count" id="people-count"></span>
+      </div>
+      <form id="person-form" novalidate>
+        <div class="field">
+          <label class="label" for="person-name">Name</label>
+          <div class="row">
+            <input class="input" id="person-name" name="person-name" type="text" autocomplete="off" autocapitalize="words" maxlength="40" placeholder="Ana" data-testid="person-name">
+            <button class="btn btn-harbour" type="submit" data-testid="add-person">Add</button>
+          </div>
+          <div class="error-slot" id="person-error-slot" role="alert"></div>
+        </div>
+      </form>
+      <p class="empty" id="people-empty">No one yet. Add everyone who's on the trip, including you.</p>
+      <ul class="people" id="people-list" aria-label="People on the trip"></ul>
+    </section>
+
+    <!-- Log an expense -->
+    <section class="card" aria-labelledby="add-heading">
+      <div class="card-head">
+        <h2 id="add-heading">Log an expense</h2>
+      </div>
+      <form id="expense-form" novalidate>
+        <div class="field">
+          <label class="label" for="expense-desc">What was it?</label>
+          <input class="input" id="expense-desc" name="expense-desc" type="text" autocomplete="off" maxlength="80" placeholder="Ferry tickets" data-testid="expense-desc">
+        </div>
+        <div class="field">
+          <label class="label" for="expense-amount">Amount <span class="label-note">in Canadian dollars</span></label>
+          <div class="money">
+            <span class="cur" aria-hidden="true">$</span>
+            <input class="input" id="expense-amount" name="expense-amount" type="text" inputmode="decimal" autocomplete="off" maxlength="20" placeholder="0.00" aria-describedby="amount-hint" data-describedby="amount-hint" data-testid="expense-amount">
+          </div>
+          <p class="hint" id="amount-hint">Dollars and cents, up to 2 decimal places.</p>
+        </div>
+        <div class="field">
+          <label class="label" for="expense-payer">Who paid?</label>
+          <select class="select" id="expense-payer" name="expense-payer" data-testid="expense-payer"></select>
+        </div>
+        <fieldset class="field" id="split-fieldset">
+          <div class="split-head">
+            <legend class="label">Split between</legend>
+            <div class="split-tools" id="split-tools" hidden>
+              <button type="button" class="btn-text" id="split-all">Everyone</button>
+              <button type="button" class="btn-text" id="split-none">No one</button>
+            </div>
+          </div>
+          <div class="split" id="expense-split" data-testid="expense-split"></div>
+          <p class="hint" id="split-empty">Add people and they'll show up here, all selected.</p>
+          <p class="hint" id="split-hint" hidden>Equal shares. If the cents don't divide evenly, the odd cents go to whoever joined the trip first.</p>
+        </fieldset>
+        <div class="error-slot" id="expense-error-slot" role="alert"></div>
+        <button class="btn btn-signal btn-block" type="submit" data-testid="add-expense">Add expense</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="col">
+    <!-- Balances -->
+    <section class="card" aria-labelledby="balances-heading">
+      <div class="card-head">
+        <h2 id="balances-heading">Balances</h2>
+        <span class="count" id="balances-summary"></span>
+      </div>
+      <p class="lead" id="balances-lead"></p>
+      <p class="empty" id="balances-empty">Add the people on the trip and log what they paid for. Each person's balance shows up here.</p>
+      <ul id="balances-list" aria-label="Balances"></ul>
+    </section>
+
+    <!-- Settle up -->
+    <section class="card" aria-labelledby="settle-heading">
+      <div class="card-head">
+        <h2 id="settle-heading">Settle up</h2>
+        <span class="count" id="settle-count"></span>
+      </div>
+      <p class="lead" id="settle-lead"></p>
+      <p class="empty" id="settle-empty">Who pays whom will appear here.</p>
+      <ul id="transfers-list" aria-label="Transfers to settle up"></ul>
+      <p class="principle">Owing a friend money after a trip is normal. This just makes squaring up quick and clear.</p>
+    </section>
+
+    <!-- Expenses -->
+    <section class="card" aria-labelledby="expenses-heading">
+      <div class="card-head">
+        <h2 id="expenses-heading" tabindex="-1">Expenses</h2>
+        <span class="count" id="expenses-count"></span>
+      </div>
+      <p class="empty" id="expenses-empty"></p>
+      <ul id="expenses-list" aria-label="Expenses, newest first"></ul>
+    </section>
+  </div>
+</main>
+
+<footer class="wrap foot">
+  <p>Everything is saved in this browser only. Nothing leaves your device.</p>
+  <div class="reset">
+    <button type="button" class="btn btn-ghost" id="reset-btn">Start a new trip</button>
+    <div id="reset-confirm" class="reset" hidden>
+      <p>This clears everyone and every expense from this browser.</p>
+      <button type="button" class="btn btn-harbour" id="reset-yes">Yes, clear it</button>
+      <button type="button" class="btn btn-ghost" id="reset-no">Keep this trip</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  const STORAGE_KEY = 'even-keel:trip:v1';
+  const fmt = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' });
+  const money = cents => fmt.format(cents / 100);
+  const listFmt = typeof Intl.ListFormat === 'function'
+    ? new Intl.ListFormat('en-CA', { style: 'long', type: 'conjunction' }) : null;
+  const $ = (sel, root = document) => root.querySelector(sel);
+
+  const els = {
+    status: $('#status'),
+    personForm: $('#person-form'),
+    personInput: $('#person-name'),
+    personErr: $('#person-error-slot'),
+    peopleList: $('#people-list'),
+    peopleEmpty: $('#people-empty'),
+    peopleCount: $('#people-count'),
+    expenseForm: $('#expense-form'),
+    desc: $('#expense-desc'),
+    amount: $('#expense-amount'),
+    payer: $('#expense-payer'),
+    split: $('#expense-split'),
+    splitFieldset: $('#split-fieldset'),
+    splitEmpty: $('#split-empty'),
+    splitHint: $('#split-hint'),
+    splitTools: $('#split-tools'),
+    splitAll: $('#split-all'),
+    splitNone: $('#split-none'),
+    expenseErr: $('#expense-error-slot'),
+    expensesList: $('#expenses-list'),
+    expensesEmpty: $('#expenses-empty'),
+    expensesCount: $('#expenses-count'),
+    expensesHeading: $('#expenses-heading'),
+    balancesList: $('#balances-list'),
+    balancesEmpty: $('#balances-empty'),
+    balancesLead: $('#balances-lead'),
+    balancesSummary: $('#balances-summary'),
+    transfersList: $('#transfers-list'),
+    settleEmpty: $('#settle-empty'),
+    settleLead: $('#settle-lead'),
+    settleCount: $('#settle-count'),
+    resetBtn: $('#reset-btn'),
+    resetConfirm: $('#reset-confirm'),
+    resetYes: $('#reset-yes'),
+    resetNo: $('#reset-no')
+  };
+
+  /* ---------- helpers ---------- */
+
+  function el(tag, attrs = {}, ...children) {
+    const node = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v === null || v === undefined || v === false) continue;
+      if (k === 'class') node.className = v;
+      else if (k === 'text') node.textContent = v;
+      else if (k === 'checked') node.checked = !!v;
+      else node.setAttribute(k, v === true ? '' : v);
+    }
+    for (const c of children.flat()) {
+      if (c === null || c === undefined) continue;
+      node.append(c.nodeType ? c : document.createTextNode(String(c)));
+    }
+    return node;
+  }
+
+  const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  const lower = s => s.toLocaleLowerCase('en-CA');
+  const initial = name => { const first = Array.from(name.trim())[0] || '?'; return first.toLocaleUpperCase('en-CA'); };
+  const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+
+  function listNames(names) {
+    if (listFmt) return listFmt.format(names);
+    if (names.length <= 1) return names.join('');
+    return names.slice(0, -1).join(', ') + ' and ' + names[names.length - 1];
+  }
+
+  function announce(msg) {
+    els.status.textContent = '';
+    setTimeout(() => { els.status.textContent = msg; }, 40);
+  }
+
+  /* ---------- state ---------- */
+
+  let state = load();
+
+  function blank() { return { people: [], expenses: [] }; }
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return blank();
+      const data = JSON.parse(raw);
+      const seen = new Set();
+      const people = [];
+      for (const n of (Array.isArray(data.people) ? data.people : [])) {
+        if (typeof n !== 'string') continue;
+        const name = n.trim();
+        if (!name || seen.has(lower(name))) continue;
+        seen.add(lower(name));
+        people.push(name);
+      }
+      const names = new Set(people);
+      const expenses = [];
+      for (const e of (Array.isArray(data.expenses) ? data.expenses : [])) {
+        if (!e || typeof e.desc !== 'string' || !e.desc.trim()) continue;
+        if (!Number.isInteger(e.cents) || e.cents <= 0) continue;
+        if (!names.has(e.payer)) continue;
+        if (!Array.isArray(e.split)) continue;
+        const split = people.filter(n => e.split.includes(n));
+        if (!split.length) continue;
+        expenses.push({
+          id: typeof e.id === 'string' && e.id ? e.id : uid(),
+          desc: e.desc.trim(),
+          cents: e.cents,
+          payer: e.payer,
+          split,
+          createdAt: Number.isFinite(e.createdAt) ? e.createdAt : 0
+        });
+      }
+      return { people, expenses };
+    } catch (_) {
+      return blank();
+    }
+  }
+
+  function save() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) { /* storage unavailable; keep going in memory */ }
+  }
+
+  /* ---------- money maths (integer cents) ---------- */
+
+  // Equal shares; leftover cents go one each to the selected people in trip order.
+  function shares(expense) {
+    const members = state.people.filter(n => expense.split.includes(n));
+    const n = members.length;
+    const base = Math.floor(expense.cents / n);
+    const rem = expense.cents - base * n;
+    const out = new Map();
+    members.forEach((name, i) => out.set(name, base + (i < rem ? 1 : 0)));
+    return out;
+  }
+
+  function balances() {
+    const map = new Map(state.people.map(n => [n, { paid: 0, share: 0 }]));
+    for (const e of state.expenses) {
+      map.get(e.payer).paid += e.cents;
+      for (const [name, c] of shares(e)) map.get(name).share += c;
+    }
+    return state.people.map(name => {
+      const b = map.get(name);
+      return { name, paid: b.paid, share: b.share, net: b.paid - b.share };
+    });
+  }
+
+  // Greedy pairing: largest debtor pays largest creditor. Uses at most (non-zero balances - 1) transfers.
+  function settle(bal) {
+    const debtors = bal.filter(b => b.net < 0).map(b => ({ name: b.name, amt: -b.net })).sort((a, b) => b.amt - a.amt);
+    const creditors = bal.filter(b => b.net > 0).map(b => ({ name: b.name, amt: b.net })).sort((a, b) => b.amt - a.amt);
+    const transfers = [];
+    let i = 0, j = 0;
+    while (i < debtors.length && j < creditors.length) {
+      const d = debtors[i], c = creditors[j];
+      const amt = Math.min(d.amt, c.amt);
+      transfers.push({ from: d.name, to: c.name, cents: amt });
+      d.amt -= amt; c.amt -= amt;
+      if (d.amt === 0) i++;
+      if (c.amt === 0) j++;
+    }
+    return transfers;
+  }
+
+  function parseAmount(raw) {
+    let s = String(raw).trim().replace(/^\$/, '').replace(/,/g, '').trim();
+    if (!s) return { error: 'Enter an amount.' };
+    if (s.startsWith('-')) return { error: 'Enter an amount greater than zero.' };
+    const m = /^(\d*)(?:\.(\d*))?$/.exec(s);
+    if (!m || (m[1] === '' && !m[2])) return { error: 'Enter the amount as dollars and cents, like 42.50.' };
+    const dollars = m[1] || '0';
+    const centsPart = m[2] || '';
+    if (centsPart.length > 2) return { error: 'Amounts can have at most 2 decimal places, like 42.50.' };
+    if (dollars.length > 13) return { error: 'That amount is too large.' };
+    const cents = Number(dollars) * 100 + Number((centsPart + '00').slice(0, 2));
+    if (!Number.isSafeInteger(cents)) return { error: 'That amount is too large.' };
+    if (cents <= 0) return { error: 'Enter an amount greater than zero.' };
+    return { cents };
+  }
+
+  /* ---------- errors ---------- */
+
+  const describable = () => [els.personInput, els.desc, els.amount, els.payer, els.splitFieldset];
+
+  function clearErrors() {
+    els.personErr.replaceChildren();
+    els.expenseErr.replaceChildren();
+    for (const node of describable()) {
+      node.removeAttribute('aria-invalid');
+      const base = node.dataset.describedby;
+      if (base) node.setAttribute('aria-describedby', base);
+      else node.removeAttribute('aria-describedby');
+    }
+  }
+
+  function showError(slot, describeEl, focusEl, message) {
+    clearErrors();
+    const id = slot.id + '-msg';
+    slot.replaceChildren(el('p', { class: 'error', id, 'data-testid': 'form-error' },
+      el('span', { class: 'error-icon', 'aria-hidden': 'true', text: '!' }),
+      el('span', { text: message })
+    ));
+    if (describeEl) {
+      describeEl.setAttribute('aria-invalid', 'true');
+      const base = describeEl.dataset.describedby || '';
+      describeEl.setAttribute('aria-describedby', (base + ' ' + id).trim());
+    }
+    if (focusEl) focusEl.focus();
+  }
+
+  /* ---------- rendering ---------- */
+
+  function renderPeople() {
+    els.peopleList.replaceChildren(...state.people.map(name =>
+      el('li', { class: 'person', 'data-testid': 'person' },
+        el('span', { class: 'avatar', 'aria-hidden': 'true', text: initial(name) }),
+        el('span', { class: 'person-name', text: name })
+      )
+    ));
+    const n = state.people.length;
+    els.peopleEmpty.hidden = n > 0;
+    els.peopleCount.textContent = n ? plural(n, 'person', 'people') : '';
+  }
+
+  function renderPayer() {
+    const prev = els.payer.value;
+    if (!state.people.length) {
+      els.payer.replaceChildren(el('option', { value: '', text: 'Add people first' }));
+      els.payer.disabled = true;
+      return;
+    }
+    els.payer.disabled = false;
+    els.payer.replaceChildren(...state.people.map(n => el('option', { value: n, text: n })));
+    if (state.people.includes(prev)) els.payer.value = prev;
+  }
+
+  function renderSplit(resetAll) {
+    const unchecked = new Set(resetAll ? [] :
+      Array.from(els.split.querySelectorAll('input[type="checkbox"]')).filter(c => !c.checked).map(c => c.value));
+    els.split.replaceChildren(...state.people.map(name =>
+      el('label', { class: 'check' },
+        el('input', { type: 'checkbox', name: 'split', value: name, checked: !unchecked.has(name) }),
+        el('span', { class: 'check-name', text: name })
+      )
+    ));
+    const n = state.people.length;
+    els.splitEmpty.hidden = n > 0;
+    els.splitHint.hidden = n === 0;
+    els.splitTools.hidden = n < 2;
+  }
+
+  function renderExpenses() {
+    const newestFirst = state.expenses.slice().reverse();
+    els.expensesList.replaceChildren(...newestFirst.map(e => {
+      const members = state.people.filter(n => e.split.includes(n));
+      const n = members.length;
+      const base = Math.floor(e.cents / n);
+      const even = base * n === e.cents;
+      const each = n === 1 ? '' : (even ? ` · ${money(base)} each` : ` · ${money(base)}–${money(base + 1)} each`);
+      const ways = n === 1 ? 'just for' : `${n} ways between`;
+      const meta = el('p', { class: 'expense-meta' },
+        el('b', { text: e.payer }), ' paid · split ', ways, ' ', listNames(members), each);
+      return el('li', { class: 'expense', 'data-testid': 'expense', 'data-id': e.id },
+        el('p', { class: 'expense-desc', text: e.desc }),
+        el('p', { class: 'expense-amount', text: money(e.cents) }),
+        meta,
+        el('button', { type: 'button', class: 'btn-text', 'data-testid': 'delete-expense', 'aria-label': `Remove ${e.desc}`, text: 'Remove' })
+      );
+    }));
+    const n = state.expenses.length;
+    els.expensesCount.textContent = n ? plural(n, 'expense', 'expenses') : '';
+    els.expensesEmpty.hidden = n > 0;
+    els.expensesEmpty.textContent = state.people.length
+      ? 'Nothing logged yet. Add the first expense and the shares work themselves out.'
+      : 'Once you\u2019ve added people, log what each person paid for and it shows up here.';
+  }
+
+  function renderBalances(bal) {
+    const people = state.people.length;
+    const total = state.expenses.reduce((s, e) => s + e.cents, 0);
+    els.balancesSummary.textContent = state.expenses.length ? `${money(total)} spent` : '';
+    els.balancesEmpty.hidden = people > 0;
+    els.balancesLead.hidden = people === 0;
+    els.balancesLead.textContent = state.expenses.length
+      ? 'What each person paid, minus their share of everything.'
+      : 'No expenses yet, so everyone starts even.';
+    if (!people) { els.balancesList.replaceChildren(); return; }
+    const maxAbs = Math.max(1, ...bal.map(b => Math.abs(b.net)));
+    els.balancesList.replaceChildren(...bal.map(b => {
+      const abs = Math.abs(b.net);
+      const cls = b.net > 0 ? 'owed' : b.net < 0 ? 'owes' : 'even';
+      const label = b.net > 0 ? 'is owed ' : b.net < 0 ? 'owes ' : 'even ';
+      const width = (abs / maxAbs) * 50;
+      return el('li', { class: 'balance', 'data-testid': 'balance', 'data-person': b.name, 'data-cents': String(b.net) },
+        el('div', { class: 'balance-head' },
+          el('span', { class: 'balance-name', text: b.name }),
+          el('span', { class: 'net ' + cls },
+            el('span', { text: label }),
+            el('strong', { class: 'net-amt', text: money(abs) })
+          )
+        ),
+        el('div', { class: 'bar', 'aria-hidden': 'true' },
+          b.net !== 0 ? el('span', { class: b.net > 0 ? 'pos' : 'neg', style: `width:${width}%` }) : null
+        ),
+        el('p', { class: 'balance-detail', text: `Paid ${money(b.paid)} · Share ${money(b.share)}` })
+      );
+    }));
+  }
+
+  function renderTransfers(bal) {
+    const people = state.people.length;
+    const transfers = settle(bal);
+    els.settleEmpty.hidden = people > 0;
+    els.settleLead.hidden = people === 0;
+    els.settleCount.textContent = transfers.length ? plural(transfers.length, 'transfer', 'transfers') : '';
+    if (!people) { els.transfersList.replaceChildren(); return; }
+    if (!state.expenses.length) els.settleLead.textContent = 'No expenses yet, so there\u2019s nothing to settle.';
+    else if (!transfers.length) els.settleLead.textContent = 'Everyone\u2019s even. Nothing to settle.';
+    else els.settleLead.textContent = transfers.length === 1
+      ? 'One transfer and everyone\u2019s even.'
+      : `${transfers.length} transfers and everyone\u2019s even.`;
+    els.transfersList.replaceChildren(...transfers.map(t =>
+      el('li', { class: 'transfer', 'data-testid': 'transfer', 'data-from': t.from, 'data-to': t.to, 'data-cents': String(t.cents) },
+        el('span', { class: 'who' }, el('b', { text: t.from }), el('span', { class: 'pays', text: 'pays' }), el('b', { text: t.to })),
+        el('span', { class: 'amt', text: money(t.cents) })
+      )
+    ));
+  }
+
+  function renderAll(resetSplit = false) {
+    renderPeople();
+    renderPayer();
+    renderSplit(resetSplit);
+    renderExpenses();
+    const bal = balances();
+    renderBalances(bal);
+    renderTransfers(bal);
+  }
+
+  /* ---------- people form ---------- */
+
+  els.personForm.addEventListener('submit', e => {
+    e.preventDefault();
+    clearErrors();
+    const name = els.personInput.value.trim();
+    if (!name) {
+      showError(els.personErr, els.personInput, els.personInput, 'Enter a name to add someone to the trip.');
+      return;
+    }
+    const dup = state.people.find(p => lower(p) === lower(name));
+    if (dup) {
+      showError(els.personErr, els.personInput, els.personInput,
+        `${dup} is already on the trip. Each person needs a different name.`);
+      return;
+    }
+    state.people.push(name);
+    save();
+    renderAll();
+    els.personInput.value = '';
+    els.personInput.focus();
+    announce(`${name} added to the trip.`);
+  });
+
+  els.personInput.addEventListener('input', () => {
+    if (els.personErr.childElementCount) clearErrors();
+  });
+
+  /* ---------- expense form ---------- */
+
+  els.expenseForm.addEventListener('submit', e => {
+    e.preventDefault();
+    clearErrors();
+
+    if (!state.people.length) {
+      showError(els.expenseErr, null, null, 'Add at least one person to the trip before you log an expense.');
+      return;
+    }
+    const desc = els.desc.value.trim();
+    if (!desc) {
+      showError(els.expenseErr, els.desc, els.desc, 'Say what the expense was, like \u201cFerry tickets\u201d.');
+      return;
+    }
+    const parsed = parseAmount(els.amount.value);
+    if (parsed.error) {
+      showError(els.expenseErr, els.amount, els.amount, parsed.error);
+      return;
+    }
+    const payer = els.payer.value;
+    if (!state.people.includes(payer)) {
+      showError(els.expenseErr, els.payer, els.payer, 'Choose who paid.');
+      return;
+    }
+    const boxes = Array.from(els.split.querySelectorAll('input[type="checkbox"]'));
+    const split = boxes.filter(b => b.checked).map(b => b.value);
+    if (!split.length) {
+      showError(els.expenseErr, els.splitFieldset, boxes[0] || els.desc, 'Choose at least one person to split this between.');
+      return;
+    }
+
+    state.expenses.push({ id: uid(), desc, cents: parsed.cents, payer, split, createdAt: Date.now() });
+    save();
+    renderAll(true);
+    els.desc.value = '';
+    els.amount.value = '';
+    els.desc.focus();
+    announce(`Added ${desc}, ${money(parsed.cents)}, paid by ${payer}.`);
+  });
+
+  els.expenseForm.addEventListener('input', () => {
+    if (els.expenseErr.childElementCount) clearErrors();
+  });
+
+  els.splitAll.addEventListener('click', () => {
+    els.split.querySelectorAll('input[type="checkbox"]').forEach(c => { c.checked = true; });
+    if (els.expenseErr.childElementCount) clearErrors();
+  });
+  els.splitNone.addEventListener('click', () => {
+    els.split.querySelectorAll('input[type="checkbox"]').forEach(c => { c.checked = false; });
+  });
+
+  /* ---------- remove expense ---------- */
+
+  els.expensesList.addEventListener('click', e => {
+    const btn = e.target.closest('[data-testid="delete-expense"]');
+    if (!btn) return;
+    const li = btn.closest('[data-id]');
+    const idx = state.expenses.findIndex(x => x.id === li.dataset.id);
+    if (idx < 0) return;
+    const [removed] = state.expenses.splice(idx, 1);
+    save();
+    renderAll();
+    els.expensesHeading.focus();
+    announce(`Removed ${removed.desc}.`);
+  });
+
+  /* ---------- start over ---------- */
+
+  els.resetBtn.addEventListener('click', () => {
+    els.resetBtn.hidden = true;
+    els.resetConfirm.hidden = false;
+    els.resetYes.focus();
+  });
+  els.resetNo.addEventListener('click', () => {
+    els.resetConfirm.hidden = true;
+    els.resetBtn.hidden = false;
+    els.resetBtn.focus();
+  });
+  els.resetYes.addEventListener('click', () => {
+    state = blank();
+    save();
+    clearErrors();
+    els.personInput.value = '';
+    els.desc.value = '';
+    els.amount.value = '';
+    renderAll(true);
+    els.resetConfirm.hidden = true;
+    els.resetBtn.hidden = false;
+    els.personInput.focus();
+    announce('Started a new trip.');
+  });
+
+  /* ---------- keep tabs in sync ---------- */
+
+  window.addEventListener('storage', e => {
+    if (e.key === STORAGE_KEY) { state = load(); renderAll(); }
+  });
+
+  renderAll(true);
+})();
+</script>
+</body>
+</html>

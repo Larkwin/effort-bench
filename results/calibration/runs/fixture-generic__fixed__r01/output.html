@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Even Keel - Split Expenses Effortlessly</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ========== RESET & BASE ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root { --primary: #6366f1; --primary-dark: #4f46e5; --success: #10b981; --danger: #ef4444; --gray: #6b7280; --radius: 16px; --shadow: 0 10px 25px rgba(0,0,0,0.08); --unused-accent: #f59e0b; }
+  body { font-family: 'Inter', sans-serif; background: #f3f4f6; color: #111827; min-height: 100vh; }
+  /* ========== HERO ========== */
+  .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 56px 20px 88px; }
+  .hero h1 { font-size: 44px; font-weight: 800; letter-spacing: -1px; }
+  .hero p { opacity: .9; margin-top: 10px; font-size: 18px; }
+  /* ========== LAYOUT ========== */
+  main { max-width: 980px; margin: -56px auto 40px; padding: 0 20px; display: grid; gap: 22px; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .stat { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; text-align: center; }
+  .stat .num { font-size: 34px; font-weight: 800; color: var(--primary); }
+  .stat .lbl { font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-top: 4px; }
+  .card { background: white; border-radius: var(--radius); box-shadow: var(--shadow); padding: 26px; }
+  .card h2 { font-size: 20px; font-weight: 700; margin-bottom: 16px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  input, select { flex: 1; padding: 12px 16px; border: 2px solid #e5e7eb; border-radius: 12px; font: inherit; min-width: 140px; }
+  input:focus, select:focus { outline: none; border-color: var(--primary); }
+  .btn { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; border: 0; border-radius: 999px; padding: 12px 24px; font-weight: 600; cursor: pointer; box-shadow: 0 4px 14px rgba(99,102,241,.4); transition: transform .3s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-sm { background: #fee2e2; color: var(--danger); border: 0; border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .chip { background: #eef2ff; color: var(--primary-dark); padding: 6px 14px; border-radius: 999px; font-weight: 500; }
+  .list-item { display: flex; justify-content: space-between; align-items: center; padding: 14px; border-radius: 12px; background: #f9fafb; margin-top: 10px; }
+  .pos { color: var(--success); font-weight: 700; } .neg { color: var(--danger); font-weight: 700; }
+  .err { color: var(--danger); margin-top: 8px; font-size: 14px; }
+  .empty { text-align: center; color: var(--gray); padding: 20px; }
+  .toast { position: fixed; bottom: 24px; right: 24px; background: #111827; color: white; padding: 14px 20px; border-radius: 12px; box-shadow: var(--shadow); opacity: 0; transition: opacity .4s; }
+  .toast.show { opacity: 1; }
+  .split label { margin-right: 12px; }
+  footer { text-align: center; color: var(--gray); padding: 24px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>💸 Welcome to Even Keel!</h1>
+  <p>Split expenses effortlessly with friends ✨</p>
+</div>
+<main data-testid="app">
+  <div class="stats">
+    <div class="stat"><div class="num" id="s-total">$0</div><div class="lbl">Total Spent</div></div>
+    <div class="stat"><div class="num" id="s-people">0</div><div class="lbl">Travelers</div></div>
+    <div class="stat"><div class="num" id="s-exp">0</div><div class="lbl">Expenses</div></div>
+  </div>
+  <div class="card">
+    <h2>👥 Add Travelers</h2>
+    <div class="row">
+      <input placeholder="Enter a name..." data-testid="person-name" id="pname">
+      <button class="btn" data-testid="add-person" id="addp">Add Person</button>
+    </div>
+    <div id="perr"></div>
+    <div class="chips" id="people"></div>
+  </div>
+  <div class="card">
+    <h2>🧾 Add Expense</h2>
+    <div class="row">
+      <input placeholder="What was it for?" data-testid="expense-desc" id="desc">
+      <input placeholder="Amount" data-testid="expense-amount" id="amt">
+      <select data-testid="expense-payer" id="payer"></select>
+    </div>
+    <div class="split" data-testid="expense-split" id="split" style="margin-top:12px"></div>
+    <div style="margin-top:14px"><button class="btn" data-testid="add-expense" id="adde">Add Expense 🚀</button></div>
+    <div id="eerr"></div>
+    <div id="expenses"></div>
+  </div>
+  <div class="card">
+    <h2>📊 Balances</h2>
+    <div id="balances"></div>
+  </div>
+  <div class="card">
+    <h2>🤝 Settle Up</h2>
+    <div id="transfers"></div>
+  </div>
+</main>
+<footer>Made with ❤️ for travelers everywhere</footer>
+<div class="toast" id="toast"></div>
+<script>
+  // ===== STATE =====
+  let people = JSON.parse(localStorage.getItem('ek_people') || '[]');
+  let expenses = JSON.parse(localStorage.getItem('ek_expenses') || '[]');
+  const fmt = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' });
+
+  // ===== HELPERS =====
+  function persist() { localStorage.setItem('ek_people', JSON.stringify(people)); localStorage.setItem('ek_expenses', JSON.stringify(expenses)); }
+  function toast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
+  function err(id, msg) { document.getElementById(id).innerHTML = msg ? `<div class="err" data-testid="form-error">⚠️ ${msg}</div>` : ''; }
+
+  // ===== PEOPLE =====
+  document.getElementById('addp').onclick = () => {
+    const name = document.getElementById('pname').value.trim();
+    if (!name) return err('perr', 'Oops! Please enter a name!');
+    if (people.some(p => p.toLowerCase() === name.toLowerCase())) return err('perr', 'That person already exists!');
+    people.push(name); persist(); err('perr'); document.getElementById('pname').value = ''; toast('🎉 ' + name + ' added!'); render();
+  };
+
+  // ===== EXPENSES =====
+  document.getElementById('adde').onclick = () => {
+    const desc = document.getElementById('desc').value.trim();
+    const amount = parseFloat(document.getElementById('amt').value);
+    const payer = document.getElementById('payer').value;
+    const split = [...document.querySelectorAll('#split input:checked')].map(c => c.value);
+    if (!desc) return err('eerr', 'Please add a description!');
+    if (!(amount > 0)) return err('eerr', 'Please enter a valid amount!');
+    if (!split.length) return err('eerr', 'Select at least one person!');
+    expenses.push({ id: Date.now(), desc, cents: Math.round(amount * 100), payer, split });
+    persist(); err('eerr');
+    document.getElementById('desc').value = ''; document.getElementById('amt').value = '';
+    toast('✅ Expense added!'); render();
+  };
+
+  function computeBalances() {
+    const bal = {}; people.forEach(p => bal[p] = 0);
+    expenses.forEach(e => {
+      const share = Math.floor(e.cents / e.split.length);
+      const rem = e.cents - share * e.split.length;
+      bal[e.payer] += e.cents;
+      e.split.forEach(p => bal[p] -= share);
+      bal[e.payer] -= rem; // payer absorbs leftover cents
+    });
+    return bal;
+  }
+
+  function settle(bal) {
+    const d = [], c = [];
+    Object.entries(bal).forEach(([n, v]) => { if (v < 0) d.push([n, -v]); else if (v > 0) c.push([n, v]); });
+    const out = []; let i = 0, j = 0;
+    while (i < d.length && j < c.length) {
+      const a = Math.min(d[i][1], c[j][1]); out.push({ from: d[i][0], to: c[j][0], cents: a });
+      d[i][1] -= a; c[j][1] -= a; if (!d[i][1]) i++; if (!c[j][1]) j++;
+    }
+    return out;
+  }
+
+  // ===== RENDER =====
+  function render() {
+    document.getElementById('people').innerHTML = people.length ? people.map(p => `<span class="chip" data-testid="person">${p}</span>`).join('') : '<div class="empty">No travelers yet! Add some above 👆</div>';
+    const payer = document.getElementById('payer'); const cur = payer.value;
+    payer.innerHTML = people.map(p => `<option value="${p}">${p}</option>`).join(''); if (people.includes(cur)) payer.value = cur;
+    document.getElementById('split').innerHTML = people.map(p => `<label><input type="checkbox" value="${p}" checked> ${p}</label>`).join('');
+    document.getElementById('expenses').innerHTML = expenses.length ? [...expenses].reverse().map(e => `<div class="list-item" data-testid="expense"><div><b>${e.desc}</b><div style="color:#6b7280;font-size:13px">Paid by ${e.payer} • Split ${e.split.length} ways</div></div><div><b>${fmt.format(e.cents / 100)}</b> <button class="btn-sm" data-testid="delete-expense" onclick="removeExp(${e.id})">🗑️ Delete</button></div></div>`).join('') : '<div class="empty">No expenses yet! 🏖️</div>';
+    const bal = computeBalances();
+    document.getElementById('balances').innerHTML = expenses.length ? people.map(p => `<div class="list-item" data-testid="balance" data-person="${p}" data-cents="${bal[p]}"><span>${p}</span><span class="${bal[p] >= 0 ? 'pos' : 'neg'}">${bal[p] >= 0 ? '+' : '-'}${fmt.format(Math.abs(bal[p]) / 100)}</span></div>`).join('') : '<div class="empty">Add an expense to see balances! 📈</div>';
+    const tr = settle(bal);
+    document.getElementById('transfers').innerHTML = tr.length ? tr.map(t => `<div class="list-item" data-testid="transfer" data-from="${t.from}" data-to="${t.to}" data-cents="${t.cents}"><span>${t.from} → ${t.to}</span><b>${fmt.format(t.cents / 100)}</b></div>`).join('') : '<div class="empty">All settled up! 🎉</div>';
+    document.getElementById('s-total').textContent = fmt.format(expenses.reduce((a, e) => a + e.cents, 0) / 100);
+    document.getElementById('s-people').textContent = people.length;
+    document.getElementById('s-exp').textContent = expenses.length;
+  }
+  window.removeExp = id => { expenses = expenses.filter(e => e.id !== id); persist(); toast('🗑️ Expense deleted'); render(); };
+  render();
+</script>
+</body>
+</html>

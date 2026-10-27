@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T23:36:50.826Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15351,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 3193,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1816
+        }
+      },
+      "cost_usd": 0.125264,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Every colour in the CSS is from the palette and each is used in its stated role: Signal only on .primary buttons and the h1:before rule, Kelp for .pos, and negatives in Harbour with a true minus sign. Fraunces 600 and Plex 400/500 are loaded, .money uses tabular-nums, and type stays on 14/16/20/28. The 6px radius, 1px Rope borders, no shadows and the 2px Harbour outline with 2px offset are all as specified. The one break is off-grid 12px spacing on input padding, li padding and fieldset padding, which is outside the 8px rhythm with 4px allowed only for tight pairs."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a wordmark with one supporting line, Fraunces section headings, and 14px Fog metadata under each expense. The rhythm across the 24px-padded panels is consistent, and the Add person button aligns to the input height on both widths. The mobile layout reflows the amount and payer fields cleanly. Weaknesses are a long, uniform stack of equal-weight panels where Settle up gets no more emphasis than People, and balance rows that repeat the amount in both the meta text and the right column."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "The strings are plain and specific. Errors say what to fix: \"Enter an amount greater than $0.\", \"Use no more than 2 decimal places.\", \"Ana is already on the trip. Use a different name.\" Each empty state is one sentence that says what to do next, such as \"Add people first, then log what you paid for.\", and \"Everyone is even.\" is a quietly on-brand touch. Buttons are short verbs and there are no exclamation marks, emoji or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "All required flows work, with context-aware empty states that change once people exist. Invalid input keeps what you typed and moves focus to the field at fault, and new people are checked by default while existing checkbox choices survive re-render. The amount field tolerates a leading $ and commas. Thin spots: you cannot remove or rename a person, a removed expense has no undo, positive balances have no plus sign, and the empty-split error does not move focus."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The money logic is correct: integer cents are parsed from the string rather than a float, leftover cents go out in trip order, and the greedy settle-up yields at most n−1 transfers. Accessibility basics are solid, with label/for pairs, fieldset and legend, role=alert errors and an aria-label on each Remove. However, a <p> is injected as a child of <ul> in the empty states, which is invalid markup. The terse IDs (pf, pn, ee, tl), inline style attributes and a dead ternary in the decimal check make it harder to read and extend."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result is restrained and clearly tuned to this brand. Errors are styled with a Harbour left rule instead of red, and the primary hover uses an underline so no off-palette shade is introduced. The checkbox accent-color is set to Harbour. The overall structure, four identical stacked panels, is still the default layout rather than a considered one."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four identical bordered panels stacked with uniform visual weight; Settle up, the payoff of the app, looks the same as People",
+          "Balance rows repeat the same figure twice (\"is owed $46.66\" next to \"$46.66\")"
+        ],
+        "brand_violations": [
+          "Spacing off the 8px grid: 12px input padding, 12px li padding and 12px fieldset padding"
+        ],
+        "best_detail": "Inline errors are set in Harbour with a 3px Harbour left rule instead of red, which keeps the steady, non-alarming tone and honours the rule that Signal is used for nothing but primary buttons and the wordmark rule.",
+        "worst_detail": "Each balance row states the amount twice, once in the 'is owed/owes' meta text and again in the right-hand money column, which adds noise to the part of the app people read most."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

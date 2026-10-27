@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.061Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15068,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1866,
+        "output_tokens_details": {
+          "thinking_tokens": 612
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.048796,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D fills the header and headings, and Signal #C2462B is used sparingly for the header rule, the primary button and the settle-up accents. Both sit on a warm paper #F5F1E8 ground. Fraunces with Public Sans reads steady and trustworthy, and the tagline states the principle outright: \"Owing a friend is normal, so let’s keep it level.\" The one tension is that negative balances are tinted Signal-dark red (#A53820) against a green for owed, which reads slightly like a debt warning."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "The two-column grid at 860px collapses cleanly to one column on mobile with no overflow, and spacing is consistent throughout (18px card padding, 20px gaps). Hierarchy is clear: Fraunces section heads, tabular-num amounts and well-sized 44px controls. Weaker spots: the Remove button stacked under each amount is visually heavy and repetitive. In the empty state, the 'Everyone you add will appear here' note wraps awkwardly inside the 140px auto-fill grid."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific: 'What was it for?', 'Who paid?', '2 payments will bring everyone level.', 'is owed' / 'owes' / 'is all square'. The errors are useful and calm, for example 'Add a description so everyone knows what this was for.' and 'The amount can have at most 2 decimal places.' Buttons use verbs, and there are no exclamation marks or filler."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every panel has an empty state. Validation messages appear inline and keep what the user typed. Split checkboxes default to everyone and remember choices across re-renders, and focus returns to the right input after adding. The settle-up list is readable, with bold names and a count. Thin spots: expense removal is instant with no undo, people cannot be removed, and the expense error sits below the submit button, away from the field at fault."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The cents logic is correct. Leftover cents go to people in trip order, amounts are parsed with a strict regex and Math.round, and the greedy transfer match yields at most n−1 transfers. Output is escaped throughout, and the markup is semantic: labelled sections, a fieldset with legend, and role=alert error regions. Against that, the code is minified-dense with one-letter class names (.d, .m, .r, .t). The `.col` grid rule is duplicated inside the media query. Errors are not linked to fields via aria-describedby or aria-invalid."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "There are deliberate choices: a custom keel/level glyph with a Signal waterline, a Signal under-rule on the navy header, a warm paper ground rather than grey, and the tagline carrying the brand principle. The card-per-section layout and pill chips for people are somewhat template-like, but the result is restrained and specific to the brand."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Every section is an identical bordered white card with 10px radius, giving uniform weight across panels",
+          "Fully rounded 99px pill chips for people"
+        ],
+        "brand_violations": [
+          "Negative balances are coloured in Signal-dark red (#A53820), set against green for owed, which leans toward framing owing as a problem despite the principle"
+        ],
+        "best_detail": "The header glyph, a keel with a Signal-red waterline, paired with the tagline 'Owing a friend is normal, so let’s keep it level' expresses the brand and its principle in one quiet line.",
+        "worst_detail": "A full bordered Remove button under every expense amount adds visual noise and deletes instantly with no undo."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

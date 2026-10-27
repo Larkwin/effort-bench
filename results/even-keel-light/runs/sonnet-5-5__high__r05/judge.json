@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.126Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 22178,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2179,
+        "output_tokens_details": {
+          "thinking_tokens": 905
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.066146,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Harbour #1F3A4D carries the header, headings and amounts. Signal #C2462B is held to the header rule, the Settle up top border, primary buttons and arrows, all on a warm paper #F5F2EA ground. Fraunces with Public Sans reads steady and humane rather than bank-like. Negative balances are set in Harbour, not red, which honours the principle; the principle is also spelled out in copy twice, which is a touch on-the-nose."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Two-column layout with clear serif section heads, tabular numerals and the centre-zero balance bars gives strong hierarchy, and it stacks cleanly at 390px. But the people chips sit flush against the name input because `ul.plain{margin:0}` overrides `.people{margin-top:16px}`. The first transfer row's 4px top padding also makes the Settle up list uneven."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Errors are specific and calm, such as 'Add a short description, like “Groceries” or “Ferry tickets”.' and 'The amount can have at most 2 decimal places…'. Empty states guide the next step ('You can start with yourself.'), and buttons are verbs. One grammar slip, '2 payments squares everything up', and the 'owing is normal' line is repeated in two cards."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every brief state is covered: three-tier empty states, inline errors that keep input and focus the bad field, an aria-live status after actions, newest-first expenses with Remove, an 'Everyone’s even' state, and a reset with inline confirmation. Everyone/Clear shortcuts help on the split. People can't be removed or renamed once added, and the settle-up rows have no way to mark a transfer as done."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Integer-cent parsing without floats, remainder cents handed out in trip order, greedy settlement within the n−1 bound, HTML escaping, and defensive validation of stored localStorage data are all solid. Weak spots: the `<legend>` is wrapped in a div so the fieldset loses its accessible name, and the expense error isn't tied to fields with aria-describedby. There are also a few inline styles and the specificity bug on `.people`."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The sailboat mark, the Signal underline on the header and the Settle up card, the Fraunces amounts and the diverging balance bars feel chosen for this brand rather than defaulted. Pill chips with 999px radius, initial avatars and a few off-palette avatar colours (#4C5C8A, #7A3E5C) are the more template-like parts."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Pill-shaped chips (border-radius:999px) used for both the people list and the split checkboxes",
+          "Coloured initial avatars with an arbitrary palette including indigo #4C5C8A and plum #7A3E5C outside the brand colours",
+          "Banner comments in the JS ('/* ---------- state ---------- */')"
+        ],
+        "brand_violations": [
+          "The principle is stated outright in two places ('Being owed or owing is just part of sharing a trip.', 'Owing between friends is normal…') rather than shown through tone, which edges toward reassurance copy",
+          "Avatar colours #4C5C8A and #7A3E5C are not built around Harbour/Signal"
+        ],
+        "best_detail": "The balance bars diverge from a centre zero line, with owing shown in soft Harbour rather than alarm red, so debt reads as neutral while staying instantly scannable.",
+        "worst_detail": "A CSS specificity clash (`ul.plain` beating `.people`) removes the top margin on the people list, so the name chips butt against the input on both desktop and mobile."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

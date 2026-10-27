@@ -1,0 +1,74 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.099Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15090,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2171,
+        "output_tokens_details": {
+          "thinking_tokens": 809
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.05189,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour #1F3A4D header and headings anchor the page, Signal #C2462B is kept for the primary 'Add expense' button and the transfer arrows, and a warm paper #F6F3EE ground keeps it from feeling like a bank. Fraunces with Public Sans reads steady and trustworthy, and the small keel mark ties to the name. One misstep: negative balances are rendered in a red (#9A3A22) against green for positive, which gently frames owing as a warning rather than something normal."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: serif card titles, muted subheads, tabular-nums amounts right-aligned, and consistent 18px gaps and 10px radii. It collapses cleanly to a single column on mobile. There are small rough spots. The header logo sits low beside the title because of `align-items:flex-end`. The Settle up card leaves a large empty area next to the taller Balances card. The ghost 'Remove' buttons are inset from the right edge of the amounts above them."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'Log who paid. See who owes whom. Everyone ends up even.', 'No one yet. Start with your own name.', 'The fewest transfers to get even.' Errors are calm and useful: '“ana” is already on the trip. Try a different name, like adding an initial.' and 'Enter the amount as a number with up to 2 decimal places, like 42.50.' Minor weaknesses are the terse 'Paid minus your share.' and the redundant 'split between everyone (Ana, Ben, Chloe)'."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required state is covered. There are empty states for each panel and an 'Everyone is even' message. Inline errors keep what the user typed and move focus to the offending field. The split checkboxes default to everyone and remember their state across re-renders. Settle-up rows read clearly as 'Ben → Ana $13.33' with hidden 'pays' text for screen readers. Thin spots: the expense error appears below the submit button, people cannot be removed, and 'Remove' deletes with no undo."
+        },
+        "code_quality": {
+          "score": 3,
+          "evidence": "The logic is correct: amounts are parsed to integer cents, leftover cents follow trip order through `S.people.filter`, and the greedy settle yields at most n−1 transfers. The markup is semantic, with fieldset/legend, aria-live, aria-invalid and labelled sections. The code itself is dense and minified-style, with one-letter names (S, b, t, x) and render-time inline styles that duplicate CSS classes (`style:'background:var(--paper);color:var(--muted)...'` on `.empty`). The screen-reader-only text is an ad-hoc inline `left:-9999px` instead of a utility class."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette, type pairing and restrained card system feel chosen for Even Keel. There are no gradients, no emoji, and modest radii and shadows. The amber focus ring and the paper-toned dashed empty states are considered touches. The three-card dashboard grid is still fairly template-like."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Generic white bordered card grid for every section (people, expense, balances, settle, expenses), with uniform treatment",
+          "Inline style attributes injected in JS duplicating existing CSS classes"
+        ],
+        "brand_violations": [
+          "Negative balances and the 'Remove' action share a red warning tone (#9A3A22 / #A33A23), set against green for 'is owed', which leans toward treating owing as a problem"
+        ],
+        "best_detail": "The specific, calm error copy ('“ana” is already on the trip. Try a different name, like adding an initial.') moves focus to the offending field and keeps what the user typed, which is exactly the brief's voice and behaviour.",
+        "worst_detail": "The green-versus-red colouring of balances casts the people who owe as being in the wrong, undercutting the principle that owing money between friends is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 3,
+    "directed_design": 4,
+    "overall": 7
+  }
+}

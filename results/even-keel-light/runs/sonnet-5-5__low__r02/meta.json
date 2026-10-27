@@ -1,0 +1,60 @@
+{
+  "run_id": "sonnet-5-5__low__r02",
+  "model": "claude-sonnet-5-5",
+  "model_label": "Sonnet 5.5",
+  "model_returned": "claude-sonnet-5-5",
+  "effort": "low",
+  "n": 2,
+  "mode": "sync",
+  "prompt_sha": "1573cb6d9883903b",
+  "max_tokens": 128000,
+  "thinking_display": "summarized",
+  "stop_reason": "end_turn",
+  "usage": {
+    "input_tokens": 1611,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 5589,
+    "service_tier": "standard",
+    "inference_geo": "global",
+    "speed": "standard",
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    }
+  },
+  "input_tokens": 1611,
+  "output_tokens": 5589,
+  "thinking_tokens": 0,
+  "thinking_blocks": 0,
+  "cost_usd": 0.059112,
+  "extraction": {
+    "method": "raw",
+    "complete": true,
+    "chatter_chars": 0,
+    "chatter_sample": "",
+    "html_bytes": 11487,
+    "html_lines": 206
+  },
+  "code": {
+    "css_lines": 43,
+    "js_lines": 110,
+    "css_custom_properties": 10,
+    "important": 0,
+    "media_queries": 1,
+    "innerHTML_writes": 0,
+    "comments": 0,
+    "aria_attributes": 7,
+    "labels": 4,
+    "external_scripts": 0
+  },
+  "started_at": "2026-10-22T02:21:17.316Z",
+  "latency_ms": 30764,
+  "ttfb_ms": 759,
+  "first_text_ms": 759,
+  "output_tps": 181.7,
+  "finished_at": "2026-10-22T02:21:48.083Z"
+}

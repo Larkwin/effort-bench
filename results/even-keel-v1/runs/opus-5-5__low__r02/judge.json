@@ -1,0 +1,71 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.296Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 16093,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2326,
+        "output_tokens_details": {
+          "thinking_tokens": 966
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.055446,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Every colour is a palette hex used in its assigned role. Signal appears only on .primary buttons and the wordmark ::before rule (24×3px). Kelp is used for positive balances, and negatives show in Harbour with a true minus sign. Errors use Harbour with a Harbour left rule, not red. Fraunces 600 is used for the wordmark and headings and Plex 400/500 for everything else, with sizes kept to 14/16/20/28/40. Money uses tabular-nums, radius is 6px throughout, borders are 1px Rope, there are no shadows, and the focus ring is 2px Harbour with a 2px offset. The only nit is some 12px padding values, which sit outside the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a 40px wordmark, 28px section headings and 20px sub-headings over calm white panels on Sailcloth. List rows align cleanly with right-aligned amounts. On mobile, grid gap plus field margin leaves a 32px gap between Description and Amount. The 'Split between' legend sits about 2px off the label column. Expense rows wrap, dropping the amount and Remove onto a left-aligned second line. The Expenses panel is long because the form and the logged list share one panel."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Buttons are short verbs: 'Add person', 'Add expense', 'Remove'. Errors say what to fix: 'Enter an amount with at most 2 decimal places.', 'Ana is already on the trip. Enter a different name.', 'Select at least one person to split between.' Empty states are single, context-aware sentences ('Add people, then log the first expense.', 'Everyone is even. No transfers needed.'). There is no filler, emoji or exclamation marks."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required behaviour is present. Remainder cents go to people in trip order (Ana gets the extra cent on Coffee, giving 46.66). Greedy settle-up stays within n−1 transfers, localStorage persists the trip, and invalid input is kept with focus moved to the offending field. Split checkbox state is preserved across re-renders and payer selection is kept. Remaining gaps: there is no way to remove or rename a person, errors don't clear as the user corrects the field, and an expense row isn't labelled with its share per person."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money logic is solid: integer cents throughout, strict regex parsing that tolerates '$' and commas, ordered remainder distribution, and a balance-to-transfer algorithm that is correct. Semantics are good: label/for pairs, a fieldset/legend for the split, aria-labelledby on sections, and aria-label 'Remove Coffee' on each Remove button. Weaker points: the code is dense and minified-looking, it sets inline styles from JS (r.style.gap), it doubles up aria-live and role=alert, and aria-describedby is only wired on the person input."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It reads as restrained and specific to the brand. Name chips use plain 6px Rope boxes rather than pills, owing is treated neutrally, and the 'Is owed'/'Owes' meta lines are a thoughtful touch. It still follows a predictable three-panel stack, and the mobile expense rows weren't given a deliberate layout."
+        },
+        "overall": 8,
+        "ai_tells": [],
+        "brand_violations": [
+          "Spacing off the 8px grid: 12px input horizontal padding, 12px list-row vertical padding and 12px chip padding."
+        ],
+        "best_detail": "Negative balances are rendered in Harbour with a typographic minus and an 'Owes' caption, while positives get Kelp and 'Is owed', so owing reads as normal, exactly as the brand asks.",
+        "worst_detail": "On mobile, each expense row's amount and Remove button wrap onto a loose left-aligned second line, losing the clean right-aligned money column the desktop view has."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

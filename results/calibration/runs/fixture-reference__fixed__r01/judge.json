@@ -1,0 +1,132 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-21T22:45:25.769Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15625,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2494,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1081
+        }
+      },
+      "cost_usd": 0.11238,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The palette is held strictly to the seven tokens in :root with correct roles: Signal appears only on .primary and the wordmark ::before rule (24×3px), Kelp only on .owed, and the error uses a Harbour left border rather than red. Fraunces 600 and Plex 400/500 load from Google Fonts, .money has tabular-nums, the type scale is 14/16/20/28/40, radius is 6px with no pills, there are no shadows, and the focus ring is 2px Harbour with a 2px offset. Breaks: negative balances read \"owes $13.33\" with no minus sign, and several spacings are 12px or 36px (wordmark gap, input and row padding, lede indent), which are not multiples of 8."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a 40px Fraunces wordmark, 20px serif section headings, 14px medium labels, and Fog metadata under bold expense descriptions. The lede is indented to line up with the wordmark text, and rows use quiet Rope dividers. On mobile the Description and Amount fields stack with field margin plus grid gap, leaving a visibly bloated 32px gap. The empty Expenses panel carries extra bottom space from the inline margin-top on the empty list. On mobile the amount and Remove button drop to a left-aligned second line, which looks a little loose."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Every string is plain and specific. Buttons are \"Add person\", \"Add expense\" and \"Remove\". Errors say what to fix: \"Enter an amount greater than $0, with up to 2 decimal places.\" and \"Ana is already on this trip.\" Empty states point to the next step (\"Add at least one person before you log an expense.\"), and \"Paid by Ben · split between everyone\" is a humane summary. There are no exclamation marks, filler or emoji."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "The expense form stays hidden until people exist and is replaced by a clear instruction. Errors are inline and focus the offending field while keeping its input. The parser accepts \"$1,234.50\". Split checkboxes preserve the user's choices across re-renders, and the balance and settle sections cover the no-expenses, all-even and transfer states. Gaps: removing an expense drops focus to the body, there is no confirmation or feedback after a removal, and people cannot be removed or renamed if mistyped."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Money is handled in integer cents throughout. parseCents avoids float maths, shares() distributes the remainder in trip order, and the greedy settle() is correct within the n−1 bound. The state, load/save and render structure is compact, and the small el() helper keeps rendering readable, with proper labels, a fieldset/legend, aria-describedby, aria-live and aria-invalid. Minor fragility: showError picks its form with a string ternary, one inline style is left on #expenses, and aria-invalid lands on a single checkbox for the split error."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The interface is restrained and specific to the brand: the Signal rule is a pseudo-element, the hover state shifts primary buttons to Harbour instead of a tint, errors are marked with a Harbour bar rather than red, and the balance wording is gentle. It is a sequence of four identical white panels, which is somewhat template-like, but nothing feels like an unexamined default."
+        },
+        "overall": 8,
+        "ai_tells": [],
+        "brand_violations": [
+          "Negative balances are shown as \"owes $13.33\" without the required minus sign.",
+          "Several spacings are not multiples of 8: 12px wordmark gap, 8px 12px input padding, 4px 12px chip padding, 12px row padding, and the 36px lede indent."
+        ],
+        "best_detail": "Errors are marked with a 3px Harbour left border and Harbour text instead of red, which honours both the no-red rule and the calm voice while still drawing the eye.",
+        "worst_detail": "Balances drop the minus sign the brief explicitly asked for, and the mobile expense rows leave the amount and Remove button orphaned on a left-aligned second line."
+      },
+      "parse_error": null
+    },
+    {
+      "at": "2026-10-21T22:45:34.694Z",
+      "mode": "sync",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 15625,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2764,
+        "service_tier": "standard",
+        "inference_geo": "global",
+        "speed": "standard",
+        "output_tokens_details": {
+          "thinking_tokens": 1399
+        }
+      },
+      "cost_usd": 0.11778,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "Every colour comes from the defined custom properties. Signal is used only on the .primary buttons and the wordmark ::before rule (24×3px). Fraunces 600 is used for h1/h2 and Plex 400/500 for everything else, with .money tabular-nums, 6px radii, 1px Rope borders, no shadows, and a 2px Harbour focus ring with a 2px offset. Negative balances, however, read \"owes $13.33\" with no minus sign, which the brief explicitly asks for. A few spacings (12px wordmark gap, 36px lede indent, 12px row padding) also sit off the 8px grid."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a 40px wordmark, 20px Fraunces section heads, 14px medium labels, and Fog metadata under expense titles. The lede is indented to align with the wordmark text, and the right-aligned amounts with quiet Remove buttons read cleanly. Some rhythm is uneven. On mobile, the grid gap plus .field margin doubles the space between Description and Amount. The empty Expenses panel carries 24px of dead space from the inline margin-top on an empty ul."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Strings are plain and specific: \"Enter an amount greater than $0, with up to 2 decimal places.\", \"Ana is already on this trip.\", \"Choose at least one person to split it between.\" Empty states tell you the next step (\"Add at least one person before you log an expense.\"). \"is owed\"/\"owes\" and \"Chloe pays Ana\" are calm and human. There are no exclamation marks, filler, or Title Case."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "The full flow works. Inline errors keep the typed input and focus the offending field. The form is gated until people exist, and split checkboxes default to all and preserve unchecked state across re-renders. Settle-up shows \"Everyone is even.\" when balanced, and localStorage persistence works. Gaps: there is no empty state for the expense list once people exist, and stale person errors linger until the next submit."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is a compact IIFE with an el() helper. Integer cents are parsed by regex, not floats. shares() orders by trip order and gives leftover cents to the earliest-added people, and the greedy settle is guaranteed to produce at most n−1 transfers. Semantics are good: fieldset/legend, labels, aria-live error slots, aria-invalid, aria-label on Remove. Small fragilities: parseCents strips all commas (\"1,2,3\" becomes 123), there is an inline style on #expenses, loaded state is only shallowly validated, and showError picks its form with a string ternary."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The result feels restrained and specific to Even Keel. Owing is phrased neutrally, and only positive balances get Kelp. Error messages use a Harbour left rule instead of red, and the primary button's hover goes to Harbour rather than a tint. The four identical stacked panels are somewhat templated, but the decisions read as deliberate."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four visually identical stacked panels with uniform weight; Balances and Settle up get no differentiation as the payoff of the app"
+        ],
+        "brand_violations": [
+          "Negative balances are shown as \"owes $13.33\" without the required minus sign",
+          "Some spacing is off the 8px grid: the 12px wordmark gap, the 36px lede indent, and 12px list-row and input horizontal padding"
+        ],
+        "best_detail": "Neutral \"owes\"/\"is owed\" phrasing, with Kelp only on creditors and an error style built from a Harbour left rule, keeps owing money from ever looking like a mistake while staying strictly on palette.",
+        "worst_detail": "The inline margin-top:24px on an always-present expenses ul leaves dead space when the list is empty, and there is no empty state for expenses once people are added."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8,
+    "overall_sd": 0
+  }
+}

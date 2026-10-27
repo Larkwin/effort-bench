@@ -1,0 +1,73 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-27T00:07:52.305Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 19128,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 2327,
+        "output_tokens_details": {
+          "thinking_tokens": 957
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.061526,
+      "review": {
+        "brand_fidelity": {
+          "score": 5,
+          "evidence": "Only the seven hex values are defined and used, each in its intended role. Signal appears only on the primary buttons and the 24×3px wordmark rule, Kelp marks positive balances, and negatives stay Harbour with a minus sign. Fraunces 600 is used for the wordmark and headings, Plex 400/500 for everything else, `.money` sets tabular-nums, panels have 6px radius and 1px Rope borders, there are no shadows, and the focus ring is 2px Harbour with a 2px offset. The one small liberty is Fog borders on inputs instead of Rope, which can be defended on contrast grounds."
+        },
+        "visual_craft": {
+          "score": 4,
+          "evidence": "Hierarchy is clear: a 28px wordmark, 20px Fraunces panel headings, and 500-weight item titles over 14px Fog metadata. Spacing follows the 8px rhythm and money aligns right on desktop. On mobile the Add person button wraps under the input at its natural width, and expense amounts drop to the left next to Remove, which is less tidy than the desktop layout. The settle-up rows are visually the same weight as every other list and do not read as the outcome of the app."
+        },
+        "copy_voice": {
+          "score": 5,
+          "evidence": "Errors say what to fix: 'Enter an amount with at most 2 decimal places.', 'Ana is already on the trip. Use a different name.', 'Select at least one person to split this expense between.' Empty states are one actionable sentence each ('Add people first, then log who paid for what.', 'Everyone is even. No payments needed.'). Buttons are short verbs in sentence case, and there is no filler, no exclamation marks and no emoji."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every required state is covered, with distinct empty copy for each section depending on whether there are no people or no expenses. Validation keeps what the user typed and moves focus to the offending field, removing an expense returns focus to the Expenses heading, the payer and split choices survive re-renders, and balances carry text labels ('Is owed', 'Owes', 'Even'). Gaps: people cannot be removed or renamed, the error always appears at the top of the form rather than next to its field, and the settle-up list is plain text that is not emphasised."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "The code is well structured in an IIFE with a small `el` helper. It uses integer cents throughout, a string-based amount parser that avoids float error, leftover cents assigned in the order people were added, and a greedy settle that is provably at most n−1 transfers. localStorage loading is validated defensively, and the markup is semantic (fieldset/legend, labelled lists, role=alert errors, an aria-label on each Remove button). Blemishes: renderBalances computes `text` twice redundantly, `.person-item` padding is overridden by the more specific `.list > li` rule, and several inline style attributes are scattered through the markup and JS."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "It feels restrained and specific to Even Keel: the wordmark is built exactly to spec, the palette is disciplined, owing money is never coloured red, and there is no decorative excess. The four stacked identical panels are a safe, fairly standard structure, and settle-up gets no special emphasis, so the result is tasteful but not especially distinctive."
+        },
+        "overall": 8,
+        "ai_tells": [
+          "Four identical bordered panels stacked with uniform visual weight; the settle-up result is not distinguished from the input sections"
+        ],
+        "brand_violations": [
+          "Text inputs and select use a 1px Fog border rather than the specified Rope border (defensible for non-text contrast, but a deviation)"
+        ],
+        "best_detail": "Negative balances are shown in Harbour with a minus sign alongside a plain 'Owes' label, while positives get Kelp and 'Is owed', which applies the brand's 'owing is normal' stance exactly.",
+        "worst_detail": "The settle-up transfers, the actual answer the app exists to give, are rendered as plain 400-weight rows identical to the other lists, with no emphasis or summary."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 5,
+    "visual_craft": 4,
+    "copy_voice": 5,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 8
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "passes": [
+    {
+      "at": "2026-10-22T05:23:14.109Z",
+      "mode": "batch",
+      "stop_reason": "end_turn",
+      "usage": {
+        "input_tokens": 13759,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 0,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "output_tokens": 1923,
+        "output_tokens_details": {
+          "thinking_tokens": 647
+        },
+        "service_tier": "batch",
+        "inference_geo": "global",
+        "speed": "standard"
+      },
+      "cost_usd": 0.046748,
+      "review": {
+        "brand_fidelity": {
+          "score": 4,
+          "evidence": "The Harbour navy header with a 6px Signal underline, a warm paper background (#F5F2EC) and Fraunces paired with Public Sans give a steady, trustworthy feel that sits between a game and a bank. Copy like 'so the trip ends level' and 'These transfers bring everyone level' carries the keel metaphor quietly. The weak spot is the debt colouring: 'owes $13.33' is set in red-orange (#A73A22) against green for 'is owed', a good/bad coding that leans against the principle that owing is normal."
+        },
+        "visual_craft": {
+          "score": 3,
+          "evidence": "Hierarchy is clear: serif h2s in Harbour, 600-weight labels, tabular-nums amounts and hairline-divided rows in Balances, Settle up and Expenses. At desktop the two-column grid leaves a large empty hole under the short People card beside the tall expense form. The header text (x≈120) does not line up with the card edges (x≈136). Mobile stacks cleanly, though the Remove buttons crowd the wrapped expense meta."
+        },
+        "copy_voice": {
+          "score": 4,
+          "evidence": "Strings are plain and specific: 'No one is on the trip yet. Add the first name above.', 'Add a description, like \"Groceries\".', 'Enter the amount as a number, like 42.50.', and the duplicate message '\"ana\" is already on the trip.' Buttons are verbs. One mismatch: the note 'Positive means you're owed. Negative means you owe.' sits above values that never show a sign, only 'is owed'/'owes'."
+        },
+        "ux_completeness": {
+          "score": 4,
+          "evidence": "Every section has an empty state, and validation keeps what the user typed. Split checkboxes default to everyone, including people added later, and focus returns to the inputs after each action. Settle up reads as 'Chloe pays Ana $33.33', which is easy to act on, and 'Everyone is even' is handled. There is no way to remove or rename a person, and errors are not tied to their fields with aria-describedby."
+        },
+        "code_quality": {
+          "score": 4,
+          "evidence": "Work is in integer cents throughout. shares() hands out leftover cents in trip order, and the greedy debtor/creditor matcher stays within n−1 transfers. Input is escaped, localStorage is guarded with try/catch, and a fieldset/legend wraps the checkboxes. The script is dense, near-minified one-liners with a giant template ternary in render(), and setErr has an unused `inp` parameter. Inline styles sit alongside the stylesheet."
+        },
+        "directed_design": {
+          "score": 4,
+          "evidence": "The palette is built deliberately from the anchors (paper, tint #E8EEF2, the Signal rule under the header, an amber focus ring), and the type pairing is chosen rather than defaulted. The layout is a fairly standard card grid, and the pill name chips plus green/red balances are stock patterns. Overall it reads as considered and restrained, not template output."
+        },
+        "overall": 7,
+        "ai_tells": [
+          "Pill-shaped name chips (border-radius:99px) as a stock pattern",
+          "Green-positive / red-negative balance colouring as a default finance trope",
+          "Dense minified-style JS with chained ternaries building HTML strings"
+        ],
+        "brand_violations": [
+          "Owing amounts set in red-orange (#A73A22, a Signal derivative) as an alarm colour, framing debt as a problem",
+          "Balances note refers to 'Positive/Negative' but the UI never shows signs, a small honesty/clarity gap"
+        ],
+        "best_detail": "The Harbour header with a thin Signal underline and Fraunces wordmark establishes the brand in one calm, confident move.",
+        "worst_detail": "Colouring every 'owes' figure in warning red contradicts the brief's principle that owing money between friends is normal."
+      },
+      "parse_error": null
+    }
+  ],
+  "judge_model": "claude-opus-5-5",
+  "judge_effort": "high",
+  "mean": {
+    "brand_fidelity": 4,
+    "visual_craft": 3,
+    "copy_voice": 4,
+    "ux_completeness": 4,
+    "code_quality": 4,
+    "directed_design": 4,
+    "overall": 7
+  }
+}
