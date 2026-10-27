@@ -3,7 +3,7 @@
 **Do you notice a difference between Claude models, and between effort levels?** One prompt for a small web app went to four Claude models (Opus 5.5, Fable 5.1, Sonnet 5.5, Haiku 5.5) at four effort levels, five times each. Every app was tested by script, judged side by side by two Claude models, and voted on blind by a person.
 
 - **Take the blind test yourself:** https://larkwin.github.io/effort-bench/
-- **Read the write-up:** _link to the Substack post_
+- **Read the write-up:** [notes.lark.win/p/maximum-effort](https://notes.lark.win/p/maximum-effort)
 - **Recompute every number in it:** `python3 analysis/post_numbers.py`
 
 What we found, briefly:
